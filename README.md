@@ -2,6 +2,13 @@
 ## The R Package for the manuscript "Matching on generalized propensity scores with continuous exposures".
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
+## Installation
+```r
+library("devtools")
+install_github("wxwx1993/GPSmatching")
+library("GPSmatching")
+```
+
 ## Example
 Let Y denote a vector of observed outcome; w denote a vector of observed continuous exposure; c denote a data frame or matrix of observed baseline covariates.
 matching_fun is a specifed matching function (Default is "matching_l1" (Manhattan distance matching)).
