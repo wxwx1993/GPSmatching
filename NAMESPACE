@@ -2,6 +2,7 @@
 
 export(absolute_corr_fun)
 export(create_matching)
+export(matching_l1)
 export(matching_smooth)
 import(KernSmooth)
 import(SuperLearner)

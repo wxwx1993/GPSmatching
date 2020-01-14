@@ -1,4 +1,5 @@
 # Matching function using L1 distance on single exposure level w
+#' @export
 
 matching_l1 <- function(dataset,
                         e_gps_pred,
