@@ -1,0 +1,36 @@
+\name{create_matching}
+\alias{create_matching}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{GPS Matching function to create matched set
+%%  ~~function to do ... ~~
+}
+\usage{
+create_matching(Y,
+                w,
+                c,
+                matching_fun=matching_l1,
+                scale=0.5,
+                delta_n=1.0,
+                sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
+}
+\arguments{
+\item{Y}{a vector of observed outcome variable.}
+
+\item{w}{a vector of observed continuous exposure variable.}
+
+\item{c}{a data frame or matrix of observed covariates variable.}
+
+\item{matching_fun}{a specifed matching function (Default is "matching_l1" (Manhattan distance matching)).}
+
+\item{scale}{a specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
+
+\item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
+
+\item{sl.lib}{a set of methods used for estimating GPS (Default is ("SL.xgboost","SL.earth","SL.gam","SL.ranger")).}
+}
+\value{
+\code{matched_set}: The function returns a data.table saved the constructed matched set by the proposed GPS matching approaches.
+}
+\description{
+Implement GPS matching approaches to create matched set.
+}

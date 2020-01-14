@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579039574313.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "FFDBC036",
+    "lastKnownWriteTime" : 1579034375,
+    "last_content_update" : 1579034375,
+    "path" : "~/Dropbox/continuous GPS/GPSmatching/R/GPSmatching_smooth.R",
+    "project_path" : "R/GPSmatching_smooth.R",
+    "properties" : {
+        "cursorPosition" : "3,25",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

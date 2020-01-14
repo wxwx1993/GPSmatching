@@ -1,0 +1,41 @@
+#' GPS Matching function to create matched set.
+#'
+#' @param matched_set a data.table saved the constructed matched set.
+#' @param w a vector of observed continuous exposure variable.
+#' @param bw.seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
+#' @param w.vals a vector of exposure levels that ERF curves was evaluated.
+#' @return
+#' \code{erf}: The function returns a vector saved the output values of exposure-response function (ERF) given input \code{w.vals}.
+#' @export
+
+# Fit non-parametric kernel smoothing on matched set
+matching_smooth<-function(matched_set,
+                          w,
+                          bw.seq=seq(0.2,2,0.2),
+                          w.vals){
+  ## The specified Gaussian kernel
+  kern_fun <- function(t){ dnorm(t) }
+  w_fun <- function(bw){
+    w.avals <- NULL
+    for (w.val in w.vals){
+    w.std <- (w-w.val)/bw
+    kern.std <- kern_fun(w.std)/bw
+    w.avals <- c(w.avals, mean(w.std^2*kern.std)*(kern(0)/bw) /
+                   (mean(kern.std)*mean(w.std^2*kern.std)-mean(w.std*kern.std)^2))
+      }
+    return(w.avals/length(w))
+    }
+  hatvals <- function(bw){approx(w.vals,w_fun(bw),xout=w,rule=2)$y}
+  smooth_fun <- function(out,bw){
+    approx(locpoly(w,out,bandwidth=bw, gridsize=1000),xout=w,rule=2)$y
+    }
+  ##
+  risk_fun <- function(h){
+    hats <- hatvals(h); mean( ((matched_set - smooth_fun(matched_set,bw=h))/(1-hats))^2)
+    }
+  risk.val <- sapply(bw.seq, risk_fun)
+  h.opt <- bw.seq[which.min(risk.val)]
+
+  erf <- approx(locpoly(w, matched_set, bandwidth=h.opt), xout=w.vals)$y
+  return(erf)
+}

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579039559663.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5D41CE87",
+    "lastKnownWriteTime" : 1579039483,
+    "last_content_update" : 1579039483,
+    "path" : "~/Dropbox/continuous GPS/GPSmatching/R/Covariate_balance.R",
+    "project_path" : "R/Covariate_balance.R",
+    "properties" : {
+        "cursorPosition" : "0,77",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
