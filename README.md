@@ -3,7 +3,7 @@
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Example
-Denote Y as a vector of observed outcome; w a vector of observed continuous exposure; c a data frame or matrix of observed baseline covariates.
+Let Y denote a vector of observed outcome; w denote a vector of observed continuous exposure; c denote a data frame or matrix of observed baseline covariates.
 matching_fun is a specifed matching function (Default is "matching_l1" (Manhattan distance matching)).
 scale is a specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates (Default is 0.5).
 delta_n is a specified caliper parameter on the exposure (Default is 1).
