@@ -16,15 +16,15 @@ scale is a specified scale parameter to control the relative weight that is attr
 delta_n is a specified caliper parameter on the exposure (Default is 1).
 sl.lib is a set of machine learning methods used for estimating GPS (Default is ("SL.xgboost","SL.earth","SL.gam","SL.ranger")).
 ```r
-matached_set = create_matching(Y,
-                               w,
-                               c,
-                               matching_fun = matching_l1,
-                               sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"),
-                               scale = 0.5,
-                               delta_n=1)
-erf = matching_smooth(matched_Y = matached_set$Y,
-                      matched_w = matached_set$w,
+matched_set = create_matching(Y,
+                              w,
+                              c,
+                              matching_fun = matching_l1,
+                              sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"),
+                              scale = 0.5,
+                              delta_n=1)
+erf = matching_smooth(matched_Y = matched_set$Y,
+                      matched_w = matched_set$w,
                       bw.seq = seq(0.2,2,0.2),
                       w.vals = seq(min(w),max(w),length.out = 100))
 ```
