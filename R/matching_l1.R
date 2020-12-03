@@ -11,10 +11,10 @@
 #' \code{dp}: The function returns a data.table saved the matched points on by single exposure level w by the proposed GPS matching approaches.
 #' @export
 
-matching_l1 <- function(dataset,
+matching_l1 <- function(w,
+                        dataset,
                         e_gps_pred,
                         e_gps_std_pred,
-                        w,
                         w_resid,
                         delta_n=1,
                         scale=0.5)
