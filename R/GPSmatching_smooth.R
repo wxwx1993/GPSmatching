@@ -3,7 +3,7 @@
 #' @param matched_Y a vector of outcome variable in matched set.
 #' @param matched_w a vector of continuous exposure variable in matched set.
 #' @param bw.seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
-#' @param w.vals a vector of exposure levels that ERF curves was evaluated.
+#' @param w.vals a vector of values that you want to calculate the values of the ERF at.
 #' @return
 #' \code{erf}: The function returns a vector saved the output values of exposure-response function (ERF) given input \code{w.vals}.
 #' @export
@@ -31,7 +31,8 @@ matching_smooth<-function(matched_Y,
     }
   ##
   risk_fun <- function(h){
-    hats <- hatvals(h); mean( ((matched_Y - smooth_fun(matched_Y,bw=h))/(1-hats))^2)
+    hats <- hatvals(h)
+    mean( ((matched_Y - smooth_fun(matched_Y,bw=h))/(1-hats))^2)
     }
   risk.val <- sapply(bw.seq, risk_fun)
   h.opt <- bw.seq[which.min(risk.val)]

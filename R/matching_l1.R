@@ -5,10 +5,12 @@
 #' @param e_gps_std_pred a vector of predicted std of gps obtained by Machine learning methods.
 #' @param w the targeted single exposure levels.
 #' @param w_resid the standardized residuals for w.
-#' @param scale a specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates (Default is 0.5).
+#' @param scale a specified scale parameter to control the relative weight that is attributed to
+#' the distance measures of the exposure versus the GPS estimates (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @return
-#' \code{dp}: The function returns a data.table saved the matched points on by single exposure level w by the proposed GPS matching approaches.
+#' \code{dp}: The function returns a data.table saved the matched points on by single exposure
+#' level w by the proposed GPS matching approaches.
 #' @export
 
 matching_l1 <- function(w,

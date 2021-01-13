@@ -9,7 +9,9 @@
 #' @param sl.lib a set of methods used for estimating GPS (Default is ("SL.xgboost","SL.earth","SL.gam","SL.ranger")).
 #' @return
 #' \code{matched_set}: The function returns a data.table saved the constructed matched set by the proposed GPS matching approaches.
-#' @export
+#'
+#' @importFrom SuperLearner SuperLearner
+#'   @export
 
 # Create matched set using GPS matching approaches
 create_matching <- function(Y,
@@ -20,9 +22,9 @@ create_matching <- function(Y,
                             scale=0.5,
                             delta_n=1){
   ## GPS function estimation
-  e_gps <- SuperLearner(Y=w, X=data.frame(c), SL.library=sl.lib)
+  e_gps <- SuperLearner::SuperLearner(Y=w, X=data.frame(c), SL.library=sl.lib)
   e_gps_pred <- e_gps$SL.predict
-  e_gps_std <- SuperLearner(Y=abs(w-e_gps_pred), X=c, SL.library=sl.lib)
+  e_gps_std <- SuperLearner::SuperLearner(Y=abs(w-e_gps_pred), X=c, SL.library=sl.lib)
   e_gps_std_pred <- e_gps_std$SL.predict
   w_resid <- (w-e_gps_pred)/e_gps_std_pred
   gps <- approx(density(w_resid,na.rm = TRUE)$x,density(w_resid,na.rm = TRUE)$y,xout=w_resid,rule=2)$y
