@@ -11,7 +11,7 @@
 #' \code{matched_set}: The function returns a data.table saved the constructed matched set by the proposed GPS matching approaches.
 #'
 #' @importFrom SuperLearner SuperLearner
-#'   @export
+#' @export
 
 # Create matched set using GPS matching approaches
 create_matching <- function(Y,
