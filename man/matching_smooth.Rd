@@ -13,7 +13,7 @@ matching_smooth(matched_Y, matched_w, bw.seq = seq(0.2, 2, 0.2), w.vals)
 
 \item{bw.seq}{a vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
-\item{w.vals}{a vector of exposure levels that ERF curves was evaluated.}
+\item{w.vals}{a vector of values that you want to calculate the values of the ERF at.}
 }
 \value{
 \code{erf}: The function returns a vector saved the output values of exposure-response function (ERF) given input \code{w.vals}.

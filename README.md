@@ -1,5 +1,13 @@
 # GPSmatching
-## The R Package for the manuscript "Matching on generalized propensity scores with continuous exposures".
+
+Matching on generalized propensity scores with continuous exposures
+
+## Documentation
+
+Documentation is hosted at  https://nsaph.github.io/GPSmatching/
+
+## Summary
+
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Installation
