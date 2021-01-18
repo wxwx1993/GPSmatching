@@ -1,0 +1,19 @@
+---
+title: "Notes for Developers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{for_developers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(GPSmatching)
+```
