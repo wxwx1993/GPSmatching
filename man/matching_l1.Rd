@@ -5,32 +5,34 @@
 \title{Matching function using L1 distance on single exposure level w}
 \usage{
 matching_l1(
+  w,
   dataset,
   e_gps_pred,
   e_gps_std_pred,
-  w,
   w_resid,
   delta_n = 1,
   scale = 0.5
 )
 }
 \arguments{
+\item{w}{the targeted single exposure levels.}
+
 \item{dataset}{a completed observational data frame or matrix containing (Y, w, c).}
 
 \item{e_gps_pred}{a vector of predicted gps values obtained by Machine learning methods.}
 
 \item{e_gps_std_pred}{a vector of predicted std of gps obtained by Machine learning methods.}
 
-\item{w}{the targeted single exposure levels.}
-
 \item{w_resid}{the standardized residuals for w.}
 
 \item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
 
-\item{scale}{a specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
+\item{scale}{a specified scale parameter to control the relative weight that is attributed to
+the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
 }
 \value{
-\code{dp}: The function returns a data.table saved the matched points on by single exposure level w by the proposed GPS matching approaches.
+\code{dp}: The function returns a data.table saved the matched points on by single exposure
+level w by the proposed GPS matching approaches.
 }
 \description{
 Matching function using L1 distance on single exposure level w
