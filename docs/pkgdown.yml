@@ -1,7 +1,0 @@
-pandoc: '2.6'
-pkgdown: 1.6.1
-pkgdown_sha: ~
-articles:
-  for_developers: for_developers.html
-last_built: 2021-01-18T05:48Z
-

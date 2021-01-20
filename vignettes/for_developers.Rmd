@@ -1,7 +1,0 @@
----
-title: "Notes for Developers"
----
-
-## Git Branching
-
-A paragraph about git branching.
