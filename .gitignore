@@ -4,3 +4,5 @@
 .RData
 .Ruserdata
 inst/doc
+docs/
+tests/testthat/_snaps/*
