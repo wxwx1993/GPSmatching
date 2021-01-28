@@ -7,6 +7,9 @@
 * Function to compute residuals and unittest
 * Function to impute NA values based on density and unittest
 * Function to separate prediction model training
+* Function to separate min and max value estimation and unittest
+* Function to find the closest data based on gps and w
+* 
 
 ## Changed
 

@@ -10,6 +10,8 @@ matching_l1(
   e_gps_pred,
   e_gps_std_pred,
   w_resid,
+  w_mx,
+  gps_mx,
   delta_n = 1,
   scale = 0.5
 )
@@ -24,6 +26,10 @@ matching_l1(
 \item{e_gps_std_pred}{a vector of predicted std of gps obtained by Machine learning methods.}
 
 \item{w_resid}{the standardized residuals for w.}
+
+\item{w_mx}{a vector with length 2, includes min(w), max(w).}
+
+\item{gps_mx}{a vector with length 2, includes min(gps), max(gps)}
 
 \item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
 
