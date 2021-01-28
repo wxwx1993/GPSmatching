@@ -18,16 +18,22 @@ create_matching <- function(Y,
                             w,
                             c,
                             matching_fun=matching_l1,
-                            sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"),
                             scale=0.5,
-                            delta_n=1){
+                            delta_n=1,
+                            sl.lib = c("SL.xgboost", "SL.earth", "SL.gam",
+                                       "SL.ranger")){
+
+
   ## GPS function estimation
-  e_gps <- SuperLearner::SuperLearner(Y=w, X=data.frame(c), SL.library=sl.lib)
+  e_gps <- train_it(Y=w, X=c, model = 'sl', sl.lib)
   e_gps_pred <- e_gps$SL.predict
-  e_gps_std <- SuperLearner::SuperLearner(Y=abs(w-e_gps_pred), X=c, SL.library=sl.lib)
+  e_gps_std <- train_it(Y=abs(w-e_gps_pred), X=c, model = 'sl', sl.lib)
   e_gps_std_pred <- e_gps_std$SL.predict
-  w_resid <- (w-e_gps_pred)/e_gps_std_pred
-  gps <- approx(density(w_resid,na.rm = TRUE)$x,density(w_resid,na.rm = TRUE)$y,xout=w_resid,rule=2)$y
+  w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
+
+  gps <- compute_density(w_resid, w_resid)
+  w_mx <- compute_minmax(w)
+  gps_mx <- compute_minmax(gps)
 
   dataset <- cbind(Y,w,c,gps)
 
@@ -39,9 +45,10 @@ create_matching <- function(Y,
                         e_gps_pred = e_gps_pred,
                         e_gps_std_pred = e_gps_std_pred,
                         w_resid=w_resid,
+                        w_mx = w_mx,
+                        gps_mx = gps_mx,
                         delta_n=delta_n,
                         scale=scale)
 
   return(data.table(Reduce(rbind,matched_set)))
 }
-

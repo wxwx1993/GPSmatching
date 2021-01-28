@@ -52,4 +52,4 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 
 ## Style Guide
 
-In this project, we follow [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html).
+In this project, we are moving toward [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html).
