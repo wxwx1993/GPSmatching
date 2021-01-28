@@ -5,7 +5,7 @@
 | ----------  | -------------------- |
 | Platforms   | Windows, macOS, Linux|
 | R CMD check | [![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions) |
-| Test Coverage | [![codecov](https://codecov.io/gh/fasrc/GPSmatching/branch/master/graph/badge.svg)](https://codecov.io/gh/Naeemkh/GPSmatching) |
+| Test Coverage | [![codecov](https://codecov.io/gh/fasrc/GPSmatching/branch/develop/graph/badge.svg)](https://codecov.io/gh/Naeemkh/GPSmatching) |
 
 
 
