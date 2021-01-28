@@ -84,6 +84,7 @@ jobs:
           path: check
 
       - name: Upload coverage to Codecov  
+        uses: actions/checkout@develop
         uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }
+          token: ${{ secrets.CODECOV_TOKEN }}
