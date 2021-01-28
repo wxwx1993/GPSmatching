@@ -2,7 +2,7 @@
 
 ## Added
 
-* Function for generating synthetic data (generate_synthetic_data) 
+* Function for generating synthetic data (generate_synthetic_data)
 * Unittest for generate_synthetic_data
 
 ## Changed
