@@ -33,7 +33,9 @@ matching_l1 <- function(w,
   gps.min <- gps_mx[1]
   gps.max <- gps_mx[2]
 
-  ##
+  # handles check note.
+  gps <- NULL
+
   dataset <- transform(dataset,
                        std.w = (w - w.min) / (w.max - w.min),
                        std.gps = (gps - gps.min) / (gps.max - gps.min))

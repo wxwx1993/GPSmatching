@@ -25,9 +25,9 @@ create_matching <- function(Y,
 
 
   ## GPS function estimation
-  e_gps <- train_it(Y=w, X=c, model = 'sl', sl.lib)
+  e_gps <- train_it(Y = w, X = c, model = 'sl', sl.lib)
   e_gps_pred <- e_gps$SL.predict
-  e_gps_std <- train_it(Y=abs(w-e_gps_pred), X=c, model = 'sl', sl.lib)
+  e_gps_std <- train_it(Y = abs(w-e_gps_pred), X = c, model = 'sl', sl.lib)
   e_gps_std_pred <- e_gps_std$SL.predict
   w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
 

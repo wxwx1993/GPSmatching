@@ -17,7 +17,7 @@ train_it(Y, X, model, sl.lib)
 \item{...}{Model related parameters should be provided.}
 }
 \value{
-return value (TODO)
+prediction model
 }
 \description{
 Funtction to develop prediction model based on user's preferences.

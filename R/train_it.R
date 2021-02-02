@@ -7,7 +7,7 @@
 #' @param ... Model related parameters should be provided.
 #'
 #' @return
-#' return value (TODO)
+#' prediction model
 #'
 #' @keywords internal
 #'
