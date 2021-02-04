@@ -96,7 +96,7 @@ GenPseudoPop <- function(y,
     }
 
     if (CheckCovarBalance(pseudo.pop, ci.appr, ...)){
-      message(paste('Covariate balance condition has met (iteration: ',
+      message(paste('Covariate balance condition has been met (iteration: ',
                     counter,'/', max.attemp,')'))
       break
     }
@@ -105,7 +105,7 @@ GenPseudoPop <- function(y,
   }
 
   if (counter == max.attemp+1){
-    message(paste('Covariate balance condition has not met.'))
+    message(paste('Covariate balance condition has not been met.'))
   }
 
   ## Store output ---------------------------------
