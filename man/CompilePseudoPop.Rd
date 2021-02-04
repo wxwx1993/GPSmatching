@@ -22,7 +22,7 @@ CompilePseudoPop(dataset, ci.appr, ...)
 \item{...}{Additional parameters.}
 }
 \value{
-\code{CompilePseudoPop} returns the pesudo population data that is compiled based
+\code{CompilePseudoPop} returns the pseudo population data that is compiled based
 on selected causal inference approach.
 }
 \description{

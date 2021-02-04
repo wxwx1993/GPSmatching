@@ -21,31 +21,30 @@ CreateMatching <- function(dataset, ...){
   delta.n <- NULL
   # ------------------------------------------------------
 
-  dot_args <- list(...)
-  arg_names <- names(dot_args)
+  dot.args <- list(...)
+  arg.names <- names(dot.args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg.names){
+    assign(i,unlist(dot.args[i],use.names = FALSE))
   }
 
   matching.fun <- get(matching.fun)
 
-  gps_mx <- dataset[[5]]
-  w_mx <- dataset[[6]]
+  gps.mx <- dataset[[5]]
+  w.mx <- dataset[[6]]
 
+  bin.num<-seq(w.mx[1]+delta.n/2, w.mx[2], by = delta.n)
 
-  bin.num<-seq(w_mx[1]+delta.n/2, w_mx[2], by = delta.n)
-
-  matched_set <-  lapply(bin.num,
+  matched.set <-  lapply(bin.num,
                          matching.fun,
                          dataset=dataset[[1]],
                          e_gps_pred = dataset[[2]],
                          e_gps_std_pred = dataset[[3]],
                          w_resid=dataset[[4]],
-                         gps_mx = gps_mx,
-                         w_mx = w_mx,
+                         gps_mx = gps.mx,
+                         w_mx = w.mx,
                          delta.n = delta.n,
                          scale = scale)
 
-  return(data.table(Reduce(rbind,matched_set)))
+  return(data.table(Reduce(rbind,matched.set)))
 }

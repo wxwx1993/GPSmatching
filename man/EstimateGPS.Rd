@@ -18,8 +18,15 @@ EstimateGPS(y, w, c, pred.model, ...)
 \item{...}{Additional arguments passed to the model.}
 }
 \value{
-\code{matched_set}: The function returns a data.table saved the constructed
-matched set by the proposed GPS matching approaches.
+The function returns a list of 6 objects according to the following order:
+\itemize{
+\item Original data set + GPS values (Y, w, GPS, c)
+\item e_gps_pred
+\item e_gps_std_pred
+\item w_resid
+\item gps_mx (min and max of gps)
+\item w_mx (min and max of w).
+}
 }
 \description{
 Estimates GPS value for each observation.

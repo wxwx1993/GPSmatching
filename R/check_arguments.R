@@ -15,22 +15,17 @@
 #'
 #' @keywords internal
 #'
-#'
 CheckArgs <- function(pred.model, ci.appr, ...){
-
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
   # 3) Check if based on the main argument, the required arguments are provided.
   # 4) Check if the provided required arguments' values are acceptable.
 
-
   # Passing packaging check() ----------------------------
   covar.bl.method <- NULL
   matching.fun <- NULL
   # ------------------------------------------------------
-
-
 
   required_args <- NULL
 
@@ -43,7 +38,7 @@ CheckArgs <- function(pred.model, ci.appr, ...){
     stop(paste(ci.appr, " is not a valid causal inference approach."))
   }
 
-  ## checkpoint 2 ------------------------------------------
+  # checkpoint 2 ------------------------------------------
   if (pred.model == 'sl'){
     required_args <- c(required_args, 'sl.lib')
   }
@@ -53,7 +48,7 @@ CheckArgs <- function(pred.model, ci.appr, ...){
                        'max.attemp', 'matching.fun', 'delta.n', 'scale')
   }
 
-  ## checkpoint 3 ------------------------------------------
+  # checkpoint 3 ------------------------------------------
   dot_args <- list(...)
   arg_names <- names(dot_args)
 
@@ -64,12 +59,10 @@ CheckArgs <- function(pred.model, ci.appr, ...){
     }
   }
 
-
-  ## checkpoint 4 ------------------------------------------
+  # checkpoint 4 ------------------------------------------
   for (i in arg_names){
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
-
 
   if (is.element(ci.appr, c('matching','weighting'))){
     if (!is.element(covar.bl.method, c('absolute'))){
@@ -85,5 +78,4 @@ CheckArgs <- function(pred.model, ci.appr, ...){
   }
 
   invisible(TRUE)
-
 }

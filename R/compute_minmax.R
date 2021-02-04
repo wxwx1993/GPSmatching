@@ -1,6 +1,10 @@
+#' @title
+#' Compute minimum and maximum
+#'
+#' @description
 #' Function to compute minimum and maximum of the input vector
 #'
-#' @param x
+#' @param x vector
 #'
 #' @return
 #' Returns a vector of length 2. The first element is min value, and the second
@@ -8,12 +12,10 @@
 #'
 #' @keywords internal
 #'
-#'
-compute_minmax <- function(x){
+ComputeMinMax <- function(x){
 
-  min_x <- min(x,na.rm=T)
-  max_x <- max(x,na.rm=T)
+  min.x <- min(x,na.rm=T)
+  max.x <- max(x,na.rm=T)
 
-  return(c(min_x, max_x))
-
+  return(c(min.x, max.x))
 }

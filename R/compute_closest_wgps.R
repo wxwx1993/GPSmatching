@@ -2,7 +2,6 @@
 #'
 #' Function description (TODO)
 #'
-#'
 #' @param a  parameter description (TODO)
 #' @param b  parameter description
 #' @param c  parameter description
@@ -15,8 +14,7 @@
 #'
 #' @keywords internal
 #'
-
-compute_closest_wgps <- function(a,b,c,d,sc){
+ComputeClosestWGPS <- function(a,b,c,d,sc){
 
   if (!is.numeric(a) ||
       !is.numeric(b) ||
@@ -39,7 +37,7 @@ compute_closest_wgps <- function(a,b,c,d,sc){
     stop('Expecting equal length for a and c.')
   }
 
-  wm <- apply(compute_outer(a, b, '-') * sc,
+  wm <- apply(ComputeOuter(a, b, '-') * sc,
               2,
               function(x) which.min(abs(c - d) * (1 - sc) + x)
   )

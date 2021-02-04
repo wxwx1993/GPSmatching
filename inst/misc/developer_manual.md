@@ -1,6 +1,6 @@
 # Contribution
 
-Last Update: 1/27/2021
+Last Update: 2/4/2021
 
 Contributions are welcome and can come in different forms, including but not limited to:
 Adding new features.
@@ -119,3 +119,4 @@ x <- ( z + y)
 
 - Maximum line length is 80 character
 - Use explicit returns
+- Use explicit tags in documentation (e.g., @title, @description, ...)
