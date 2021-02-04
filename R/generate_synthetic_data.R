@@ -15,19 +15,19 @@
 #' @importFrom stats approx density  rnorm rt  runif
 #'
 #' @examples
-#' s_data <- generate_synthetic_data(sample_size=10000, seed = 403,
+#' s_data <- GenSynData(sample_size=10000, seed = 403,
 #'                                   outcome_sd = 10, gps_spec = 1,
 #'                                   cova_spec = 1)
 #'
-generate_synthetic_data <- function(sample_size=1000, seed = 300,
-                                    outcome_sd = 10, gps_spec = 1,
-                                    cova_spec = 1) {
+GenSynData <- function(sample_size=1000, seed = 300,
+                       outcome_sd = 10, gps_spec = 1,
+                       cova_spec = 1) {
 
   if (sample_size < 0 || !is.numeric(sample_size)){
     stop("'sample_size' should be a positive ineteger numer.")
-   } 
+   }
 
-  #TODO: Check other input arguments. 
+  #TODO: Check other input arguments.
 
   #options(digits=4) # only print 4 sig digits
   set.seed(seed)
@@ -52,14 +52,14 @@ generate_synthetic_data <- function(sample_size=1000, seed = 300,
 
     treat <- ((- 0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ ,2] - 0.1 * cf[ ,3]
               + 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + rt(size,2))
-   
+
     treat[which(treat < (-5))] <- (-5)
     treat[which(treat > (25))] <- (25)
 
   } else if (gps_spec == 3) {
 
     treat <- ((- 0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2]- 0.1 *cf[ ,3] + 0.2 * cf [ , 4]
-               + 0.1 * cf5 + 0.1 * cf6) * 9 
+               + 0.1 * cf5 + 0.1 * cf6) * 9
                + 1.5 * cf[ , 3] ^ 2 + rnorm(size, mean = 0, 5) + 15)
 
   } else if (gps_spec == 4) {
