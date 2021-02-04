@@ -19,3 +19,4 @@ Suggests:
     testthat,
     MASS
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

@@ -7,7 +7,7 @@
 compute_closest_wgps(a, b, c, d, sc)
 }
 \arguments{
-\item{a}{parameter description(TODO)}
+\item{a}{parameter description (TODO)}
 
 \item{b}{parameter description}
 

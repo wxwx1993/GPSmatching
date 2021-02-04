@@ -9,21 +9,21 @@
 #' @param gps_mx a vector with length 2, includes min(gps), max(gps)
 #' @param scale a specified scale parameter to control the relative weight that is attributed to
 #' the distance measures of the exposure versus the GPS estimates (Default is 0.5).
-#' @param delta_n a specified caliper parameter on the exposure (Default is 1).
+#' @param delta.n a specified caliper parameter on the exposure (Default is 1).
 #' @return
 #' \code{dp}: The function returns a data.table saved the matched points on by single exposure
 #' level w by the proposed GPS matching approaches.
 #' @export
 
-matching_l1 <- function(w,
-                        dataset,
-                        e_gps_pred,
-                        e_gps_std_pred,
-                        w_resid,
-                        w_mx,
-                        gps_mx,
-                        delta_n=1,
-                        scale=0.5)
+MatchingL1 <- function(w,
+                       dataset,
+                       e_gps_pred,
+                       e_gps_std_pred,
+                       w_resid,
+                       w_mx,
+                       gps_mx,
+                       delta.n=1,
+                       scale=0.5)
 {
   w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
   p.w <- compute_density(w_resid, w_new)
@@ -33,7 +33,9 @@ matching_l1 <- function(w,
   gps.min <- gps_mx[1]
   gps.max <- gps_mx[2]
 
-  ##
+  # handles check note.
+  gps <- NULL
+
   dataset <- transform(dataset,
                        std.w = (w - w.min) / (w.max - w.min),
                        std.gps = (gps - gps.min) / (gps.max - gps.min))
@@ -41,7 +43,7 @@ matching_l1 <- function(w,
   std.w <- (w - w.min) / (w.max - w.min)
   std.p.w <- (p.w - gps.min) / (gps.max - gps.min)
 
-  dataset.subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n/2), ]
+  dataset.subset <- dataset[abs(dataset[["w"]] - w) <= (delta.n/2), ]
 
   wm <- compute_closest_wgps(dataset.subset[["std.gps"]],
                              std.p.w,
@@ -50,6 +52,8 @@ matching_l1 <- function(w,
                              scale)
 
   dp <- dataset.subset[wm,]
+  dp["std.w"] <- NULL
+  dp["std.gps"] <- NULL
   return(dp)
   gc()
 }

@@ -1,29 +1,40 @@
 #' Funtction to develop prediction model based on user's preferences.
 #'
-#' @param Y Target data
-#' @param X Input data
+#' @param y A vector of target data. TODO: change these names to avoid confusion.
+#' @param x A vector, matrix, or dataframe of input data.
 #' @param model Prediction model algorithm.
-#'   - 'sl': SuperLearner
+#'   - 'sl': SuperLearner The required parameters:
+#'     - *sl.lib*: a set of methods used for estimating target value (e.g.,
+#'     ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
 #' @param ... Model related parameters should be provided.
 #'
 #' @return
-#' return value (TODO)
+#' prediction model
 #'
+#' @importFrom SuperLearner SuperLearner
 #' @keywords internal
 #'
+#'
+TrainIt <- function(Y, X, pred.model, ...) {
+
+  # Passing packaging check() ----------------------------
+  sl.lib <- NULL
+  # ------------------------------------------------------
 
 
-train_it <- function(Y, X, model, sl.lib) {
+  dot_args <- list(...)
+  arg_names <- names(dot_args)
 
-  if (model == 'sl'){
-    #TODO: We assume parameters are provided, and if not the package
-    # itself will raise error. Double-check the params.
-    #TODO: other models should be able to pass arbitrary data.
+  for (i in arg_names){
+    assign(i,unlist(dot_args[i],use.names = FALSE))
+  }
+
+  if (pred.model == 'sl'){
     pr_mdl <- SuperLearner(Y=Y, X=data.frame(X), SL.library=sl.lib)
     return(pr_mdl)
   } else {
-    stop('The requested model has not been implemented.')
+    stop(' This should not be raised. Something is wrong with CheckArgs
+         function.')
   }
 
 }
-

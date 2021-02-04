@@ -3,7 +3,7 @@
 #' Function description (TODO)
 #'
 #'
-#' @param a  parameter description(TODO)
+#' @param a  parameter description (TODO)
 #' @param b  parameter description
 #' @param c  parameter description
 #' @param d  parameter description
