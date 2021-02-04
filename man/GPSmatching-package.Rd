@@ -6,13 +6,13 @@
 \alias{GPSmatching}
 \title{The 'GPSmatching' package.}
 \description{
-An R package for implementing matching on generalized propensity
-scores with continuous exposures.
+An R package for implementing matching on generalized propensity scores with
+continuous exposures.
 }
 \details{
-We developed an innovative approach for estimating causal effects
-using observational data in settings with continuous exposures, and
-introduce a new framework for GPS caliper matching.
+We developed an innovative approach for estimating causal effects using
+observational data in settings with continuous exposures, and introduce a new
+framework for GPS caliper matching.
 }
 \references{
 Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.

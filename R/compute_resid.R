@@ -1,4 +1,7 @@
-
+#'@title
+#'Compute Residual
+#'
+#'@description
 #' Function to compute residual
 #'
 #' @param a description
@@ -10,11 +13,9 @@
 #'
 #' @keywords internal
 #'
+ComputeResid <- function(a, b, c){
 
-compute_resid <- function(a, b, c){
-
-  val1 <- mapply('-',a,b)
-  val2 <- mapply('/',val1,c)
-  return(val2)
-
+  val.1 <- mapply('-',a,b)
+  val.2 <- mapply('/',val.1,c)
+  return(val.2)
 }

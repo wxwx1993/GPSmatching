@@ -18,12 +18,11 @@
 #' @keywords internal
 #'
 #' @return
-#' `CompilePseudoPop` returns the pesudo population data that is compiled based
+#' `CompilePseudoPop` returns the pseudo population data that is compiled based
 #' on selected causal inference approach.
 #' @export
 #'
 CompilePseudoPop <- function(dataset, ci.appr, ...){
-
 
   if (ci.appr == 'matching'){
     matched.set <- CreateMatching(dataset, ...)
@@ -35,5 +34,4 @@ CompilePseudoPop <- function(dataset, ci.appr, ...){
   }
 
   stop('The code should get here. Something is wrong with checing arguments.')
-
 }

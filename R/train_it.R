@@ -14,13 +14,11 @@
 #' @importFrom SuperLearner SuperLearner
 #' @keywords internal
 #'
-#'
 TrainIt <- function(Y, X, pred.model, ...) {
 
   # Passing packaging check() ----------------------------
   sl.lib <- NULL
   # ------------------------------------------------------
-
 
   dot_args <- list(...)
   arg_names <- names(dot_args)
@@ -36,5 +34,4 @@ TrainIt <- function(Y, X, pred.model, ...) {
     stop(' This should not be raised. Something is wrong with CheckArgs
          function.')
   }
-
 }

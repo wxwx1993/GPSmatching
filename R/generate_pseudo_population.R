@@ -6,7 +6,6 @@
 #' approach. The output dataset satisfies covariate balance requirements if
 #' required for the selected causal inference approach.
 #'
-#'
 #' @param y A vector of observed outcome variable (Y).
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
@@ -72,16 +71,15 @@ GenPseudoPop <- function(y,
   counter <- 1
 
   ## collect additional arguments
-  dot_args <- list(...)
-  arg_names <- names(dot_args)
+  dot.args <- list(...)
+  arg.names <- names(dot.args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg.names){
+    assign(i,unlist(dot.args[i],use.names = FALSE))
   }
 
-
-  ## loop until the generated pseudo population is acceptable or reach maximum
-  #  allowed iteration.
+  # loop until the generated pseudo population is acceptable or reach maximum
+  # allowed iteration.
 
   while (counter < max.attemp+1){
 
@@ -98,7 +96,7 @@ GenPseudoPop <- function(y,
     }
 
     if (CheckCovarBalance(pseudo.pop, ci.appr, ...)){
-      message(paste('Covariate balance condition has met (iteration: ',
+      message(paste('Covariate balance condition has been met (iteration: ',
                     counter,'/', max.attemp,')'))
       break
     }
@@ -107,7 +105,7 @@ GenPseudoPop <- function(y,
   }
 
   if (counter == max.attemp+1){
-    message(paste('Covariate balance condition has not met.'))
+    message(paste('Covariate balance condition has not been met.'))
   }
 
   ## Store output ---------------------------------

@@ -1,10 +1,14 @@
+#' @title
 #' The 'GPSmatching' package.
 #'
-#' @description An R package for implementing matching on generalized propensity
-#'  scores with continuous exposures.
-#' @details We developed an innovative approach for estimating causal effects
-#'  using observational data in settings with continuous exposures, and
-#'  introduce a new framework for GPS caliper matching.
+#' @description
+#' An R package for implementing matching on generalized propensity scores with
+#' continuous exposures.
+#'
+#' @details
+#' We developed an innovative approach for estimating causal effects using
+#' observational data in settings with continuous exposures, and introduce a new
+#' framework for GPS caliper matching.
 #'
 #' @docType package
 #' @name GPSmatching-package

@@ -12,28 +12,31 @@
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return
-#' \code{matched_set}: The function returns a data.table saved the constructed
-#'  matched set by the proposed GPS matching approaches.
+#' The function returns a list of 6 objects according to the following order:
+#'   - Original data set + GPS values (Y, w, GPS, c)
+#'   - e_gps_pred
+#'   - e_gps_std_pred
+#'   - w_resid
+#'   - gps_mx (min and max of gps)
+#'   - w_mx (min and max of w).
 #'
 #' @export
-
-# Create matched set using GPS matching approaches
+#'
 EstimateGPS <- function(y,
                         w,
                         c,
                         pred.model,
                         ...){
 
-  e_gps <- TrainIt(Y = w, X = c, pred.model, ...)
-  e_gps_pred <- e_gps$SL.predict
-  e_gps_std <- TrainIt(Y = abs(w-e_gps_pred), X = c, pred.model, ...)
-  e_gps_std_pred <- e_gps_std$SL.predict
-  w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
-  gps <- compute_density(w_resid, w_resid)
-  w_mx <- compute_minmax(w)
-  gps_mx <- compute_minmax(gps)
+  e.gps <- TrainIt(Y = w, X = c, pred.model, ...)
+  e.gps.pred <- e.gps$SL.predict
+  e.gps.std <- TrainIt(Y = abs(w-e.gps.pred), X = c, pred.model, ...)
+  e.gps.std.pred <- e.gps.std$SL.predict
+  w.resid <- ComputeResid(w,e.gps.pred,e.gps.std.pred)
+  gps <- ComputeDensity(w.resid, w.resid)
+  w.mx <- ComputeMinMax(w)
+  gps.mx <- ComputeMinMax(gps)
   dataset <- cbind(y,w,gps,c)
 
-
-  return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
+  return(list(dataset, e.gps.pred, e.gps.std.pred, w.resid, gps.mx, w.mx))
 }

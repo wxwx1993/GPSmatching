@@ -2,7 +2,7 @@
 % Please edit documentation in R/covariate_balance.R
 \name{AbsoluteCorrFun}
 \alias{AbsoluteCorrFun}
-\title{Check covariate balance based on absolute correlations for given data sets.}
+\title{Check covariate balance}
 \usage{
 AbsoluteCorrFun(w, c)
 }
@@ -19,5 +19,5 @@ covairates;
 pre-exposure covairates.
 }
 \description{
-Check covariate balance based on absolute correlations for given data sets.
+Checks covariate balance based on absolute correlations for given data sets.
 }

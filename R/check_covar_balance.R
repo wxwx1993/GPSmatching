@@ -21,19 +21,17 @@
 #'
 CheckCovarBalance <- function(pseudo.pop, ci.appr, ...){
 
-
   # Passing packaging check() ----------------------------
   covar.bl.method <- NULL
   covar.bl.trs <- NULL
   # ------------------------------------------------------
 
+  # collect additional arguments
+  dot.args <- list(...)
+  arg.names <- names(dot.args)
 
-  ## collect additional arguments
-  dot_args <- list(...)
-  arg_names <- names(dot_args)
-
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg.names){
+    assign(i,unlist(dot.args[i],use.names = FALSE))
   }
 
   if (ci.appr == 'adjust'){
@@ -43,11 +41,10 @@ CheckCovarBalance <- function(pseudo.pop, ci.appr, ...){
   }
 
   if (covar.bl.method == 'absolute'){
+    abs.cor <- AbsoluteCorrFun(pseudo.pop[,2], pseudo.pop[,4:length(pseudo.pop)])
 
-    abs_cor <- AbsoluteCorrFun(pseudo.pop[,2], pseudo.pop[,4:length(pseudo.pop)])
-
-    if (abs_cor$mean_absolute.corr < covar.bl.trs){
-      message(paste("Mean absolute correlation: ", abs_cor$mean_absolute.corr,
+    if (abs.cor$mean_absolute.corr < covar.bl.trs){
+      message(paste("Mean absolute correlation: ", abs.cor$mean_absolute.corr,
                     "| Covariate balance threshold: ", covar.bl.trs))
       return(TRUE)
     } else {
@@ -58,5 +55,4 @@ CheckCovarBalance <- function(pseudo.pop, ci.appr, ...){
     stop(paste(covar.bl.method, " method for covariate balance is not a valid
                option."))
   }
-
 }
