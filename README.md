@@ -8,6 +8,7 @@
 
 
 
+
 Matching on generalized propensity scores with continuous exposures
 
 ## Summary
@@ -47,6 +48,10 @@ create_matching is functions for creating matched set using GPS matching approac
 absolute_corr_fun is functions for checking covariate balance based on absolute correlations for given data sets.
 
 matching_smooth is functions for estimating smoothed exposure-response function (ERF).
+
+## Contribution
+
+For more information about contribution, please read [Contribution Page](inst/misc/developer_manual.md).
 
 ## References
 
