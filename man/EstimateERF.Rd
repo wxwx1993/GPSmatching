@@ -23,3 +23,10 @@ exposure-response function (ERF) given input \code{w.vals}.
 \description{
 TODO
 }
+\examples{
+
+\dontrun{
+erf <- EstimateERF(pseuodo.pop$Y, pseuodo.pop$w,
+                   w.vals = seq(0.1,10, by=0.5))
+}
+}

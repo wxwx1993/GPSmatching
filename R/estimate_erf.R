@@ -16,6 +16,12 @@
 #'
 #' @export
 #'
+#' @examples
+#'
+#' \dontrun{
+#' erf <- EstimateERF(pseuodo.pop$Y, pseuodo.pop$w,
+#'                    w.vals = seq(0.1,10, by=0.5))
+#'}
 EstimateERF<-function(matched.Y,
                       matched.w,
                       bw.seq=seq(0.2,2,0.2),

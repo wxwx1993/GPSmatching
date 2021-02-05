@@ -4,10 +4,10 @@
 \alias{EstimateGPS}
 \title{Estimate GPS values}
 \usage{
-EstimateGPS(y, w, c, pred.model, ...)
+EstimateGPS(Y, w, c, pred.model, ...)
 }
 \arguments{
-\item{y}{A vector of observed outcome variable (Y).}
+\item{Y}{A vector of observed outcome variable.}
 
 \item{w}{A vector of observed continuous exposure variable.}
 

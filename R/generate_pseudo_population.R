@@ -6,7 +6,7 @@
 #' approach. The output dataset satisfies covariate balance requirements if
 #' required for the selected causal inference approach.
 #'
-#' @param y A vector of observed outcome variable (Y).
+#' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
 #' @param ci.appr The causal inference approach. Possible values are:
@@ -69,7 +69,7 @@
 #'                             scale = 0.5)
 #'
 #'
-GenPseudoPop <- function(y,
+GenPseudoPop <- function(Y,
                          w,
                          c,
                          ci.appr,
@@ -104,7 +104,7 @@ GenPseudoPop <- function(y,
   while (counter < max.attemp+1){
 
     ## Estimate GPS -----------------------------
-    estimate.gps.out <- EstimateGPS(y, w, c, pred.model, ...)
+    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model, ...)
 
     ## Compile data ---------
     pseudo.pop <- CompilePseudoPop(dataset=estimate.gps.out,

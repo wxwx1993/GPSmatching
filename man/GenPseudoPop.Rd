@@ -5,7 +5,7 @@
 \title{Generate pseudo population dataset}
 \usage{
 GenPseudoPop(
-  y,
+  Y,
   w,
   c,
   ci.appr,
@@ -16,7 +16,7 @@ GenPseudoPop(
 )
 }
 \arguments{
-\item{y}{A vector of observed outcome variable (Y).}
+\item{Y}{A vector of observed outcome variable.}
 
 \item{w}{A vector of observed continuous exposure variable.}
 
