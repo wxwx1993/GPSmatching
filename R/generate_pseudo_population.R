@@ -119,6 +119,5 @@ GenPseudoPop <- function(y,
               ignored.')
     }
   }
-
   invisible(pseudo.pop)
 }

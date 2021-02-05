@@ -1,11 +1,14 @@
-
-#' Generating Synthetic Data for GPSmatching package
+#' @title
+#' Generate synthetic data for GPSmatching package
 #'
-#' @param sample_size sample size description
-#' @param seed seed description
-#' @param outcome_sd outcpme_sd description
-#' @param gps_spec gps_spec description
-#' @param cova_spec cova_spec description
+#' @description
+#' Generates synthetic data based on ... (TODO)
+#'
+#' @param sample_size sample size description (TODO)
+#' @param seed seed description (TODO)
+#' @param outcome_sd outcpme_sd description (TODO)
+#' @param gps_spec gps_spec description (TODO)
+#' @param cova_spec cova_spec description (TODO)
 #'
 #' @return
 #' \code{synthetic_data}: The function returns a data.frame saved the
@@ -19,9 +22,8 @@
 #'                                   outcome_sd = 10, gps_spec = 1,
 #'                                   cova_spec = 1)
 #'
-GenSynData <- function(sample_size=1000, seed = 300,
-                       outcome_sd = 10, gps_spec = 1,
-                       cova_spec = 1) {
+GenSynData <- function(sample_size=1000, seed = 300, outcome_sd = 10,
+                       gps_spec = 1, cova_spec = 1) {
 
   if (sample_size < 0 || !is.numeric(sample_size)){
     stop("'sample_size' should be a positive ineteger numer.")
