@@ -47,8 +47,28 @@
 #' or augmented based on the selected causal inference approach (ci.appr).
 #'
 #' @export
-
-# Create matched set using GPS matching approaches
+#' @examples
+#'
+#'
+#' # Generate pseudo population with matching causal inference approach, using
+#' # SuperLearner package, and abolute covariance balance checking.
+#'
+#' m.d <- GenSynData(sample.size = 100)
+#' pseuodo.pop <- GenPseudoPop(m.d$Y,
+#'                             m.d$treat,
+#'                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                             ci.appr = "matching",
+#'                             pred.model = "sl",
+#'                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#'                                        "SL.ranger"),
+#'                             covar.bl.method = "absolute",
+#'                             covar.bl.trs = 0.1,
+#'                             max.attemp = 1,
+#'                             matching.fun = "MatchingL1",
+#'                             delta.n = 1,
+#'                             scale = 0.5)
+#'
+#'
 GenPseudoPop <- function(y,
                          w,
                          c,

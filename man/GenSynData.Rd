@@ -2,37 +2,37 @@
 % Please edit documentation in R/generate_synthetic_data.R
 \name{GenSynData}
 \alias{GenSynData}
-\title{Generating Synthetic Data for GPSmatching package}
+\title{Generate synthetic data for GPSmatching package}
 \usage{
 GenSynData(
-  sample_size = 1000,
+  sample.size = 1000,
   seed = 300,
-  outcome_sd = 10,
-  gps_spec = 1,
-  cova_spec = 1
+  outcome.sd = 10,
+  gps.spec = 1,
+  cova.spec = 1
 )
 }
 \arguments{
-\item{sample_size}{sample size description}
+\item{sample.size}{sample size description (TODO)}
 
-\item{seed}{seed description}
+\item{seed}{seed description (TODO)}
 
-\item{outcome_sd}{outcpme_sd description}
+\item{outcome.sd}{outcpme_sd description (TODO)}
 
-\item{gps_spec}{gps_spec description}
+\item{gps.spec}{gps_spec description (TODO)}
 
-\item{cova_spec}{cova_spec description}
+\item{cova.spec}{cova_spec description (TODO)}
 }
 \value{
 \code{synthetic_data}: The function returns a data.frame saved the
 constructed synthetic data.
 }
 \description{
-Generating Synthetic Data for GPSmatching package
+Generates synthetic data based on ... (TODO)
 }
 \examples{
-s_data <- GenSynData(sample_size=10000, seed = 403,
-                                  outcome_sd = 10, gps_spec = 1,
-                                  cova_spec = 1)
+s_data <- GenSynData(sample.size=100, seed = 403,
+                                  outcome.sd = 10, gps.spec = 1,
+                                  cova.spec = 1)
 
 }

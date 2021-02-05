@@ -9,14 +9,13 @@ Description: An R package for implementing matching on generalized propensity sc
     Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018. Matching on generalized propensity scores with continuous exposures. arXiv preprint arXiv:1812.06575.
 License: GPL-3
 Copyright: See COPYRIGHTS for details.
-Imports: parallel, data.table, SuperLearner, xgboost, earth, ranger, gam, KernSmooth
+Imports: parallel, data.table, SuperLearner, xgboost, earth, ranger, gam, KernSmooth, MASS
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
-    testthat,
-    MASS
+    testthat
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
