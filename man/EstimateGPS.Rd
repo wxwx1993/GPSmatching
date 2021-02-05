@@ -4,7 +4,7 @@
 \alias{EstimateGPS}
 \title{Estimate GPS values}
 \usage{
-EstimateGPS(Y, w, c, pred.model, ...)
+EstimateGPS(Y, w, c, pred.model, internal.use = TRUE, ...)
 }
 \arguments{
 \item{Y}{A vector of observed outcome variable.}
@@ -14,6 +14,9 @@ EstimateGPS(Y, w, c, pred.model, ...)
 \item{c}{A data frame or matrix of observed covariates variable.}
 
 \item{pred.model}{The selected prediction model.}
+
+\item{internal.use}{If TRUE will return helper vectors as well. Otherwise,
+will return original data + GPS value.}
 
 \item{...}{Additional arguments passed to the model.}
 }
@@ -26,6 +29,8 @@ The function returns a list of 6 objects according to the following order:
 \item w_resid
 \item gps_mx (min and max of gps)
 \item w_mx (min and max of w).
+If \code{internal.use} is set to be FALSE, only originla data set + GPS will
+be returend.
 }
 }
 \description{

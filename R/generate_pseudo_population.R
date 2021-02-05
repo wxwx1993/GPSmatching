@@ -40,7 +40,7 @@
 #'   - *max.attemp*: Maximum number of attempt to satisfy covariate balance.
 #' ### Prediction models (pred.model)
 #' - if pred.model = 'sl':
-#'   - *sl.lib*:
+#'   - *sl.lib*: A vector of prediction algorithms.
 #'
 #' @return
 #' \code{GenPseudoPop} returns a data.table pseudo population that is generated
@@ -104,7 +104,8 @@ GenPseudoPop <- function(Y,
   while (counter < max.attemp+1){
 
     ## Estimate GPS -----------------------------
-    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model, ...)
+    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model,internal.use = TRUE,
+                                    ...)
 
     ## Compile data ---------
     pseudo.pop <- CompilePseudoPop(dataset=estimate.gps.out,

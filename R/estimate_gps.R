@@ -9,6 +9,8 @@
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
 #' @param pred.model The selected prediction model.
+#' @param internal.use If TRUE will return helper vectors as well. Otherwise,
+#'  will return original data + GPS value.
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return
@@ -19,6 +21,8 @@
 #'   - w_resid
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
+#' If \code{internal.use} is set to be FALSE, only originla data set + GPS will
+#' be returend.
 #'
 #' @export
 #'
@@ -26,6 +30,7 @@ EstimateGPS <- function(Y,
                         w,
                         c,
                         pred.model,
+                        internal.use = TRUE,
                         ...){
 
   e.gps <- TrainIt(Y = w, X = c, pred.model, ...)
@@ -38,5 +43,9 @@ EstimateGPS <- function(Y,
   gps.mx <- ComputeMinMax(gps)
   dataset <- cbind(Y,w,gps,c)
 
-  return(list(dataset, e.gps.pred, e.gps.std.pred, w.resid, gps.mx, w.mx))
+  if (internal.use){
+    return(list(dataset, e.gps.pred, e.gps.std.pred, w.resid, gps.mx, w.mx))
+  } else {
+    return(dataset)
+  }
 }

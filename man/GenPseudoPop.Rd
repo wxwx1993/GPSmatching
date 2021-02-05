@@ -83,7 +83,7 @@ values.
 \itemize{
 \item if pred.model = 'sl':
 \itemize{
-\item \emph{sl.lib}:
+\item \emph{sl.lib}: A vector of prediction algorithms.
 }
 }
 }
