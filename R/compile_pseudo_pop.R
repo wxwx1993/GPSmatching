@@ -24,6 +24,9 @@
 #'
 CompilePseudoPop <- function(dataset, ci.appr, ...){
 
+  # Checking arguments
+  CheckArgsCPseudoPop(ci.appr, ...)
+
   if (ci.appr == 'matching'){
     matched.set <- CreateMatching(dataset, ...)
     return(matched.set)

@@ -18,10 +18,23 @@
 #'
 #' @examples
 #'
-#' \dontrun{
+#' m.d <- GenSynData(sample.size = 100)
+#' pseuodo.pop <- GenPseudoPop(m.d$Y,
+#'                             m.d$treat,
+#'                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                             ci.appr = "matching",
+#'                             pred.model = "sl",
+#'                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#'                                        "SL.ranger"),
+#'                             covar.bl.method = "absolute",
+#'                             covar.bl.trs = 0.1,
+#'                             max.attemp = 1,
+#'                             matching.fun = "MatchingL1",
+#'                             delta.n = 1,
+#'                             scale = 0.5)
 #' erf <- EstimateERF(pseuodo.pop$Y, pseuodo.pop$w,
 #'                    w.vals = seq(0.1,10, by=0.5))
-#'}
+#'
 EstimateERF<-function(matched.Y,
                       matched.w,
                       bw.seq=seq(0.2,2,0.2),

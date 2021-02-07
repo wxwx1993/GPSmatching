@@ -4,14 +4,14 @@
 \alias{TrainIt}
 \title{Funtction to develop prediction model based on user's preferences.}
 \usage{
-TrainIt(Y, X, pred.model, ...)
+TrainIt(target, input, pred.model, ...)
 }
 \arguments{
+\item{target}{A vector of target data.}
+
+\item{input}{A vector, matrix, or dataframe of input data.}
+
 \item{...}{Model related parameters should be provided.}
-
-\item{y}{A vector of target data. TODO: change these names to avoid confusion.}
-
-\item{x}{A vector, matrix, or dataframe of input data.}
 
 \item{model}{Prediction model algorithm.
 \itemize{

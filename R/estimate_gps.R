@@ -26,6 +26,18 @@
 #'
 #' @export
 #'
+#' @examples
+#'
+#' m.d <- GenSynData(sample.size = 100)
+#' data.with.gps <- EstimateGPS(m.d$Y,
+#'                              m.d$treat,
+#'                              m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                              pred.model = "sl",
+#'                              internal.use = FALSE,
+#'                              sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#'                                        "SL.ranger")
+#'                              )
+#'
 EstimateGPS <- function(Y,
                         w,
                         c,
@@ -33,9 +45,13 @@ EstimateGPS <- function(Y,
                         internal.use = TRUE,
                         ...){
 
-  e.gps <- TrainIt(Y = w, X = c, pred.model, ...)
+
+  # Check passed arguments
+  CheckArgsEGPS(pred.model, ...)
+
+  e.gps <- TrainIt(target = w, input = c, pred.model, ...)
   e.gps.pred <- e.gps$SL.predict
-  e.gps.std <- TrainIt(Y = abs(w-e.gps.pred), X = c, pred.model, ...)
+  e.gps.std <- TrainIt(target = abs(w-e.gps.pred), input = c, pred.model, ...)
   e.gps.std.pred <- e.gps.std$SL.predict
   w.resid <- ComputeResid(w,e.gps.pred,e.gps.std.pred)
   gps <- ComputeDensity(w.resid, w.resid)

@@ -22,10 +22,33 @@ CheckArgs <- function(pred.model, ci.appr, ...){
   # 3) Check if based on the main argument, the required arguments are provided.
   # 4) Check if the provided required arguments' values are acceptable.
 
-  # Passing packaging check() ----------------------------
-  covar.bl.method <- NULL
-  matching.fun <- NULL
+
   # ------------------------------------------------------
+
+  required_args <- NULL
+
+  CheckArgsEGPS(pred.model, ...)
+  CheckArgsCPseudoPop(ci.appr, ...)
+
+  invisible(TRUE)
+}
+
+#' @title
+#' Check EstimateGPS function arguments
+#'
+#' @description
+#' Checks EstimateGPS function arguments to make sure that the required
+#' additional arguments are provided.
+#'
+#' @param pred.model The selected prediction model.
+#' @param ... Addional arguments to successfully run the selected pred.model.
+#'
+#' @return
+#' Returns True if passes all checks, successfully. Otherwise raises ERROR.
+#'
+#' @keywords internal
+#'
+CheckArgsEGPS <- function(pred.model, ...){
 
   required_args <- NULL
 
@@ -34,15 +57,60 @@ CheckArgs <- function(pred.model, ci.appr, ...){
     stop(paste(pred.model, " is not a valid prediction model."))
   }
 
-  if (!is.element(ci.appr, c('matching','weighting','adjusting'))){
-    stop(paste(ci.appr, " is not a valid causal inference approach."))
-  }
-
   # checkpoint 2 ------------------------------------------
   if (pred.model == 'sl'){
     required_args <- c(required_args, 'sl.lib')
   }
 
+  # checkpoint 3 ------------------------------------------
+  dot_args <- list(...)
+  arg_names <- names(dot_args)
+
+  for (arg in required_args){
+    if (!is.element(arg,arg_names)){
+      stop(paste('At least one argument is not provided. Missing argument: ',
+                 arg, '.'))
+    }
+  }
+
+  # checkpoint 4 ------------------------------------------
+  # None for this test.
+
+  invisible(TRUE)
+}
+
+
+
+
+#' @title
+#' Check CompilePseudoPop function arguments
+#'
+#' @description
+#  Checks CompilePseudoPop function arguments to make sure that the required
+#' additional arguments are provided.
+#'
+#' @param ci.appr The selected causal inference approach.
+#' @param ...  Additional arguments to successfully run the selected ci.appr.
+#'
+#' @return
+#' Returns True if passes all checks, successfully. Otherwise raises ERROR.
+#'
+#' @keywords internal
+#'
+CheckArgsCPseudoPop <- function(ci.appr, ...){
+
+  # Passing packaging check() ----------------------------
+  covar.bl.method <- NULL
+  matching.fun <- NULL
+
+  required_args <- NULL
+
+  # checkpoint 1 -----------------------------------------
+  if (!is.element(ci.appr, c('matching','weighting','adjusting'))){
+    stop(paste(ci.appr, " is not a valid causal inference approach."))
+  }
+
+  # checkpoint 2 ------------------------------------------
   if (ci.appr == 'matching'){
     required_args <- c(required_args, 'covar.bl.method', 'covar.bl.trs',
                        'max.attemp', 'matching.fun', 'delta.n', 'scale')
@@ -76,6 +144,5 @@ CheckArgs <- function(pred.model, ci.appr, ...){
       stop(paste(matching.fun, " is not a valid matching function."))
     }
   }
-
   invisible(TRUE)
 }

@@ -112,4 +112,5 @@ pseuodo.pop <- GenPseudoPop(m.d$Y,
                             scale = 0.5)
 
 
+
 }

@@ -36,3 +36,16 @@ be returend.
 \description{
 Estimates GPS value for each observation.
 }
+\examples{
+
+m.d <- GenSynData(sample.size = 100)
+data.with.gps <- EstimateGPS(m.d$Y,
+                             m.d$treat,
+                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                             pred.model = "sl",
+                             internal.use = FALSE,
+                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                                       "SL.ranger")
+                             )
+
+}

@@ -69,6 +69,7 @@
 #'                             scale = 0.5)
 #'
 #'
+#'
 GenPseudoPop <- function(Y,
                          w,
                          c,
@@ -77,7 +78,6 @@ GenPseudoPop <- function(Y,
                          save.output = FALSE,
                          save.path = NULL,
                          ...){
-
 
   # Passing packaging check() ----------------------------
   max.attemp <- NULL
