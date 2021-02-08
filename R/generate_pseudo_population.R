@@ -31,13 +31,13 @@
 #'   - *covar.bl.method*: covariate balance method. Available options:
 #'      - 'absolute'
 #'   - *covar.bl.trs*: covariate balance threshold
-#'   - *max.attemp*: maximum number of attempt to satisfy covariate balance.
+#'   - *max.attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [CreateMatching()] for more details about the parameters and default
 #'   values.
 #' - if ci.appr = 'weightig':
 #'   - *covar.bl.method*: Covariate balance method.
 #'   - *covar.bl.trs*: Covariate balance threshold
-#'   - *max.attemp*: Maximum number of attempt to satisfy covariate balance.
+#'   - *max.attempt*: Maximum number of attempt to satisfy covariate balance.
 #' ### Prediction models (pred.model)
 #' - if pred.model = 'sl':
 #'   - *sl.lib*: A vector of prediction algorithms.
@@ -63,7 +63,7 @@
 #'                                        "SL.ranger"),
 #'                             covar.bl.method = "absolute",
 #'                             covar.bl.trs = 0.1,
-#'                             max.attemp = 1,
+#'                             max.attempt = 1,
 #'                             matching.fun = "MatchingL1",
 #'                             delta.n = 1,
 #'                             scale = 0.5)
@@ -80,7 +80,7 @@ GenPseudoPop <- function(Y,
                          ...){
 
   # Passing packaging check() ----------------------------
-  max.attemp <- NULL
+  max.attempt <- NULL
   # ------------------------------------------------------
 
 
@@ -101,7 +101,7 @@ GenPseudoPop <- function(Y,
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
 
-  while (counter < max.attemp+1){
+  while (counter < max.attempt+1){
 
     ## Estimate GPS -----------------------------
     estimate.gps.out <- EstimateGPS(Y, w, c, pred.model,internal.use = TRUE,
@@ -118,14 +118,14 @@ GenPseudoPop <- function(Y,
 
     if (CheckCovarBalance(pseudo.pop, ci.appr, ...)){
       message(paste('Covariate balance condition has been met (iteration: ',
-                    counter,'/', max.attemp,')'))
+                    counter,'/', max.attempt,')'))
       break
     }
 
     counter <- counter + 1
   }
 
-  if (counter == max.attemp+1){
+  if (counter == max.attempt+1){
     message(paste('Covariate balance condition has not been met.'))
   }
 
