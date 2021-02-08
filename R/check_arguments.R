@@ -113,7 +113,7 @@ CheckArgsCPseudoPop <- function(ci.appr, ...){
   # checkpoint 2 ------------------------------------------
   if (ci.appr == 'matching'){
     required_args <- c(required_args, 'covar.bl.method', 'covar.bl.trs',
-                       'max.attemp', 'matching.fun', 'delta.n', 'scale')
+                       'max.attempt', 'matching.fun', 'delta.n', 'scale')
   }
 
   # checkpoint 3 ------------------------------------------

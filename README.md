@@ -18,40 +18,85 @@ An R package for implementing matching on generalized propensity scores with con
 ## Installation
 ```r
 library("devtools")
-install_github("wxwx1993/GPSmatching")
+install_github("fasrc/GPSmatching")
 library("GPSmatching")
 ```
 
-## Example
-Let Y denote a vector of observed outcome; w denote a vector of observed continuous exposure; c denote a data frame or matrix of observed baseline covariates.
-matching_fun is a specifed matching function (Default is "matching_l1" (Manhattan distance matching)).
-scale is a specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates (Default is 0.5).
-delta_n is a specified caliper parameter on the exposure (Default is 1).
-sl.lib is a set of machine learning methods used for estimating GPS (Default is ("SL.xgboost","SL.earth","SL.gam","SL.ranger")).
+## Usage
+
+Input parameters:
+
+**Y**: a vector of observed outcome  
+**w**: a vector of observed continues exposure  
+**c**: data frame or matrix of observed baseline covariates  
+**matching.fun**: specified matching function  
+**scale**: specified scale parameter to control the relative weight that is attributed **to the distance measures of the exposure versus the GPS estimates  
+**delta.n**: specified caliper parameter on the exposure  
+**sl.lib**: a set of machine learning methods used for estimating GPS  
+**ci.appr**: causal inference approach  
+**covar.bl.method**: specified covariate balance method  
+**covar.bl.trs**: specified covariate balance threshold  
+**max.attempt**: maximum number of attempt to satisfy covariate balance  
+
+- Generating Pseudo Population
+
 ```r
-matched_set = create_matching(Y,
-                              w,
-                              c,
-                              matching_fun = matching_l1,
-                              sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"),
-                              scale = 0.5,
-                              delta_n=1)
-erf = matching_smooth(matched_Y = matched_set$Y,
-                      matched_w = matched_set$w,
-                      bw.seq = seq(0.2,2,0.2),
-                      w.vals = seq(min(w),max(w),length.out = 100))
+pseuodo.pop <- GenPseudoPop(Y,
+                            w,
+                            c,
+                            ci.appr = "matching",
+                            pred.model = "sl",
+                            sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                                       "SL.ranger"),
+                            covar.bl.method = "absolute",
+                            covar.bl.trs = 0.1,
+                            max.attempt = 1,
+                            matching.fun = "MatchingL1",
+                            delta.n = 1,
+                            scale = 0.5)
+
 ```
-        
-## Code
-create_matching is functions for creating matched set using GPS matching approaches.
+`MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model.
 
-absolute_corr_fun is functions for checking covariate balance based on absolute correlations for given data sets.
+- Estimating GPS
 
-matching_smooth is functions for estimating smoothed exposure-response function (ERF).
+```r
+data.with.gps <- EstimateGPS(Y,
+                             w,
+                             c,
+                             pred.model = "sl",
+                             internal.use = FALSE,
+                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                                       "SL.ranger")
+                             )
+
+```
+
+If `internal.use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?EstimateGPS` for more details.
+
+- Estimating Exposure Rate Function
+
+```r
+erf <- EstimateERF(Y,
+                   w,
+                   bw.seq,
+                   w.vals)
+```
+
+- Generating Synthetic Data
+
+```r
+syn.data <- GenSynData(sample.size=1000,
+                       seed = 403,
+                       outcome.sd = 10,
+                       gps.spec = 1,
+                       cova.spec = 1)
+
+```
 
 ## Contribution
 
-For more information about contribution, please read [Contribution Page](inst/misc/developer_manual.md).
+For more information about reporting bugs and contribution, please read [Contribution Page](inst/misc/developer_manual.md).
 
 ## References
 

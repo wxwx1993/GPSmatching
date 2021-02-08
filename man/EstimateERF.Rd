@@ -35,7 +35,7 @@ pseuodo.pop <- GenPseudoPop(m.d$Y,
                                        "SL.ranger"),
                             covar.bl.method = "absolute",
                             covar.bl.trs = 0.1,
-                            max.attemp = 1,
+                            max.attempt = 1,
                             matching.fun = "MatchingL1",
                             delta.n = 1,
                             scale = 0.5)
