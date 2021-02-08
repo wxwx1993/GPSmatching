@@ -26,17 +26,17 @@ library("GPSmatching")
 
 Input parameters:
 
-Y: a vector of observed outcome  
-w: a vector of observed continues exposure  
-c: data frame or matrix of observed baseline covariates  
-matching.fun: specified matching function  
-scale: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
-delta.n: specified caliper parameter on the exposure  
-sl.lib: a set of machine learning methods used for estimating GPS  
-ci.appr: causal inference approach  
-covar.bl.method: specified covariate balance method  
-covar.bl.trs: specified covariate balance threshold  
-max.attempt: maximum number of attempt to satisfy covariate balance  
+**Y**: a vector of observed outcome  
+**w**: a vector of observed continues exposure  
+**c**: data frame or matrix of observed baseline covariates  
+**matching.fun**: specified matching function  
+**scale**: specified scale parameter to control the relative weight that is attributed **to the distance measures of the exposure versus the GPS estimates  
+**delta.n**: specified caliper parameter on the exposure  
+**sl.lib**: a set of machine learning methods used for estimating GPS  
+**ci.appr**: causal inference approach  
+**covar.bl.method**: specified covariate balance method  
+**covar.bl.trs**: specified covariate balance threshold  
+**max.attempt**: maximum number of attempt to satisfy covariate balance  
 
 - Generating Pseudo Population
 
