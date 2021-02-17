@@ -64,7 +64,7 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
   # checkpoint 2 ------------------------------------------
   if (pred_model == 'sl'){
-    required_args <- c(required_args, 'sl.lib')
+    required_args <- c(required_args, 'sl_lib')
   }
 
   # checkpoint 3 ------------------------------------------

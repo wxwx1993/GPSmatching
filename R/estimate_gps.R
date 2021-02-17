@@ -35,7 +35,7 @@
 #'                               pred_model = "sl",
 #'                               running_appr = "base",
 #'                               internal_use = FALSE,
-#'                               sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#'                               sl_lib = c("SL.xgboost","SL.earth","SL.gam",
 #'                                        "SL.ranger")
 #'                              )
 #'

@@ -15,7 +15,7 @@ train_it(target, input, pred_model, running_appr, ...)
 \itemize{
 \item 'sl': SuperLearner The required parameters:
 \itemize{
-\item \emph{sl.lib}: a set of methods used for estimating target value (e.g.,
+\item \emph{sl_lib}: a set of methods used for estimating target value (e.g.,
 ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
 }
 }}
