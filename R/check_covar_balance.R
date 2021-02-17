@@ -4,12 +4,12 @@
 #' @description
 #' Checks the covariate balance of
 #'
-#' @param pseudo.pop The generated pseudo population. In the following format:
+#' @param pseudo_pop The generated pseudo population. In the following format:
 #'   - 1st column: outcome (Y)
 #'   - 2nd column: exposure (w)
 #'   - 3rd column: gps
 #'   - 4th column to the end: covariates (c)
-#' @param ci.appr The causal inference approach.
+#' @param ci_appr The causal inference approach.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @keywords internal
@@ -19,40 +19,40 @@
 #'  requirements.
 #' @export
 #'
-CheckCovarBalance <- function(pseudo.pop, ci.appr, ...){
+check_covar_balance <- function(pseudo_pop, ci_appr, ...){
 
   # Passing packaging check() ----------------------------
-  covar.bl.method <- NULL
-  covar.bl.trs <- NULL
+  covar_bl_method <- NULL
+  covar_bl_trs <- NULL
   # ------------------------------------------------------
 
   # collect additional arguments
-  dot.args <- list(...)
-  arg.names <- names(dot.args)
+  dot_args <- list(...)
+  arg_names <- names(dot_args)
 
-  for (i in arg.names){
-    assign(i,unlist(dot.args[i],use.names = FALSE))
+  for (i in arg_names){
+    assign(i,unlist(dot_args[i], use.names = FALSE))
   }
 
-  if (ci.appr == 'adjust'){
+  if (ci_appr == 'adjust'){
     # No covariate balance test for the 'adjust' causal inference approach.
     stop("The code should never get here. Argument checks or while loop checks
          are not correct.")
   }
 
-  if (covar.bl.method == 'absolute'){
-    abs.cor <- AbsoluteCorrFun(pseudo.pop[,2], pseudo.pop[,4:length(pseudo.pop)])
+  if (covar_bl_method == 'absolute'){
+    abs_cor <- absolute_corr_fun(pseudo_pop[,2], pseudo_pop[,4:length(pseudo_pop)])
 
-    if (abs.cor$mean_absolute.corr < covar.bl.trs){
-      message(paste("Mean absolute correlation: ", abs.cor$mean_absolute.corr,
-                    "| Covariate balance threshold: ", covar.bl.trs))
+    if (abs_cor$mean_absolute_corr < covar_bl_trs){
+      message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
+                    "| Covariate balance threshold: ", covar_bl_trs))
       return(TRUE)
     } else {
       return(FALSE)
     }
 
   } else {
-    stop(paste(covar.bl.method, " method for covariate balance is not a valid
+    stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
   }
 }

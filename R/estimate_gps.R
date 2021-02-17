@@ -8,8 +8,9 @@
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
-#' @param pred.model The selected prediction model.
-#' @param internal.use If TRUE will return helper vectors as well. Otherwise,
+#' @param pred_model The selected prediction model.
+#' @param running_appr The running approach.
+#' @param internal_use If TRUE will return helper vectors as well. Otherwise,
 #'  will return original data + GPS value.
 #' @param ...  Additional arguments passed to the model.
 #'
@@ -27,40 +28,42 @@
 #' @export
 #'
 #' @examples
-#'
-#' m.d <- GenSynData(sample.size = 100)
-#' data.with.gps <- EstimateGPS(m.d$Y,
-#'                              m.d$treat,
-#'                              m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                              pred.model = "sl",
-#'                              internal.use = FALSE,
-#'                              sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#' m_d <- gen_syn_data(sample_size = 100)
+#' data_with_gps <- estimate_gps(m_d$Y,
+#'                               m_d$treat,
+#'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                               pred_model = "sl",
+#'                               running_appr = "base",
+#'                               internal_use = FALSE,
+#'                               sl_lib = c("SL.xgboost","SL.earth","SL.gam",
 #'                                        "SL.ranger")
 #'                              )
 #'
-EstimateGPS <- function(Y,
-                        w,
-                        c,
-                        pred.model,
-                        internal.use = TRUE,
-                        ...){
+estimate_gps <- function(Y,
+                         w,
+                         c,
+                         pred_model,
+                         running_appr,
+                         internal_use = TRUE,
+                         ...){
 
 
   # Check passed arguments
-  CheckArgsEGPS(pred.model, ...)
+  check_args_estimate_gps(pred_model, running_appr, ...)
 
-  e.gps <- TrainIt(target = w, input = c, pred.model, ...)
-  e.gps.pred <- e.gps$SL.predict
-  e.gps.std <- TrainIt(target = abs(w-e.gps.pred), input = c, pred.model, ...)
-  e.gps.std.pred <- e.gps.std$SL.predict
-  w.resid <- ComputeResid(w,e.gps.pred,e.gps.std.pred)
-  gps <- ComputeDensity(w.resid, w.resid)
-  w.mx <- ComputeMinMax(w)
-  gps.mx <- ComputeMinMax(gps)
+  e_gps <- train_it(target = w, input = c, pred_model, running_appr, ...)
+  e_gps_pred <- e_gps$SL.predict
+  e_gps_std <- train_it(target = abs(w-e_gps_pred), input = c, pred_model,
+                       running_appr, ...)
+  e_gps_std_pred <- e_gps_std$SL.predict
+  w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
+  gps <- compute_density(w_resid, w_resid)
+  w_mx <- compute_min_max(w)
+  gps_mx <- compute_min_max(gps)
   dataset <- cbind(Y,w,gps,c)
 
-  if (internal.use){
-    return(list(dataset, e.gps.pred, e.gps.std.pred, w.resid, gps.mx, w.mx))
+  if (internal_use){
+    return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
   } else {
     return(dataset)
   }

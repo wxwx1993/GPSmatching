@@ -13,9 +13,9 @@
 #'
 #' @keywords internal
 #'
-ComputeResid <- function(a, b, c){
+compute_resid <- function(a, b, c){
 
-  val.1 <- mapply('-',a,b)
-  val.2 <- mapply('/',val.1,c)
-  return(val.2)
+  val_1 <- mapply('-',a,b)
+  val_2 <- mapply('/',val_1,c)
+  return(val_2)
 }

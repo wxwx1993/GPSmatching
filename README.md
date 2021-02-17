@@ -29,30 +29,32 @@ Input parameters:
 **Y**: a vector of observed outcome  
 **w**: a vector of observed continues exposure  
 **c**: data frame or matrix of observed baseline covariates  
-**matching.fun**: specified matching function  
+**matching_fun**: specified matching function  
 **scale**: specified scale parameter to control the relative weight that is attributed **to the distance measures of the exposure versus the GPS estimates  
-**delta.n**: specified caliper parameter on the exposure  
-**sl.lib**: a set of machine learning methods used for estimating GPS  
-**ci.appr**: causal inference approach  
-**covar.bl.method**: specified covariate balance method  
-**covar.bl.trs**: specified covariate balance threshold  
-**max.attempt**: maximum number of attempt to satisfy covariate balance  
+**delta_n**: specified caliper parameter on the exposure  
+**sl_lib**: a set of machine learning methods used for estimating GPS  
+**ci_appr**: causal inference approach
+**running_appr**: running approach (base, parallel)  
+**covar_bl_method**: specified covariate balance method  
+**covar_bl_trs**: specified covariate balance threshold  
+**max_attempt**: maximum number of attempt to satisfy covariate balance  
 
 - Generating Pseudo Population
 
 ```r
-pseuodo.pop <- GenPseudoPop(Y,
+pseuodo_pop <- gen_pseudo_pop(Y,
                             w,
                             c,
-                            ci.appr = "matching",
-                            pred.model = "sl",
-                            sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                            ci_appr = "matching",
+                            running_appr = "base",
+                            pred_model = "sl",
+                            sl_lib = c("SL.xgboost","SL.earth","SL.gam",
                                        "SL.ranger"),
-                            covar.bl.method = "absolute",
-                            covar.bl.trs = 0.1,
-                            max.attempt = 1,
-                            matching.fun = "MatchingL1",
-                            delta.n = 1,
+                            covar_bl_method = "absolute",
+                            covar_bl_trs = 0.1,
+                            max_attempt = 1,
+                            matching_fun = "MatchingL1",
+                            delta_n = 1,
                             scale = 0.5)
 
 ```
@@ -61,36 +63,37 @@ pseuodo.pop <- GenPseudoPop(Y,
 - Estimating GPS
 
 ```r
-data.with.gps <- EstimateGPS(Y,
+data_with_gps <- estimate_gps(Y,
                              w,
                              c,
-                             pred.model = "sl",
-                             internal.use = FALSE,
-                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                             pred_model = "sl",
+                             running_appr = "base",
+                             internal_use = FALSE,
+                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
                                        "SL.ranger")
                              )
 
 ```
 
-If `internal.use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?EstimateGPS` for more details.
+If `internal_use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?estimate_gps` for more details.
 
 - Estimating Exposure Rate Function
 
 ```r
-erf <- EstimateERF(Y,
-                   w,
-                   bw.seq,
-                   w.vals)
+erf <- estimate_erf(Y,
+                    w,
+                    bw_seq,
+                    w_vals)
 ```
 
 - Generating Synthetic Data
 
 ```r
-syn.data <- GenSynData(sample.size=1000,
+syn_data <- GenSynData(sample_size=1000,
                        seed = 403,
-                       outcome.sd = 10,
-                       gps.spec = 1,
-                       cova.spec = 1)
+                       outcome_sd = 10,
+                       gps_spec = 1,
+                       cova_spec = 1)
 
 ```
 

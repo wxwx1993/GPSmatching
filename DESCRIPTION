@@ -1,7 +1,7 @@
 Package: GPSmatching
 Type: Package
 Title: Matching on generalized propensity scores with continuous exposures
-Version: 0.1.0
+Version: 0.2.0
 Author: Xiao Wu
 Maintainer: Xiao Wu <wuxiao@g.harvard.edu>
 Description: An R package for implementing matching on generalized propensity scores with continuous exposures

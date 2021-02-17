@@ -13,30 +13,30 @@
 #'
 #' @importFrom stats dnorm
 #'
-GenerateKernel <- function(t){
+generate_kernel <- function(t){
   dnorm(t)
 }
 
 #' TODO: Function title
 #'
 #' @param bw bandwidth value
-#' @param matched.w a vector of continuous exposure variable in matched set.
-#' @param w.vals a vector of values that you want to calculate the values of the ERF at.
+#' @param matched_w a vector of continuous exposure variable in matched set.
+#' @param w_vals a vector of values that you want to calculate the values of the ERF at.
 #'
 #' @return
 #' return value (TODO)
 #' @keywords internal
 #'
-WFun <- function(bw,matched.w,w.vals){
-  w.avals <- NULL
-  for (w.val in w.vals){
-    w.std <- (matched.w-w.val)/bw
-    kern.std <- GenerateKernel(w.std)/bw
-    tmp.mean <- mean(w.std^2*kern.std)
-    w.avals <- c(w.avals, tmp.mean*(GenerateKernel(0)/bw) /
-                   (mean(kern.std)*tmp.mean-mean(w.std*kern.std)^2))
+w_fun <- function(bw,matched_w,w_vals){
+    w_avals <- NULL
+    for (w_val in w_vals){
+      w_std <- (matched_w-w_val)/bw
+      kern_std <- generate_kernel(w_std)/bw
+      tmp_mean <- mean(w_std^2*kern_std)
+      w_avals <- c(w_avals, tmp_mean*(generate_kernel(0)/bw) /
+                   (mean(kern_std)*tmp_mean-mean(w_std*kern_std)^2))
   }
-  return(w.avals/length(matched.w))
+  return(w_avals/length(matched_w))
 }
 
 
