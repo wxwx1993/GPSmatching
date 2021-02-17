@@ -7,6 +7,7 @@
 #'
 #' @param pred.model The prediction model.
 #' @param ci.appr The causal inference approach.
+#' @param running.appr The running approach.
 #' @param ...  Additional named arguments passed.
 #'
 #' @return
@@ -15,7 +16,7 @@
 #'
 #' @keywords internal
 #'
-CheckArgs <- function(pred.model, ci.appr, ...){
+CheckArgs <- function(pred.model, ci.appr, running.appr, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -27,7 +28,7 @@ CheckArgs <- function(pred.model, ci.appr, ...){
 
   required_args <- NULL
 
-  CheckArgsEGPS(pred.model, ...)
+  CheckArgsEGPS(pred.model, running.appr, ...)
   CheckArgsCPseudoPop(ci.appr, ...)
 
   invisible(TRUE)
@@ -48,13 +49,17 @@ CheckArgs <- function(pred.model, ci.appr, ...){
 #'
 #' @keywords internal
 #'
-CheckArgsEGPS <- function(pred.model, ...){
+CheckArgsEGPS <- function(pred.model, running.appr, ...){
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
   if (!is.element(pred.model, c('sl'))){
     stop(paste(pred.model, " is not a valid prediction model."))
+  }
+
+  if (!is.element(running.appr,c('base', 'parallel'))){
+    stop(paste(running.appr, " is not a valid running approach."))
   }
 
   # checkpoint 2 ------------------------------------------

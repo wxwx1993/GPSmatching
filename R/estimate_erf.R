@@ -19,10 +19,13 @@
 #' @examples
 #'
 #' m.d <- GenSynData(sample.size = 100)
+#'
+#'
 #' pseuodo.pop <- GenPseudoPop(m.d$Y,
 #'                             m.d$treat,
 #'                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                             ci.appr = "matching",
+#'                             running.appr = "base",
 #'                             pred.model = "sl",
 #'                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
 #'                                        "SL.ranger"),

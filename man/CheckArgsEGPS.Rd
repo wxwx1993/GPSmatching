@@ -4,7 +4,7 @@
 \alias{CheckArgsEGPS}
 \title{Check EstimateGPS function arguments}
 \usage{
-CheckArgsEGPS(pred.model, ...)
+CheckArgsEGPS(pred.model, running.appr, ...)
 }
 \arguments{
 \item{pred.model}{The selected prediction model.}

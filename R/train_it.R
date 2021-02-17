@@ -2,10 +2,11 @@
 #'
 #' @param target A vector of target data.
 #' @param input A vector, matrix, or dataframe of input data.
-#' @param model Prediction model algorithm.
+#' @param pred.model Prediction model algorithm.
 #'   - 'sl': SuperLearner The required parameters:
 #'     - *sl.lib*: a set of methods used for estimating target value (e.g.,
 #'     ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
+#' @param running.appr The running approach.
 #' @param ... Model related parameters should be provided.
 #'
 #' @return
@@ -13,7 +14,7 @@
 #'
 #' @keywords internal
 #'
-TrainIt <- function(target, input, pred.model, ...) {
+TrainIt <- function(target, input, pred.model, running.appr, ...) {
 
   # Passing packaging check() ----------------------------
   sl.lib <- NULL
@@ -26,11 +27,31 @@ TrainIt <- function(target, input, pred.model, ...) {
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
+
+  platform.os <- .Platform$OS.type
+
   if (pred.model == 'sl'){
-    pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
-                                         SL.library=sl.lib)
-    return(pr_mdl)
-  } else {
+
+    if (running.appr=="parallel"){
+      if (is.element(platform.os,c("unix"))){
+        pr_mdl <- SuperLearner::mcSuperLearner(Y=target, X=data.frame(input),
+                                               SL.library=sl.lib)
+      } else {
+        message(paste("Running on multiple cores is not implemented for ",
+                       platform.os, " platform. Running on single core ..."))
+        pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
+                                             SL.library=sl.lib)
+        }
+    } else if (running.appr=="base") {
+      pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
+                                           SL.library=sl.lib)
+    } else {
+      stop(' The requested running approach (',running.appr,
+           ') is not implemented.')
+    }
+      return(pr_mdl)
+
+    } else {
     stop(' This should not be raised. Something is wrong with CheckArgs
          function.')
   }

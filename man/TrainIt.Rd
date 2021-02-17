@@ -4,16 +4,14 @@
 \alias{TrainIt}
 \title{Funtction to develop prediction model based on user's preferences.}
 \usage{
-TrainIt(target, input, pred.model, ...)
+TrainIt(target, input, pred.model, running.appr, ...)
 }
 \arguments{
 \item{target}{A vector of target data.}
 
 \item{input}{A vector, matrix, or dataframe of input data.}
 
-\item{...}{Model related parameters should be provided.}
-
-\item{model}{Prediction model algorithm.
+\item{pred.model}{Prediction model algorithm.
 \itemize{
 \item 'sl': SuperLearner The required parameters:
 \itemize{
@@ -21,6 +19,10 @@ TrainIt(target, input, pred.model, ...)
 ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
 }
 }}
+
+\item{running.appr}{The running approach.}
+
+\item{...}{Model related parameters should be provided.}
 }
 \value{
 prediction model

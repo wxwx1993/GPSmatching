@@ -4,7 +4,7 @@
 \alias{EstimateGPS}
 \title{Estimate GPS values}
 \usage{
-EstimateGPS(Y, w, c, pred.model, internal.use = TRUE, ...)
+EstimateGPS(Y, w, c, pred.model, running.appr, internal.use = TRUE, ...)
 }
 \arguments{
 \item{Y}{A vector of observed outcome variable.}
@@ -14,6 +14,8 @@ EstimateGPS(Y, w, c, pred.model, internal.use = TRUE, ...)
 \item{c}{A data frame or matrix of observed covariates variable.}
 
 \item{pred.model}{The selected prediction model.}
+
+\item{running.appr}{The running approach.}
 
 \item{internal.use}{If TRUE will return helper vectors as well. Otherwise,
 will return original data + GPS value.}
@@ -43,6 +45,7 @@ data.with.gps <- EstimateGPS(m.d$Y,
                              m.d$treat,
                              m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                              pred.model = "sl",
+                             running.appr = "base",
                              internal.use = FALSE,
                              sl.lib = c("SL.xgboost","SL.earth","SL.gam",
                                        "SL.ranger")

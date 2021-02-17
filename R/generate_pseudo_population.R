@@ -13,6 +13,7 @@
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
 #'   - "adjusting": Adjusting by GPS
+#' @param running.appr The running approach.
 #' @param pred.model a prediction model
 #' @param save.output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
@@ -58,6 +59,7 @@
 #'                             m.d$treat,
 #'                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                             ci.appr = "matching",
+#'                             running.appr = "base",
 #'                             pred.model = "sl",
 #'                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
 #'                                        "SL.ranger"),
@@ -74,6 +76,7 @@ GenPseudoPop <- function(Y,
                          w,
                          c,
                          ci.appr,
+                         running.appr,
                          pred.model,
                          save.output = FALSE,
                          save.path = NULL,
@@ -85,7 +88,7 @@ GenPseudoPop <- function(Y,
 
 
   ## Check arguments ---------------------------------------
-  CheckArgs(pred.model,ci.appr, ...)
+  CheckArgs(pred.model,ci.appr,running.appr, ...)
 
   ## Generate output Set -----------------------------------
   counter <- 1
@@ -104,8 +107,8 @@ GenPseudoPop <- function(Y,
   while (counter < max.attempt+1){
 
     ## Estimate GPS -----------------------------
-    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model,internal.use = TRUE,
-                                    ...)
+    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model, running.appr,
+                                    internal.use = TRUE, ...)
 
     ## Compile data ---------
     pseudo.pop <- CompilePseudoPop(dataset=estimate.gps.out,

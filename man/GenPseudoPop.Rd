@@ -9,6 +9,7 @@ GenPseudoPop(
   w,
   c,
   ci.appr,
+  running.appr,
   pred.model,
   save.output = FALSE,
   save.path = NULL,
@@ -28,6 +29,8 @@ GenPseudoPop(
 \item "weighting": Weighting by GPS
 \item "adjusting": Adjusting by GPS
 }}
+
+\item{running.appr}{The running approach.}
 
 \item{pred.model}{a prediction model}
 
@@ -101,6 +104,7 @@ pseuodo.pop <- GenPseudoPop(m.d$Y,
                             m.d$treat,
                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                             ci.appr = "matching",
+                            running.appr = "base",
                             pred.model = "sl",
                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
                                        "SL.ranger"),

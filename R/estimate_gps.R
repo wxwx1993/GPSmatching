@@ -9,6 +9,7 @@
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
 #' @param pred.model The selected prediction model.
+#' @param running.appr The running approach.
 #' @param internal.use If TRUE will return helper vectors as well. Otherwise,
 #'  will return original data + GPS value.
 #' @param ...  Additional arguments passed to the model.
@@ -33,6 +34,7 @@
 #'                              m.d$treat,
 #'                              m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                              pred.model = "sl",
+#'                              running.appr = "base",
 #'                              internal.use = FALSE,
 #'                              sl.lib = c("SL.xgboost","SL.earth","SL.gam",
 #'                                        "SL.ranger")
@@ -42,16 +44,18 @@ EstimateGPS <- function(Y,
                         w,
                         c,
                         pred.model,
+                        running.appr,
                         internal.use = TRUE,
                         ...){
 
 
   # Check passed arguments
-  CheckArgsEGPS(pred.model, ...)
+  CheckArgsEGPS(pred.model, running.appr, ...)
 
-  e.gps <- TrainIt(target = w, input = c, pred.model, ...)
+  e.gps <- TrainIt(target = w, input = c, pred.model, running.appr, ...)
   e.gps.pred <- e.gps$SL.predict
-  e.gps.std <- TrainIt(target = abs(w-e.gps.pred), input = c, pred.model, ...)
+  e.gps.std <- TrainIt(target = abs(w-e.gps.pred), input = c, pred.model,
+                       running.appr, ...)
   e.gps.std.pred <- e.gps.std$SL.predict
   w.resid <- ComputeResid(w,e.gps.pred,e.gps.std.pred)
   gps <- ComputeDensity(w.resid, w.resid)

@@ -4,12 +4,14 @@
 \alias{CheckArgs}
 \title{Check Additional Arguments}
 \usage{
-CheckArgs(pred.model, ci.appr, ...)
+CheckArgs(pred.model, ci.appr, running.appr, ...)
 }
 \arguments{
 \item{pred.model}{The prediction model.}
 
 \item{ci.appr}{The causal inference approach.}
+
+\item{running.appr}{The running approach.}
 
 \item{...}{Additional named arguments passed.}
 }

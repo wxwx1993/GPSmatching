@@ -33,7 +33,8 @@ Input parameters:
 **scale**: specified scale parameter to control the relative weight that is attributed **to the distance measures of the exposure versus the GPS estimates  
 **delta.n**: specified caliper parameter on the exposure  
 **sl.lib**: a set of machine learning methods used for estimating GPS  
-**ci.appr**: causal inference approach  
+**ci.appr**: causal inference approach
+**running_appr**: running approach (base, parallel)  
 **covar.bl.method**: specified covariate balance method  
 **covar.bl.trs**: specified covariate balance threshold  
 **max.attempt**: maximum number of attempt to satisfy covariate balance  
@@ -45,6 +46,7 @@ pseuodo.pop <- GenPseudoPop(Y,
                             w,
                             c,
                             ci.appr = "matching",
+                            running_approach = "base",
                             pred.model = "sl",
                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
                                        "SL.ranger"),
