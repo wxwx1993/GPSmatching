@@ -14,6 +14,9 @@
 #'   - "weighting": Weighting by GPS
 #'   - "adjusting": Adjusting by GPS
 #' @param running_appr The running approach.
+#'   - "base": Base implementation
+#'   - "parallel": Uses parallel flag whenever possible. (Currently is activated
+#'    on the SuperLearner Module.)
 #' @param pred_model a prediction model
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
