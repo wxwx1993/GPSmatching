@@ -42,7 +42,7 @@ Input parameters:
 - Generating Pseudo Population
 
 ```r
-pseuodo_pop <- GenPseudoPop(Y,
+pseuodo_pop <- gen_pseudo_pop(Y,
                             w,
                             c,
                             ci_appr = "matching",
