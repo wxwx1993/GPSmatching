@@ -43,9 +43,11 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
   if (covar_bl_method == 'absolute'){
     abs_cor <- absolute_corr_fun(pseudo_pop[,2], pseudo_pop[,4:length(pseudo_pop)])
 
+
+    message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
+                  "| Covariate balance threshold: ", covar_bl_trs))
+
     if (abs_cor$mean_absolute_corr < covar_bl_trs){
-      message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
-                    "| Covariate balance threshold: ", covar_bl_trs))
       return(TRUE)
     } else {
       return(FALSE)

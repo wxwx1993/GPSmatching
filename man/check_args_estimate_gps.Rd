@@ -2,20 +2,20 @@
 % Please edit documentation in R/check_arguments.R
 \name{check_args_estimate_gps}
 \alias{check_args_estimate_gps}
-\title{Check EstimateGPS function arguments}
+\title{Check estimate_gps function arguments}
 \usage{
 check_args_estimate_gps(pred_model, running_appr, ...)
 }
 \arguments{
 \item{pred_model}{The selected prediction model.}
 
-\item{...}{Addional arguments to successfully run the selected pred.model.}
+\item{...}{Additional arguments to successfully run the selected pred_model.}
 }
 \value{
 Returns True if passes all checks, successfully. Otherwise raises ERROR.
 }
 \description{
-Checks EstimateGPS function arguments to make sure that the required
+Checks estimate_gps function arguments to make sure that the required
 additional arguments are provided.
 }
 \keyword{internal}
