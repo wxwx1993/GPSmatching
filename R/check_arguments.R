@@ -5,9 +5,9 @@
 #' Checks additional arguments that user needs to provide for different
 #' prediction models.
 #'
-#' @param pred.model The prediction model.
-#' @param ci.appr The causal inference approach.
-#' @param running.appr The running approach.
+#' @param pred_model The prediction model.
+#' @param ci_appr The causal inference approach.
+#' @param running_appr The running approach.
 #' @param ...  Additional named arguments passed.
 #'
 #' @return
@@ -16,7 +16,7 @@
 #'
 #' @keywords internal
 #'
-CheckArgs <- function(pred.model, ci.appr, running.appr, ...){
+check_args <- function(pred_model, ci_appr, running_appr, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -28,8 +28,8 @@ CheckArgs <- function(pred.model, ci.appr, running.appr, ...){
 
   required_args <- NULL
 
-  CheckArgsEGPS(pred.model, running.appr, ...)
-  CheckArgsCPseudoPop(ci.appr, ...)
+  check_args_estimate_gps(pred_model, running_appr, ...)
+  check_args_compile_pseudo_pop(ci_appr, ...)
 
   invisible(TRUE)
 }
@@ -41,7 +41,7 @@ CheckArgs <- function(pred.model, ci.appr, running.appr, ...){
 #' Checks EstimateGPS function arguments to make sure that the required
 #' additional arguments are provided.
 #'
-#' @param pred.model The selected prediction model.
+#' @param pred_model The selected prediction model.
 #' @param ... Addional arguments to successfully run the selected pred.model.
 #'
 #' @return
@@ -49,21 +49,21 @@ CheckArgs <- function(pred.model, ci.appr, running.appr, ...){
 #'
 #' @keywords internal
 #'
-CheckArgsEGPS <- function(pred.model, running.appr, ...){
+check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
-  if (!is.element(pred.model, c('sl'))){
-    stop(paste(pred.model, " is not a valid prediction model."))
+  if (!is.element(pred_model, c('sl'))){
+    stop(paste(pred_model, " is not a valid prediction model."))
   }
 
-  if (!is.element(running.appr,c('base', 'parallel'))){
-    stop(paste(running.appr, " is not a valid running approach."))
+  if (!is.element(running_appr,c('base', 'parallel'))){
+    stop(paste(running_appr, " is not a valid running approach."))
   }
 
   # checkpoint 2 ------------------------------------------
-  if (pred.model == 'sl'){
+  if (pred_model == 'sl'){
     required_args <- c(required_args, 'sl.lib')
   }
 
@@ -102,23 +102,23 @@ CheckArgsEGPS <- function(pred.model, running.appr, ...){
 #'
 #' @keywords internal
 #'
-CheckArgsCPseudoPop <- function(ci.appr, ...){
+check_args_compile_pseudo_pop <- function(ci_appr, ...){
 
   # Passing packaging check() ----------------------------
-  covar.bl.method <- NULL
-  matching.fun <- NULL
+  covar_bl_method <- NULL
+  matching_fun <- NULL
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
-  if (!is.element(ci.appr, c('matching','weighting','adjusting'))){
-    stop(paste(ci.appr, " is not a valid causal inference approach."))
+  if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
+    stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
 
   # checkpoint 2 ------------------------------------------
-  if (ci.appr == 'matching'){
-    required_args <- c(required_args, 'covar.bl.method', 'covar.bl.trs',
-                       'max.attempt', 'matching.fun', 'delta.n', 'scale')
+  if (ci_appr == 'matching'){
+    required_args <- c(required_args, 'covar_bl_method', 'covar_bl_trs',
+                       'max_attempt', 'matching_fun', 'delta_n', 'scale')
   }
 
   # checkpoint 3 ------------------------------------------
@@ -137,16 +137,16 @@ CheckArgsCPseudoPop <- function(ci.appr, ...){
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  if (is.element(ci.appr, c('matching','weighting'))){
-    if (!is.element(covar.bl.method, c('absolute'))){
-      stop(paste(covar.bl.method, " is not a valid covariance balance testing
+  if (is.element(ci_appr, c('matching','weighting'))){
+    if (!is.element(covar_bl_method, c('absolute'))){
+      stop(paste(covar_bl_method, " is not a valid covariance balance testing
                  method."))
     }
   }
 
-  if (is.element(ci.appr, c('matching'))){
-    if (!is.element(matching.fun, c('MatchingL1'))){
-      stop(paste(matching.fun, " is not a valid matching function."))
+  if (is.element(ci_appr, c('matching'))){
+    if (!is.element(matching_fun, c('matching_l1'))){
+      stop(paste(matching_fun, " is not a valid matching function."))
     }
   }
   invisible(TRUE)

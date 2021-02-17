@@ -52,16 +52,16 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 
 ## Style Guide
 
-In this project, we are moving toward [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html). This coding style is mentioned in different projects with more details. For example see Kevin Shin's [notes](https://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html) at Statistical Programming with R Laboratory class.
+In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
 
 ### Summary
 
 #### Names
 
 - File names all snake_case and ends with .R (e.g., create_matching.R)
-- variable names small letter and separate with . if need (e.g., delta.n)
-- Function names should follow CamelCase style (e.g., GenerateData)
-- Function names follow verb+function output convention (e.g., ComputeResid)
+- variable names small letter and separate with _ if need (e.g., delta_n)
+- Function names should follow snake_case style (e.g., generate_data)
+- Function names follow verb+output convention (e.g., compute_resid)
 
 #### Spaces and Indentation
 

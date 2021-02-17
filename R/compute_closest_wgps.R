@@ -14,7 +14,7 @@
 #'
 #' @keywords internal
 #'
-ComputeClosestWGPS <- function(a,b,c,d,sc){
+compute_closest_wgps <- function(a,b,c,d,sc){
 
   if (!is.numeric(a) ||
       !is.numeric(b) ||
@@ -37,7 +37,7 @@ ComputeClosestWGPS <- function(a,b,c,d,sc){
     stop('Expecting equal length for a and c.')
   }
 
-  wm <- apply(ComputeOuter(a, b, '-') * sc,
+  wm <- apply(compute_outer(a, b, '-') * sc,
               2,
               function(x) which.min(abs(c - d) * (1 - sc) + x)
   )

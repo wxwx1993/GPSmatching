@@ -31,6 +31,8 @@
 * hatvals --> EstimateHatvals
 * kernel_fun --> GenerateKernel
 * w_fun --> WFun
+* GPSmatching-package.R --> gpsmatching_package.R
+* GPSmatching_smooth.R --> gpsmatching_smooth.R
 
 ## Fixed
 

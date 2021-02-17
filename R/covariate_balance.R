@@ -15,11 +15,11 @@
 #' @importFrom stats cor
 #' @export
 
-AbsoluteCorrFun <- function(w,
+absolute_corr_fun <- function(w,
                               c){
-  absolute.corr<- sapply(colnames(c),function(i){
+  absolute_corr<- sapply(colnames(c),function(i){
               abs(cor(w,c[[i]],method = c("spearman")))})
 
-  return(list(absolute.corr = absolute.corr,
-              mean_absolute.corr = mean(absolute.corr)))
+  return(list(absolute_corr = absolute_corr,
+              mean_absolute_corr = mean(absolute_corr)))
 }
