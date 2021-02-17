@@ -1,4 +1,8 @@
-#' Check covariate balance based on absolute correlations for given data sets.
+#' @title
+#' Check covariate balance
+#'
+#' @description
+#' Checks covariate balance based on absolute correlations for given data sets.
 #'
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.

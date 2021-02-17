@@ -23,6 +23,14 @@
 * CreateMatching only generates matched dataset.
 * absolute_corr_fun --> AbsoluteCorrFun
 * Covariate_balance.R --> covariate_balance.R
+* matching_smooth --> EstimateERF.R
+* risk_fun --> ComputeRisk
+* matched_Y --> matched.Y
+* matched_w -->matched.w
+* smooth_fun --> SmoothERF
+* hatvals --> EstimateHatvals
+* kernel_fun --> GenerateKernel
+* w_fun --> WFun
 
 ## Fixed
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/matching_l1.R
 \name{MatchingL1}
 \alias{MatchingL1}
-\title{Matching function using L1 distance on single exposure level w}
+\title{Match dataset}
 \usage{
 MatchingL1(
   w,

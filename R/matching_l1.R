@@ -1,3 +1,7 @@
+#' @title
+#' Match dataset
+#'
+#' @description
 #' Matching function using L1 distance on single exposure level w
 #'
 #' @param dataset a completed observational data frame or matrix containing (Y, w, c).
@@ -14,7 +18,7 @@
 #' \code{dp}: The function returns a data.table saved the matched points on by single exposure
 #' level w by the proposed GPS matching approaches.
 #' @export
-
+#'
 MatchingL1 <- function(w,
                        dataset,
                        e_gps_pred,
@@ -25,8 +29,8 @@ MatchingL1 <- function(w,
                        delta.n=1,
                        scale=0.5)
 {
-  w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
-  p.w <- compute_density(w_resid, w_new)
+  w.new <- ComputeResid(w, e_gps_pred, e_gps_std_pred)
+  p.w <- ComputeDensity(w_resid, w.new)
 
   w.min <- w_mx[1]
   w.max <- w_mx[2]
@@ -45,11 +49,11 @@ MatchingL1 <- function(w,
 
   dataset.subset <- dataset[abs(dataset[["w"]] - w) <= (delta.n/2), ]
 
-  wm <- compute_closest_wgps(dataset.subset[["std.gps"]],
-                             std.p.w,
-                             dataset.subset[["std.w"]],
-                             std.w,
-                             scale)
+  wm <- ComputeClosestWGPS(dataset.subset[["std.gps"]],
+                           std.p.w,
+                           dataset.subset[["std.w"]],
+                           std.w,
+                           scale)
 
   dp <- dataset.subset[wm,]
   dp["std.w"] <- NULL

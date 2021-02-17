@@ -1,6 +1,6 @@
 # Contribution
 
-Last Update: 1/27/2021
+Last Update: 2/4/2021
 
 Contributions are welcome and can come in different forms, including but not limited to:
 Adding new features.
@@ -52,4 +52,71 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 
 ## Style Guide
 
-In this project, we are moving toward [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html).
+In this project, we are moving toward [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html). This coding style is mentioned in different projects with more details. For example see Kevin Shin's [notes](https://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html) at Statistical Programming with R Laboratory class.
+
+### Summary
+
+#### Names
+
+- File names all snake_case and ends with .R (e.g., create_matching.R)
+- variable names small letter and separate with . if need (e.g., delta.n)
+- Function names should follow CamelCase style (e.g., GenerateData)
+- Function names follow verb+function output convention (e.g., ComputeResid)
+
+#### Spaces and Indentation
+
+- Indentations are two spaces (do not use tab)
+- Place space around binary operators (e.g., x + y)
+
+```R
+Acceptable:
+z <- x + y
+
+Not recommended:
+z<-x+y # (no space)
+z<- x+y
+z<-x +y
+```
+
+- Place space after comma
+
+```R
+Acceptable:
+a <- matrix(c(1:100), nrow = 5)
+
+Not recommended:
+a <- matrix(c(1:100),nrow = 5) # (no space after comma)
+a <- matrix( c(1:100), nrow = 5 ) # (extra space after and before parentheses)
+a<-matrix(c(1:100), nrow = 5) # (no space around unary operator <- )
+```
+
+- Place space after # and before commenting and avoid multiple ###
+
+```R
+Acceptable:
+# This is a comment
+
+Not recommended:
+#This is a comment
+#    This is a comment (more than one space after #)
+## This is a comment (multiple #)
+###    This is a comment (multiple # and more than one space)
+```
+
+- Do not put space at the opening and closing the parenthesis
+
+```R
+Acceptable:
+x <- (z + y)
+
+Not recommended:
+x <- ( z + y ) # (unnecessary space)
+x <- (z + y )
+x <- ( z + y)
+```
+
+#### Other notes
+
+- Maximum line length is 80 character
+- Use explicit returns
+- Use explicit tags in documentation (e.g., @title, @description, ...)

@@ -5,7 +5,7 @@
 \title{Generate pseudo population dataset}
 \usage{
 GenPseudoPop(
-  y,
+  Y,
   w,
   c,
   ci.appr,
@@ -16,7 +16,7 @@ GenPseudoPop(
 )
 }
 \arguments{
-\item{y}{A vector of observed outcome variable (Y).}
+\item{Y}{A vector of observed outcome variable.}
 
 \item{w}{A vector of observed continuous exposure variable.}
 
@@ -66,7 +66,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item 'absolute'
 }
 \item \emph{covar.bl.trs}: covariate balance threshold
-\item \emph{max.attemp}: maximum number of attempt to satisfy covariate balance.
+\item \emph{max.attempt}: maximum number of attempt to satisfy covariate balance.
 \item See \code{\link[=CreateMatching]{CreateMatching()}} for more details about the parameters and default
 values.
 }
@@ -74,7 +74,7 @@ values.
 \itemize{
 \item \emph{covar.bl.method}: Covariate balance method.
 \item \emph{covar.bl.trs}: Covariate balance threshold
-\item \emph{max.attemp}: Maximum number of attempt to satisfy covariate balance.
+\item \emph{max.attempt}: Maximum number of attempt to satisfy covariate balance.
 }
 }
 }
@@ -83,10 +83,34 @@ values.
 \itemize{
 \item if pred.model = 'sl':
 \itemize{
-\item \emph{sl.lib}:
+\item \emph{sl.lib}: A vector of prediction algorithms.
 }
 }
 }
 
 }
+}
+\examples{
+
+
+# Generate pseudo population with matching causal inference approach, using
+# SuperLearner package, and abolute covariance balance checking.
+
+m.d <- GenSynData(sample.size = 100)
+pseuodo.pop <- GenPseudoPop(m.d$Y,
+                            m.d$treat,
+                            m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                            ci.appr = "matching",
+                            pred.model = "sl",
+                            sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+                                       "SL.ranger"),
+                            covar.bl.method = "absolute",
+                            covar.bl.trs = 0.1,
+                            max.attempt = 1,
+                            matching.fun = "MatchingL1",
+                            delta.n = 1,
+                            scale = 0.5)
+
+
+
 }

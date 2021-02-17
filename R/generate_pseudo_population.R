@@ -6,8 +6,7 @@
 #' approach. The output dataset satisfies covariate balance requirements if
 #' required for the selected causal inference approach.
 #'
-#'
-#' @param y A vector of observed outcome variable (Y).
+#' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
 #' @param ci.appr The causal inference approach. Possible values are:
@@ -32,25 +31,46 @@
 #'   - *covar.bl.method*: covariate balance method. Available options:
 #'      - 'absolute'
 #'   - *covar.bl.trs*: covariate balance threshold
-#'   - *max.attemp*: maximum number of attempt to satisfy covariate balance.
+#'   - *max.attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [CreateMatching()] for more details about the parameters and default
 #'   values.
 #' - if ci.appr = 'weightig':
 #'   - *covar.bl.method*: Covariate balance method.
 #'   - *covar.bl.trs*: Covariate balance threshold
-#'   - *max.attemp*: Maximum number of attempt to satisfy covariate balance.
+#'   - *max.attempt*: Maximum number of attempt to satisfy covariate balance.
 #' ### Prediction models (pred.model)
 #' - if pred.model = 'sl':
-#'   - *sl.lib*:
+#'   - *sl.lib*: A vector of prediction algorithms.
 #'
 #' @return
 #' \code{GenPseudoPop} returns a data.table pseudo population that is generated
 #' or augmented based on the selected causal inference approach (ci.appr).
 #'
 #' @export
-
-# Create matched set using GPS matching approaches
-GenPseudoPop <- function(y,
+#' @examples
+#'
+#'
+#' # Generate pseudo population with matching causal inference approach, using
+#' # SuperLearner package, and abolute covariance balance checking.
+#'
+#' m.d <- GenSynData(sample.size = 100)
+#' pseuodo.pop <- GenPseudoPop(m.d$Y,
+#'                             m.d$treat,
+#'                             m.d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                             ci.appr = "matching",
+#'                             pred.model = "sl",
+#'                             sl.lib = c("SL.xgboost","SL.earth","SL.gam",
+#'                                        "SL.ranger"),
+#'                             covar.bl.method = "absolute",
+#'                             covar.bl.trs = 0.1,
+#'                             max.attempt = 1,
+#'                             matching.fun = "MatchingL1",
+#'                             delta.n = 1,
+#'                             scale = 0.5)
+#'
+#'
+#'
+GenPseudoPop <- function(Y,
                          w,
                          c,
                          ci.appr,
@@ -59,9 +79,8 @@ GenPseudoPop <- function(y,
                          save.path = NULL,
                          ...){
 
-
   # Passing packaging check() ----------------------------
-  max.attemp <- NULL
+  max.attempt <- NULL
   # ------------------------------------------------------
 
 
@@ -72,21 +91,21 @@ GenPseudoPop <- function(y,
   counter <- 1
 
   ## collect additional arguments
-  dot_args <- list(...)
-  arg_names <- names(dot_args)
+  dot.args <- list(...)
+  arg.names <- names(dot.args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg.names){
+    assign(i,unlist(dot.args[i],use.names = FALSE))
   }
 
+  # loop until the generated pseudo population is acceptable or reach maximum
+  # allowed iteration.
 
-  ## loop until the generated pseudo population is acceptable or reach maximum
-  #  allowed iteration.
-
-  while (counter < max.attemp+1){
+  while (counter < max.attempt+1){
 
     ## Estimate GPS -----------------------------
-    estimate.gps.out <- EstimateGPS(y, w, c, pred.model, ...)
+    estimate.gps.out <- EstimateGPS(Y, w, c, pred.model,internal.use = TRUE,
+                                    ...)
 
     ## Compile data ---------
     pseudo.pop <- CompilePseudoPop(dataset=estimate.gps.out,
@@ -98,16 +117,16 @@ GenPseudoPop <- function(y,
     }
 
     if (CheckCovarBalance(pseudo.pop, ci.appr, ...)){
-      message(paste('Covariate balance condition has met (iteration: ',
-                    counter,'/', max.attemp,')'))
+      message(paste('Covariate balance condition has been met (iteration: ',
+                    counter,'/', max.attempt,')'))
       break
     }
 
     counter <- counter + 1
   }
 
-  if (counter == max.attemp+1){
-    message(paste('Covariate balance condition has not met.'))
+  if (counter == max.attempt+1){
+    message(paste('Covariate balance condition has not been met.'))
   }
 
   ## Store output ---------------------------------
@@ -121,6 +140,5 @@ GenPseudoPop <- function(y,
               ignored.')
     }
   }
-
   invisible(pseudo.pop)
 }
