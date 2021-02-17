@@ -1,8 +1,8 @@
 #' @title
-#' Generate Kernel function
+#' Generate kernel function
 #'
 #' @description
-#' TODO
+#' Generates kernel function
 #'
 #' @param t standardized vector (z-score)
 #'
@@ -11,17 +11,18 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom stats dnorm
 #'
 generate_kernel <- function(t){
-  dnorm(t)
+  stats::dnorm(t)
 }
 
-#' TODO: Function title
+#' @title
+#' Helper function
 #'
 #' @param bw bandwidth value
 #' @param matched_w a vector of continuous exposure variable in matched set.
-#' @param w_vals a vector of values that you want to calculate the values of the ERF at.
+#' @param w_vals a vector of values that you want to calculate the values of
+#'  the ERF at.
 #'
 #' @return
 #' return value (TODO)

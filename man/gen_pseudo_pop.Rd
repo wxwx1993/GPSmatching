@@ -30,7 +30,12 @@ gen_pseudo_pop(
 \item "adjusting": Adjusting by GPS
 }}
 
-\item{running_appr}{The running approach.}
+\item{running_appr}{The running approach.
+\itemize{
+\item "base": Base implementation
+\item "parallel": Uses parallel flag whenever possible. (Currently is activated
+on the SuperLearner Module.)
+}}
 
 \item{pred_model}{a prediction model}
 

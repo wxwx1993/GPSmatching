@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpsmatching_smooth.R
 \name{w_fun}
 \alias{w_fun}
-\title{TODO: Function title}
+\title{Helper function}
 \usage{
 w_fun(bw, matched_w, w_vals)
 }
@@ -11,12 +11,13 @@ w_fun(bw, matched_w, w_vals)
 
 \item{matched_w}{a vector of continuous exposure variable in matched set.}
 
-\item{w_vals}{a vector of values that you want to calculate the values of the ERF at.}
+\item{w_vals}{a vector of values that you want to calculate the values of
+the ERF at.}
 }
 \value{
 return value (TODO)
 }
 \description{
-TODO: Function title
+Helper function
 }
 \keyword{internal}

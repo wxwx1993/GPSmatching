@@ -15,6 +15,9 @@ test_that("Arguments provided for Generated synthetic data
 
   expect_error(gen_syn_data(sample_size = -10),
                regexp = "'sample_size' should be a positive ineteger numer." )
+  expect_error(gen_syn_data(gps_spec = 10))
+  expect_error(gen_syn_data(cova_spec = 20))
+  expect_error(gen_syn_data(cova_spec = "a number"))
 })
 
 

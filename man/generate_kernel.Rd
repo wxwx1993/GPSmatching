@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpsmatching_smooth.R
 \name{generate_kernel}
 \alias{generate_kernel}
-\title{Generate Kernel function}
+\title{Generate kernel function}
 \usage{
 generate_kernel(t)
 }
@@ -13,6 +13,6 @@ generate_kernel(t)
 probability distribution
 }
 \description{
-TODO
+Generates kernel function
 }
 \keyword{internal}
