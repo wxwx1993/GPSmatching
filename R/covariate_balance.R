@@ -34,7 +34,7 @@ absolute_corr_fun <- function(w,
 
   if (length(col_f)) {
   absolute_corr_f<- sapply(col_f,function(i){
-    abs(polyserial(w,c[[i]]))})
+    abs(polycor::polyserial(w,c[[i]]))})
   }
 
   absolute_corr <- c(absolute_corr_f, absolute_corr_n)
