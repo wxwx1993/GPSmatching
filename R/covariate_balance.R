@@ -19,15 +19,13 @@
 absolute_corr_fun <- function(w,
                               c){
 
-
   # w type should be numeric (polyserial requirments)
-  if (!is.numeric(w)){
-    w <- unlist(w)
-    if (!is.numeric(w)){
-      stop('w type should be numeric.')
+  if (!is.numeric(w)) {
+     w <- unlist(w)
+     if (!is.numeric(w)) {
+       stop('w type should be numeric.')
     }
   }
-
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]

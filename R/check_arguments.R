@@ -23,7 +23,6 @@ check_args <- function(pred_model, ci_appr, running_appr, ...){
   # 3) Check if based on the main argument, the required arguments are provided.
   # 4) Check if the provided required arguments' values are acceptable.
 
-
   # ------------------------------------------------------
 
   required_args <- NULL
@@ -33,6 +32,7 @@ check_args <- function(pred_model, ci_appr, running_appr, ...){
 
   invisible(TRUE)
 }
+
 
 #' @title
 #' Check estimate_gps function arguments
@@ -83,8 +83,6 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
   invisible(TRUE)
 }
-
-
 
 
 #' @title
@@ -160,7 +158,6 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
       stop(paste(max_attempt, " is not acceptible for max_attempt. Should be a
                  numeric value."))
     }
-
   }
   invisible(TRUE)
 }
