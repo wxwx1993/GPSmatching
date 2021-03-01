@@ -19,6 +19,16 @@
 absolute_corr_fun <- function(w,
                               c){
 
+
+  # w type should be numeric (polyserial requirments)
+  if (!is.numeric(w)){
+    w <- unlist(w)
+    if (!is.numeric(w)){
+      stop('w type should be numeric.')
+    }
+  }
+
+
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 
@@ -32,7 +42,7 @@ absolute_corr_fun <- function(w,
               abs(cor(w,c[[i]],method = c("spearman")))})
   }
 
-  if (length(col_f)) {
+  if (length(col_f) > 0) {
   absolute_corr_f<- sapply(col_f,function(i){
     abs(polycor::polyserial(w,c[[i]]))})
   }
