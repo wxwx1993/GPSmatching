@@ -2,6 +2,7 @@
 
 ## Added
 
+* Covariate balance check for categorical data.
 * Contribution guidelines
 * Parallel flag in training models (`mcSuperLearner`)
 * gen_syn_data function for generating synthetic data

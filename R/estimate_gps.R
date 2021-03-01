@@ -7,7 +7,7 @@
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data frame or matrix of observed covariates variable.
+#' @param c A matrix or dataframe of observed covariates variable.
 #' @param pred_model The selected prediction model.
 #' @param running_appr The running approach.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,
@@ -22,8 +22,8 @@
 #'   - w_resid
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
-#' If \code{internal.use} is set to be FALSE, only originla data set + GPS will
-#' be returend.
+#' If \code{internal.use} is set to be FALSE, only original data set + GPS will
+#' be returned.
 #'
 #' @export
 #'

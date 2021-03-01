@@ -11,7 +11,7 @@ estimate_gps(Y, w, c, pred_model, running_appr, internal_use = TRUE, ...)
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A data frame or matrix of observed covariates variable.}
+\item{c}{A matrix or dataframe of observed covariates variable.}
 
 \item{pred_model}{The selected prediction model.}
 
@@ -31,8 +31,8 @@ The function returns a list of 6 objects according to the following order:
 \item w_resid
 \item gps_mx (min and max of gps)
 \item w_mx (min and max of w).
-If \code{internal.use} is set to be FALSE, only originla data set + GPS will
-be returend.
+If \code{internal.use} is set to be FALSE, only original data set + GPS will
+be returned.
 }
 }
 \description{

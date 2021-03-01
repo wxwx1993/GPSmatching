@@ -21,7 +21,7 @@ gen_pseudo_pop(
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A data frame or matrix of observed covariates variable.}
+\item{c}{A data.frame or matrix of observed covariates variable.}
 
 \item{ci_appr}{The causal inference approach. Possible values are:
 \itemize{

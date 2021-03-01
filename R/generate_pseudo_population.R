@@ -8,7 +8,7 @@
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data frame or matrix of observed covariates variable.
+#' @param c A data.frame or matrix of observed covariates variable.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS

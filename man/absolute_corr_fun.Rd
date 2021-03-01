@@ -21,3 +21,4 @@ pre-exposure covairates.
 \description{
 Checks covariate balance based on absolute correlations for given data sets.
 }
+\keyword{internal}
