@@ -2,26 +2,27 @@
 % Please edit documentation in R/compute_closest_wgps.R
 \name{compute_closest_wgps}
 \alias{compute_closest_wgps}
-\title{A function to find the closest data in subset to the original data}
+\title{Find the closest data in subset to the original data}
 \usage{
 compute_closest_wgps(a, b, c, d, sc)
 }
 \arguments{
-\item{a}{parameter description (TODO)}
+\item{a}{Vector of the first attribute values for subset of data.}
 
-\item{b}{parameter description}
+\item{b}{Vector of the first attribute values for all data.}
 
-\item{c}{parameter description}
+\item{c}{Vector of the second attribute values for subset of data.}
 
-\item{d}{parameter description}
+\item{d}{Vector of size one for the second attribute value.}
 
-\item{sc}{parameter description}
+\item{sc}{Scale parameter to give weight for two mentioned measurements.}
 }
 \value{
 The function returns index of subset data that is closest to the original data
 sample.
 }
 \description{
-Function description (TODO)
+A function to compute the closest data in subset of data to the original data
+based on two attributes: vector and scalar (vector of size one).
 }
 \keyword{internal}
