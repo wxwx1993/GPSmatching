@@ -1,6 +1,15 @@
-# GPSmatching (development version)
+## GPSmatching (development version)
 
-## Added
+### Added
+### Changed
+### Fixed
+### Removed
+
+
+
+# [0.2.0] - 2021-03-01
+
+### Added
 
 * Covariate balance check for categorical data.
 * Contribution guidelines
@@ -19,7 +28,7 @@
 * check_covar_balance function to check if the generated pseudo population statistically acceptable.
 * create_matching function to generate pseudo population based on matching approach.
 
-## Changed
+### Changed
 
 * create_matching only generates matched dataset.
 * Covariate_balance.R --> covariate_balance.R
@@ -31,10 +40,10 @@
 * GPSmatching-package.R --> gpsmatching_package.R
 * GPSmatching_smooth.R --> gpsmatching_smooth.R
 
-## Fixed
+### Fixed
 
 * None
 
-## Remove
+### Removed
 
 * GPSmatching.R functions are separated into smaller functions, and the file is removed.
