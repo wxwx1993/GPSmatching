@@ -8,12 +8,15 @@
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data frame or matrix of observed covariates variable.
+#' @param c A data.frame or matrix of observed covariates variable.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
 #'   - "adjusting": Adjusting by GPS
 #' @param running_appr The running approach.
+#'   - "base": Base implementation
+#'   - "parallel": Uses parallel flag whenever possible. (Currently is activated
+#'    on the SuperLearner Module.)
 #' @param pred_model a prediction model
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
@@ -74,9 +77,9 @@ gen_pseudo_pop <- function(Y,
                            save_path = NULL,
                            ...){
 
-  # Passing packaging check() ----------------------------
+  # Passing packaging check() ------------------------------
   max_attempt <- NULL
-  # ------------------------------------------------------
+  # --------------------------------------------------------
 
 
   ## Check arguments ---------------------------------------

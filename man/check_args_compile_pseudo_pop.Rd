@@ -2,12 +2,12 @@
 % Please edit documentation in R/check_arguments.R
 \name{check_args_compile_pseudo_pop}
 \alias{check_args_compile_pseudo_pop}
-\title{Check CompilePseudoPop function arguments}
+\title{Check compile_pseudo_pop function arguments}
 \usage{
 check_args_compile_pseudo_pop(ci_appr, ...)
 }
 \arguments{
-\item{...}{Additional arguments to successfully run the selected ci.appr.}
+\item{...}{Additional arguments to successfully run the selected ci_appr.}
 
 \item{ci.appr}{The selected causal inference approach.}
 }

@@ -35,14 +35,14 @@ check_args <- function(pred_model, ci_appr, running_appr, ...){
 }
 
 #' @title
-#' Check EstimateGPS function arguments
+#' Check estimate_gps function arguments
 #'
 #' @description
-#' Checks EstimateGPS function arguments to make sure that the required
+#' Checks estimate_gps function arguments to make sure that the required
 #' additional arguments are provided.
 #'
 #' @param pred_model The selected prediction model.
-#' @param ... Addional arguments to successfully run the selected pred.model.
+#' @param ... Additional arguments to successfully run the selected pred_model.
 #'
 #' @return
 #' Returns True if passes all checks, successfully. Otherwise raises ERROR.
@@ -88,14 +88,14 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
 
 #' @title
-#' Check CompilePseudoPop function arguments
+#' Check compile_pseudo_pop function arguments
 #'
 #' @description
-#  Checks CompilePseudoPop function arguments to make sure that the required
+#  Checks compile_pseudo_pop function arguments to make sure that the required
 #' additional arguments are provided.
 #'
 #' @param ci.appr The selected causal inference approach.
-#' @param ...  Additional arguments to successfully run the selected ci.appr.
+#' @param ...  Additional arguments to successfully run the selected ci_appr.
 #'
 #' @return
 #' Returns True if passes all checks, successfully. Otherwise raises ERROR.
@@ -107,11 +107,13 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
   matching_fun <- NULL
+  max_attempt <- NULL
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
-  if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
+  #if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
+  if (!is.element(ci_appr, c('matching'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
 
@@ -148,6 +150,17 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
     if (!is.element(matching_fun, c('matching_l1'))){
       stop(paste(matching_fun, " is not a valid matching function."))
     }
+
+    if (scale < 0 || scale > 1){
+      stop(paste("scale shoule be in [0,1] range. Current provided value: ",
+                 scale))
+    }
+
+    if (!is.numeric(max_attempt)){
+      stop(paste(max_attempt, " is not acceptible for max_attempt. Should be a
+                 numeric value."))
+    }
+
   }
   invisible(TRUE)
 }

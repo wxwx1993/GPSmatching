@@ -20,7 +20,6 @@
 #' @return
 #' `compile_pseudo_pop` returns the pseudo population data that is compiled based
 #' on selected causal inference approach.
-#' @export
 #'
 compile_pseudo_pop <- function(dataset, ci_appr, ...){
 

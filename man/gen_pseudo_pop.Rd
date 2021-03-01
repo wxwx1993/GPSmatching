@@ -21,7 +21,7 @@ gen_pseudo_pop(
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A data frame or matrix of observed covariates variable.}
+\item{c}{A data.frame or matrix of observed covariates variable.}
 
 \item{ci_appr}{The causal inference approach. Possible values are:
 \itemize{
@@ -30,7 +30,12 @@ gen_pseudo_pop(
 \item "adjusting": Adjusting by GPS
 }}
 
-\item{running_appr}{The running approach.}
+\item{running_appr}{The running approach.
+\itemize{
+\item "base": Base implementation
+\item "parallel": Uses parallel flag whenever possible. (Currently is activated
+on the SuperLearner Module.)
+}}
 
 \item{pred_model}{a prediction model}
 

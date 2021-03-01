@@ -2,13 +2,17 @@
 #' Generate synthetic data for GPSmatching package
 #'
 #' @description
-#' Generates synthetic data based on ... (TODO)
+#' Generates synthetic dataset
 #'
-#' @param sample_size sample size description (TODO)
-#' @param seed seed description (TODO)
-#' @param outcome_sd outcpme_sd description (TODO)
-#' @param gps_spec gps_spec description (TODO)
-#' @param cova_spec cova_spec description (TODO)
+#' @param sample_size Number of data samples.
+#' @param seed The seed of R's random number generator.
+#' @param outcome_sd Standard deviation used to generate the outcome in the
+#' synthetic dataset.
+#' @param gps_spec A numerical value (1-7) that indicates the GPS model
+#' used to generate synthetic data. See the code for more details.
+
+#' @param cova_spec A numerical value (1-2) to modify the covariates. See the
+#' code for more details.
 #'
 #' @return
 #' \code{synthetic_data}: The function returns a data.frame saved the
@@ -85,6 +89,10 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
 
     treat <- ((-0.8 + 0.1 * cf[,1] + 0.1 * cf[,2] - 0.1 * cf[,3] + 0.2 * cf[,4]
              + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + rt(size,2)) #+ rcauchy(size)
+  } else {
+
+    stop(paste("gps_spec: ", gps_spec, ", is not a valid value."))
+
   }
 
   #produce outcome Y
@@ -108,6 +116,8 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
     cf[,3] <- (cf[ ,1] * cf[ ,3]/25 + 0.6) ^ 3
     cf[,4] <- (cf[ ,2] + cf[ ,4] + 20) ^ 2
 
+  } else {
+    stop(paste("cova_spec: ", cova_spec, ", is not a valid value."))
   }
 
   simulated_data<-data.frame(cbind(Y,treat,cf, cf5, cf6))

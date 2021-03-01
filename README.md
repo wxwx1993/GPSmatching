@@ -26,36 +26,36 @@ library("GPSmatching")
 
 Input parameters:
 
-**Y**: a vector of observed outcome  
-**w**: a vector of observed continues exposure  
-**c**: data frame or matrix of observed baseline covariates  
-**matching_fun**: specified matching function  
-**scale**: specified scale parameter to control the relative weight that is attributed **to the distance measures of the exposure versus the GPS estimates  
-**delta_n**: specified caliper parameter on the exposure  
-**sl_lib**: a set of machine learning methods used for estimating GPS  
-**ci_appr**: causal inference approach
-**running_appr**: running approach (base, parallel)  
-**covar_bl_method**: specified covariate balance method  
-**covar_bl_trs**: specified covariate balance threshold  
-**max_attempt**: maximum number of attempt to satisfy covariate balance  
+`Y`: a vector of observed outcome  
+`w`: a vector of observed continues exposure  
+`c`: data frame or matrix of observed baseline covariates  
+`matching_fun`: specified matching function  
+`scale`: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
+`delta_n`: specified caliper parameter on the exposure  
+`sl_lib`: a set of machine learning methods used for estimating GPS  
+`ci_appr`: causal inference approach   
+`running_appr`: running approach (base, parallel)  
+`covar_bl_method`: specified covariate balance method  
+`covar_bl_trs`: specified covariate balance threshold  
+`max_attempt`: maximum number of attempt to satisfy covariate balance  
 
 - Generating Pseudo Population
 
 ```r
-pseuodo_pop <- gen_pseudo_pop(Y,
-                            w,
-                            c,
-                            ci_appr = "matching",
-                            running_appr = "base",
-                            pred_model = "sl",
-                            sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                       "SL.ranger"),
-                            covar_bl_method = "absolute",
-                            covar_bl_trs = 0.1,
-                            max_attempt = 1,
-                            matching_fun = "MatchingL1",
-                            delta_n = 1,
-                            scale = 0.5)
+pseudo_pop <- gen_pseudo_pop(Y,
+                             w,
+                             c,
+                             ci_appr = "matching",
+                             running_appr = "base",
+                             pred_model = "sl",
+                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
+                                        "SL.ranger"),
+                             covar_bl_method = "absolute",
+                             covar_bl_trs = 0.1,
+                             max_attempt = 1,
+                             matching_fun = "MatchingL1",
+                             delta_n = 1,
+                             scale = 0.5)
 
 ```
 `MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model.
@@ -64,14 +64,14 @@ pseuodo_pop <- gen_pseudo_pop(Y,
 
 ```r
 data_with_gps <- estimate_gps(Y,
-                             w,
-                             c,
-                             pred_model = "sl",
-                             running_appr = "base",
-                             internal_use = FALSE,
-                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                       "SL.ranger")
-                             )
+                              w,
+                              c,
+                              pred_model = "sl",
+                              running_appr = "base",
+                              internal_use = FALSE,
+                              sl_lib = c("SL.xgboost","SL.earth","SL.gam",
+                                        "SL.ranger")
+                              )
 
 ```
 

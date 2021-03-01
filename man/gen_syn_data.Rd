@@ -13,22 +13,25 @@ gen_syn_data(
 )
 }
 \arguments{
-\item{sample_size}{sample size description (TODO)}
+\item{sample_size}{Number of data samples.}
 
-\item{seed}{seed description (TODO)}
+\item{seed}{The seed of R's random number generator.}
 
-\item{outcome_sd}{outcpme_sd description (TODO)}
+\item{outcome_sd}{Standard deviation used to generate the outcome in the
+synthetic dataset.}
 
-\item{gps_spec}{gps_spec description (TODO)}
+\item{gps_spec}{A numerical value (1-7) that indicates the GPS model
+used to generate synthetic data. See the code for more details.}
 
-\item{cova_spec}{cova_spec description (TODO)}
+\item{cova_spec}{A numerical value (1-2) to modify the covariates. See the
+code for more details.}
 }
 \value{
 \code{synthetic_data}: The function returns a data.frame saved the
 constructed synthetic data.
 }
 \description{
-Generates synthetic data based on ... (TODO)
+Generates synthetic dataset
 }
 \examples{
 s_data <- gen_syn_data(sample_size=100, seed = 403,

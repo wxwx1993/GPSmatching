@@ -24,11 +24,17 @@ matching_l1 <- function(w,
                         e_gps_pred,
                         e_gps_std_pred,
                         w_resid,
-                        w_mx,
                         gps_mx,
+                        w_mx,
                         delta_n=1,
                         scale=0.5)
 {
+
+  if (length(w)!=1){
+    stop("w should be a vector of size 1.")
+  }
+
+
   w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
   p_w <- compute_density(w_resid, w_new)
 
