@@ -14,6 +14,6 @@
 #' A n by m matrix that includes abs difference between elements of vector a and b.
 #' @export
 #'
-ComputeOuter <- function(a,b,op){
+compute_outer <- function(a,b,op){
   return(abs(outer(a, b, op)))
 }

@@ -52,16 +52,16 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 
 ## Style Guide
 
-In this project, we are moving toward [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html). This coding style is mentioned in different projects with more details. For example see Kevin Shin's [notes](https://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html) at Statistical Programming with R Laboratory class.
+In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
 
 ### Summary
 
 #### Names
 
 - File names all snake_case and ends with .R (e.g., create_matching.R)
-- variable names small letter and separate with . if need (e.g., delta.n)
-- Function names should follow CamelCase style (e.g., GenerateData)
-- Function names follow verb+function output convention (e.g., ComputeResid)
+- variable names small letter and separate with _ if need (e.g., delta_n)
+- Function names should follow snake_case style (e.g., generate_data)
+- Function names follow verb+output convention (e.g., compute_resid)
 
 #### Spaces and Indentation
 
@@ -69,10 +69,10 @@ In this project, we are moving toward [Google's R Style Guide](https://google.gi
 - Place space around binary operators (e.g., x + y)
 
 ```R
-Acceptable:
+#Acceptable:
 z <- x + y
 
-Not recommended:
+#Not recommended:
 z<-x+y # (no space)
 z<- x+y
 z<-x +y
@@ -81,10 +81,10 @@ z<-x +y
 - Place space after comma
 
 ```R
-Acceptable:
+#Acceptable:
 a <- matrix(c(1:100), nrow = 5)
 
-Not recommended:
+#Not recommended:
 a <- matrix(c(1:100),nrow = 5) # (no space after comma)
 a <- matrix( c(1:100), nrow = 5 ) # (extra space after and before parentheses)
 a<-matrix(c(1:100), nrow = 5) # (no space around unary operator <- )
@@ -93,10 +93,10 @@ a<-matrix(c(1:100), nrow = 5) # (no space around unary operator <- )
 - Place space after # and before commenting and avoid multiple ###
 
 ```R
-Acceptable:
+#Acceptable:
 # This is a comment
 
-Not recommended:
+#Not recommended:
 #This is a comment
 #    This is a comment (more than one space after #)
 ## This is a comment (multiple #)
@@ -106,13 +106,28 @@ Not recommended:
 - Do not put space at the opening and closing the parenthesis
 
 ```R
-Acceptable:
+#Acceptable:
 x <- (z + y)
 
-Not recommended:
+#Not recommended:
 x <- ( z + y ) # (unnecessary space)
 x <- (z + y )
 x <- ( z + y)
+```
+
+- Place a space before and after `()` when used with `if`, `for`, or `while`.
+
+```R
+
+#Acceptible
+if (x > 2) {
+  print(x)
+}
+
+# Not recommended
+if(x > 2){
+  print(x)
+}
 ```
 
 #### Other notes

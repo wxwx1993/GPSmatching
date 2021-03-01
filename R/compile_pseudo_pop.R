@@ -12,28 +12,27 @@
 #'   - w_resid
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
-#' @param ci.appr Causal inference approach.
+#' @param ci_appr Causal inference approach.
 #' @param ... Additional parameters.
 #'
 #' @keywords internal
 #'
 #' @return
-#' `CompilePseudoPop` returns the pseudo population data that is compiled based
+#' `compile_pseudo_pop` returns the pseudo population data that is compiled based
 #' on selected causal inference approach.
-#' @export
 #'
-CompilePseudoPop <- function(dataset, ci.appr, ...){
+compile_pseudo_pop <- function(dataset, ci_appr, ...){
 
   # Checking arguments
-  CheckArgsCPseudoPop(ci.appr, ...)
+  check_args_compile_pseudo_pop(ci_appr, ...)
 
-  if (ci.appr == 'matching'){
-    matched.set <- CreateMatching(dataset, ...)
-    return(matched.set)
+  if (ci_appr == 'matching'){
+    matched_set <- create_matching(dataset, ...)
+    return(matched_set)
   }
 
-  if (is.element(ci.appr, c('weighting', 'adjusting'))){
-    stop(paste(ci.appr, " casual inference approach is not implemented."))
+  if (is.element(ci_appr, c('weighting', 'adjusting'))){
+    stop(paste(ci_appr, " casual inference approach is not implemented."))
   }
 
   stop('The code should get here. Something is wrong with checing arguments.')

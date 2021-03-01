@@ -12,10 +12,10 @@
 #'
 #' @keywords internal
 #'
-ComputeMinMax <- function(x){
+compute_min_max <- function(x){
 
-  min.x <- min(x,na.rm=T)
-  max.x <- max(x,na.rm=T)
+  min_x <- min(x,na.rm=T)
+  max_x <- max(x,na.rm=T)
 
-  return(c(min.x, max.x))
+  return(c(min_x, max_x))
 }

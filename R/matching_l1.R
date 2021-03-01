@@ -13,51 +13,57 @@
 #' @param gps_mx a vector with length 2, includes min(gps), max(gps)
 #' @param scale a specified scale parameter to control the relative weight that is attributed to
 #' the distance measures of the exposure versus the GPS estimates (Default is 0.5).
-#' @param delta.n a specified caliper parameter on the exposure (Default is 1).
+#' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @return
 #' \code{dp}: The function returns a data.table saved the matched points on by single exposure
 #' level w by the proposed GPS matching approaches.
 #' @export
 #'
-MatchingL1 <- function(w,
-                       dataset,
-                       e_gps_pred,
-                       e_gps_std_pred,
-                       w_resid,
-                       w_mx,
-                       gps_mx,
-                       delta.n=1,
-                       scale=0.5)
+matching_l1 <- function(w,
+                        dataset,
+                        e_gps_pred,
+                        e_gps_std_pred,
+                        w_resid,
+                        gps_mx,
+                        w_mx,
+                        delta_n=1,
+                        scale=0.5)
 {
-  w.new <- ComputeResid(w, e_gps_pred, e_gps_std_pred)
-  p.w <- ComputeDensity(w_resid, w.new)
 
-  w.min <- w_mx[1]
-  w.max <- w_mx[2]
-  gps.min <- gps_mx[1]
-  gps.max <- gps_mx[2]
+  if (length(w)!=1){
+    stop("w should be a vector of size 1.")
+  }
+
+
+  w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
+  p_w <- compute_density(w_resid, w_new)
+
+  w_min <- w_mx[1]
+  w_max <- w_mx[2]
+  gps_min <- gps_mx[1]
+  gps_max <- gps_mx[2]
 
   # handles check note.
   gps <- NULL
 
   dataset <- transform(dataset,
-                       std.w = (w - w.min) / (w.max - w.min),
-                       std.gps = (gps - gps.min) / (gps.max - gps.min))
+                       std_w = (w - w_min) / (w_max - w_min),
+                       std_gps = (gps - gps_min) / (gps_max - gps_min))
 
-  std.w <- (w - w.min) / (w.max - w.min)
-  std.p.w <- (p.w - gps.min) / (gps.max - gps.min)
+  std_w <- (w - w_min) / (w_max - w_min)
+  std_p_w <- (p_w - gps_min) / (gps_max - gps_min)
 
-  dataset.subset <- dataset[abs(dataset[["w"]] - w) <= (delta.n/2), ]
+  dataset_subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n/2), ]
 
-  wm <- ComputeClosestWGPS(dataset.subset[["std.gps"]],
-                           std.p.w,
-                           dataset.subset[["std.w"]],
-                           std.w,
-                           scale)
+  wm <- compute_closest_wgps(dataset_subset[["std_gps"]],
+                             std_p_w,
+                             dataset_subset[["std_w"]],
+                             std_w,
+                             scale)
 
-  dp <- dataset.subset[wm,]
-  dp["std.w"] <- NULL
-  dp["std.gps"] <- NULL
+  dp <- dataset_subset[wm,]
+  dp["std_w"] <- NULL
+  dp["std_gps"] <- NULL
   return(dp)
   gc()
 }

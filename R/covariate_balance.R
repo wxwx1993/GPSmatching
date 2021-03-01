@@ -13,13 +13,40 @@
 #' \code{mean_absolute_corr}: the average absolute correlations for all
 #'  pre-exposure covairates.
 #' @importFrom stats cor
-#' @export
+#'
+#' @keywords internal
 
-AbsoluteCorrFun <- function(w,
+absolute_corr_fun <- function(w,
                               c){
-  absolute.corr<- sapply(colnames(c),function(i){
-              abs(cor(w,c[[i]],method = c("spearman")))})
 
-  return(list(absolute.corr = absolute.corr,
-              mean_absolute.corr = mean(absolute.corr)))
+  # w type should be numeric (polyserial requirments)
+  if (!is.numeric(w)) {
+     w <- unlist(w)
+     if (!is.numeric(w)) {
+       stop('w type should be numeric.')
+    }
+  }
+
+  # detect numeric columns
+  col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
+
+  # detect factorial columns
+  col_f <- colnames(c)[unlist(lapply(c, is.factor))]
+
+  absolute_corr_n <- absolute_corr_f <- NULL
+
+  if (length(col_n) > 0) {
+  absolute_corr_n<- sapply(col_n,function(i){
+              abs(cor(w,c[[i]],method = c("spearman")))})
+  }
+
+  if (length(col_f) > 0) {
+  absolute_corr_f<- sapply(col_f,function(i){
+    abs(polycor::polyserial(w,c[[i]]))})
+  }
+
+  absolute_corr <- c(absolute_corr_f, absolute_corr_n)
+
+  return(list(absolute_corr = absolute_corr,
+              mean_absolute_corr = mean(absolute_corr)))
 }
