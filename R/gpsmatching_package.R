@@ -22,6 +22,7 @@
 #' @import ranger
 #' @import gam
 #' @import KernSmooth
+#' @import polycor
 #'
 #' @references
 #' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.
