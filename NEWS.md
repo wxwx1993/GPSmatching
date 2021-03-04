@@ -1,8 +1,9 @@
 ## GPSmatching (development version)
 
 ### Added
-- Customized wrapper for xgboost package.
+- Customized wrapper for xgboost package ().
 - `param` as an argument to accept hyperparameters from users.
+
 ### Changed
 - User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
 ### Fixed

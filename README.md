@@ -48,8 +48,11 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
-                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
+                             sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
+                             params = list(xgb_nrounds=c(10,20,30),
+                                           xgb_eta=c(0.1,0.2,0.3)),
+                             nthread = 1,
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
                              max_attempt = 1,
@@ -58,7 +61,13 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              scale = 0.5)
 
 ```
-`MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model.
+`MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model. `params` is a list of hyperparameters. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
 
 - Estimating GPS
 
@@ -77,11 +86,7 @@ data_with_gps <- estimate_gps(Y,
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. `params` is a list of hyperparameters. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
-
-| Package name | `sl_lib` name | prefix| available hyperparameters |
-|:------------:|:-------------:|:-----:|:-------------------------:|
-| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
 
 - Estimating Exposure Rate Function
 
