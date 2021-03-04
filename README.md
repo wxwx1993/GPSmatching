@@ -69,13 +69,19 @@ data_with_gps <- estimate_gps(Y,
                               pred_model = "sl",
                               running_appr = "base",
                               internal_use = FALSE,
-                              sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                        "SL.ranger")
+                              params = list(xgb_max_depth = c(3,4,5),
+                                            xgb_rounds = c(10,20,30,40)),
+                              nthread = 1,                                
+                              sl_lib = c("m_xgboost")
                               )
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?estimate_gps` for more details.
+If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. `params` is a list of hyperparameters. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
 
 - Estimating Exposure Rate Function
 

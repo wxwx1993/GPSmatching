@@ -4,7 +4,17 @@
 \alias{estimate_gps}
 \title{Estimate GPS values}
 \usage{
-estimate_gps(Y, w, c, pred_model, running_appr, internal_use = TRUE, ...)
+estimate_gps(
+  Y,
+  w,
+  c,
+  pred_model,
+  running_appr,
+  internal_use = TRUE,
+  params = list(),
+  nthread = 1,
+  ...
+)
 }
 \arguments{
 \item{Y}{A vector of observed outcome variable.}
@@ -19,6 +29,12 @@ estimate_gps(Y, w, c, pred_model, running_appr, internal_use = TRUE, ...)
 
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
 will return original data + GPS value.}
+
+\item{params}{Includes list of params that is used internally. Unrelated
+parameters will be ignored.}
+
+\item{nthread}{An integer value that represents then number threads to use by
+internal packages.}
 
 \item{...}{Additional arguments passed to the model.}
 }
@@ -46,8 +62,10 @@ data_with_gps <- estimate_gps(m_d$Y,
                               pred_model = "sl",
                               running_appr = "base",
                               internal_use = FALSE,
-                              sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                       "SL.ranger")
+                              params = list(xgb_max_depth = c(3,4,5),
+                                       xgb_nrounds=c(10,20,30,40,50,60)),
+                              nthread = 1,
+                              sl_lib = c("m_xgboost")
                              )
 
 }

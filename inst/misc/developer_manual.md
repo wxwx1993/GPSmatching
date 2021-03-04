@@ -135,3 +135,7 @@ if(x > 2){
 - Maximum line length is 80 character
 - Use explicit returns
 - Use explicit tags in documentation (e.g., @title, @description, ...)
+
+## Notes on SuperLearner
+In this package we create a customized wrapper for the SuperLearner internal libraries. Please read the following page for more details.
+- [Creating Customized Wrappers for the SuperLearner Package](notes_on_superlearner.md)

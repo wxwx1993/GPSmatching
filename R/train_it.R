@@ -7,6 +7,7 @@
 #'     - *sl_lib*: a set of methods used for estimating target value (e.g.,
 #'     ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
 #' @param running_appr The running approach.
+#' @param sl_lib_internal The internal library to be used by SuperLearner
 #' @param ... Model related parameters should be provided.
 #'
 #' @return
@@ -14,7 +15,8 @@
 #'
 #' @keywords internal
 #'
-train_it <- function(target, input, pred_model, running_appr, ...) {
+train_it <- function(target, input, pred_model, running_appr,
+                     sl_lib_internal=NULL, ...) {
 
   # Passing packaging check() ----------------------------
   sl_lib <- NULL
@@ -27,7 +29,6 @@ train_it <- function(target, input, pred_model, running_appr, ...) {
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-
   platform_os <- .Platform$OS.type
 
   if (pred_model == 'sl'){
@@ -35,16 +36,17 @@ train_it <- function(target, input, pred_model, running_appr, ...) {
     if (running_appr=="parallel"){
       if (is.element(platform_os,c("unix"))){
         pr_mdl <- SuperLearner::mcSuperLearner(Y=target, X=data.frame(input),
-                                               SL.library=sl_lib)
+                                               SL.library=sl_lib_internal)
       } else {
         message(paste("Running on multiple cores is not implemented for ",
                        platform_os, " platform. Running on single core ..."))
         pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
-                                             SL.library=sl_lib)
+                                             SL.library=sl_lib_internal)
         }
     } else if (running_appr=="base") {
+
       pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
-                                           SL.library=sl_lib)
+                                           SL.library=sl_lib_internal)
     } else {
       stop(' The requested running approach (',running_appr,
            ') is not implemented.')
