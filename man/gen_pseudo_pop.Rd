@@ -13,6 +13,8 @@ gen_pseudo_pop(
   pred_model,
   save_output = FALSE,
   save_path = NULL,
+  params = list(),
+  nthread = 1,
   ...
 )
 }
@@ -44,6 +46,12 @@ Default is FALSE.}
 
 \item{save_path}{location for storing the final results, format of the saved
 file will be detected by the file name extension.}
+
+\item{params}{Includes list of params that is used internally. Unrelated
+parameters will be ignored.}
+
+\item{nthread}{An integer value that represents then number threads to use by
+internal packages.}
 
 \item{...}{Additional arguments passed to different models.}
 }
@@ -91,7 +99,7 @@ values.
 \itemize{
 \item if pred_model = 'sl':
 \itemize{
-\item \emph{sl.lib}: A vector of prediction algorithms.
+\item \emph{sl_lib}: A vector of prediction algorithms.
 }
 }
 }
@@ -107,6 +115,8 @@ pseuodo_pop <- gen_pseudo_pop(m_d$Y,
                               running_appr = "base",
                               pred_model = "sl",
                               sl_lib = c("m_xgboost"),
+                              params = list(xgb_nrounds=c(10,20,30),
+                               xgb_eta=c(0.1,0.2,0.3)),
                               covar_bl_method = "absolute",
                               covar_bl_trs = 0.1,
                               max_attempt = 1,

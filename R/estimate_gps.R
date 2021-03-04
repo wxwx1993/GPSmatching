@@ -71,8 +71,12 @@ estimate_gps <- function(Y,
   # Generate SL wrapper library for each type of prediction algorithms
   sl_lib_internal = NULL
   for (item in sl_lib){
-    gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
-    sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
+    wrapper_generated <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
+    if (wrapper_generated){
+      sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
+    } else {
+      sl_lib_internal <- c(sl_lib_internal, item)
+    }
   }
 
   e_gps <- train_it(target = w, input = c, pred_model, running_appr,

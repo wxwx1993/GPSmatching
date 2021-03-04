@@ -25,13 +25,6 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                               "xgb_max_depth"=4,
                               "xgb_eta"=0.1,
                               "xgb_min_child_weight"=10
-                              #"xgb_gamma"=0,
-                              #"xgb_max_delta_step"=0,
-                              #"xgb_subsample"=1,
-                              #"xgb_sampling_method"="uniform",
-                              #"xgb_lambda" = 1,
-                              #"xgb_alpha" = 0,
-                              #"xgb_num_parallel_tree" = 1
                              )
     for (item in names(params)){
 
@@ -56,37 +49,11 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "max_depth=max_depth, minobspernode = minobspernode,",
                            "...)}", sep="")), envir = .GlobalEnv)
 
-    # eval(parse(text= paste(" m_xgboost_internal <- function(ntrees = ",
-    #                        xgb_ntrees,
-    #                        ", max_depth = ", xgb_max_depth,
-    #                        ", eta = ", xgb_eta,
-    #                        ", min_child_weight =", xgb_min_child_weight,
-    #                        ", gamma = ", xgb_gamma,
-    #                        ", max_delta_step = ",  xgb_max_delta_step,
-    #                        ", subsample = ", xgb_subsample,
-    #                        ", sampling_method = \"", xgb_sampling_method,"\"",
-    #                        ", lambda = ", xgb_lambda,
-    #                        ", alpha = ", xgb_alpha,
-    #                        ", num_parallel_tree =", xgb_num_parallel_tree,
-    #                        ", nthread = ", nthread, ") {
-    #   SL.xgboost(ntrees = ntrees,
-    #              max_depth = max_depth,
-    #              eta = eta,
-    #              min_child_weight = min_child_weight,
-    #              gamma = gamma,
-    #              max_delta_step = max_delta_step,
-    #              subsample = subsample,
-    #              sampling_method = sampling_method,
-    #              lambda = lambda,
-    #              alpha = alpha,
-    #              num_parallel_tree = num_parallel_tree,
-    #              nthread = nthread,
-    #              verbose = 0,
-    #              ...)
-    # }", sep="")), envir = .GlobalEnv)
-
+    return(TRUE)
   } else {
-    message(paste("Modified library for ", lib_name, " is not implemented."))
+    message(paste("Modified library for ", lib_name, " is not implemented.",
+                  "Will be used as provided."))
+    return(FALSE)
   }
 }
 
