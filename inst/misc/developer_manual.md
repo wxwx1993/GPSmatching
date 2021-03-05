@@ -50,6 +50,13 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 - If you are adding new features, please make sure that appropriate documentation is added or updated.
 - Please clean up white spaces. Read more [here](https://softwareengineering.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal).
 
+## Reporting bugs
+
+Please report potential bugs by creating a [new issue](https://github.com/fasrc/GPSmatching/issues) or sending us an email. Please include the following information in your bug report:
+- A brief description of what you are doing, what you expected to happen, and what happened. 
+- OS that you are using and whether you are using a personal computer or HPC cluster. 
+- The version of the package that you have installed.
+
 ## Style Guide
 
 In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
