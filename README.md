@@ -48,17 +48,26 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
-                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
+                             sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
+                             params = list(xgb_nrounds=c(10,20,30),
+                                           xgb_eta=c(0.1,0.2,0.3)),
+                             nthread = 1,
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
                              max_attempt = 1,
-                             matching_fun = "MatchingL1",
+                             matching_fun = "matching_l1",
                              delta_n = 1,
                              scale = 0.5)
 
 ```
-`MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model.
+`matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
 
 - Estimating GPS
 
@@ -69,13 +78,15 @@ data_with_gps <- estimate_gps(Y,
                               pred_model = "sl",
                               running_appr = "base",
                               internal_use = FALSE,
-                              sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                        "SL.ranger")
+                              params = list(xgb_max_depth = c(3,4,5),
+                                            xgb_rounds = c(10,20,30,40)),
+                              nthread = 1,                                
+                              sl_lib = c("m_xgboost")
                               )
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?estimate_gps` for more details.
+If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
 
 - Estimating Exposure Rate Function
 
@@ -89,17 +100,18 @@ erf <- estimate_erf(Y,
 - Generating Synthetic Data
 
 ```r
-syn_data <- GenSynData(sample_size=1000,
-                       seed = 403,
-                       outcome_sd = 10,
-                       gps_spec = 1,
-                       cova_spec = 1)
+syn_data <- gen_syn_data(sample_size=1000,
+                         seed = 403,
+                         outcome_sd = 10,
+                         gps_spec = 1,
+                         cova_spec = 1)
 
 ```
 
 ## Contribution
 
-For more information about reporting bugs and contribution, please read [Contribution Page](inst/misc/developer_manual.md).
+For more information about reporting bugs and contribution, please read the [Contribution Page](inst/misc/developer_manual.md).
+
 
 ## References
 

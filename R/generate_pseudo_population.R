@@ -22,6 +22,10 @@
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
 #' file will be detected by the file name extension.
+#' @param params Includes list of params that is used internally. Unrelated
+#'  parameters will be ignored.
+#' @param nthread An integer value that represents then number threads to use by
+#'  internal packages.
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
@@ -44,7 +48,7 @@
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
 #' ### Prediction models (pred_model)
 #' - if pred_model = 'sl':
-#'   - *sl.lib*: A vector of prediction algorithms.
+#'   - *sl_lib*: A vector of prediction algorithms.
 #'
 #' @return
 #' \code{GenPseudoPop} returns a data.table pseudo population that is generated
@@ -53,19 +57,22 @@
 #' @export
 #' @examples
 #' m_d <- gen_syn_data(sample_size = 100)
-#' pseuodo_pop <- gen_pseudo_pop(m_d$Y,
-#'                               m_d$treat,
-#'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                               ci_appr = "matching",
-#'                               running_appr = "base",
-#'                               pred_model = "sl",
-#'                               sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
-#'                               covar_bl_method = "absolute",
-#'                               covar_bl_trs = 0.1,
-#'                               max_attempt = 1,
-#'                               matching_fun = "matching_l1",
-#'                               delta_n = 1,
-#'                               scale = 0.5)
+#' pseuoo_pop <- gen_pseudo_pop(m_d$Y,
+#'                              m_d$treat,
+#'                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                              ci_appr = "matching",
+#'                              running_appr = "base",
+#'                              pred_model = "sl",
+#'                              sl_lib = c("m_xgboost"),
+#'                              params = list(xgb_nrounds=c(10,20,30),
+#'                               xgb_eta=c(0.1,0.2,0.3)),
+#'                              nthread = 1,
+#'                              covar_bl_method = "absolute",
+#'                              covar_bl_trs = 0.1,
+#'                              max_attempt = 1,
+#'                              matching_fun = "matching_l1",
+#'                              delta_n = 1,
+#'                              scale = 0.5)
 #'
 gen_pseudo_pop <- function(Y,
                            w,
@@ -75,6 +82,8 @@ gen_pseudo_pop <- function(Y,
                            pred_model,
                            save_output = FALSE,
                            save_path = NULL,
+                           params = list(),
+                           nthread = 1,
                            ...){
 
   # Passing packaging check() ------------------------------
@@ -103,6 +112,7 @@ gen_pseudo_pop <- function(Y,
 
     ## Estimate GPS -----------------------------
     estimate_gps_out <- estimate_gps(Y, w, c, pred_model, running_appr,
+                                     params = params, nthread = nthread,
                                      internal_use = TRUE, ...)
 
     ## Compile data ---------
