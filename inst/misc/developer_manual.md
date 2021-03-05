@@ -60,7 +60,7 @@ Please report potential bugs by creating a [new issue](https://github.com/fasrc/
 ## Testing the package
 Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/GPSmatching/issues). In the following link, there steps to generate synthetic data and conduct some testing. 
 
-- [Testing the package, examples, and discussion]()
+- [Testing the package, examples, and discussion](testing_example_discussion.md)
 
 
 
