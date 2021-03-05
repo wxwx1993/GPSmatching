@@ -100,17 +100,18 @@ erf <- estimate_erf(Y,
 - Generating Synthetic Data
 
 ```r
-syn_data <- GenSynData(sample_size=1000,
-                       seed = 403,
-                       outcome_sd = 10,
-                       gps_spec = 1,
-                       cova_spec = 1)
+syn_data <- gen_syn_data(sample_size=1000,
+                         seed = 403,
+                         outcome_sd = 10,
+                         gps_spec = 1,
+                         cova_spec = 1)
 
 ```
 
 ## Contribution
 
-For more information about reporting bugs and contribution, please read [Contribution Page](inst/misc/developer_manual.md).
+For more information about reporting bugs and contribution, please read the [Contribution Page](inst/misc/developer_manual.md).
+
 
 ## References
 

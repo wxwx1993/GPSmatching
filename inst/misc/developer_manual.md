@@ -57,6 +57,13 @@ Please report potential bugs by creating a [new issue](https://github.com/fasrc/
 - OS that you are using and whether you are using a personal computer or HPC cluster. 
 - The version of the package that you have installed.
 
+## Testing the package
+Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/GPSmatching/issues). In the following link, there steps to generate synthetic data and conduct some testing. 
+
+- [Testing the package, examples, and discussion]()
+
+
+
 ## Style Guide
 
 In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
