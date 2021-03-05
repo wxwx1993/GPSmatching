@@ -28,7 +28,7 @@ The process should run smoothly. Try `?GPSmatching`. It should open the package 
 Go to the package [Github reposirory](https://github.com/fasrc/GPSmatching), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
 
 <p float="center">
-  <img src="figures/png/testing_example_discussion_fig1.png" width="400">
+  <img src="figures/png/testing_example_discussion_fig1.png" width="600">
 </p>
 
 After cloning the code, open one of the files using RStudio, then change the project directory to the project directory (`Session > Set Working Directory > To Project Directory`). 
