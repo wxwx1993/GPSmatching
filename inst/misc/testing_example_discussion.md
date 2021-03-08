@@ -241,38 +241,38 @@ erf_val <- estimate_erf(pseudo_pop$Y,
 
 The package is being tested on different data samples, some of them are generated during testing, and some others are generated before and just are loaded. These data are located in "R/sysdata.rda" file. If you add new features to the code, you may need to use some external or precomputed dataset to test your functions. In the following, we explain the steps to append data to "R/sysdata.rda". Please note that CRAN might reject large datasets. 
 
-- **Step 1:** Run `check()` to make sure that the file as-is satisfies all test requirements.  If it raises an error, warning, or note, please address them before modifying the data. In some rare cases, `check()` does not pass successfully, however, test() does. This is sufficient for changing the data; however, you need to address it before submitting a pull request.
+- Step 1: Run `check()` to make sure that the file as-is satisfies all test requirements.  If it raises an error, warning, or note, please address them before modifying the data. In some rare cases, `check()` does not pass successfully, however, test() does. This is sufficient for changing the data; however, you need to address it before submitting a pull request.
 
-- **Step 2:** Create a backup data from the current data.
+- Step 2: Create a backup data from the current data.
 
 ```S
 # in terminal
 cp  R/sysdata.rda R/sysdata_backup.rda
 ``` 
 
-- **Step 3:** Clean Global environment 
+- Step 3: Clean Global environment 
 
 ```R
 rm(list=ls())
 ```
 
-- **Step 4:** Load current data and store the names
+- Step 4: Load current data and store the names
 
 ```R
 load("R/sysdata.rd")
 list_names <- ls()
 ```
-- **Step 5:** Generate your data (mydata) and make sure to add steps to reproduce that data as a comment in your test file.
-- **Step 6:** Add new data name to `list_names`. Please note the quotes. You do not need to add data, just the name.
+- Step 5: Generate your data (mydata) and make sure to add steps to reproduce that data as a comment in your test file.
+- Step 6: Add new data name to `list_names`. Please note the quotes. You do not need to add data, just the name.
 
 ```R
 list_names <- c(list_names, "mydata") 
 ``` 
-- **Step 7:** Save the data.
+- Step 7: Save the data.
 
 ```R
 save(list=list_names, file="R/sysdata.rda"
 ``` 
 
-- **Step 8:** Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
-- **Step 9:** After succssfull `check()/pass()` remove the backup file. 
+- Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
+- Step 9: After succssfull `check()/pass()` remove the backup file. 
