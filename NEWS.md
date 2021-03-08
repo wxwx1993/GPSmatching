@@ -2,6 +2,7 @@
 
 ### Added
 
+- create_weighting.R
 - Steps for adding test data into 'sysdata.rda'.
 - `weighting` option as causal inference approach.  
 - absoulte_weighted_corr_fun.R
