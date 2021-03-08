@@ -168,6 +168,44 @@ pseuodo_pop <- gen_pseudo_pop(mydata$Y,
 
 ```
 
+The second causal inference approach is `weighting`. Here is an example to generate pseudo population using `weighting` approach.
+
+```R
+mydata <- gen_syn_data(sample_size = 10000) 
+
+year <- c(rep(c("2001"), each=2000),
+          rep(c("2002"), each=2000),
+          rep(c("2003"), each=2000),
+          rep(c("2004"), each=2000), 
+          rep(c("2005"), each=2000))
+
+region <- rep(c(rep("North",each=500),
+                rep("South",each=500),
+                rep("East",each=500),
+                rep("West",each=500)), each=5)
+
+mydata$year <- as.factor(year)
+mydata$region <- as.factor(region)
+
+pseuodo_pop <- gen_pseudo_pop(mydata$Y,
+                              mydata$treat,
+                              mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                              ci_appr = "weighting",
+                              running_appr = "base",
+                              pred_model = "sl",
+                              sl_lib = c("m_xgboost"),
+                              params = list(xgb_nrounds=c(10,20,30),
+                               xgb_eta=c(0.1,0.2,0.3)),
+                              nthread = 1,
+                              covar_bl_method = "absolute",
+                              covar_bl_trs = 0.1,
+                              max_attempt = 1
+                              )
+
+```
+
+
+
 ### Further Processing
 
 After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (`estimate_erf`) is implemented. 
@@ -198,3 +236,43 @@ erf_val <- estimate_erf(pseudo_pop$Y,
                         w_vals = seq(2,20,0.5))
 
 ```
+
+## Steps for using precomputed data during the test
+
+The package is being tested on different data samples, some of them are generated during testing, and some others are generated before and just are loaded. These data are located in "R/sysdata.rda" file. If you add new features to the code, you may need to use some external or precomputed dataset to test your functions. In the following, we explain the steps to append data to "R/sysdata.rda". Please note that CRAN might reject large datasets. 
+
+- Step 1: Run `check()` to make sure that the file as-is satisfies all test requirements.  If it raises an error, warning, or note, please address them before modifying the data. In some rare cases, `check()` does not pass successfully, however, test() does. This is sufficient for changing the data; however, you need to address it before submitting a pull request.
+
+- Step 2: Create a backup data from the current data.
+
+```S
+# in terminal
+cp  R/sysdata.rda R/sysdata_backup.rda
+``` 
+
+- Step 3: Clean Global environment 
+
+```R
+rm(list=ls())
+```
+
+- Step 4: Load current data and store the names
+
+```R
+load("R/sysdata.rd")
+list_names <- ls()
+```
+- Step 5: Generate your data (mydata) and make sure to add steps to reproduce that data as a comment in your test file.
+- Step 6: Add new data name to `list_names`. Please note the quotes. You do not need to add data, just the name.
+
+```R
+list_names <- c(list_names, "mydata") 
+``` 
+- Step 7: Save the data.
+
+```R
+save(list=list_names, file="R/sysdata.rda"
+``` 
+
+- Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
+- Step 9: After succssfull `check()/pass()` remove the backup file. 

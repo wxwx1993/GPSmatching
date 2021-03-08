@@ -62,8 +62,6 @@ Testing the package is an important part of package development. Although we are
 
 - [Testing the package, examples, and discussion](testing_example_discussion.md)
 
-
-
 ## Style Guide
 
 In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
