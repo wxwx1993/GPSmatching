@@ -2,14 +2,17 @@
 
 ### Added
 
+- `weighting` option as causal inference approach.  
+- absoulte_weighted_corr_fun.R
 - Testing and running example guidelines for developers
--  Customized wrapper for xgboost package.
+- Customized wrapper for xgboost package.
 - `param` as an argument to accept hyperparameters from users.
 
 
 ### Changed
 
 - User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
+- covarate_balance.R --> absolute_corr_fun.R
 
 ### Fixed
 ### Removed

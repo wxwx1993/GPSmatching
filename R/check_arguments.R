@@ -111,7 +111,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
 
   # checkpoint 1 -----------------------------------------
   #if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
-  if (!is.element(ci_appr, c('matching'))){
+  if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
 

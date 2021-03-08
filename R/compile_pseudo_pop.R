@@ -31,7 +31,12 @@ compile_pseudo_pop <- function(dataset, ci_appr, ...){
     return(matched_set)
   }
 
-  if (is.element(ci_appr, c('weighting', 'adjusting'))){
+  if (ci_appr == 'weighting'){
+    weighted_set <- create_weighting(dataset, ...)
+    return(weighted_set)
+  }
+
+  if (is.element(ci_appr, c('adjusting'))){
     stop(paste(ci_appr, " casual inference approach is not implemented."))
   }
 

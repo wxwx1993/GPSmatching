@@ -168,6 +168,44 @@ pseuodo_pop <- gen_pseudo_pop(mydata$Y,
 
 ```
 
+The second causal inference approach is `weighting`. Here is an example to generate pseudo population using `weighting` approach.
+
+```R
+mydata <- gen_syn_data(sample_size = 10000) 
+
+year <- c(rep(c("2001"), each=2000),
+          rep(c("2002"), each=2000),
+          rep(c("2003"), each=2000),
+          rep(c("2004"), each=2000), 
+          rep(c("2005"), each=2000))
+
+region <- rep(c(rep("North",each=500),
+                rep("South",each=500),
+                rep("East",each=500),
+                rep("West",each=500)), each=5)
+
+mydata$year <- as.factor(year)
+mydata$region <- as.factor(region)
+
+pseuodo_pop <- gen_pseudo_pop(mydata$Y,
+                              mydata$treat,
+                              mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                              ci_appr = "weighting",
+                              running_appr = "base",
+                              pred_model = "sl",
+                              sl_lib = c("m_xgboost"),
+                              params = list(xgb_nrounds=c(10,20,30),
+                               xgb_eta=c(0.1,0.2,0.3)),
+                              nthread = 1,
+                              covar_bl_method = "absolute",
+                              covar_bl_trs = 0.1,
+                              max_attempt = 1
+                              )
+
+```
+
+
+
 ### Further Processing
 
 After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (`estimate_erf`) is implemented. 

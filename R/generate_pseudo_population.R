@@ -108,12 +108,14 @@ gen_pseudo_pop <- function(Y,
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
 
+  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
+
   while (counter < max_attempt+1){
 
     ## Estimate GPS -----------------------------
     estimate_gps_out <- estimate_gps(Y, w, c, pred_model, running_appr,
                                      params = params, nthread = nthread,
-                                     internal_use = TRUE, ...)
+                                     internal_use = internal_use, ...)
 
     ## Compile data ---------
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out,

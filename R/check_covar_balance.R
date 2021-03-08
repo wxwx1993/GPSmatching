@@ -41,8 +41,16 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
   }
 
   if (covar_bl_method == 'absolute'){
-    abs_cor <- absolute_corr_fun(pseudo_pop[,2], pseudo_pop[,4:length(pseudo_pop)])
-
+    if (ci_appr == 'matching'){
+      abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
+                                   pseudo_pop[,4:length(pseudo_pop)])
+    } else if (ci_appr == 'weighting') {
+      abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
+                                            pseudo_pop[, 5:length(pseudo_pop)])
+    } else {
+      stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
+                 ") is not implemented."))
+    }
 
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
@@ -52,7 +60,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
     } else {
       return(FALSE)
     }
-
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
