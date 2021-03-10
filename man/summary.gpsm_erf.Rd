@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.R
 \name{summary.gpsm_erf}
 \alias{summary.gpsm_erf}
-\title{Title}
+\title{print summary of gpsm_erf object}
 \usage{
 \method{summary}{gpsm_erf}(object, ...)
 }
@@ -15,5 +15,5 @@
 Returns summary of data
 }
 \description{
-Title
+print summary of gpsm_erf object
 }

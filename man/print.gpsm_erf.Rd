@@ -4,10 +4,10 @@
 \alias{print.gpsm_erf}
 \title{Extend print function for gpsm_erf object}
 \usage{
-\method{print}{gpsm_erf}(object, ...)
+\method{print}{gpsm_erf}(x, ...)
 }
 \arguments{
-\item{object}{A gpsm_erf object.}
+\item{x}{A gpsm_erf object.}
 
 \item{...}{Additional arguments passed to customize the results.}
 }

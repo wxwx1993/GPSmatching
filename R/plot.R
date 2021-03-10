@@ -14,6 +14,7 @@
 #'
 #' @keywords internal
 #' @importFrom ggplot2 autoplot
+#' @importFrom rlang .data
 #'
 autoplot.gpsm_erf <- function(object, ...){
 
@@ -35,7 +36,7 @@ autoplot.gpsm_erf <- function(object, ...){
   g <- ggplot2::ggplot(tmp_data) +
        ggplot2::theme_bw() +
        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)) +
-       ggplot2::geom_line(ggplot2::aes(.data$w.vals,.data$erf),
+       ggplot2::geom_line(ggplot2::aes(.data$w.vals, .data$erf),
                           color="red", size=1)
 
   if (!is.null(gg_labs)){

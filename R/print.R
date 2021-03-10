@@ -2,25 +2,30 @@
 #' @title
 #' Extend print function for gpsm_erf object
 #'
-#' @param object A gpsm_erf object.
+#' @param x A gpsm_erf object.
 #' @param ... Additional arguments passed to customize the results.
 #'
 #' @return
 #' NULL
 #' @export
 #'
-print.gpsm_erf <- function(object, ...){
-  cat("----------- GPSmatching exposure rate function ---------------\n")
+print.gpsm_erf <- function(x, ...){
+
+  x <- unclass(x)
+
+  cat(" GPSmatching exposure rate function object\n")
   cat(" function call: \n")
   cat("      ***       \n")
-  print(object$fcall)
+  print(x$fcall, ...)
   cat("      ***       \n")
   cat(" Output data can be accessed at $erf \n")
   cat(" Look at summary for more details.")
 }
 
 
-#' Title
+#' @title
+#' print summary of gpsm_erf object
+
 #'
 #' @param object A gpsm_erf object.
 #' @param ... Additional arguments passed to customize the results.
@@ -28,10 +33,29 @@ print.gpsm_erf <- function(object, ...){
 #' @return
 #' Returns summary of data
 #' @export
-#'
 summary.gpsm_erf <- function(object, ...){
-  cat("Summary of Input data: \n")
-  for (item in names(object$params)){
-     print.data.frame(object$params[item])
+
+  cat_list <- function(input){
+    cat(paste("   size: ", length(input),
+              ", class: ", class(input),
+              ", missing value(s): ", sum(is.na(input)),
+              sep = ""))
+    if (is.numeric(input)){
+      cat(paste("\n   min: ", sprintf("%.3f", min(input, na.rm = TRUE)),
+                "\n   max: ", sprintf("%.3f", max(input, na.rm = TRUE)),
+                "\n   mean: ", sprintf("%.3f", mean(input, na.rm = TRUE)),
+                sep = ""))
+    }
   }
+
+  object <- unclass(object)
+  cat("Input data: \n")
+  for (item in names(object$params)){
+    cat(paste(" ", item, "\n"))
+    cat_list(object$params[[item]])
+    cat("\n")
+  }
+  cat("\nOutput data: \n")
+  cat(paste("  erf\n"))
+  cat_list(object$erf)
 }
