@@ -51,8 +51,17 @@
 #'   - *sl_lib*: A vector of prediction algorithms.
 #'
 #' @return
-#' \code{GenPseudoPop} returns a data.table pseudo population that is generated
-#' or augmented based on the selected causal inference approach (ci_appr).
+#' Returns a pseudo population (gpsm_pspop) object that is generated
+#' or augmented based on the selected causal inference approach (ci_appr). The
+#' object includes the following objects:
+#' - params
+#'   - ci_appr
+#'   - running_appr
+#'   - pred_model
+#'   - params
+#' - pseudo_pop
+#' - adjusted_corr_results
+#' - original_corr_results
 #'
 #' @export
 #' @examples
@@ -90,11 +99,13 @@ gen_pseudo_pop <- function(Y,
   max_attempt <- NULL
   # --------------------------------------------------------
 
+  # function call
+  fcall <- match.call()
 
-  ## Check arguments ---------------------------------------
+  # Check arguments ----------------------------------------
   check_args(pred_model,ci_appr,running_appr, ...)
 
-  ## Generate output Set -----------------------------------
+  # Generate output set ------------------------------------
   counter <- 1
 
   ## collect additional arguments
@@ -104,6 +115,18 @@ gen_pseudo_pop <- function(Y,
   for (i in arg_names){
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
+
+  # Compute original data absolute correlation
+  # The third column is reserved for gps, however, in covariate balance test we
+  # do not use gps values.
+  # TODO: find a better place to the following code.
+  if (ci_appr == "matching"){
+    tmp_data <- cbind(Y,w,w,c)
+  } else if (ci_appr == "weighting") {
+    tmp_data <- cbind(Y,w,w,runif(length(Y)),c)
+  }
+  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, ...)
+  tmp_data <- NULL
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
@@ -126,7 +149,9 @@ gen_pseudo_pop <- function(Y,
       break
     }
 
-    if (check_covar_balance(pseudo_pop, ci_appr, ...)){
+    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, ...)
+
+    if (adjusted_corr_obj$pass){
       message(paste('Covariate balance condition has been met (iteration: ',
                     counter,'/', max_attempt,')'))
       break
@@ -150,5 +175,24 @@ gen_pseudo_pop <- function(Y,
               ignored.')
     }
   }
-  invisible(pseudo_pop)
+
+
+
+  result <- list()
+  class(result) <- "gpsm_pspop"
+
+
+  result$params$ci_appr <- ci_appr
+  result$params$running_appr <- running_appr
+  result$params$pred_model <- pred_model
+  result$params$params <- params
+  for (item in arg_names){
+    result$params[[item]] <- get(item)
+  }
+
+  result$pseudo_pop <- pseudo_pop
+  result$adjusted_corr_results <- adjusted_corr_obj$corr_results
+  result$original_corr_results <- original_corr_obj$corr_results
+
+  invisible(result)
 }

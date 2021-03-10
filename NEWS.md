@@ -2,6 +2,7 @@
 
 ### Added
 
+- Extended plot function for gen_pseudo_pop object (plot.R)
 - Extended plot function for estimate_erf object (plot.R)
 - Extended print function for estimate_erf object (print.R)
 - test-estimate_erf.R

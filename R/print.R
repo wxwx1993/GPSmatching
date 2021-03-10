@@ -1,4 +1,3 @@
-
 #' @title
 #' Extend print function for gpsm_erf object
 #'
@@ -58,4 +57,40 @@ summary.gpsm_erf <- function(object, ...){
   cat("\nOutput data: \n")
   cat(paste("  erf\n"))
   cat_list(object$erf)
+}
+
+
+#' @title
+#' Extend print function for gpsm_pspop object
+#'
+#' @param x A gpsm_pspop object.
+#' @param ... Additional arguments passed to customize the results.
+#'
+#' @return
+#' NULL
+#' @export
+#'
+print.gpsm_pspop <- function(x, ...){
+
+  x <- unclass(x)
+
+  cat(" GPSmatching pseudo population object\n")
+  cat("TODO ....")
+}
+
+
+#' @title
+#' print summary of gpsm_pspop object
+
+#'
+#' @param object A gpsm_pspop object.
+#' @param ... Additional arguments passed to customize the results.
+#'
+#' @return
+#' Returns summary of data
+#' @export
+summary.gpsm_pspop <- function(object, ...){
+
+  cat("GPSmatching pseudo population object summary\n")
+  cat("TODO .... ")
 }
