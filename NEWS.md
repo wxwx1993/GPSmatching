@@ -2,6 +2,9 @@
 
 ### Added
 
+- Extended plot function for estimate_erf object (plot.R)
+- Extended print function for estimate_erf object (print.R)
+- test-estimate_erf.R
 - create_weighting.R
 - Steps for adding test data into 'sysdata.rda'.
 - `weighting` option as causal inference approach.  
@@ -13,6 +16,7 @@
 
 ### Changed
 
+- estimate_erf output returns S3 object.
 - test-Covariate_balance.R --> test-absolute_corr_fun.R
 - covarate_balance.R --> absolute_corr_fun.R
 - User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.

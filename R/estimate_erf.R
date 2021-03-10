@@ -46,9 +46,23 @@ estimate_erf<-function(matched_Y,
                        matched_w,
                        bw_seq=seq(0.2,2,0.2),
                        w_vals){
+
+  # function call
+  fcall <- match.call()
+
   risk_val <- sapply(bw_seq, compute_risk, matched_Y = matched_Y,
                      matched_w = matched_w, w_vals = w_vals)
   h_opt <- bw_seq[which.min(risk_val)]
   erf <- approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
-  return(erf)
+
+  result <- list()
+  class(result) <- "gpsm_erf"
+  result$params$matched_Y <- matched_Y
+  result$params$matched_w <- matched_w
+  result$params$bw_seq <- bw_seq
+  result$params$w_vals <- w_vals
+  result$erf <- erf
+  result$fcall <- fcall
+
+  return(result)
 }
