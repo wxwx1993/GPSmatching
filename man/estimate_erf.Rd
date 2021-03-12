@@ -17,8 +17,17 @@ estimate_erf(matched_Y, matched_w, bw_seq = seq(0.2, 2, 0.2), w_vals)
 the ERF at.}
 }
 \value{
-\code{erf}: The function returns a vector saved the output values of
-exposure-response function (ERF) given input \code{w.vals}.
+The function returns a gpsm_erf object. The object includes the following
+attributes:
+\itemize{
+\item params
+\item matched_Y
+\item matched_w
+\item bw_seq
+\item w_vals
+\item erf
+\item fcall
+}
 }
 \description{
 TODO
@@ -43,8 +52,8 @@ pseudo_pop <- gen_pseudo_pop(m_d$Y,
                              delta_n = 1,
                              scale = 0.5)
 
-erf_val <- estimate_erf(pseudo_pop$Y,
-                        pseudo_pop$w,
+erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
+                        pseudo_pop$pseudo_pop$w,
                         bw_seq=seq(0.2,2,0.2),
                         w_vals = seq(2,20,0.5))
 

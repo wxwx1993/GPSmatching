@@ -55,11 +55,14 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
+
+    output <- list(corr_results = abs_cor)
     if (abs_cor$mean_absolute_corr < covar_bl_trs){
-      return(TRUE)
+      output$pass <- TRUE
     } else {
-      return(FALSE)
+      output$pass <- FALSE
     }
+      return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))

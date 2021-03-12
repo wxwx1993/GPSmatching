@@ -59,26 +59,26 @@ test_that("Covariate balance check works as expected", {
                               covar_bl_method="absolute",
                               covar_bl_trs=0.3)
 
-  expect_true(val1)
+  expect_true(val1$pass)
 
   val2 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1)
 
-  expect_false(val2)
+  expect_false(val2$pass)
 
   val3 <- check_covar_balance(pseudo_pop = pseudo_pop_weight_test,
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1)
 
-  expect_false(val3)
+  expect_false(val3$pass)
 
   val4 <- check_covar_balance(pseudo_pop = pseudo_pop_weight_test,
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.12)
-  expect_true(val4)
+  expect_true(val4$pass)
 
 })

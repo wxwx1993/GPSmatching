@@ -38,7 +38,8 @@ absolute_weighted_corr_fun <- function(w,
 
   if (length(col_n) > 0) {
     absolute_corr_n<- sapply(col_n,function(i){
-      abs(wCorr::weightedCorr(w,c[[i]],weights = ipw, method = c("spearman")))})
+      abs(wCorr::weightedCorr(w, c[[i]], weights = ipw,
+                              method = c("spearman")))})
   }
 
   if (length(col_f) > 0) {

@@ -11,8 +11,16 @@
 #'  the ERF at.
 #'
 #' @return
-#' \code{erf}: The function returns a vector saved the output values of
-#'  exposure-response function (ERF) given input \code{w.vals}.
+#' The function returns a gpsm_erf object. The object includes the following
+#' attributes:
+#'
+#' - params
+#'  - matched_Y
+#'  - matched_w
+#'  - bw_seq
+#'  - w_vals
+#' - erf
+#' - fcall
 #'
 #' @export
 #'
@@ -36,8 +44,8 @@
 #'                              delta_n = 1,
 #'                              scale = 0.5)
 #'
-#' erf_val <- estimate_erf(pseudo_pop$Y,
-#'                         pseudo_pop$w,
+#' erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
+#'                         pseudo_pop$pseudo_pop$w,
 #'                         bw_seq=seq(0.2,2,0.2),
 #'                         w_vals = seq(2,20,0.5))
 #'
@@ -46,9 +54,23 @@ estimate_erf<-function(matched_Y,
                        matched_w,
                        bw_seq=seq(0.2,2,0.2),
                        w_vals){
+
+  # function call
+  fcall <- match.call()
+
   risk_val <- sapply(bw_seq, compute_risk, matched_Y = matched_Y,
                      matched_w = matched_w, w_vals = w_vals)
   h_opt <- bw_seq[which.min(risk_val)]
   erf <- approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
-  return(erf)
+
+  result <- list()
+  class(result) <- "gpsm_erf"
+  result$params$matched_Y <- matched_Y
+  result$params$matched_w <- matched_w
+  result$params$bw_seq <- bw_seq
+  result$params$w_vals <- w_vals
+  result$erf <- erf
+  result$fcall <- fcall
+
+  return(result)
 }
