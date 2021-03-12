@@ -31,7 +31,11 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
       if (xgb_default_params[[item]]){
         # the parameter belongs to xgboost family
         # choose one value at random
-        new_val = sample(params[[item]],1)
+        if (length(params[[item]])==1) {
+          new_val <- params[[item]]
+        } else {
+          new_val <- sample(params[[item]],1)
+        }
         # assign that value to the default list
         xgb_default_params[[item]] <- new_val
       }

@@ -56,8 +56,21 @@ internal packages.}
 \item{...}{Additional arguments passed to different models.}
 }
 \value{
-\code{GenPseudoPop} returns a data.table pseudo population that is generated
-or augmented based on the selected causal inference approach (ci_appr).
+Returns a pseudo population (gpsm_pspop) object that is generated
+or augmented based on the selected causal inference approach (ci_appr). The
+object includes the following objects:
+\itemize{
+\item params
+\itemize{
+\item ci_appr
+\item running_appr
+\item pred_model
+\item params
+}
+\item pseudo_pop
+\item adjusted_corr_results
+\item original_corr_results
+}
 }
 \description{
 Generates pseudo population dataset based on user defined causal inference
