@@ -75,7 +75,12 @@ print.gpsm_pspop <- function(x, ...){
   x <- unclass(x)
 
   cat(" GPSmatching pseudo population object\n")
-  cat("TODO ....")
+  cat(" function call: \n")
+  cat("      ***       \n")
+  print(x$fcall, ...)
+  cat("      ***       \n")
+  cat(" Output data can be accessed at $pseudo_pop \n")
+  cat(" Look at summary for more details.")
 }
 
 
@@ -92,5 +97,23 @@ print.gpsm_pspop <- function(x, ...){
 summary.gpsm_pspop <- function(object, ...){
 
   cat("GPSmatching pseudo population object summary\n")
-  cat("TODO .... ")
+  cat_list <- function(input){
+    cat(paste("   size: ", length(input),
+              ", class: ", class(input),
+              ", missing value(s): ", sum(is.na(input)),
+              sep = ""))
+    if (is.numeric(input)){
+      cat(paste("\n   min: ", sprintf("%.3f", min(input, na.rm = TRUE)),
+                "\n   max: ", sprintf("%.3f", max(input, na.rm = TRUE)),
+                "\n   mean: ", sprintf("%.3f", mean(input, na.rm = TRUE)),
+                sep = ""))
+    }
+  }
+
+  object <- unclass(object)
+  for (item in names(object$pseudo_pop)){
+    cat(paste(" ", item, "\n"))
+    cat_list(object$pseudo_pop[[item]])
+    cat("\n")
+  }
 }

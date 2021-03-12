@@ -120,11 +120,7 @@ gen_pseudo_pop <- function(Y,
   # The third column is reserved for gps, however, in covariate balance test we
   # do not use gps values.
   # TODO: find a better place to the following code.
-  if (ci_appr == "matching"){
-    tmp_data <- cbind(Y,w,w,c)
-  } else if (ci_appr == "weighting") {
-    tmp_data <- cbind(Y,w,w,runif(length(Y)),c)
-  }
+  tmp_data <- cbind(Y,w,w,c)
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, ...)
   tmp_data <- NULL
 
@@ -193,6 +189,7 @@ gen_pseudo_pop <- function(Y,
   result$pseudo_pop <- pseudo_pop
   result$adjusted_corr_results <- adjusted_corr_obj$corr_results
   result$original_corr_results <- original_corr_obj$corr_results
+  result$fcall <- fcall
 
   invisible(result)
 }
