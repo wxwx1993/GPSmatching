@@ -171,7 +171,6 @@ gen_pseudo_pop <- function(Y,
               ignored.')
     }
   }
-
   result <- list()
   class(result) <- "gpsm_pspop"
 
