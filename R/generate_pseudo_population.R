@@ -171,12 +171,8 @@ gen_pseudo_pop <- function(Y,
               ignored.')
     }
   }
-
-
-
   result <- list()
   class(result) <- "gpsm_pspop"
-
 
   result$params$ci_appr <- ci_appr
   result$params$running_appr <- running_appr
