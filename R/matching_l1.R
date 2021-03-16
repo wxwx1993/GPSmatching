@@ -14,6 +14,7 @@
 #' @param scale a specified scale parameter to control the relative weight that is attributed to
 #' the distance measures of the exposure versus the GPS estimates (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
+#' @param nthread Number of available cores.
 #' @return
 #' \code{dp}: The function returns a data.table saved the matched points on by single exposure
 #' level w by the proposed GPS matching approaches.
@@ -27,7 +28,8 @@ matching_l1 <- function(w,
                         gps_mx,
                         w_mx,
                         delta_n=1,
-                        scale=0.5)
+                        scale=0.5,
+                        nthread=1)
 {
 
   if (length(w)!=1){
@@ -59,11 +61,12 @@ matching_l1 <- function(w,
                              std_p_w,
                              dataset_subset[["std_w"]],
                              std_w,
-                             scale)
+                             scale,
+                             nthread = nthread)
 
   dp <- dataset_subset[wm,]
   dp["std_w"] <- NULL
   dp["std_gps"] <- NULL
   return(dp)
-  gc()
+  #gc()
 }
