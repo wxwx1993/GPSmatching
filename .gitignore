@@ -5,3 +5,4 @@
 .Ruserdata
 inst/doc
 tests/testthat/_snaps/*
+tests/testthat/.DS_Store
