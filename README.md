@@ -66,6 +66,7 @@ pseudo_pop <- gen_pseudo_pop(Y,
 | Package name | `sl_lib` name | prefix| available hyperparameters |
 |:------------:|:-------------:|:-----:|:-------------------------:|
 | [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+| [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
 
 `nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
 

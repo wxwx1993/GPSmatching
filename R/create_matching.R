@@ -80,5 +80,5 @@ create_matching <- function(dataset, nthread = 1, ...){
                            delta_n = delta_n,
                            scale = scale)
   }
-  return(data.table(Reduce(rbind,matched_set)))
+  return(data.table(do.call(rbind,matched_set)))
 }

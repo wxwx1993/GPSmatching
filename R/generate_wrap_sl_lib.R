@@ -17,6 +17,8 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   # ------------------------------------------------------
   xgb_nrounds <- xgb_eta <- xgb_max_depth <- xgb_min_child_weight <- NULL
+  rgr_num.trees <- rgr_write.forest <- rgr_replace <- rgr_verbose <- NULL
+  rgr_family <- NULL
   # ------------------------------------------------------
 
 
@@ -28,7 +30,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                              )
     for (item in names(params)){
 
-      if (xgb_default_params[[item]]){
+      if (!is.null(xgb_default_params[[item]])){
         # the parameter belongs to xgboost family
         # choose one value at random
         if (length(params[[item]])==1) {
@@ -54,6 +56,45 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "...)}", sep="")), envir = .GlobalEnv)
 
     return(TRUE)
+
+  } else if (lib_name == "m_ranger"){
+    rgr_default_params = list("rgr_num.trees"=500,
+                              "rgr_write.forest"=TRUE,
+                              "rgr_replace"=TRUE,
+                              "rgr_verbose"=FALSE,
+                              "rgr_family"= "Gaussian"
+    )
+
+    for (item in names(params)){
+
+      if (!is.null(rgr_default_params[[item]])){
+        # the parameter belongs to ranger family
+        # choose one value at random
+        if (length(params[[item]])==1) {
+          new_val <- params[[item]]
+        } else {
+          new_val <- sample(params[[item]],1)
+        }
+        # assign that value to the default list
+        rgr_default_params[[item]] <- new_val
+      }
+    }
+
+    list2env(rgr_default_params, environment())
+    eval(parse(text= paste(" m_ranger_internal <- function(num.threads = ",
+                           nthread,
+                           ", num.trees = ", rgr_num.trees,
+                           ", write.forest = ", rgr_write.forest,
+                           ", replace = ", rgr_replace,
+                           ", verbose = ", rgr_verbose,
+                           ", family = ", rgr_family,
+                           ",...) {SuperLearner::SL.ranger(num.threads = num.threads,",
+                           "num.trees = num.trees, replace=replace,",
+                           "verbose=verbose, family=family, ",
+                           "...)}", sep="")), envir = .GlobalEnv)
+
+    return(TRUE)
+
   } else {
     message(paste("Modified library for ", lib_name, " is not implemented.",
                   "Will be used as provided."))
