@@ -33,11 +33,9 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     stop('Input values for compute_closest_wgps cannot be empty values.')
   }
 
-
   if (length(d) != 1){
     stop('Expecting a scaler number for d.')
   }
-
 
   if (length(sc) != 1){
     stop('Expecting a scaler number for sc(scale).')
@@ -73,9 +71,7 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
 
     logger::log_debug("mclapply is used in computing wgps. nthread: {nthread}")
 
-
     index_list <- seq(1, length(b), chunk_size)
-    print(index_list)
     c_minus_d <- abs(c-d)*(1-sc)
     p_wm <- parallel::mclapply(index_list,
                                fun1,
