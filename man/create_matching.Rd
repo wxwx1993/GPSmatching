@@ -4,12 +4,14 @@
 \alias{create_matching}
 \title{Create pseudo population using matching casual inference approach}
 \usage{
-create_matching(dataset, ...)
+create_matching(dataset, nthread = 1, ...)
 }
 \arguments{
 \item{dataset}{A list with 6 elements. Including An original dataset as well
 as helper vectors from estimating GPS. See \code{\link[=compile_pseudo_pop]{compile_pseudo_pop()}} for more
 details.}
+
+\item{nthread}{Number of available cores.}
 
 \item{...}{Additional arguments passed to the function.}
 }

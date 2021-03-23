@@ -149,5 +149,12 @@ if(x > 2){
 - Use explicit tags in documentation (e.g., @title, @description, ...)
 
 ## Notes on SuperLearner
+
 In this package we create a customized wrapper for the SuperLearner internal libraries. Please read the following page for more details.
 - [Creating Customized Wrappers for the SuperLearner Package](notes_on_superlearner.md)
+
+## Logger
+
+Use logger to investigate the internal process. The default level is "INFO", which writes messages into "GPSmatching.log" file. You can 
+use `update_logger` function to change the log file location and level. 
+
