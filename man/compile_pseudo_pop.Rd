@@ -4,7 +4,7 @@
 \alias{compile_pseudo_pop}
 \title{Compile pseudo population}
 \usage{
-compile_pseudo_pop(dataset, ci_appr, ...)
+compile_pseudo_pop(dataset, ci_appr, nthread, ...)
 }
 \arguments{
 \item{dataset}{List of size 6 including the following:

@@ -138,7 +138,7 @@ gen_pseudo_pop <- function(Y,
 
     ## Compile data ---------
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out,
-                                     ci_appr=ci_appr, ...)
+                                     ci_appr=ci_appr, nthread = nthread, ...)
 
     if (ci_appr == 'adjust'){
       # No covariate balance test for the 'adjust' causal inference approach.
@@ -152,7 +152,6 @@ gen_pseudo_pop <- function(Y,
                     counter,'/', max_attempt,')'))
       break
     }
-
     counter <- counter + 1
   }
 
