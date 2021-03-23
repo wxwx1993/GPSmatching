@@ -121,7 +121,7 @@ gen_pseudo_pop <- function(Y,
   # do not use gps values.
   # TODO: find a better place to the following code.
   tmp_data <- cbind(Y,w,w,c)
-  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, ...)
+  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread, ...)
   tmp_data <- NULL
 
   # loop until the generated pseudo population is acceptable or reach maximum
@@ -145,7 +145,7 @@ gen_pseudo_pop <- function(Y,
       break
     }
 
-    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, ...)
+    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread, ...)
 
     if (adjusted_corr_obj$pass){
       message(paste('Covariate balance condition has been met (iteration: ',

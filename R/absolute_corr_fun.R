@@ -6,6 +6,7 @@
 #'
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame or matrix of observed covariates variable.
+#' @param  nthread Number of available threads to use.
 #' @return
 #' The function returns a list saved the measure related to covariate balance
 #' \code{absolute_corr}: the absolute correlations for each pre-exposure
@@ -17,7 +18,8 @@
 #' @keywords internal
 
 absolute_corr_fun <- function(w,
-                              c){
+                              c,
+                              nthread){
 
   # w type should be numeric (polyserial requirments)
   if (!is.numeric(w)) {
@@ -35,17 +37,29 @@ absolute_corr_fun <- function(w,
 
   absolute_corr_n <- absolute_corr_f <- NULL
 
-  if (length(col_n) > 0) {
-  absolute_corr_n<- sapply(col_n,function(i){
-              abs(cor(w,c[[i]],method = c("spearman")))})
+  platform_os <- .Platform$OS.type
+
+  if (length(col_n) > 0){
+    if (is.element(platform_os,c("unix"))){
+      absolute_corr_n<- mclapply(col_n,function(i){
+        abs(cor(w,c[[i]],method = c("spearman")))}, mc.cores = nthread)
+    } else {
+      absolute_corr_n<- lapply(col_n,function(i){
+        abs(cor(w,c[[i]],method = c("spearman")))})
+    }
   }
 
   if (length(col_f) > 0) {
-  absolute_corr_f<- sapply(col_f,function(i){
-    abs(polycor::polyserial(w,c[[i]]))})
+    if (is.element(platform_os,c("unix"))){
+      absolute_corr_f<- mclapply(col_f,function(i){
+        abs(polycor::polyserial(w,c[[i]]))}, mc.cores = nthread)
+    } else {
+      absolute_corr_f<- lapply(col_f,function(i){
+        abs(polycor::polyserial(w,c[[i]]))})
+    }
   }
 
-  absolute_corr <- c(absolute_corr_f, absolute_corr_n)
+  absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
 
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))

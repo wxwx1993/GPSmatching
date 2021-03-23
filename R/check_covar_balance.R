@@ -10,6 +10,7 @@
 #'   - 3rd column: gps
 #'   - 4th column to the end: covariates (c)
 #' @param ci_appr The causal inference approach.
+#' @param nthread The number of available threads.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @keywords internal
@@ -19,7 +20,7 @@
 #'  requirements.
 #' @export
 #'
-check_covar_balance <- function(pseudo_pop, ci_appr, ...){
+check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -43,7 +44,7 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
       abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
-                                   pseudo_pop[,4:length(pseudo_pop)])
+                                   pseudo_pop[,4:length(pseudo_pop)], nthread)
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
                                             pseudo_pop[, 5:length(pseudo_pop)])

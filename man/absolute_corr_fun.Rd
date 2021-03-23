@@ -4,12 +4,14 @@
 \alias{absolute_corr_fun}
 \title{Check covariate balance}
 \usage{
-absolute_corr_fun(w, c)
+absolute_corr_fun(w, c, nthread)
 }
 \arguments{
 \item{w}{A vector of observed continuous exposure variable.}
 
 \item{c}{A data frame or matrix of observed covariates variable.}
+
+\item{nthread}{Number of available threads to use.}
 }
 \value{
 The function returns a list saved the measure related to covariate balance
