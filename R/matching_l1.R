@@ -48,11 +48,9 @@ matching_l1 <- function(w,
   # handles check note.
   gps <- NULL
 
-  logger::log_debug("before transform")
   dataset <- transform(dataset,
                        std_w = (w - w_min) / (w_max - w_min),
                        std_gps = (gps - gps_min) / (gps_max - gps_min))
-  logger::log_debug("After transform")
 
   std_w <- (w - w_min) / (w_max - w_min)
   std_p_w <- (p_w - gps_min) / (gps_max - gps_min)
@@ -76,5 +74,4 @@ matching_l1 <- function(w,
   dp["std_w"] <- NULL
   dp["std_gps"] <- NULL
   return(dp)
-  #gc()
 }
