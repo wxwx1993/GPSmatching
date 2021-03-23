@@ -60,9 +60,13 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     } else {
       n_index <- index + chunk_size -1
     }
-    tmp_matrix <- apply(compute_outer(a, b[index:n_index], '-') * sc,
+
+    outer_val <- compute_outer(a, b[index:n_index], '-') * sc
+    result_vec <- apply(outer_val,
                         2,
                         function(x) which.min(cd + x))
+    outer_val <- NULL
+    return(result_vec)
   }
 
   platform_os <- .Platform$OS.type
