@@ -27,6 +27,13 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     stop('Input values for compute_closest_wgps should be numeric.')
   }
 
+  if (length(a) < 1 ||
+      length(b) < 1 ||
+      length(c) < 1 ){
+    stop('Input values for compute_closest_wgps cannot be empty values.')
+  }
+
+
   if (length(d) != 1){
     stop('Expecting a scaler number for d.')
   }
@@ -40,9 +47,13 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     stop('Expecting equal length for a and c.')
   }
 
+  # Maximum allocated memory for this task: 4 GB.
+  # 1024^3 = 1073741824
+  # double value: 8 bytes
 
-  # TODO: choose chunk size based on the subset data size.
-  chunk_size = 1000
+  max_allocated_mem = 0.1
+  chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
+  logger::log_debug("Length of all data: {length(b)}, length of subset of data: {length(a)}, max_allocated_mem: {max_allocated_mem}, chunk size: {chunk_size} ")
 
   fun1 <- function(index, a, b, cd, sc, chunk_size){
 
@@ -54,9 +65,7 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     tmp_matrix <- apply(compute_outer(a, b[index:n_index], '-') * sc,
                         2,
                         function(x) which.min(cd + x))
-
   }
-
 
   platform_os <- .Platform$OS.type
 
@@ -66,6 +75,7 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
 
 
     index_list <- seq(1, length(b), chunk_size)
+    print(index_list)
     c_minus_d <- abs(c-d)*(1-sc)
     p_wm <- parallel::mclapply(index_list,
                                fun1,
@@ -82,6 +92,5 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
                 2,
                 function(x) which.min(abs(c - d) * (1 - sc) + x))
   }
-
   return(wm)
 }

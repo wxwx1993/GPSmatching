@@ -48,14 +48,22 @@ matching_l1 <- function(w,
   # handles check note.
   gps <- NULL
 
+  logger::log_debug("before transform")
   dataset <- transform(dataset,
                        std_w = (w - w_min) / (w_max - w_min),
                        std_gps = (gps - gps_min) / (gps_max - gps_min))
+  logger::log_debug("After transform")
 
   std_w <- (w - w_min) / (w_max - w_min)
   std_p_w <- (p_w - gps_min) / (gps_max - gps_min)
 
   dataset_subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n/2), ]
+
+  if (nrow(dataset_subset) < 1){
+    logger:: log_warn(paste("There is no data to match with ", w, "in ", delta_n/2,
+                  " radius."))
+    return(list())
+  }
 
   wm <- compute_closest_wgps(dataset_subset[["std_gps"]],
                              std_p_w,

@@ -52,6 +52,7 @@ create_matching <- function(dataset, nthread = 1, ...){
     cm_nthread <- floor((nthread -1)/m_nthread)
   }
 
+  logger::log_debug("Available cores: {nthread}, modified number of cores: {m_nthread}, cores to be used internally: {cm_nthread}")
 
   platform_os <- .Platform$OS.type
 

@@ -94,7 +94,6 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "...)}", sep="")), envir = .GlobalEnv)
 
     return(TRUE)
-
   } else {
     message(paste("Modified library for ", lib_name, " is not implemented.",
                   "Will be used as provided."))
