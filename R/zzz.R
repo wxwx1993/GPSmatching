@@ -8,6 +8,6 @@
                                                  sep = ""))
   logger::log_appender(appender = logger::appender_file("GPSmatching.log"),
                        index = 1)
-  logger::log_threshold(logger::TRACE,index = 1)
+  logger::log_threshold(logger::INFO,index = 1)
   logger::log_layout(flogger, index = 1)
 }
