@@ -49,7 +49,7 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
   # 1024^3 = 1073741824
   # double value: 8 bytes
 
-  max_allocated_mem = 0.5
+  max_allocated_mem = 0.1
   chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
   logger::log_debug(paste("Length of all data: {length(b)},",
                           " length of subset of data: {length(a)},",
