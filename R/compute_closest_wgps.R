@@ -49,7 +49,7 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
   # 1024^3 = 1073741824
   # double value: 8 bytes
 
-  max_allocated_mem = 0.1
+  max_allocated_mem = 0.5
   chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
   logger::log_debug("Length of all data: {length(b)}, length of subset of data: {length(a)}, max_allocated_mem: {max_allocated_mem}, chunk size: {chunk_size} ")
 
@@ -77,16 +77,36 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
 
     index_list <- seq(1, length(b), chunk_size)
     c_minus_d <- abs(c-d)*(1-sc)
-    p_wm <- parallel::mclapply(index_list,
-                               fun1,
-                               a=a,
-                               b=b,
-                               cd=c_minus_d,
-                               sc=sc,
-                               chunk_size=chunk_size,
-                               mc.cores=nthread)
+    # p_wm <- parallel::mclapply(index_list,
+    #                            fun1,
+    #                            a=a,
+    #                            b=b,
+    #                            cd=c_minus_d,
+    #                            sc=sc,
+    #                            chunk_size=chunk_size,
+    #                            mc.cores=nthread)
+    # selecting only part of elements from index that is equal to number of threads.
+    N <- length(index_list)
+    i_list <- splitIndices(N, ceiling(N/(nthread)))
+    result_list <- list()
 
-    wm <- unlist(p_wm)
+    # feeding the values bunch-at-a-time to mclapply
+
+    for (i in seq_along(i_list)){
+      i_vec <- i_list[[i]]
+      result_list[i_vec] <- mclapply(index_list[i_vec],
+                                     fun1,
+                                     a=a,
+                                     b=b,
+                                     cd=c_minus_d,
+                                     sc=sc,
+                                     chunk_size=chunk_size,
+                                     mc.silent = FALSE,
+                                     mc.cores=nthread,
+                                     mc.cleanup = TRUE)
+    }
+
+      wm <- unlist(result_list)
   } else {
     wm <- apply(compute_outer(a, b, '-') * sc,
                 2,

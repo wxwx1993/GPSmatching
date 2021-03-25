@@ -25,6 +25,9 @@
 - User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
 
 ### Fixed
+
+- mclapply memory issue (compute_closest_wgps.R).
+
 ### Removed
 
 
