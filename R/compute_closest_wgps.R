@@ -160,5 +160,4 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
 
   return(wm)
 
-
 }
