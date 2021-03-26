@@ -2,6 +2,7 @@
 
 ### Added
 
+- Cpp code for computing pair of w and gps.
 - `update_logger` function.
 - Customized wrapper for ranger package.
 - Extended plot function for gen_pseudo_pop object (plot.R)
