@@ -132,20 +132,27 @@ gen_pseudo_pop <- function(Y,
   while (counter < max_attempt+1){
 
     ## Estimate GPS -----------------------------
+    logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(Y, w, c, pred_model, running_appr,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
+    logger::log_debug("Finished estimating gps.")
 
     ## Compile data ---------
+    logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out,
                                      ci_appr=ci_appr, nthread = nthread, ...)
+    logger::log_debug("Finished compiling pseudo population")
 
     if (ci_appr == 'adjust'){
       # No covariate balance test for the 'adjust' causal inference approach.
       break
     }
 
+    logger::log_debug("Started checking covariate balance ... ")
     adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread, ...)
+    logger::log_debug("Finished checking covariate balance ... ")
+
 
     if (adjusted_corr_obj$pass){
       message(paste('Covariate balance condition has been met (iteration: ',

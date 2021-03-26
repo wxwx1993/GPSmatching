@@ -45,13 +45,53 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     stop('Expecting equal length for a and c.')
   }
 
+  if (sc < 0 || sc > 1 ){
+    stop('Expecting sc in [0,1] range.')
+  }
+
   # Maximum allocated memory for this task: 4 GB.
   # 1024^3 = 1073741824
   # double value: 8 bytes
 
-  max_allocated_mem = 0.1
-  chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
-  logger::log_debug(paste("Length of all data: {length(b)},",
+
+  # Estimating index with Rcpp and mclapply
+   chunk_size = ceiling(length(b)/nthread)
+   index_list <- seq(1, length(b), chunk_size)
+
+
+   myfun <- function(index, a, b, c_minus_d, sc, chunk_size){
+
+     if ((index+chunk_size)>length(b)){
+       n_index <- length(b)
+     } else {
+       n_index <- index + chunk_size -1
+     }
+
+     wm_cpp <- compute_closest_wgps_helper(a, b[index:n_index], c_minus_d, sc)
+     return(wm_cpp)
+    }
+
+   c_minus_d <- abs(c-d)*(1-sc)
+
+   wm_cpp_mc <- mclapply(index_list,
+                         myfun,
+                         a = a,
+                         b = b,
+                         c_minus_d = c_minus_d,
+                         sc = sc,
+                         chunk_size = chunk_size,
+                         mc.cores = nthread)
+
+   wm_cpp_mc <- unlist(wm_cpp_mc)
+
+   # Estimating index with Rcpp and without mclapply
+   wm_cpp <- compute_closest_wgps_helper(a, b, c_minus_d, sc)
+
+
+   # Original implementation
+   max_allocated_mem = 0.1
+   chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
+   logger::log_debug(paste("Length of all data: {length(b)},",
                           " length of subset of data: {length(a)},",
                           " max_allocated_mem: {max_allocated_mem},",
                           " chunk size: {chunk_size} "))
@@ -102,5 +142,13 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
                 2,
                 function(x) which.min(abs(c - d) * (1 - sc) + x))
   }
+
+  print(paste("Computation with Rccp and original implementation are the same: ",
+              identical(wm, wm_cpp)))
+  print(paste("Computation with Rccp_mc and original implementation are the same: ",
+              identical(wm, wm_cpp_mc)))
+
   return(wm)
+
+
 }
