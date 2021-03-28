@@ -18,13 +18,19 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
     int min_index = 0;
     double min_val = 0;
     double tmp_val = 0;
+    double subtract_val = 0;
 
     NumericVector tmp(size_a);
     IntegerVector out(size_b);
 
     for(int i = 0; i < size_b; ++i) {
       for(int j=0; j < size_a; ++j) {
-        tmp_val = abs(b[i]-a[j])*sc + cd[j];
+
+        subtract_val = (b[i]-a[j])*sc;
+
+        if (subtract_val < 0){subtract_val *= -1;}
+
+        tmp_val =  subtract_val + cd[j];
 
         if (j==0){
           min_val = tmp_val;
