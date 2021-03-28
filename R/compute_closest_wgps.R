@@ -55,13 +55,13 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
 
    # uncomment to following line for comparing the new implementation with the
    # original one.
-   wm_original <- apply(compute_outer(a, b, '-') * sc,
-               2,
-               function(x) which.min(abs(c - d) * (1 - sc) + x))
-
-
-   print(paste("Computation with Rccp and original implementation are the same: ",
-              identical(wm, wm_original)))
+   # wm_original <- apply(compute_outer(a, b, '-') * sc,
+   #             2,
+   #             function(x) which.min(abs(c - d) * (1 - sc) + x))
+   #
+   #
+   # print(paste("Computation with Rccp and original implementation are the same: ",
+   #            identical(wm, wm_original)))
 
    return(wm)
 
