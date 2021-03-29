@@ -1,6 +1,6 @@
-# GPSmatching (development version)
+## GPSmatching (development version)
 
-## Added
+### Added
 
 *  Cpp code for computing pair of w and gps.
 *  `update_logger` function.
@@ -18,23 +18,23 @@
 *  `param` as an argument to accept hyperparameters from users.
 
 
-## Changed
+### Changed
 
 * estimate_erf output returns S3 object.
 * test-Covariate_balance.R --> test-absolute_corr_fun.R
 * covarate_balance.R --> absolute_corr_fun.R
 * User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
 
-## Fixed
+### Fixed
 
 * mclapply memory issue (compute_closest_wgps.R).
 
-## Removed
+### Removed
 
 
-# GPSmatching 0.2.0 (2021-03-01)
+## GPSmatching 0.2.0 (2021-03-01)
 
-## Added
+### Added
 
 * Covariate balance check for categorical data.
 * Contribution guidelines

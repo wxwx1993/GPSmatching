@@ -1,3 +1,6 @@
+<!-- badges:start --> [![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions) <!-- badges:end -->
+
+
 # GPSmatching
 
 

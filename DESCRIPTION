@@ -2,8 +2,17 @@ Package: GPSmatching
 Type: Package
 Title: Matching on generalized propensity scores with continuous exposures
 Version: 0.2.0
-Author: Xiao Wu
-Maintainer: Xiao Wu <wuxiao@g.harvard.edu>
+Authors@R: c(
+    person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
+           role=c("aut","cre"), 
+           comment = c(ORCID = "0000-0003-4315-1426")),
+    person("Xiao", "Wu", email = "wuxiao@g.harvard.edu",
+           role= c("aut"),            
+           comment = c(ORCID = "0000-0002-4884-657X")),
+    person("Danielle","Braun", email = "dbraun@hsph.harvard.edu",
+           role=c("aut"),     
+           comment = c(ORCID = "0000-0002-5177-8598")))
+Maintainer: Naeem Khoshnevis <nkhoshnevis@g.harvard.edu>
 Description: An R package for implementing matching on generalized propensity
     scores with continuous exposures. We developed an innovative approach for
     estimating causal effects using observational data in settings with
@@ -12,6 +21,8 @@ Description: An R package for implementing matching on generalized propensity
     2018. Matching on generalized propensity scores with continuous exposures. 
     arXiv preprint arXiv:1812.06575.
 License: GPL-3
+URL: https://github.com/fasrc/GPSmatching, https://fasrc.github.io/GPSmatching
+BugReports: https://github.com/fasrc/GPSmatching/issues
 Copyright: See COPYRIGHTS for details.
 Imports: 
     parallel,

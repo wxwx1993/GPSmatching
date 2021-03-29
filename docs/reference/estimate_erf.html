@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -36,6 +36,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
+
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 
@@ -85,15 +91,43 @@
   </a>
 </li>
 <li>
+  <a href="../articles/GPSmatching.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="divider"></li>
+    <li class="dropdown-header">Collabration</li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/fasrc/GPSmatching/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
+      
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -107,7 +141,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate smoothed exposure-response function (ERF).</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/estimate_erf.R'><code>R/estimate_erf.R</code></a></small>
     <div class="hidden name"><code>estimate_erf.Rd</code></div>
     </div>
 
@@ -172,28 +206,28 @@ attributes:</p><ul>
                              matching_fun <span class='op'>=</span> <span class='st'>"matching_l1"</span>,
                              delta_n <span class='op'>=</span> <span class='fl'>1</span>,
                              scale <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.228741998320616 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [11:32:40] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.169358694372361 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.228741998320616 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
+#&gt; [18:50:15] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.169358694372361 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='input'>
 <span class='va'>erf_obj</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_erf</span><span class='op'>(</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>Y</span>,
                         <span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>w</span>,
                         bw_seq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.2</span>,<span class='fl'>2</span>,<span class='fl'>0.2</span><span class='op'>)</span>,
@@ -212,7 +246,7 @@ attributes:</p><ul>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Xiao Wu.</p>
+  <p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
 </div>
 
 <div class="pkgdown">
@@ -223,6 +257,23 @@ attributes:</p><ul>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'API_KEY',
+    indexName: 'INDEX_NAME',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
