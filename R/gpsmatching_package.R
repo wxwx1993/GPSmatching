@@ -23,6 +23,8 @@
 #' @import gam
 #' @import KernSmooth
 #' @import polycor
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib GPSmatching, .registration = TRUE
 #'
 #' @references
 #' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.

@@ -45,62 +45,24 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
     stop('Expecting equal length for a and c.')
   }
 
-  # Maximum allocated memory for this task: 4 GB.
-  # 1024^3 = 1073741824
-  # double value: 8 bytes
-
-  max_allocated_mem = 0.5
-  chunk_size = floor((max_allocated_mem*1073741824)/(length(a)*8))
-  logger::log_debug(paste("Length of all data: {length(b)},",
-                          " length of subset of data: {length(a)},",
-                          " max_allocated_mem: {max_allocated_mem},",
-                          " chunk size: {chunk_size} "))
-
-  fun1 <- function(index, a, b, cd, sc, chunk_size){
-
-    if ((index+chunk_size)>length(b)){
-      n_index <- length(b)
-    } else {
-      n_index <- index + chunk_size -1
-    }
-
-    outer_val <- compute_outer(a, b[index:n_index], '-') * sc
-    result_vec <- apply(outer_val,
-                        2,
-                        function(x) which.min(cd + x))
-    outer_val <- NULL
-    return(result_vec)
+  if (sc < 0 || sc > 1 ){
+    stop('Expecting sc in [0,1] range.')
   }
 
-  platform_os <- .Platform$OS.type
 
-  if (is.element(platform_os,c("unix"))){
+   c_minus_d <- abs(c-d)*(1-sc)
+   wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc)
 
-    logger::log_debug("mclapply is used in computing wgps. nthread: {nthread}")
+   # uncomment to following line for comparing the new implementation with the
+   # original one.
+   # wm_original <- apply(compute_outer(a, b, '-') * sc,
+   #             2,
+   #             function(x) which.min(abs(c - d) * (1 - sc) + x))
+   #
+   #
+   # print(paste("Computation with Rccp and original implementation are the same: ",
+   #            identical(wm, wm_original)))
 
-    index_list <- seq(1, length(b), chunk_size)
-    c_minus_d <- abs(c-d)*(1-sc)
-    N <- length(index_list)
-    i_list <- splitIndices(N, ceiling(N/(nthread)))
-    result_list <- list()
+   return(wm)
 
-    for (i in seq_along(i_list)){
-      i_vec <- i_list[[i]]
-      result_list[i_vec] <- mclapply(index_list[i_vec],
-                                     fun1,
-                                     a=a,
-                                     b=b,
-                                     cd=c_minus_d,
-                                     sc=sc,
-                                     chunk_size=chunk_size,
-                                     mc.silent = FALSE,
-                                     mc.cores=nthread,
-                                     mc.cleanup = TRUE)}
-    wm <- unlist(result_list)
-  } else {
-    wm <- apply(compute_outer(a, b, '-') * sc,
-                2,
-                function(x) which.min(abs(c - d) * (1 - sc) + x))
-  }
-  return(wm)
 }
