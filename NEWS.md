@@ -1,41 +1,40 @@
-## GPSmatching (development version)
+# GPSmatching (development version)
 
-### Added
+## Added
 
-- Cpp code for computing pair of w and gps.
-- `update_logger` function.
-- Customized wrapper for ranger package.
-- Extended plot function for gen_pseudo_pop object (plot.R)
-- Extended plot function for estimate_erf object (plot.R)
-- Extended print function for estimate_erf object (print.R)
-- test-estimate_erf.R
-- create_weighting.R
-- Steps for adding test data into 'sysdata.rda'.
-- `weighting` option as causal inference approach.  
-- absoulte_weighted_corr_fun.R
-- Testing and running example guidelines for developers
-- Customized wrapper for xgboost package.
-- `param` as an argument to accept hyperparameters from users.
+*  Cpp code for computing pair of w and gps.
+*  `update_logger` function.
+*  Customized wrapper for ranger package.
+*  Extended plot function for gen_pseudo_pop object (plot.R)
+*  Extended plot function for estimate_erf object (plot.R)
+*  Extended print function for estimate_erf object (print.R)
+*  test-estimate_erf.R
+*  create_weighting.R
+*  Steps for adding test data into 'sysdata.rda'.
+*  `weighting` option as causal inference approach.  
+*  absoulte_weighted_corr_fun.R
+*  Testing and running example guidelines for developers
+*  Customized wrapper for xgboost package.
+*  `param` as an argument to accept hyperparameters from users.
 
 
-### Changed
+## Changed
 
-- estimate_erf output returns S3 object.
-- test-Covariate_balance.R --> test-absolute_corr_fun.R
-- covarate_balance.R --> absolute_corr_fun.R
-- User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
+* estimate_erf output returns S3 object.
+* test-Covariate_balance.R --> test-absolute_corr_fun.R
+* covarate_balance.R --> absolute_corr_fun.R
+* User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
 
-### Fixed
+## Fixed
 
-- mclapply memory issue (compute_closest_wgps.R).
+* mclapply memory issue (compute_closest_wgps.R).
 
-### Removed
-
+## Removed
 
 
 # [0.2.0] - 2021-03-01
 
-### Added
+## Added
 
 * Covariate balance check for categorical data.
 * Contribution guidelines
