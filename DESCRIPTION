@@ -5,13 +5,13 @@ Version: 0.2.0
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
-           comment = c(ORCID = "0000-0003-4315-1426")),
+           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="FASRC")),
     person("Xiao", "Wu", email = "wuxiao@g.harvard.edu",
            role= c("aut"),            
-           comment = c(ORCID = "0000-0002-4884-657X")),
+           comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION="HSPH")),
     person("Danielle","Braun", email = "dbraun@hsph.harvard.edu",
            role=c("aut"),     
-           comment = c(ORCID = "0000-0002-5177-8598")))
+           comment = c(ORCID = "0000-0002-5177-8598", AFFILIATION="HSPH")))
 Maintainer: Naeem Khoshnevis <nkhoshnevis@g.harvard.edu>
 Description: An R package for implementing matching on generalized propensity
     scores with continuous exposures. We developed an innovative approach for

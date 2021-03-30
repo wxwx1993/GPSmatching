@@ -76,7 +76,7 @@ The package can generate synthetic data that can be used to test different featu
 
 ### Generating Synthetic Data
 
-```R
+```r
 library("GPSmatching")
 
 mydata <- gen_syn_data(sample_size = 10000) 
@@ -99,7 +99,7 @@ In the following example, first, we generate 10000 synthetic data samples, then 
 - We requested for one thread (`nthread = 1`); you can use as much as you want; the package will use the available one and will ignore the rest of them. XGBoost uses OpenMP backend to use all cores. Sometimes it becomes a really big challenge on Mac systems. So if you are using Mac and do not see any performance improvement, be aware of that. 
 - In `params`, we passed the list of parameters; the function will choose one from each list at random and will generate a customize wrapper based on them. If you want to use a specific value, just give a list one number (e.g., xgb_max_depth = c(3)). All parameters that start with `xgb_` will only change XGBoost hyperparameters.
 
-```R
+```r
 library("GPSmatching")
 mydata <- gen_syn_data(sample_size = 10000) 
 data_with_gps <- estimate_gps(mydata$Y,
@@ -117,7 +117,7 @@ data_with_gps <- estimate_gps(mydata$Y,
 
 Now, let's add some categorical data. Let's say our data belongs to 5 different years (2000 observations per year), and each year we have data from 4 different regions, including *North*, *South*, *East*, and *West*.
 
-```R
+```r
 library("GPSmatching")
 mydata <- gen_syn_data(sample_size = 10000) 
 
@@ -160,7 +160,7 @@ After estimating the GPS values, we need to compile the population. There are th
 
 Among different methods for testing covariate balance test, only `absolute` approach is implemented.
 
-```R
+```r
 library("GPSmatching")
 mydata <- gen_syn_data(sample_size = 10000) 
 pseudo_pop <- gen_pseudo_pop(mydata$Y,
@@ -183,7 +183,7 @@ pseudo_pop <- gen_pseudo_pop(mydata$Y,
 
 The second causal inference approach is `weighting`. Here is an example to generate pseudo population using `weighting` approach.
 
-```R
+```r
 mydata <- gen_syn_data(sample_size = 10000) 
 
 year <- c(rep(c("2001"), each=2000),
@@ -214,16 +214,13 @@ pseudo_pop <- gen_pseudo_pop(mydata$Y,
                              covar_bl_trs = 0.1,
                              max_attempt = 1
                              )
-
 ```
-
-
 
 ### Further Processing
 
 After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (`estimate_erf`) is implemented. 
 
-```R
+```r
 library("GPSmatching")
 mydata <- gen_syn_data(sample_size = 10000) 
 pseudo_pop <- gen_pseudo_pop(mydata$Y,
@@ -265,28 +262,27 @@ cp  R/sysdata.rda R/sysdata_backup.rda
 
 - Step 3: Clean Global environment 
 
-```R
+```r
 rm(list=ls())
 ```
 
 - Step 4: Load current data and store the names
 
-```R
+```r
 load("R/sysdata.rd")
 list_names <- ls()
 ```
 - Step 5: Generate your data (mydata) and make sure to add steps to reproduce that data as a comment in your test file.
 - Step 6: Add new data name to `list_names`. Please note the quotes. You do not need to add data, just the name.
 
-```R
+```r
 list_names <- c(list_names, "mydata") 
 ``` 
 - Step 7: Save the data.
 
-```R
+```r
 save(list=list_names, file="R/sysdata.rda"
 ``` 
 
 - Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
 - Step 9: After succssfull `check()/pass()` remove the backup file. 
-
