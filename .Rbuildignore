@@ -6,3 +6,4 @@
 ^\.github$
 ^_archive/*$
 ^inst/misc/*$
+index.md

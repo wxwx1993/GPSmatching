@@ -65,9 +65,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li class="divider">
+    <li class="dropdown-header">Introduction</li>
+    <li>
+      <a href="articles/estimating_gps.html">Estimating GPS</a>
+    </li>
+    <li>
+      <a href="articles/generating_pseudo_population.html">Generating Pseudo Population</a>
+    </li>
+    <li>
+      <a href="articles/outcome_models.html">Outcome Models</a>
+    </li>
+    <li>
+      <a href="articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li class="divider">
     <li class="dropdown-header">Collabration</li>
     <li>
-      <a href="articles/faq.html">Frequently Asked Questions</a>
+      <a href="articles/contribution.html">Developers Guide</a>
+    </li>
+    <li>
+      <a href="articles/testing_the_package.html">Testing the Package</a>
+    </li>
+    <li>
+      <a href="articles/notes_on_sl_wrapper.html">Notes on SL Wrappers</a>
     </li>
   </ul>
 </li>
@@ -100,140 +120,37 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-
-<div id="gpsmatching" class="section level1">
+<div id="gpsmatching-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#gpsmatching" class="anchor"></a>GPSmatching</h1></div>
-<table class="table">
-<thead><tr class="header">
-<th>Resource</th>
-<th>Github Actions</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Platforms</td>
-<td>Windows, macOS, Linux</td>
-</tr>
-<tr class="even">
-<td>R CMD check</td>
-<td><a href="https://github.com/Naeemkh/GPSmatching/actions"><img src="https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg" alt="R build status"></a></td>
-</tr>
-</tbody>
-</table>
-<p>Matching on generalized propensity scores with continuous exposures</p>
+<a href="#gpsmatching-" class="anchor"></a>GPSmatching <a href="https://fasrc.github.io/GPSmatching/"><img src="reference/figures/logo_place_holder.png" align="right" height="115"></a>
+</h1></div>
+<!-- badges: start -->
+
 <div id="summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h2>
 <p>An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.</p>
 </div>
-<div id="installation" class="section level2">
+<div id="features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"fasrc/GPSmatching"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span></code></pre></div>
+<a href="#features" class="anchor"></a>Features</h2>
+<div id="estimating-gps" class="section level3">
+<h3 class="hasAnchor">
+<a href="#estimating-gps" class="anchor"></a>Estimating GPS</h3>
+<p><em>TBD</em></p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<p>Input parameters:</p>
-<p><code>Y</code>: a vector of observed outcome<br><code>w</code>: a vector of observed continues exposure<br><code>c</code>: data frame or matrix of observed baseline covariates<br><code>matching_fun</code>: specified matching function<br><code>scale</code>: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><code>delta_n</code>: specified caliper parameter on the exposure<br><code>sl_lib</code>: a set of machine learning methods used for estimating GPS<br><code>ci_appr</code>: causal inference approach<br><code>running_appr</code>: running approach (base, parallel)<br><code>covar_bl_method</code>: specified covariate balance method<br><code>covar_bl_trs</code>: specified covariate balance threshold<br><code>max_attempt</code>: maximum number of attempt to satisfy covariate balance</p>
-<ul>
-<li>Generating Pseudo Population</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">Y</span>,
-                             <span class="va">w</span>,
-                             <span class="va">c</span>,
-                             ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
-                             running_appr <span class="op">=</span> <span class="st">"base"</span>,
-                             pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span>,<span class="st">"SL.earth"</span>,<span class="st">"SL.gam"</span>,
-                                        <span class="st">"SL.ranger"</span><span class="op">)</span>,
-                             params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
-                                           xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
-                             nthread <span class="op">=</span> <span class="fl">1</span>,
-                             covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
-                             covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
-                             max_attempt <span class="op">=</span> <span class="fl">1</span>,
-                             matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
-                             delta_n <span class="op">=</span> <span class="fl">1</span>,
-                             scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
-<p><code>matching_l1</code> is Manhattan distance matching approach. For prediciton model we use <a href="https://github.com/ecpolley/SuperLearner">SuperLearner</a> package. User need to pass <code>sl</code> as <code>pred_model</code> to use SuperLearner package. SuperLearner supports different machine learning methods and packages. <code>params</code> is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list. The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in <code>sl_lib</code>, the prefixes that should be used for their hyperparameters in the <code>params</code> list, and available hyperparameters.</p>
-<table class="table">
-<thead><tr class="header">
-<th align="center">Package name</th>
-<th align="center">
-<code>sl_lib</code> name</th>
-<th align="center">prefix</th>
-<th align="center">available hyperparameters</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="center"><a href="https://xgboost.readthedocs.io/en/latest/index.html">XGBoost</a></td>
-<td align="center"><code>m_xgboost</code></td>
-<td align="center"><code>xgb_</code></td>
-<td align="center">nrounds, eta, max_depth, min_child_weight</td>
-</tr>
-<tr class="even">
-<td align="center"><a href="https://cran.r-project.org/web/packages/ranger/index.html">ranger</a></td>
-<td align="center"><code>m_ranger</code></td>
-<td align="center"><code>rgr_</code></td>
-<td align="center">num.trees, write.forest, replace, verbose, family</td>
-</tr>
-</tbody>
-</table>
-<p><code>nthread</code> is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.</p>
-<ul>
-<li>Estimating GPS</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">Y</span>,
-                              <span class="va">w</span>,
-                              <span class="va">c</span>,
-                              pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                              running_appr <span class="op">=</span> <span class="st">"base"</span>,
-                              internal_use <span class="op">=</span> <span class="cn">FALSE</span>,
-                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
-                                            xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,
-                              nthread <span class="op">=</span> <span class="fl">1</span>,                                
-                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>
-                              <span class="op">)</span></code></pre></div>
-<p>If <code>internal_use</code> is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See <code><a href="reference/estimate_gps.html">?estimate_gps</a></code> for more details.</p>
-<ul>
-<li>Estimating Exposure Rate Function</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">erf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_erf.html">estimate_erf</a></span><span class="op">(</span><span class="va">Y</span>,
-                    <span class="va">w</span>,
-                    <span class="va">bw_seq</span>,
-                    <span class="va">w_vals</span><span class="op">)</span></code></pre></div>
-<ul>
-<li>Generating Synthetic Data</li>
-</ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">syn_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="fl">1000</span>,
-                         seed <span class="op">=</span> <span class="fl">403</span>,
-                         outcome_sd <span class="op">=</span> <span class="fl">10</span>,
-                         gps_spec <span class="op">=</span> <span class="fl">1</span>,
-                         cova_spec <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<div id="generating-pseudo-population" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generating-pseudo-population" class="anchor"></a>Generating Pseudo Population</h3>
+<p><em>TBD</em></p>
 </div>
-<div id="contribution" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contribution" class="anchor"></a>Contribution</h2>
-<p>For more information about reporting bugs and contribution, please read the <a href="inst/misc/developer_manual.html">Contribution Page</a>.</p>
-</div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<ol>
-<li>Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018. Matching on generalized propensity scores with continuous exposures. arXiv preprint arXiv:1812.06575. (<a href="https://arxiv.org/abs/1812.06575" class="uri">https://arxiv.org/abs/1812.06575</a>)</li>
-</ol>
+<div id="outcome-models" class="section level3">
+<h3 class="hasAnchor">
+<a href="#outcome-models" class="anchor"></a>Outcome Models</h3>
+<p><em>TBD</em></p>
 </div>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -252,6 +169,12 @@
 <li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing GPSmatching</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
@@ -264,7 +187,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/Naeemkh/GPSmatching/actions"><img src="https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/FASRC/GPSmatching/actions"><img src="https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 </div>

@@ -25,5 +25,9 @@ Journal of the Royal Statistical Society: Series B (Statistical Methodology),
 79(4), pp.1229-1245.
 }
 \author{
+Naeem Khoshnevis
+
 Xiao Wu
+
+Danielle Braun
 }

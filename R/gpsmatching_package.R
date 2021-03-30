@@ -13,7 +13,9 @@
 #' @docType package
 #' @name GPSmatching-package
 #' @aliases GPSmatching
+#' @author Naeem Khoshnevis
 #' @author Xiao Wu
+#' @author Danielle Braun
 #' @import parallel
 #' @import data.table
 #' @import SuperLearner

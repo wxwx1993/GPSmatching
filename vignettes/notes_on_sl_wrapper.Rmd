@@ -1,0 +1,33 @@
+---
+title: "Notes on SL Wrappers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{notes_on_sl_wrapper}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The [SuperLearner package](https://github.com/ecpolley/SuperLearner) is used to develop prediction models. In order to achieve the best performance of the algorithms, it is better to create a customized wrapper for different libraries. This section explains the steps to create a customized library for [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html) package. XGBoost supports several [hyperparameters](https://xgboost.readthedocs.io/en/latest/parameter.html) to finetune the training process. 
+Specifically for this package, there are two options to create a wrapper for XGBoost (or any other supported packages), including:
+- Making a wrapper for the current wrapper ([SL.xgboost](https://github.com/ecpolley/SuperLearner/blob/master/R/SL.xgboost.R))
+- Creating a wrapper from scratch. 
+In this note, we explain the first approach that is used in developing this package. The SuperLearner package explicitly supports some of the XGBoost hyperparameters. The following table explains these parameters:
+
+
+| SL  |XGBoost| GPSmatching| Description |
+|:---:|:-----:|:----------:|:-----------:|
+| ntrees | nrounds | xgb_nrounds | Maximum number of boosting iteration |
+| shrinkage | eta | xgb_eta | Controls the learning rate [0,1]. Low eta value means the model is robust for overfitting; however, the computation is slow.  | 
+| max_depth | max_depth | xgb_max_depth | Maximum depth of tree |
+| minobspernode | min_child_weight | xgb_min_child_weight | minimum sum of instance weight (hessian) needed in a child.|
+
+We use `xgb_` prefix to distinguish different libraries' hyperparameters. Users can pass the hyperparameters through the `param` list. Each hyperparameter can be a list of one or many elements. At each iteration, the program randomly picks one element out of the many provided for each hyperparameter. This process improves the chance of developing a balanced pseudo population after several trials. We would recommend providing a long list of hyperparameters to have a better idea about the performance of the pseudo population generating process. For reproducible research, use the one that provides an acceptable answer.
+
+In order to use the XGBoost package, users need to pass `m_xgboost` in the `sl_lib` list. `m` stands for the modified version. Internally for the XGBoost package, we have only one library on memory (and global environment), `m_xgboost_internal`. Before conducting any processing that involves developing prediction models (e.g., in estimate_gps and gen_pseudo_pop functions), developers need to call the `gen_wrap_sl_lib` function. It will make sure that an updated wrapper is generated and located in memory. 

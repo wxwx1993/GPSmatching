@@ -1,13 +1,10 @@
-<div id="badges">[![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions)</div> 
-
-
 # GPSmatching
 
 
 | Resource    |  Github Actions      |
 | ----------  | -------------------- |
 | Platforms   | Windows, macOS, Linux|
-| R CMD check | [![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions) |
+| R CMD check | [![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/GPSmatching/actions) |
 
 
 
@@ -19,6 +16,7 @@ Matching on generalized propensity scores with continuous exposures
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Installation
+
 ```r
 library("devtools")
 install_github("fasrc/GPSmatching")
