@@ -11,6 +11,7 @@ gen_pseudo_pop(
   ci_appr,
   running_appr,
   pred_model,
+  adaptive = FALSE,
   save_output = FALSE,
   save_path = NULL,
   params = list(),
@@ -40,6 +41,8 @@ on the SuperLearner Module.)
 }}
 
 \item{pred_model}{a prediction model}
+
+\item{adaptive}{If TRUE, the function uses transformer to meet the covariate balance.}
 
 \item{save_output}{If TRUE, output results will be stored at the save.path.
 Default is FALSE.}
@@ -127,6 +130,7 @@ pseuoo_pop <- gen_pseudo_pop(m_d$Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
+                             adaptive = FALSE,
                              sl_lib = c("m_xgboost"),
                              params = list(xgb_nrounds=c(10,20,30),
                               xgb_eta=c(0.1,0.2,0.3)),

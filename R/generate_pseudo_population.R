@@ -18,6 +18,7 @@
 #'   - "parallel": Uses parallel flag whenever possible. (Currently is activated
 #'    on the SuperLearner Module.)
 #' @param pred_model a prediction model
+#' @param adaptive If TRUE, the function uses transformer to meet the covariate balance.
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
@@ -72,6 +73,7 @@
 #'                              ci_appr = "matching",
 #'                              running_appr = "base",
 #'                              pred_model = "sl",
+#'                              adaptive = FALSE,
 #'                              sl_lib = c("m_xgboost"),
 #'                              params = list(xgb_nrounds=c(10,20,30),
 #'                               xgb_eta=c(0.1,0.2,0.3)),

@@ -7,3 +7,5 @@ inst/doc
 tests/testthat/_snaps/*
 GPSmatching.log
 tests/testthat/.DS_Store
+doc
+Meta

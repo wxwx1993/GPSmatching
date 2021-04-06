@@ -72,10 +72,6 @@ Please report potential bugs by creating a [new issue](https://github.com/fasrc/
 - OS that you are using and whether you are using a personal computer or HPC cluster. 
 - The version of the package that you have installed.
 
-
-
-- [Testing the package, examples, and discussion](testing_example_discussion.md)
-
 ## Style Guide
 
 In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
