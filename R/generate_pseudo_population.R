@@ -89,6 +89,7 @@ gen_pseudo_pop <- function(Y,
                            ci_appr,
                            running_appr,
                            pred_model,
+                           adaptive = FALSE,
                            save_output = FALSE,
                            save_path = NULL,
                            params = list(),
@@ -153,11 +154,20 @@ gen_pseudo_pop <- function(Y,
     adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread, ...)
     logger::log_debug("Finished checking covariate balance.")
 
-
     if (adjusted_corr_obj$pass){
       message(paste('Covariate balance condition has been met (iteration: ',
                     counter,'/', max_attempt,')'))
       break
+    }
+
+    # TODO: move this block into a function
+    if (adaptive){
+      # Select the column with worst correlation and transform it.
+      max_cor_c <- which.max(adjusted_corr_obj$corr_results$absolute_corr)
+      # TODO: modifying data inside function is against the functional programming
+      # paradime. See if you can improve it.
+      c[[names(max_cor_c)[1]]] <- c[[names(max_cor_c)[1]]]^2
+      logger::log_info("{names(max_cor_c)[1]} was transformed.")
     }
     counter <- counter + 1
   }
