@@ -45,9 +45,11 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
     if (ci_appr == 'matching'){
       abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
                                    pseudo_pop[,4:length(pseudo_pop)], nthread)
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
                                             pseudo_pop[, 5:length(pseudo_pop)])
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[5:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))

@@ -91,6 +91,25 @@ estimate_gps <- function(Y,
   gps_mx <- compute_min_max(gps)
   dataset <- cbind(Y,w,gps,c)
 
+
+  # Logging for debugging purposes
+  logger::log_debug("Weights for the select libraries in predicting e_gps:",
+          " {paste(names(e_gps$coef), collapse = ', ')}",
+          " {paste(e_gps$coef, collapse = ', ')}",
+          " | Overal Risk: {sum(e_gps$coef * e_gps$cvRisk)/length(e_gps$coef)}")
+
+  logger::log_debug("Wall clock time to estimate e_gps:",
+                    " {e_gps$times$everything[3]} seconds.")
+
+  logger::log_debug("Weights for the select libraries in predicting residuals:",
+          " {paste(names(e_gps_std$coef), collapse = ', ')}",
+          " {paste(e_gps_std$coef, collapse = ', ')} | Overal risk:",
+          " {sum(e_gps_std$coef * e_gps_std$cvRisk)/length(e_gps_std$coef)}")
+
+  logger::log_debug("Wall clock time to estimate residuals:",
+                    " {e_gps_std$times$everything[3]} seconds.")
+
+
   if (internal_use){
     return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
   } else {
