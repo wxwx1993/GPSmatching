@@ -132,11 +132,29 @@ gen_pseudo_pop <- function(Y,
 
   if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
 
+  covariate_cols <- as.list(colnames(c))
+
+  # transformed_vals is a list of lists. Each internal list's first element is
+  # the column name and the rest is operands that is applied to it.
+  # TODO: this need a dictionary style data structure.
+
+  transformed_vals <- covariate_cols
+
+
+  pow2 <- function(x) {x^2}
+  pow3 <- function(x) {x^3}
+
+  transformers <- c("pow2","pow3")
+
+  c_extended <- c
+  recent_swap <- NULL
+
+
   while (counter < max_attempt+1){
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(Y, w, c, pred_model, running_appr,
+    estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)], pred_model, running_appr,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
     logger::log_debug("Finished estimating gps.")
@@ -162,15 +180,83 @@ gen_pseudo_pop <- function(Y,
       break
     }
 
-    # TODO: move this block into a function
-    if (adaptive){
-      # Select the column with worst correlation and transform it.
-      max_cor_c <- which.max(adjusted_corr_obj$corr_results$absolute_corr)
-      # TODO: modifying data inside function is against the functional programming
-      # paradime. See if you can improve it.
-      c[[names(max_cor_c)[1]]] <- c[[names(max_cor_c)[1]]]^2
-      logger::log_info("{names(max_cor_c)[1]} was transformed.")
+    if (is.element(adaptive, c("single", "multiple"))){
+
+      sort_by_covar <- sort(adjusted_corr_obj$corr_results$absolute_corr,
+                            decreasing = TRUE)
+
+      value_found = FALSE
+      for (c_name in names(sort_by_covar)){
+        # find the element index in the transformed_vals list
+        el_ind <- which(unlist(lapply(transformed_vals,
+                                      function(x){ x[1] == c_name })))
+
+        if (length(el_ind)==0){
+          # wants to choose a transformed column.
+          next
+        }
+
+        if (is.factor(c_extended[[c_name]])){
+          # Only numerical values are considered for transformation.
+          next
+        }
+
+        print(paste("Looking for ", c_name, " found at: ", el_ind))
+
+        for (operand in transformers){
+          if (!is.element(operand, transformed_vals[[el_ind]])){
+            new_c <- c_name
+            new_op <- operand
+            value_found = TRUE
+            break
+          }
+
+        }
+        if (value_found){break}
+      }
+
+      if (!value_found){
+        warning("All possible combination has been tried. Try using more transformers or switch to multiple option.")
+      } else {
+
+      # add operand into the transformed_vals
+      transformed_vals[[el_ind]][length(transformed_vals[[el_ind]])+1] <- new_op
+
+      # generate new transformed column
+
+      transform_it <- function(c_name, c_val, transformer){
+
+        t_c_name <- paste(c_name,"_",transformer, sep = "")
+        t_data <- do.call(transformer, list(c_val))
+        t_data <- data.frame(t_data)
+        colnames(t_data) <- t_c_name
+
+        return(data.frame(t_data))
+
+      }
+
+      t_dataframe <- transform_it(new_c, c_extended[[new_c]], new_op)
+
+      if (adaptive == "single"){
+        # restore the previously changed columns.
+        if (!is.null(recent_swap)){
+          # first element is old_col name
+          # second element is new_col name
+
+          new_col_ind <- which(covariate_cols==recent_swap[2])
+          covariate_cols[[new_col_ind]] <- NULL
+          covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
+        }
+      }
+
+      c_extended <- cbind(c_extended, t_dataframe)
+      recent_swap <- c(new_c, unlist(colnames(t_dataframe)))
+      index_to_remove <- which(unlist(covariate_cols)==new_c)
+      covariate_cols[[index_to_remove]] <- NULL
+      covariate_cols[length(covariate_cols)+1] <- unlist(colnames(t_dataframe))
+      }
     }
+
     counter <- counter + 1
   }
 

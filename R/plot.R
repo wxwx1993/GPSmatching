@@ -134,7 +134,6 @@ autoplot.gpsm_pspop <- function(object, ...){
     ggplot2::labs(x = default_gg_labs$x, y = default_gg_labs$y) +
     ggplot2::ggtitle(default_gg_title)
 
-
   if (!is.null(gg_labs)){
     g <- g + ggplot2::labs(x=gg_labs[1], y=gg_labs[2])
   }
