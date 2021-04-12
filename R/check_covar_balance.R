@@ -27,6 +27,10 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
   covar_bl_trs <- NULL
   # ------------------------------------------------------
 
+  logger::log_debug("Started checking covariate balance ... ")
+  s_ccb_t <- proc.time()
+
+
   # collect additional arguments
   dot_args <- list(...)
   arg_names <- names(dot_args)
@@ -65,9 +69,15 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
     } else {
       output$pass <- FALSE
     }
+
+      e_ccb_t <- proc.time()
+      logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+                      " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
       return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
   }
+
+
 }

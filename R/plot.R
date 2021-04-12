@@ -131,6 +131,8 @@ autoplot.gpsm_pspop <- function(object, ...){
     ggplot2::theme_bw() +
     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)) +
     ggplot2::geom_vline(xintercept = object$params$covar_bl_trs) +
+    ggplot2::geom_vline(xintercept = object$adjusted_corr_results$mean_absolute_corr,
+                        linetype="dotdash") +
     ggplot2::labs(x = default_gg_labs$x, y = default_gg_labs$y) +
     ggplot2::ggtitle(default_gg_title)
 

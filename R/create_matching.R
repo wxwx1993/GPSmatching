@@ -36,46 +36,27 @@ create_matching <- function(dataset, nthread = 1, ...){
 
   bin_num<-seq(w_mx[1]+delta_n/2, w_mx[2], by = delta_n)
 
-  # nt <- ceiling(nthread/2)
-  #
-  #
-  #     N <- length(bin_num)
-  #     i_list <- splitIndices(N, ceiling(N/(nthread)))
-  #     result_list <- list()
-  #
-  #     for (i in seq_along(i_list)){
-  #       i_vec <- i_list[[i]]
-  #       tmp_matched_result <- mclapply(bin_num[i_vec],
-  #                                      matching_fun,
-  #                                      dataset=dataset[[1]],
-  #                                      e_gps_pred = dataset[[2]],
-  #                                      e_gps_std_pred = dataset[[3]],
-  #                                      w_resid=dataset[[4]],
-  #                                      gps_mx = gps_mx,
-  #                                      w_mx = w_mx,
-  #                                      delta_n = delta_n,
-  #                                      scale = scale,
-  #                                      nthread = 1,
-  #                                      mc.cores = nthread,
-  #                                      mc.silent = FALSE,
-  #                                      mc.cleanup = TRUE)
-  #       result_list[i_vec] = do.call(rbind,tmp_matched_result)
-  #      }
-  #      matched_set <- unlist(result_list)
+  logger::log_debug("Started generating matched set (num bins: {length(bin_num)}) ...")
+  st_t_m <- proc.time()
 
+  matched_set <-  mclapply(bin_num,
+                           matching_fun,
+                           dataset=dataset[[1]],
+                           e_gps_pred = dataset[[2]],
+                           e_gps_std_pred = dataset[[3]],
+                           w_resid=dataset[[4]],
+                           gps_mx = gps_mx,
+                           w_mx = w_mx,
+                           delta_n = delta_n,
+                           scale = scale,
+                           nthread = nthread,
+                           mc.cores = ceiling(nthread/2))
 
+  logger::log_debug("Started generating matched set ...")
 
-  matched_set <-  lapply(bin_num,
-                         matching_fun,
-                         dataset=dataset[[1]],
-                         e_gps_pred = dataset[[2]],
-                         e_gps_std_pred = dataset[[3]],
-                         w_resid=dataset[[4]],
-                         gps_mx = gps_mx,
-                         w_mx = w_mx,
-                         delta_n = delta_n,
-                         scale = scale,
-                         nthread = nthread)
+  e_t_m <- proc.time()
+  logger::log_debug("Finished generating matched set (Wall clock time:  ",
+                    " {(e_t_m - st_t_m)[[3]]} seconds).")
 
   return(data.table(do.call(rbind,matched_set)))
 }

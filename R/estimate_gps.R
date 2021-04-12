@@ -4,7 +4,6 @@
 #' @description
 #' Estimates GPS value for each observation.
 #'
-#'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A matrix or dataframe of observed covariates variable.
@@ -57,6 +56,7 @@ estimate_gps <- function(Y,
 
 
   sl_lib = NULL
+  start_time <- proc.time()
 
   # Check passed arguments
   check_args_estimate_gps(pred_model, running_appr, ...)
@@ -109,6 +109,11 @@ estimate_gps <- function(Y,
   logger::log_debug("Wall clock time to estimate residuals:",
                     " {e_gps_std$times$everything[3]} seconds.")
 
+
+  end_time <- proc.time()
+
+  logger::log_debug("Wall clock time to run estimate_gps function: ",
+                    " {(end_time - start_time)[[3]]} seconds.")
 
   if (internal_use){
     return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))

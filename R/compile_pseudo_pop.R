@@ -26,8 +26,13 @@ compile_pseudo_pop <- function(dataset, ci_appr, nthread, ...){
   # Checking arguments
   check_args_compile_pseudo_pop(ci_appr, ...)
 
+  logger::log_info("Starting compiling pseudo population ",
+                    " (original data size: {nrow(dataset[[1]])}) ... ")
+
   if (ci_appr == 'matching'){
     matched_set <- create_matching(dataset, nthread, ...)
+    logger::log_info("Finished compiling pseudo population ",
+                      " (Pseudo population data size: {nrow(matched_set)}) ... ")
     return(matched_set)
   }
 

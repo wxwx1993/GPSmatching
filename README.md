@@ -49,6 +49,8 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
+                             use_cov_transform = TRUE,
+                             transformers = list("pow2", "pow3"),
                              sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
                              params = list(xgb_nrounds=c(10,20,30),
@@ -69,7 +71,7 @@ pseudo_pop <- gen_pseudo_pop(Y,
 | [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
 | [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
 
-`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
 
 - Estimating GPS
 
