@@ -4,7 +4,14 @@
 \alias{check_args}
 \title{Check Additional Arguments}
 \usage{
-check_args(pred_model, ci_appr, running_appr, ...)
+check_args(
+  pred_model,
+  ci_appr,
+  running_appr,
+  use_cov_transform,
+  transformers,
+  ...
+)
 }
 \arguments{
 \item{pred_model}{The prediction model.}
@@ -12,6 +19,11 @@ check_args(pred_model, ci_appr, running_appr, ...)
 \item{ci_appr}{The causal inference approach.}
 
 \item{running_appr}{The running approach.}
+
+\item{use_cov_transform}{A logical value (TRUE/FALSE) to use covariate balance
+transforming.}
+
+\item{transformers}{A list of transformers.}
 
 \item{...}{Additional named arguments passed.}
 }

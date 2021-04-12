@@ -1,0 +1,118 @@
+---
+title: "GPSmatching"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GPSmatching}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Installation
+
+```r
+library("devtools")
+install_github("fasrc/GPSmatching", ref="develop")
+library("GPSmatching")
+```
+
+## Usage
+
+Input parameters:
+
+
+**`Y`**  a vector of observed outcome  
+**`w`**  a vector of observed continues exposure  
+**`c`**  data frame or matrix of observed baseline covariates  
+**`matching_fun`**  specified matching function  
+**`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
+**`delta_n`**  specified caliper parameter on the exposure  
+**`sl_lib`**  a set of machine learning methods used for estimating GPS  
+**`ci_appr`**  causal inference approach   
+**`running_appr`**  running approach (base, parallel)  
+**`covar_bl_method`**  specified covariate balance method  
+**`covar_bl_trs`**  specified covariate balance threshold  
+**`max_attempt`**  maximum number of attempt to satisfy covariate balance  
+
+- Generating Pseudo Population
+
+```r
+pseudo_pop <- gen_pseudo_pop(Y,
+                             w,
+                             c,
+                             ci_appr = "matching",
+                             running_appr = "base",
+                             pred_model = "sl",
+                             sl_lib = c("m_xgboost","SL.earth","SL.gam",
+                                        "SL.ranger"),
+                             params = list(xgb_nrounds=c(100,200,300),
+                                           xgb_eta=c(0.1,0.2,0.3)),
+                             nthread = 1,
+                             covar_bl_method = "absolute",
+                             covar_bl_trs = 0.1,
+                             max_attempt = 1,
+                             matching_fun = "matching_l1",
+                             delta_n = 1,
+                             scale = 0.5)
+
+```
+**`matching_l1`** is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. 
+User need to pass **`sl`** as **`pred_model`** to use SuperLearner package. SuperLearner supports different machine learning methods and packages. 
+**`params`** is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. 
+All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. 
+The following table shows the external package names, their equivalent name that should be used in **`sl_lib`**, the prefixes that should be used for their
+ hyperparameters in the **`params`** list, and available hyperparameters. 
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+| [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
+
+**`nthread`** is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
+
+- Estimating GPS
+
+```r
+data_with_gps <- estimate_gps(Y,
+                              w,
+                              c,
+                              pred_model = "sl",
+                              running_appr = "base",
+                              internal_use = FALSE,
+                              params = list(xgb_max_depth = c(3,4,5),
+                                            xgb_rounds = c(10,20,30,40)),
+                              nthread = 1,                                
+                              sl_lib = c("m_xgboost")
+                              )
+
+```
+
+If **`internal_use`** is set to be TRUE, the program will return additional vectors to be used by the selected causal inference
+ approach to generate a pseudo population. See **`?estimate_gps`** for more details. 
+
+- Estimating Exposure Rate Function
+
+```r
+erf <- estimate_erf(Y,
+                    w,
+                    bw_seq,
+                    w_vals)
+```
+
+- Generating Synthetic Data
+
+```r
+syn_data <- gen_syn_data(sample_size=1000,
+                         seed = 403,
+                         outcome_sd = 10,
+                         gps_spec = 1,
+                         cova_spec = 1)
+
+```

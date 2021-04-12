@@ -4,7 +4,7 @@
 | Resource    |  Github Actions      |
 | ----------  | -------------------- |
 | Platforms   | Windows, macOS, Linux|
-| R CMD check | [![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions) |
+| R CMD check | [![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/GPSmatching/actions) |
 
 
 
@@ -16,6 +16,7 @@ Matching on generalized propensity scores with continuous exposures
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Installation
+
 ```r
 library("devtools")
 install_github("fasrc/GPSmatching")
@@ -48,6 +49,8 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
+                             use_cov_transform = TRUE,
+                             transformers = list("pow2", "pow3"),
                              sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
                              params = list(xgb_nrounds=c(10,20,30),
@@ -68,7 +71,7 @@ pseudo_pop <- gen_pseudo_pop(Y,
 | [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
 | [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
 
-`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
 
 - Estimating GPS
 

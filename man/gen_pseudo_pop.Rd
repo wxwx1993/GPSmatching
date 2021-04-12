@@ -11,6 +11,8 @@ gen_pseudo_pop(
   ci_appr,
   running_appr,
   pred_model,
+  use_cov_transform = FALSE,
+  transformers = list("pow2", "pow3"),
   save_output = FALSE,
   save_path = NULL,
   params = list(),
@@ -40,6 +42,17 @@ on the SuperLearner Module.)
 }}
 
 \item{pred_model}{a prediction model}
+
+\item{use_cov_transform}{If TRUE, the function uses transformer to meet the
+covariate balance.}
+
+\item{transformers}{A list of transformers. Is transformer should be a
+unary function. You can pass name of customized function in the quotes.
+Available transformers:
+\itemize{
+\item pow2: to the power of 2
+\item pow3: to the power of 3#'
+}}
 
 \item{save_output}{If TRUE, output results will be stored at the save.path.
 Default is FALSE.}
@@ -127,6 +140,8 @@ pseuoo_pop <- gen_pseudo_pop(m_d$Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
+                             use_cov_transform = FALSE,
+                             transformers = list(),
                              sl_lib = c("m_xgboost"),
                              params = list(xgb_nrounds=c(10,20,30),
                               xgb_eta=c(0.1,0.2,0.3)),

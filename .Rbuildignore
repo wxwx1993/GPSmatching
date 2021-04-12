@@ -6,3 +6,6 @@
 ^\.github$
 ^_archive/*$
 ^inst/misc/*$
+index.md
+^doc$
+^Meta$

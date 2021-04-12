@@ -18,6 +18,13 @@
 #'   - "parallel": Uses parallel flag whenever possible. (Currently is activated
 #'    on the SuperLearner Module.)
 #' @param pred_model a prediction model
+#' @param use_cov_transform If TRUE, the function uses transformer to meet the
+#'  covariate balance.
+#' @param transformers A list of transformers. Is transformer should be a
+#' unary function. You can pass name of customized function in the quotes.
+#' Available transformers:
+#'   - pow2: to the power of 2
+#'   - pow3: to the power of 3#'
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
@@ -72,6 +79,8 @@
 #'                              ci_appr = "matching",
 #'                              running_appr = "base",
 #'                              pred_model = "sl",
+#'                              use_cov_transform = FALSE,
+#'                              transformers = list(),
 #'                              sl_lib = c("m_xgboost"),
 #'                              params = list(xgb_nrounds=c(10,20,30),
 #'                               xgb_eta=c(0.1,0.2,0.3)),
@@ -89,6 +98,8 @@ gen_pseudo_pop <- function(Y,
                            ci_appr,
                            running_appr,
                            pred_model,
+                           use_cov_transform = FALSE,
+                           transformers = list("pow2","pow3"),
                            save_output = FALSE,
                            save_path = NULL,
                            params = list(),
@@ -97,13 +108,15 @@ gen_pseudo_pop <- function(Y,
 
   # Passing packaging check() ------------------------------
   max_attempt <- NULL
+  covar_bl_trs <- NULL
   # --------------------------------------------------------
 
   # function call
   fcall <- match.call()
 
   # Check arguments ----------------------------------------
-  check_args(pred_model,ci_appr,running_appr, ...)
+  check_args(pred_model,ci_appr,running_appr, use_cov_transform, transformers,
+             ...)
 
   # Generate output set ------------------------------------
   counter <- 1
@@ -129,14 +142,36 @@ gen_pseudo_pop <- function(Y,
 
   if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
 
+  covariate_cols <- as.list(colnames(c))
+
+  # transformed_vals is a list of lists. Each internal list's first element is
+  # the column name and the rest is operands that is applied to it.
+  # TODO: this need a dictionary style data structure.
+
+  transformed_vals <- covariate_cols
+  c_extended <- c
+  recent_swap <- NULL
+  best_ach_covar_balance <- NULL
+
   while (counter < max_attempt+1){
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(Y, w, c, pred_model, running_appr,
+    estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)], pred_model, running_appr,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
     logger::log_debug("Finished estimating gps.")
+
+    # Dropping the transformed column ------------
+    if (!is.null(recent_swap)){
+      # first element is old_col name
+      # second element is new_col name
+      new_col_ind <- which(covariate_cols==recent_swap[2])
+      covariate_cols[[new_col_ind]] <- NULL
+      covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
+      c_extended[[recent_swap[2]]] <- NULL
+      logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
+    }
 
     ## Compile data ---------
     logger::log_debug("Started compiling pseudo population ... ")
@@ -148,10 +183,20 @@ gen_pseudo_pop <- function(Y,
       # No covariate balance test for the 'adjust' causal inference approach.
       break
     }
-
-    logger::log_debug("Started checking covariate balance ... ")
+    # check covariate balance
     adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread, ...)
-    logger::log_debug("Finished checking covariate balance.")
+
+    if (is.null(best_ach_covar_balance)){
+      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+      best_pseudo_pop <- pseudo_pop
+      best_adjusted_corr_obj <- adjusted_corr_obj
+    }
+
+    if (adjusted_corr_obj$corr_results$mean_absolute_corr < best_ach_covar_balance){
+      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+      best_pseudo_pop <- pseudo_pop
+      best_adjusted_corr_obj <- adjusted_corr_obj
+    }
 
 
     if (adjusted_corr_obj$pass){
@@ -159,12 +204,70 @@ gen_pseudo_pop <- function(Y,
                     counter,'/', max_attempt,')'))
       break
     }
+
+    if (use_cov_transform){
+
+      sort_by_covar <- sort(adjusted_corr_obj$corr_results$absolute_corr,
+                            decreasing = TRUE)
+
+      value_found = FALSE
+      for (c_name in names(sort_by_covar)){
+        # find the element index in the transformed_vals list
+        el_ind <- which(unlist(lapply(transformed_vals,
+                                      function(x){ x[1] == c_name })))
+
+        if (length(el_ind)==0){
+          # wants to choose a transformed column.
+          next
+        }
+
+        if (is.factor(c_extended[[c_name]])){
+          # Only numerical values are considered for transformation.
+          next
+        }
+
+        logger::log_debug("Feature with the worst covariate balance: {c_name}.",
+                          " Located at index {el_ind}.")
+
+        for (operand in transformers){
+          if (!is.element(operand, transformed_vals[[el_ind]])){
+            new_c <- c_name
+            new_op <- operand
+            value_found = TRUE
+            break
+          }
+
+        }
+        if (value_found){break}
+      }
+
+
+      if (!value_found){
+        warning("All possible combination has been tried. Try using more transformers.")
+      } else {
+
+      # add operand into the transformed_vals
+      transformed_vals[[el_ind]][length(transformed_vals[[el_ind]])+1] <- new_op
+
+      t_dataframe <- transform_it(new_c, c_extended[[new_c]], new_op)
+
+      c_extended <- cbind(c_extended, t_dataframe)
+      recent_swap <- c(new_c, unlist(colnames(t_dataframe)))
+      index_to_remove <- which(unlist(covariate_cols)==new_c)
+      covariate_cols[[index_to_remove]] <- NULL
+      covariate_cols[length(covariate_cols)+1] <- unlist(colnames(t_dataframe))
+      logger::log_debug("Feature {c_name} was replaced by {unlist(colnames(t_dataframe))}.")
+      }
+    }
     counter <- counter + 1
   }
 
   if (counter == max_attempt+1){
     message(paste('Covariate balance condition has not been met.'))
   }
+
+  message(paste("Best Mean absolute correlation: ", best_ach_covar_balance,
+                "| Covariate balance threshold: ", covar_bl_trs))
 
   ## Store output ---------------------------------
 
@@ -188,10 +291,38 @@ gen_pseudo_pop <- function(Y,
     result$params[[item]] <- get(item)
   }
 
-  result$pseudo_pop <- pseudo_pop
-  result$adjusted_corr_results <- adjusted_corr_obj$corr_results
+  result$pseudo_pop <- best_pseudo_pop
+  result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
   result$original_corr_results <- original_corr_obj$corr_results
   result$fcall <- fcall
 
   invisible(result)
+}
+
+# transformers
+pow2 <- function(x) {x^2}
+pow3 <- function(x) {x^3}
+
+#' @title
+#' Transform data
+#'
+#' @description
+#' Transforms data into new values.
+#'
+#' @param c_name column (attribute) name.
+#' @param c_val column value
+#' @param transformer transformer funciton.
+#'
+#' @keywords internal
+#'
+#' @return
+#'  Returns transformed data.frame.
+transform_it <- function(c_name, c_val, transformer){
+
+  t_c_name <- paste(c_name,"_",transformer, sep = "")
+  t_data <- do.call(transformer, list(c_val))
+  t_data <- data.frame(t_data)
+  colnames(t_data) <- t_c_name
+
+  return(data.frame(t_data))
 }

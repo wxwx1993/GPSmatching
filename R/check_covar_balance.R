@@ -27,6 +27,10 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
   covar_bl_trs <- NULL
   # ------------------------------------------------------
 
+  logger::log_debug("Started checking covariate balance ... ")
+  s_ccb_t <- proc.time()
+
+
   # collect additional arguments
   dot_args <- list(...)
   arg_names <- names(dot_args)
@@ -45,9 +49,11 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
     if (ci_appr == 'matching'){
       abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
                                    pseudo_pop[,4:length(pseudo_pop)], nthread)
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
                                             pseudo_pop[, 5:length(pseudo_pop)])
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[5:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))
@@ -63,9 +69,15 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
     } else {
       output$pass <- FALSE
     }
+
+      e_ccb_t <- proc.time()
+      logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+                      " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
       return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
   }
+
+
 }

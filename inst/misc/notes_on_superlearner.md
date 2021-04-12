@@ -2,8 +2,10 @@
 
 The [SuperLearner package](https://github.com/ecpolley/SuperLearner) is used to develop prediction models. In order to achieve the best performance of the algorithms, it is better to create a customized wrapper for different libraries. This section explains the steps to create a customized library for [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html) package. XGBoost supports several [hyperparameters](https://xgboost.readthedocs.io/en/latest/parameter.html) to finetune the training process. 
 Specifically for this package, there are two options to create a wrapper for XGBoost (or any other supported packages), including:
+
 - Making a wrapper for the current wrapper ([SL.xgboost](https://github.com/ecpolley/SuperLearner/blob/master/R/SL.xgboost.R))
 - Creating a wrapper from scratch. 
+
 In this note, we explain the first approach that is used in developing this package. The SuperLearner package explicitly supports some of the XGBoost hyperparameters. The following table explains these parameters:
 
 

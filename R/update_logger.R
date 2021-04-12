@@ -1,5 +1,5 @@
 #' @title
-#' Update logger settings
+#' Set logger settings
 #'
 #' @description
 #' Updates logger settings, including log level and location of the file.
@@ -18,9 +18,9 @@
 #'
 #' @examples
 #'
-#' update_logger("Debug")
+#' set_logger("Debug")
 #'
-update_logger <- function(logger_file_path=NULL, logger_level=NULL){
+set_logger <- function(logger_file_path=NULL, logger_level=NULL){
 
   available_levels <- c("TRACE", "DEBUG", "INFO", "SUCCESS", "WARN",
                         "ERROR", "FATAL")
