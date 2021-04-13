@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • GPSmatching</title>
+<title>Check Covariate Balance Transformers Argument — check_args_use_cov_transformers • GPSmatching</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Check Covariate Balance Transformers Argument — check_args_use_cov_transformers" />
+<meta property="og:description" content="Checks Covriate Balance Transformers in terms of using them and available
+transformers." />
 
 
 
@@ -64,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -159,123 +161,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Check Covariate Balance Transformers Argument</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/check_arguments.R'><code>R/check_arguments.R</code></a></small>
+    <div class="hidden name"><code>check_args_use_cov_transformers.Rd</code></div>
     </div>
 
-    <div id="gpsmatching-development-version" class="section level2">
-<h2 class="hasAnchor">
-<a href="#gpsmatching-development-version" class="anchor"></a>GPSmatching (development version)</h2>
-<div id="added" class="section level3">
-<h3 class="hasAnchor">
-<a href="#added" class="anchor"></a>Added</h3>
-<ul>
-<li>Adaptive approach to transform features in training sessions.</li>
-<li>Cpp code for computing pair of w and gps.</li>
-<li>
-<code>set_logger</code> function.</li>
-<li>Customized wrapper for ranger package.</li>
-<li>Extended plot function for gen_pseudo_pop object (plot.R)</li>
-<li>Extended plot function for estimate_erf object (plot.R)</li>
-<li>Extended print function for estimate_erf object (print.R)</li>
-<li>test-estimate_erf.R</li>
-<li>create_weighting.R</li>
-<li>Steps for adding test data into ‘sysdata.rda’.</li>
-<li>
-<code>weighting</code> option as causal inference approach.<br>
-</li>
-<li>absoulte_weighted_corr_fun.R</li>
-<li>Testing and running example guidelines for developers</li>
-<li>Customized wrapper for xgboost package.</li>
-<li>
-<code>param</code> as an argument to accept hyperparameters from users.</li>
-</ul>
-</div>
-<div id="changed" class="section level3">
-<h3 class="hasAnchor">
-<a href="#changed" class="anchor"></a>Changed</h3>
-<ul>
-<li>estimate_erf output returns S3 object.</li>
-<li>test-Covariate_balance.R –&gt; test-absolute_corr_fun.R</li>
-<li>covarate_balance.R –&gt; absolute_corr_fun.R</li>
-<li>User needs to pass <code>m_xgboost</code> instead of <code>SL.xgboost</code> to use XGBoost package for prediciton purposes.</li>
-</ul>
-</div>
-<div id="fixed" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fixed" class="anchor"></a>Fixed</h3>
-<ul>
-<li>mclapply memory issue (compute_closest_wgps.R).</li>
-</ul>
-</div>
-<div id="removed" class="section level3">
-<h3 class="hasAnchor">
-<a href="#removed" class="anchor"></a>Removed</h3>
-</div>
-</div>
-    <div id="gpsmatching-020-2021-03-01" class="section level2">
-<h2 class="hasAnchor">
-<a href="#gpsmatching-020-2021-03-01" class="anchor"></a>GPSmatching 0.2.0 (2021-03-01)</h2>
-<div id="added-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#added-1" class="anchor"></a>Added</h3>
-<ul>
-<li>Covariate balance check for categorical data.</li>
-<li>Contribution guidelines</li>
-<li>Parallel flag in training models (<code>mcSuperLearner</code>)</li>
-<li>gen_syn_data function for generating synthetic data</li>
-<li>Unittest for gen_syn_data</li>
-<li>Function to compute residuals and unittest</li>
-<li>Function to impute NA values based on density and unittest</li>
-<li>Function to separate prediction model training (train_it)</li>
-<li>Function to separate min and max value estimation and unittest</li>
-<li>Function to find the closest data based on gps and w</li>
-<li>Wrapper function to generate pseudo population and test it for covariate balance (gen_pseudo_pop)</li>
-<li>Function to estimate only GPS value (estimate_gps)</li>
-<li>Helper function to take the input data + GPS values and return pseudo population based on selected causal inference approach. The output of this function may or may not satisfy the covariate balance test. (compile_pseudo_pop)</li>
-<li>check_args function to check availability of the required parameters.</li>
-<li>check_covar_balance function to check if the generated pseudo population statistically acceptable.</li>
-<li>create_matching function to generate pseudo population based on matching approach.</li>
-</ul>
-</div>
-<div id="changed-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#changed-1" class="anchor"></a>Changed</h3>
-<ul>
-<li>create_matching only generates matched dataset.</li>
-<li>Covariate_balance.R –&gt; covariate_balance.R</li>
-<li>matching_smooth –&gt; estimate_erf.R</li>
-<li>risk_fun –&gt; compute_risk</li>
-<li>smooth_fun –&gt; smooth_erf</li>
-<li>hatvals –&gt; estimate_hat_vals</li>
-<li>kernel_fun –&gt; generate_kernel</li>
-<li>GPSmatching-package.R –&gt; gpsmatching_package.R</li>
-<li>GPSmatching_smooth.R –&gt; gpsmatching_smooth.R</li>
-</ul>
-</div>
-<div id="fixed-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fixed-1" class="anchor"></a>Fixed</h3>
-<ul>
-<li>None</li>
-</ul>
-</div>
-<div id="removed-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#removed-1" class="anchor"></a>Removed</h3>
-<ul>
-<li>GPSmatching.R functions are separated into smaller functions, and the file is removed.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Checks Covriate Balance Transformers in terms of using them and available
+transformers.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>check_args_use_cov_transformers</span><span class='op'>(</span><span class='va'>use_cov_transform</span>, <span class='va'>transformers</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>use_cov_transform</th>
+      <td><p>A logical value (TRUE/FALSE) to use covariate balance
+transforming.</p></td>
+    </tr>
+    <tr>
+      <th>transformers</th>
+      <td><p>A list of transformers.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>TRUE if passes all tests.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
