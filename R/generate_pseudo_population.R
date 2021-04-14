@@ -170,6 +170,8 @@ gen_pseudo_pop <- function(Y,
       covariate_cols[[new_col_ind]] <- NULL
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
+      estimate_gps_out[[1]][recent_swap[2]] <- NULL
+      estimate_gps_out[[1]][length(estimate_gps_out[[1]])+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
@@ -295,6 +297,8 @@ gen_pseudo_pop <- function(Y,
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
   result$original_corr_results <- original_corr_obj$corr_results
   result$fcall <- fcall
+  result$passed_covar_test <- adjusted_corr_obj$pass
+  result$counter <- counter
 
   invisible(result)
 }
