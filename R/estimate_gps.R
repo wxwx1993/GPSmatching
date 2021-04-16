@@ -91,7 +91,6 @@ estimate_gps <- function(Y,
   gps_mx <- compute_min_max(gps)
   dataset <- cbind(Y,w,gps,c)
 
-
   # Logging for debugging purposes
   logger::log_debug("Weights for the select libraries in predicting e_gps:",
           " {paste(names(e_gps$coef), collapse = ', ')}",

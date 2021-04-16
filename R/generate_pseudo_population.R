@@ -111,6 +111,10 @@ gen_pseudo_pop <- function(Y,
   covar_bl_trs <- NULL
   # --------------------------------------------------------
 
+  # timing the function
+  st_time_gpp <- proc.time()
+
+
   # function call
   fcall <- match.call()
 
@@ -119,7 +123,7 @@ gen_pseudo_pop <- function(Y,
              ...)
 
   # Generate output set ------------------------------------
-  counter <- 1
+  counter <- 0
 
   ## collect additional arguments
   dot_args <- list(...)
@@ -153,7 +157,9 @@ gen_pseudo_pop <- function(Y,
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
 
-  while (counter < max_attempt+1){
+  while (counter < max_attempt){
+
+    counter <- counter + 1
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
@@ -203,7 +209,7 @@ gen_pseudo_pop <- function(Y,
 
     if (adjusted_corr_obj$pass){
       message(paste('Covariate balance condition has been met (iteration: ',
-                    counter,'/', max_attempt,')'))
+                    counter,'/', max_attempt,')', sep = ""))
       break
     }
 
@@ -258,13 +264,13 @@ gen_pseudo_pop <- function(Y,
       index_to_remove <- which(unlist(covariate_cols)==new_c)
       covariate_cols[[index_to_remove]] <- NULL
       covariate_cols[length(covariate_cols)+1] <- unlist(colnames(t_dataframe))
-      logger::log_debug("Feature {c_name} was replaced by {unlist(colnames(t_dataframe))}.")
+      logger::log_debug("In the next iteration (if any) feature {c_name}",
+                        " will be replaced by {unlist(colnames(t_dataframe))}.")
       }
     }
-    counter <- counter + 1
   }
 
-  if (counter == max_attempt+1){
+  if (!adjusted_corr_obj$pass){
     message(paste('Covariate balance condition has not been met.'))
   }
 
@@ -299,6 +305,14 @@ gen_pseudo_pop <- function(Y,
   result$fcall <- fcall
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
+
+  end_time_gpp <- proc.time()
+
+  logger::log_debug("Wall clock time to run gen_pseudo_pop:",
+                    " {(end_time_gpp -   st_time_gpp)[[3]]} seconds.")
+  logger::log_debug("Covariate balance condition has been met (TRUE/FALSE):",
+                    " {adjusted_corr_obj$pass}, (iteration:",
+                    " {counter} / {max_attempt})")
 
   invisible(result)
 }

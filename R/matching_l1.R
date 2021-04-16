@@ -36,7 +36,7 @@ matching_l1 <- function(w,
     stop("w should be a vector of size 1.")
   }
 
-  logger::log_debug("Started matching on single w value (w = {w}) ...")
+  logger::log_trace("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()
 
   w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
@@ -77,11 +77,11 @@ matching_l1 <- function(w,
   dp["std_gps"] <- NULL
 
 
-  logger::log_debug("Started matching on single w value (w = {w}) ...")
+  logger::log_trace("Started matching on single w value (w = {w}) ...")
 
 
   e_ml_t <- proc.time()
-  logger::log_debug("Finished matching on single w value (w = {w}), ",
+  logger::log_trace("Finished matching on single w value (w = {w}), ",
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
   return(dp)
