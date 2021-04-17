@@ -39,18 +39,20 @@ create_matching <- function(dataset, nthread = 1, ...){
   logger::log_debug("Started generating matched set (num bins: {length(bin_num)}) ...")
   st_t_m <- proc.time()
 
-  matched_set <-  mclapply(bin_num,
-                           matching_fun,
-                           dataset=dataset[[1]],
-                           e_gps_pred = dataset[[2]],
-                           e_gps_std_pred = dataset[[3]],
-                           w_resid=dataset[[4]],
-                           gps_mx = gps_mx,
-                           w_mx = w_mx,
-                           delta_n = delta_n,
-                           scale = scale,
-                           nthread = nthread,
-                           mc.cores = ceiling(nthread/2))
+  cl <- parallel::makeCluster(nthread)
+  matched_set <-  parallel::parLapply(cl,
+                                      bin_num,
+                                      matching_fun,
+                                      dataset=dataset[[1]],
+                                      e_gps_pred = dataset[[2]],
+                                      e_gps_std_pred = dataset[[3]],
+                                      w_resid=dataset[[4]],
+                                      gps_mx = gps_mx,
+                                      w_mx = w_mx,
+                                      delta_n = delta_n,
+                                      scale = scale,
+                                      nthread = nthread)
+  parallel::stopCluster(cl)
 
   logger::log_debug("Started generating matched set ...")
 

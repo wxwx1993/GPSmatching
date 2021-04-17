@@ -69,16 +69,11 @@ matching_l1 <- function(w,
                              std_p_w,
                              dataset_subset[["std_w"]],
                              std_w,
-                             scale,
-                             nthread = nthread)
+                             scale)
 
   dp <- dataset_subset[wm,]
   dp["std_w"] <- NULL
   dp["std_gps"] <- NULL
-
-
-  logger::log_trace("Started matching on single w value (w = {w}) ...")
-
 
   e_ml_t <- proc.time()
   logger::log_trace("Finished matching on single w value (w = {w}), ",

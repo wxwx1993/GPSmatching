@@ -48,7 +48,7 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
       abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
-                                   pseudo_pop[,4:length(pseudo_pop)], nthread)
+                                   pseudo_pop[,4:length(pseudo_pop)], nthread=min(nthread,4))
       names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
