@@ -85,8 +85,13 @@ estimate_gps <- function(Y,
   e_gps_std <- train_it(target = abs(w-e_gps_pred), input = c, pred_model,
                        running_appr, sl_lib_internal = sl_lib_internal, ...)
   e_gps_std_pred <- e_gps_std$SL.predict
+
   w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
   gps <- compute_density(w_resid, w_resid)
+
+  #gps <- dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
+
+
   w_mx <- compute_min_max(w)
   gps_mx <- compute_min_max(gps)
   dataset <- cbind(Y,w,gps,c)

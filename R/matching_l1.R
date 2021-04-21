@@ -39,8 +39,10 @@ matching_l1 <- function(w,
   logger::log_trace("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()
 
-  w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
-  p_w <- compute_density(w_resid, w_new)
+  # w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
+  # p_w <- compute_density(w_resid, w_new)
+
+  p_w <- dnorm(w, mean = e_gps_pred, sd=e_gps_std_pred)
 
   w_min <- w_mx[1]
   w_max <- w_mx[2]

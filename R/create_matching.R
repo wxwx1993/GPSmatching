@@ -39,7 +39,13 @@ create_matching <- function(dataset, nthread = 1, ...){
   logger::log_debug("Started generating matched set (num bins: {length(bin_num)}) ...")
   st_t_m <- proc.time()
 
-  cl <- parallel::makeCluster(nthread)
+  cl <- parallel::makeCluster(min(nthread,4))
+
+  parallel::clusterExport(cl=cl,
+                          varlist = c("bin_num", "matching_fun", "dataset",
+                                      "gps_mx", "w_mx", "delta_n", "scale",
+                                      "nthread"), envir=environment())
+
   matched_set <-  parallel::parLapply(cl,
                                       bin_num,
                                       matching_fun,

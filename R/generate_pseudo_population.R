@@ -138,6 +138,13 @@ gen_pseudo_pop <- function(Y,
   # do not use gps values.
   # TODO: find a better place to the following code.
   tmp_data <- cbind(Y,w,w,c)
+
+  q1 <- quantile(tmp_data$w,0.01)
+  q2 <- quantile(tmp_data$w,0.99)
+
+  tmp_data <- subset(tmp_data[complete.cases(tmp_data) ,],  w < q2)
+  tmp_data <- subset(tmp_data[complete.cases(tmp_data) ,],  w < q2  & w > q1)
+
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread, ...)
   tmp_data <- NULL
 
@@ -185,6 +192,8 @@ gen_pseudo_pop <- function(Y,
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out,
                                      ci_appr=ci_appr, nthread = nthread, ...)
+    pseudo_pop <- subset(pseudo_pop[complete.cases(pseudo_pop) ,],  w < q2)
+    pseudo_pop <- subset(pseudo_pop[complete.cases(pseudo_pop) ,],  w < q2  & w > q1)
     logger::log_debug("Finished compiling pseudo population.")
 
     if (ci_appr == 'adjust'){
