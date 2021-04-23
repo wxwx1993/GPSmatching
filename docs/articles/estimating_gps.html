@@ -125,12 +125,71 @@
 
     
     
-<p><em>TBD</em></p>
+<p>The propensity score (PS) is the conditional probability of assignment to a particular treatment given a vector of observed covariates <span class="citation">(Rosenbaum and Rubin 1983)</span>. <span class="citation">Hirano and Imbens (2004)</span> extended the idea to studies with continuous treatment (or exposure) and labeled it as the generalized propensity score (GPS). In this package, we use a non-parametric model to estimate GPS values <span class="citation">(Kennedy et al. 2017)</span>. The prediction models are developed using the SuperLearner Package <span class="citation">(Van der Laan, Polley, and Hubbard 2007)</span>. For more details on the problem framework and assumptions, please see <span class="citation">Wu et al. (2018)</span>.</p>
+<p>[TBD: Data flow and mathematical equations]</p>
+<p>Whether the prediction models’ performance should be considered the primary parameter in the training of the prediction model is an open research question. In this package, the users have complete control over the hyperparameters, which can fine-tune the prediction models to achieve different performance levels.</p>
+<div id="available-superlearner-libraries" class="section level2">
+<h2 class="hasAnchor">
+<a href="#available-superlearner-libraries" class="anchor"></a>Available SuperLearner Libraries</h2>
+<p>The users can use any library in the SuperLearner package. However, in order to have control on internal libraries we generate customized wrappers. The following table represents the available customized wrappers as well as hyperparameters.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="center">Package name</th>
+<th align="center">
+<code>sl_lib</code> name</th>
+<th align="center">prefix</th>
+<th align="center">available hyperparameters</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><a href="https://xgboost.readthedocs.io/en/latest/index.html">XGBoost</a></td>
+<td align="center"><code>m_xgboost</code></td>
+<td align="center"><code>xgb_</code></td>
+<td align="center">nrounds, eta, max_depth, min_child_weight</td>
+</tr>
+<tr class="even">
+<td align="center"><a href="https://cran.r-project.org/web/packages/ranger/index.html">ranger</a></td>
+<td align="center"><code>m_ranger</code></td>
+<td align="center"><code>rgr_</code></td>
+<td align="center">num.trees, write.forest, replace, verbose, family</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="implementation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#implementation" class="anchor"></a>Implementation</h2>
+<p>Both <code>XGBoost</code> and <code>ranger</code> libraries are developed for efficient processing on multiple cores. The only requirement is making sure that OpenMP is installed on the system. User needs to pass the number of threads (<code>nthread</code>) in running the <code>estimate_gps</code> function.</p>
+<p>In the following section, we conduct several analyses to test the scalability and performance. These analyses can be used to have a rough estimate of what to expect in different data sizes and computational resources.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hirano_2004" class="csl-entry">
+Hirano, Keisuke, and Guido W Imbens. 2004. <span>“The Propensity Score with Continuous Treatments.”</span> <em>Applied Bayesian Modeling and Causal Inference from Incomplete-Data Perspectives</em> 226164: 73–84. <a href="https://doi.org/10.1002/0470090456.ch7">https://doi.org/10.1002/0470090456.ch7</a>.
+</div>
+<div id="ref-kennedy_2017" class="csl-entry">
+Kennedy, Edward H, Zongming Ma, Matthew D McHugh, and Dylan S Small. 2017. <span>“Nonparametric Methods for Doubly Robust Estimation of Continuous Treatment Effects.”</span> <em>Journal of the Royal Statistical Society. Series B, Statistical Methodology</em> 79 (4): 1229. <a href="https://doi.org/10.1111/rssb.12212">https://doi.org/10.1111/rssb.12212</a>.
+</div>
+<div id="ref-rosenbaum_1983" class="csl-entry">
+Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
+</div>
+<div id="ref-superlearner_2007" class="csl-entry">
+Van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“Super Learner.”</span> <em>Statistical Applications in Genetics and Molecular Biology</em> 6 (1).
+</div>
+<div id="ref-wu_2018" class="csl-entry">
+Wu, Xiao, Fabrizia Mealli, Marianthi-Anna Kioumourtzoglou, Francesca Dominici, and Danielle Braun. 2018. <span>“Matching on Generalized Propensity Scores with Continuous Exposures.”</span> <em>arXiv Preprint arXiv:1812.06575</em>.
+</div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

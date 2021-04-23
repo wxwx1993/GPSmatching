@@ -24,9 +24,9 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   if (lib_name == "m_xgboost"){
     xgb_default_params = list("xgb_nrounds"=100,
-                              "xgb_max_depth"=4,
-                              "xgb_eta"=0.1,
-                              "xgb_min_child_weight"=10
+                              "xgb_max_depth"=6,
+                              "xgb_eta"=0.3,
+                              "xgb_min_child_weight"=1
                              )
     for (item in names(params)){
 
@@ -55,6 +55,10 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "max_depth=max_depth, minobspernode = minobspernode,",
                            "...)}", sep="")), envir = .GlobalEnv)
 
+
+    logger::log_debug("Hyperparameters for m_xgboost: ntrees: {xgb_nrounds}",
+                      " eta: {xgb_eta}, max_depth: {xgb_max_depth}",
+                      " min_child_weight: {xgb_min_child_weight}.")
     return(TRUE)
 
   } else if (lib_name == "m_ranger"){
@@ -92,6 +96,10 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "num.trees = num.trees, replace=replace,",
                            "verbose=verbose, family=family, ",
                            "...)}", sep="")), envir = .GlobalEnv)
+
+    logger::log_debug("Hyperparameters for m_ranger: num.trees: {rgr_num.trees}",
+                      " write.forest: {rgr_write.forest}, replace: {rgr_replace}",
+                      " verbose: {rgr_verbose}", "family: {rgr_family}.")
 
     return(TRUE)
   } else {

@@ -1,9 +1,9 @@
 test_that("matching_l1 functions as expected.", {
-   
+
   #  s_data <- gen_syn_data(sample_size=200, seed = 721,
   #                         outcome_sd = 10, gps_spec = 1,
   #                         cova_spec = 1)
-  #  
+  #
   #  data_with_gps_test <- estimate_gps(s_data$Y,
   #                                     s_data$treat,
   #                                     s_data[c("cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -12,7 +12,7 @@ test_that("matching_l1 functions as expected.", {
   #                                     internal_use = TRUE,
   #                                     sl_lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger")
   #                            )
-  
+
   m_d <- data_with_gps_test
   val <- matching_l1(w = 10,
                      m_d[[1]],
@@ -21,6 +21,7 @@ test_that("matching_l1 functions as expected.", {
                      m_d[[4]],
                      m_d[[5]],
                      m_d[[6]],
+                     gps_model = "non-parametric",
                      delta_n=1,
                      scale=0.5)
 

@@ -20,7 +20,8 @@
 #' @keywords internal
 #'
 check_args <- function(pred_model, ci_appr, running_appr,
-                       use_cov_transform, transformers, ...){
+                       use_cov_transform, transformers,
+                       gps_model, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -31,7 +32,7 @@ check_args <- function(pred_model, ci_appr, running_appr,
 
   required_args <- NULL
 
-  check_args_estimate_gps(pred_model, running_appr, ...)
+  check_args_estimate_gps(pred_model, running_appr, gps_model, ...)
   check_args_compile_pseudo_pop(ci_appr, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
@@ -54,7 +55,7 @@ check_args <- function(pred_model, ci_appr, running_appr,
 #'
 #' @keywords internal
 #'
-check_args_estimate_gps <- function(pred_model, running_appr, ...){
+check_args_estimate_gps <- function(pred_model, running_appr, gps_model, ...){
 
   required_args <- NULL
 
@@ -65,6 +66,11 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
   if (!is.element(running_appr,c('base', 'parallel'))){
     stop(paste(running_appr, " is not a valid running approach."))
+  }
+
+  if (!is.element(gps_model, c('parametric','non-parametric'))){
+    stop(paste(gps_model, " is not a valide gps_model.",
+               "Valid options: parametric, non-parametric."))
   }
 
   # checkpoint 2 ------------------------------------------

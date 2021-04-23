@@ -17,7 +17,7 @@
 #'
 #' @keywords internal
 #'
-compute_closest_wgps <- function(a, b, c, d, sc, nthread=1){
+compute_closest_wgps <- function(a, b, c, d, sc){
 
   if (!is.numeric(a) ||
       !is.numeric(b) ||

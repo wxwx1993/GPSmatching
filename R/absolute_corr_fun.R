@@ -40,23 +40,23 @@ absolute_corr_fun <- function(w,
   platform_os <- .Platform$OS.type
 
   if (length(col_n) > 0){
-    if (is.element(platform_os,c("unix"))){
-      absolute_corr_n<- mclapply(col_n,function(i){
-        abs(cor(w,c[[i]],method = c("spearman")))}, mc.cores = nthread)
-    } else {
+    # if (is.element(platform_os,c("unix"))){
+    #   absolute_corr_n<- mclapply(col_n,function(i){
+    #     abs(cor(w,c[[i]],method = c("spearman")))}, mc.cores = nthread)
+    # } else {
       absolute_corr_n<- lapply(col_n,function(i){
         abs(cor(w,c[[i]],method = c("spearman")))})
-    }
+    # }
   }
 
   if (length(col_f) > 0) {
-    if (is.element(platform_os,c("unix"))){
-      absolute_corr_f<- mclapply(col_f,function(i){
-        abs(polycor::polyserial(w,c[[i]]))}, mc.cores = nthread)
-    } else {
+    # if (is.element(platform_os,c("unix"))){
+    #   absolute_corr_f<- mclapply(col_f,function(i){
+    #     abs(polycor::polyserial(w,c[[i]]))}, mc.cores = nthread)
+    # } else {
       absolute_corr_f<- lapply(col_f,function(i){
         abs(polycor::polyserial(w,c[[i]]))})
-    }
+    # }
   }
 
   absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))

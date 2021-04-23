@@ -12,6 +12,7 @@ matching_l1(
   w_resid,
   gps_mx,
   w_mx,
+  gps_model = "parametric",
   delta_n = 1,
   scale = 0.5,
   nthread = 1
@@ -31,6 +32,9 @@ matching_l1(
 \item{gps_mx}{a vector with length 2, includes min(gps), max(gps)}
 
 \item{w_mx}{a vector with length 2, includes min(w), max(w).}
+
+\item{gps_model}{Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.}
 
 \item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
 

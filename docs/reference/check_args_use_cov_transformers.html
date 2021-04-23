@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the closest data in subset to the original data — compute_closest_wgps • GPSmatching</title>
+<title>Check Covariate Balance Transformers Argument — check_args_use_cov_transformers • GPSmatching</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,9 @@
 
 
 
-<meta property="og:title" content="Find the closest data in subset to the original data — compute_closest_wgps" />
-<meta property="og:description" content="A function to compute the closest data in subset of data to the original data
-based on two attributes: vector and scalar (vector of size one)." />
+<meta property="og:title" content="Check Covariate Balance Transformers Argument — check_args_use_cov_transformers" />
+<meta property="og:description" content="Checks Covriate Balance Transformers in terms of using them and available
+transformers." />
 
 
 
@@ -161,47 +161,35 @@ based on two attributes: vector and scalar (vector of size one)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the closest data in subset to the original data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/compute_closest_wgps.R'><code>R/compute_closest_wgps.R</code></a></small>
-    <div class="hidden name"><code>compute_closest_wgps.Rd</code></div>
+    <h1>Check Covariate Balance Transformers Argument</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/check_arguments.R'><code>R/check_arguments.R</code></a></small>
+    <div class="hidden name"><code>check_args_use_cov_transformers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A function to compute the closest data in subset of data to the original data
-based on two attributes: vector and scalar (vector of size one).</p>
+    <p>Checks Covriate Balance Transformers in terms of using them and available
+transformers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compute_closest_wgps</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span>, <span class='va'>c</span>, <span class='va'>d</span>, <span class='va'>sc</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_args_use_cov_transformers</span><span class='op'>(</span><span class='va'>use_cov_transform</span>, <span class='va'>transformers</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>a</th>
-      <td><p>Vector of the first attribute values for subset of data.</p></td>
+      <th>use_cov_transform</th>
+      <td><p>A logical value (TRUE/FALSE) to use covariate balance
+transforming.</p></td>
     </tr>
     <tr>
-      <th>b</th>
-      <td><p>Vector of the first attribute values for all data.</p></td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td><p>Vector of the second attribute values for subset of data.</p></td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td><p>Vector of size one for the second attribute value.</p></td>
-    </tr>
-    <tr>
-      <th>sc</th>
-      <td><p>Scale parameter to give weight for two mentioned measurements.</p></td>
+      <th>transformers</th>
+      <td><p>A list of transformers.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns index of subset data that is closest to the original data
-sample.</p>
+    <p>TRUE if passes all tests.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

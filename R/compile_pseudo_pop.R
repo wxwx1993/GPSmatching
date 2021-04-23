@@ -21,7 +21,9 @@
 #' `compile_pseudo_pop` returns the pseudo population data that is compiled based
 #' on selected causal inference approach.
 #'
-compile_pseudo_pop <- function(dataset, ci_appr, nthread, ...){
+compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
+                               bin_seq = NULL, nthread = 1,
+                               ...){
 
   # Checking arguments
   check_args_compile_pseudo_pop(ci_appr, ...)
@@ -30,7 +32,7 @@ compile_pseudo_pop <- function(dataset, ci_appr, nthread, ...){
                     " (original data size: {nrow(dataset[[1]])}) ... ")
 
   if (ci_appr == 'matching'){
-    matched_set <- create_matching(dataset, nthread, ...)
+    matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
     logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)}) ... ")
     return(matched_set)

@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{estimating_gps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: references.bib
 ---
 
 ```{r, include = FALSE}
@@ -14,4 +15,46 @@ knitr::opts_chunk$set(
 )
 ```
 
-*TBD*
+The propensity score (PS) is the conditional probability of assignment to a 
+particular treatment given a vector of observed covariates [@rosenbaum_1983]. 
+@hirano_2004 extended the idea to studies with continuous treatment (or exposure) 
+and labeled it as the generalized propensity score (GPS). In this package, we use 
+a non-parametric model to estimate GPS values [@kennedy_2017]. The prediction 
+models are developed using the SuperLearner Package [@superlearner_2007]. 
+For more details on the problem framework and assumptions, please see @wu_2018.
+
+[TBD: Data flow and mathematical equations]
+
+Whether the prediction models' performance should be considered the primary 
+parameter in the training of the prediction model is an open research question. 
+In this package, the users have complete control over the hyperparameters, which 
+can fine-tune the prediction models to achieve different performance levels. 
+
+
+## Available SuperLearner Libraries
+
+The users can use any library in the SuperLearner package. However, in order to 
+have control on internal libraries we generate customized wrappers. The following 
+table represents the available customized wrappers as well as hyperparameters.
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+| [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
+
+
+## Implementation
+
+Both `XGBoost` and `ranger` libraries are developed for efficient processing on 
+multiple cores. The only requirement is making sure that OpenMP is installed on 
+the system. User needs to pass the number of threads (`nthread`) in running the 
+`estimate_gps` function.
+
+In the following section, we conduct several analyses to test the scalability and
+performance. These analyses can be used to have a rough estimate of what to expect
+in different data sizes and computational resources.
+
+
+
+
+## References

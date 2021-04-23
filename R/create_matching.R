@@ -7,6 +7,11 @@
 #' @param dataset A list with 6 elements. Including An original dataset as well
 #'  as helper vectors from estimating GPS. See [compile_pseudo_pop()] for more
 #'  details.
+#' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
+#' NULL is passed the default value will be used, which is
+#' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
+#' @param gps_model Model type which is used for estimating GPS value, including
+#' parametric (default) and non-parametric.
 #' @param nthread Number of available cores.
 #' @param ...  Additional arguments passed to the function.
 #'
@@ -14,7 +19,8 @@
 #' Returns data.table of matched set.
 #' @export
 #'
-create_matching <- function(dataset, nthread = 1, ...){
+create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
+                            nthread = 1, ...){
 
   # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
@@ -34,12 +40,50 @@ create_matching <- function(dataset, nthread = 1, ...){
   gps_mx <- dataset[[5]]
   w_mx <- dataset[[6]]
 
-  bin_num<-seq(w_mx[1]+delta_n/2, w_mx[2], by = delta_n)
+  if (is.null(bin_seq)){
 
-  logger::log_debug("Started generating matched set (num bins: {length(bin_num)}) ...")
+    bin_num<-seq(w_mx[1]+delta_n/2, w_mx[2], by = delta_n)
+    used_bin <- "Default"
+
+  } else {
+
+    bin_num <- bin_seq
+    used_bin <- "User defined"
+
+  }
+
+  logger::log_debug(used_bin, "bin seq is used. Min: {min(bin_num)} ",
+                      "Max: {max(bin_num)}, count: {length(bin_num)}.")
+
+  logger::log_debug("Started generating matched set ...")
   st_t_m <- proc.time()
 
-  matched_set <-  mclapply(bin_num,
+
+  platform_os <- .Platform$OS.type
+
+  if (is.element(platform_os,c("unix"))){
+    cl <- parallel::makeCluster(min(nthread,4))
+    parallel::clusterExport(cl=cl,
+                          varlist = c("bin_num", "matching_fun", "dataset",
+                                      "gps_mx", "w_mx", "delta_n", "scale",
+                                      "nthread"), envir=environment())
+
+    matched_set <-  parallel::parLapply(cl,
+                                        bin_num,
+                                        matching_fun,
+                                        dataset=dataset[[1]],
+                                        e_gps_pred = dataset[[2]],
+                                        e_gps_std_pred = dataset[[3]],
+                                        w_resid=dataset[[4]],
+                                        gps_mx = gps_mx,
+                                        w_mx = w_mx,
+                                        gps_model = gps_model,
+                                        delta_n = delta_n,
+                                        scale = scale,
+                                        nthread = nthread)
+    parallel::stopCluster(cl)
+  } else {
+    matched_set <-  lapply(bin_num,
                            matching_fun,
                            dataset=dataset[[1]],
                            e_gps_pred = dataset[[2]],
@@ -47,10 +91,12 @@ create_matching <- function(dataset, nthread = 1, ...){
                            w_resid=dataset[[4]],
                            gps_mx = gps_mx,
                            w_mx = w_mx,
+                           gps_model = gps_model,
                            delta_n = delta_n,
                            scale = scale,
-                           nthread = nthread,
-                           mc.cores = ceiling(nthread/2))
+                           nthread = nthread)
+
+  }
 
   logger::log_debug("Started generating matched set ...")
 

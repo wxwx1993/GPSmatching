@@ -4,7 +4,7 @@
 \alias{compute_closest_wgps}
 \title{Find the closest data in subset to the original data}
 \usage{
-compute_closest_wgps(a, b, c, d, sc, nthread = 1)
+compute_closest_wgps(a, b, c, d, sc)
 }
 \arguments{
 \item{a}{Vector of the first attribute values for subset of data.}

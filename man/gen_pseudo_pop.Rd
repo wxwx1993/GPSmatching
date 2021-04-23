@@ -11,8 +11,10 @@ gen_pseudo_pop(
   ci_appr,
   running_appr,
   pred_model,
+  gps_model = "parametric",
   use_cov_transform = FALSE,
   transformers = list("pow2", "pow3"),
+  bin_seq = NULL,
   save_output = FALSE,
   save_path = NULL,
   params = list(),
@@ -43,6 +45,9 @@ on the SuperLearner Module.)
 
 \item{pred_model}{a prediction model}
 
+\item{gps_model}{Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.}
+
 \item{use_cov_transform}{If TRUE, the function uses transformer to meet the
 covariate balance.}
 
@@ -53,6 +58,10 @@ Available transformers:
 \item pow2: to the power of 2
 \item pow3: to the power of 3#'
 }}
+
+\item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
+NULL is passed the default value will be used, which is
+\code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
 
 \item{save_output}{If TRUE, output results will be stored at the save.path.
 Default is FALSE.}

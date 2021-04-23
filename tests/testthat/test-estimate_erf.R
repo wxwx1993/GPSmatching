@@ -8,6 +8,7 @@ test_that("estimate_erf works as expected", {
                                ci_appr = "matching",
                                running_appr = "base",
                                pred_model = "sl",
+                               gps_model = "non-parametric",
                                sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
                                covar_bl_method = "absolute",
                                covar_bl_trs = 0.1,
