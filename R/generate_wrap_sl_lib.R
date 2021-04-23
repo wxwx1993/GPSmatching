@@ -108,4 +108,3 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     return(FALSE)
   }
 }
-

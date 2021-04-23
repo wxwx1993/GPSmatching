@@ -163,6 +163,3 @@ plot.gpsm_pspop <- function(x, ...){
   print(g)
   invisible(g)
 }
-
-
-

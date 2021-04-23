@@ -38,6 +38,7 @@
 #'                               m_d$treat,
 #'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                               pred_model = "sl",
+#'                               gps_model = "parametric",
 #'                               running_appr = "base",
 #'                               internal_use = FALSE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
@@ -134,7 +135,7 @@ estimate_gps <- function(Y,
     logger::log_debug("Wall clock time to estimate residuals:",
                       " {e_gps_std$times$everything[3]} seconds.")
   }
-
+  
   end_time <- proc.time()
 
   logger::log_debug("Wall clock time to run estimate_gps function: ",

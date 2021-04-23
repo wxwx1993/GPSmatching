@@ -217,4 +217,3 @@ check_args_use_cov_transformers <- function(use_cov_transform,
   invisible(TRUE)
 
 }
-

@@ -78,6 +78,4 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
   }
-
-
 }
