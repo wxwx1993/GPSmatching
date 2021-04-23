@@ -24,9 +24,9 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   if (lib_name == "m_xgboost"){
     xgb_default_params = list("xgb_nrounds"=100,
-                              "xgb_max_depth"=4,
-                              "xgb_eta"=0.1,
-                              "xgb_min_child_weight"=10
+                              "xgb_max_depth"=6,
+                              "xgb_eta"=0.3,
+                              "xgb_min_child_weight"=1
                              )
     for (item in names(params)){
 

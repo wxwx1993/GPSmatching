@@ -10,6 +10,7 @@ check_args(
   running_appr,
   use_cov_transform,
   transformers,
+  gps_model,
   ...
 )
 }

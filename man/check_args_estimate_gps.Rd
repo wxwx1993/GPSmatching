@@ -4,7 +4,7 @@
 \alias{check_args_estimate_gps}
 \title{Check estimate_gps function arguments}
 \usage{
-check_args_estimate_gps(pred_model, running_appr, ...)
+check_args_estimate_gps(pred_model, running_appr, gps_model, ...)
 }
 \arguments{
 \item{pred_model}{The selected prediction model.}

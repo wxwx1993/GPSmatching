@@ -10,6 +10,7 @@ estimate_gps(
   c,
   pred_model,
   running_appr,
+  gps_model = "parametric",
   internal_use = TRUE,
   params = list(),
   nthread = 1,
@@ -26,6 +27,9 @@ estimate_gps(
 \item{pred_model}{The selected prediction model.}
 
 \item{running_appr}{The running approach.}
+
+\item{gps_model}{Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.}
 
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
 will return original data + GPS value.}

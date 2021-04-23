@@ -10,6 +10,7 @@ test_that("Check arguments works as expected.", {
                      sl_lib=c("xyz"),
                      covar_bl_method="absolute",
                      ci_appr = "matching",
+                     gps_model = "non-parametric",
                      covar_bl_trs=0.1,
                      max_attempt=2,
                      matching_fun="matching_l1",
@@ -19,6 +20,7 @@ test_that("Check arguments works as expected.", {
 
   val2 <- check_args_estimate_gps(pred_model = "sl",
                                   running_appr = "base",
+                                  gps_model = "non-parametric",
                                   sl_lib=c("xgboost"))
   expect_true(val2)
 

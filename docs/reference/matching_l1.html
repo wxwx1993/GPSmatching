@@ -177,6 +177,7 @@
   <span class='va'>w_resid</span>,
   <span class='va'>gps_mx</span>,
   <span class='va'>w_mx</span>,
+  gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
   delta_n <span class='op'>=</span> <span class='fl'>1</span>,
   scale <span class='op'>=</span> <span class='fl'>0.5</span>,
   nthread <span class='op'>=</span> <span class='fl'>1</span>
@@ -212,6 +213,11 @@
     <tr>
       <th>w_mx</th>
       <td><p>a vector with length 2, includes min(w), max(w).</p></td>
+    </tr>
+    <tr>
+      <th>gps_model</th>
+      <td><p>Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.</p></td>
     </tr>
     <tr>
       <th>delta_n</th>

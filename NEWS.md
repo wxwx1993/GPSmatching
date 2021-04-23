@@ -2,6 +2,8 @@
 
 ### Added
 
+*  User defined bin sequence in compiling speudo population
+*  Non-parametric option for estimating gps
 *  Adaptive approach to transform features in training sessions.
 *  Cpp code for computing pair of w and gps.
 *  `set_logger` function.
