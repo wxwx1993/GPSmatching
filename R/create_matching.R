@@ -83,18 +83,18 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                                         nthread = nthread)
     parallel::stopCluster(cl)
   } else {
-    matched_set <-  parallel::lapply(bin_num,
-                                     matching_fun,
-                                     dataset=dataset[[1]],
-                                     e_gps_pred = dataset[[2]],
-                                     e_gps_std_pred = dataset[[3]],
-                                     w_resid=dataset[[4]],
-                                     gps_mx = gps_mx,
-                                     w_mx = w_mx,
-                                     gps_model = gps_model,
-                                     delta_n = delta_n,
-                                     scale = scale,
-                                     nthread = nthread)
+    matched_set <-  lapply(bin_num,
+                           matching_fun,
+                           dataset=dataset[[1]],
+                           e_gps_pred = dataset[[2]],
+                           e_gps_std_pred = dataset[[3]],
+                           w_resid=dataset[[4]],
+                           gps_mx = gps_mx,
+                           w_mx = w_mx,
+                           gps_model = gps_model,
+                           delta_n = delta_n,
+                           scale = scale,
+                           nthread = nthread)
 
   }
 
