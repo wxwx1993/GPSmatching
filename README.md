@@ -4,7 +4,7 @@
 | Resource    |  Github Actions      |
 | ----------  | -------------------- |
 | Platforms   | Windows, macOS, Linux|
-| R CMD check | [![R build status](https://github.com/Naeemkh/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/Naeemkh/GPSmatching/actions) |
+| R CMD check | [![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/GPSmatching/actions) |
 
 
 
@@ -16,6 +16,7 @@ Matching on generalized propensity scores with continuous exposures
 An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Installation
+
 ```r
 library("devtools")
 install_github("fasrc/GPSmatching")
@@ -30,6 +31,9 @@ Input parameters:
 `w`: a vector of observed continues exposure  
 `c`: data frame or matrix of observed baseline covariates  
 `matching_fun`: specified matching function  
+`pred_model`: prediction model 
+`gps_model`: model type for estimating GPS (parametric, non-parametric)
+`bin_seq`: sequence of treatment (w) to generate pseudo population 
 `scale`: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
 `delta_n`: specified caliper parameter on the exposure  
 `sl_lib`: a set of machine learning methods used for estimating GPS  
@@ -48,17 +52,29 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
-                             sl_lib = c("SL.xgboost","SL.earth","SL.gam",
+                             use_cov_transform = TRUE,
+                             transformers = list("pow2", "pow3"),
+                             sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
+                             params = list(xgb_nrounds=c(10,20,30),
+                                           xgb_eta=c(0.1,0.2,0.3)),
+                             nthread = 1,
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
                              max_attempt = 1,
-                             matching_fun = "MatchingL1",
+                             matching_fun = "matching_l1",
                              delta_n = 1,
                              scale = 0.5)
 
 ```
-`MatchingL1` is Manhattan distance matching approach. `sl` uses SuperLearner package to train the prediction model.
+`matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+
+| Package name | `sl_lib` name | prefix| available hyperparameters |
+|:------------:|:-------------:|:-----:|:-------------------------:|
+| [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
+| [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
+
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
 
 - Estimating GPS
 
@@ -67,15 +83,18 @@ data_with_gps <- estimate_gps(Y,
                               w,
                               c,
                               pred_model = "sl",
+                              gps_model = "parametric",
                               running_appr = "base",
                               internal_use = FALSE,
-                              sl_lib = c("SL.xgboost","SL.earth","SL.gam",
-                                        "SL.ranger")
+                              params = list(xgb_max_depth = c(3,4,5),
+                                            xgb_rounds = c(10,20,30,40)),
+                              nthread = 1,                                
+                              sl_lib = c("m_xgboost")
                               )
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by selected causal inference approach to generate pseudo population. See `?estimate_gps` for more details.
+If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
 
 - Estimating Exposure Rate Function
 
@@ -89,17 +108,18 @@ erf <- estimate_erf(Y,
 - Generating Synthetic Data
 
 ```r
-syn_data <- GenSynData(sample_size=1000,
-                       seed = 403,
-                       outcome_sd = 10,
-                       gps_spec = 1,
-                       cova_spec = 1)
+syn_data <- gen_syn_data(sample_size=1000,
+                         seed = 403,
+                         outcome_sd = 10,
+                         gps_spec = 1,
+                         cova_spec = 1)
 
 ```
 
 ## Contribution
 
-For more information about reporting bugs and contribution, please read [Contribution Page](inst/misc/developer_manual.md).
+For more information about reporting bugs and contribution, please read the [Contribution Page](inst/misc/developer_manual.md).
+
 
 ## References
 

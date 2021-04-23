@@ -8,6 +8,9 @@
 #' @param pred_model The prediction model.
 #' @param ci_appr The causal inference approach.
 #' @param running_appr The running approach.
+#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
+#' transforming.
+#' @param transformers A list of transformers.
 #' @param ...  Additional named arguments passed.
 #'
 #' @return
@@ -16,7 +19,9 @@
 #'
 #' @keywords internal
 #'
-check_args <- function(pred_model, ci_appr, running_appr, ...){
+check_args <- function(pred_model, ci_appr, running_appr,
+                       use_cov_transform, transformers,
+                       gps_model, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -27,8 +32,9 @@ check_args <- function(pred_model, ci_appr, running_appr, ...){
 
   required_args <- NULL
 
-  check_args_estimate_gps(pred_model, running_appr, ...)
+  check_args_estimate_gps(pred_model, running_appr, gps_model, ...)
   check_args_compile_pseudo_pop(ci_appr, ...)
+  check_args_use_cov_transformers(use_cov_transform, transformers)
 
   invisible(TRUE)
 }
@@ -49,7 +55,7 @@ check_args <- function(pred_model, ci_appr, running_appr, ...){
 #'
 #' @keywords internal
 #'
-check_args_estimate_gps <- function(pred_model, running_appr, ...){
+check_args_estimate_gps <- function(pred_model, running_appr, gps_model, ...){
 
   required_args <- NULL
 
@@ -60,6 +66,11 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 
   if (!is.element(running_appr,c('base', 'parallel'))){
     stop(paste(running_appr, " is not a valid running approach."))
+  }
+
+  if (!is.element(gps_model, c('parametric','non-parametric'))){
+    stop(paste(gps_model, " is not a valide gps_model.",
+               "Valid options: parametric, non-parametric."))
   }
 
   # checkpoint 2 ------------------------------------------
@@ -100,7 +111,8 @@ check_args_estimate_gps <- function(pred_model, running_appr, ...){
 #'
 #' @keywords internal
 #'
-check_args_compile_pseudo_pop <- function(ci_appr, ...){
+check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
+                                          transformers, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -111,7 +123,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
 
   # checkpoint 1 -----------------------------------------
   #if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
-  if (!is.element(ci_appr, c('matching'))){
+  if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
 
@@ -160,4 +172,48 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
     }
   }
   invisible(TRUE)
+}
+
+
+#' @title
+#' Check Covariate Balance Transformers Argument
+#'
+#' @description
+#' Checks Covriate Balance Transformers in terms of using them and available
+#' transformers.
+#'
+#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
+#' transforming.
+#' @param transformers A list of transformers.
+#'
+#' @keywords internal
+#'
+#' @return
+#' TRUE if passes all tests.
+check_args_use_cov_transformers <- function(use_cov_transform,
+                                          transformers){
+
+  # Passing packaging check() ----------------------------
+  # None
+
+  # checkpoint 1 -----------------------------------------
+  if (!is.logical(use_cov_transform)){
+    stop(paste("use_cov_transform should be TRUE or FALSE. Current value: ",
+               use_cov_transform))
+  }
+
+  if (!is.list(transformers)){
+    stop(paste("transformers expects a list of transformerns. Curren type: ",
+               typeof(transformers)))
+  }
+
+  # checkpoint 2 -----------------------------------------
+  # None
+  # checkpoint 3 -----------------------------------------
+  # None
+  # checkpoint 4 -----------------------------------------
+  # None
+
+  invisible(TRUE)
+
 }

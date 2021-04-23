@@ -12,8 +12,10 @@ matching_l1(
   w_resid,
   gps_mx,
   w_mx,
+  gps_model = "parametric",
   delta_n = 1,
-  scale = 0.5
+  scale = 0.5,
+  nthread = 1
 )
 }
 \arguments{
@@ -31,10 +33,15 @@ matching_l1(
 
 \item{w_mx}{a vector with length 2, includes min(w), max(w).}
 
+\item{gps_model}{Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.}
+
 \item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
 
 \item{scale}{a specified scale parameter to control the relative weight that is attributed to
 the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
+
+\item{nthread}{Number of available cores.}
 }
 \value{
 \code{dp}: The function returns a data.table saved the matched points on by single exposure

@@ -21,17 +21,29 @@
 #' `compile_pseudo_pop` returns the pseudo population data that is compiled based
 #' on selected causal inference approach.
 #'
-compile_pseudo_pop <- function(dataset, ci_appr, ...){
+compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
+                               bin_seq = NULL, nthread = 1,
+                               ...){
 
   # Checking arguments
   check_args_compile_pseudo_pop(ci_appr, ...)
 
+  logger::log_info("Starting compiling pseudo population ",
+                    " (original data size: {nrow(dataset[[1]])}) ... ")
+
   if (ci_appr == 'matching'){
-    matched_set <- create_matching(dataset, ...)
+    matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
+    logger::log_info("Finished compiling pseudo population ",
+                      " (Pseudo population data size: {nrow(matched_set)}) ... ")
     return(matched_set)
   }
 
-  if (is.element(ci_appr, c('weighting', 'adjusting'))){
+  if (ci_appr == 'weighting'){
+    weighted_set <- create_weighting(dataset, ...)
+    return(weighted_set)
+  }
+
+  if (is.element(ci_appr, c('adjusting'))){
     stop(paste(ci_appr, " casual inference approach is not implemented."))
   }
 

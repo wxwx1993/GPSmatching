@@ -1,13 +1,43 @@
-## GPSmatching (development version)
+## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added
+
+*  User defined bin sequence in compiling speudo population
+*  Non-parametric option for estimating gps
+*  Adaptive approach to transform features in training sessions.
+*  Cpp code for computing pair of w and gps.
+*  `set_logger` function.
+*  Customized wrapper for ranger package.
+*  Extended plot function for gen_pseudo_pop object (plot.R)
+*  Extended plot function for estimate_erf object (plot.R)
+*  Extended print function for estimate_erf object (print.R)
+*  test-estimate_erf.R
+*  create_weighting.R
+*  Steps for adding test data into 'sysdata.rda'.
+*  `weighting` option as causal inference approach.  
+*  absoulte_weighted_corr_fun.R
+*  Testing and running example guidelines for developers
+*  Customized wrapper for xgboost package.
+*  `param` as an argument to accept hyperparameters from users.
+
+
 ### Changed
+
+* R dependency 2.7 --> 3.5
+* mclapply --> parLapply
+* estimate_erf output returns S3 object.
+* test-Covariate_balance.R --> test-absolute_corr_fun.R
+* covarate_balance.R --> absolute_corr_fun.R
+* User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
+
 ### Fixed
+
+* mclapply memory issue (compute_closest_wgps.R).
+
 ### Removed
 
 
-
-# [0.2.0] - 2021-03-01
+## GPSmatching 0.2.0 (2021-03-01)
 
 ### Added
 

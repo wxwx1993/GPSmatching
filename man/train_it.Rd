@@ -4,7 +4,7 @@
 \alias{train_it}
 \title{Funtction to develop prediction model based on user's preferences.}
 \usage{
-train_it(target, input, pred_model, running_appr, ...)
+train_it(target, input, pred_model, running_appr, sl_lib_internal = NULL, ...)
 }
 \arguments{
 \item{target}{A vector of target data.}
@@ -21,6 +21,8 @@ train_it(target, input, pred_model, running_appr, ...)
 }}
 
 \item{running_appr}{The running approach.}
+
+\item{sl_lib_internal}{The internal library to be used by SuperLearner}
 
 \item{...}{Model related parameters should be provided.}
 }

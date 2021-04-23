@@ -11,8 +11,14 @@ gen_pseudo_pop(
   ci_appr,
   running_appr,
   pred_model,
+  gps_model = "parametric",
+  use_cov_transform = FALSE,
+  transformers = list("pow2", "pow3"),
+  bin_seq = NULL,
   save_output = FALSE,
   save_path = NULL,
+  params = list(),
+  nthread = 1,
   ...
 )
 }
@@ -39,17 +45,54 @@ on the SuperLearner Module.)
 
 \item{pred_model}{a prediction model}
 
+\item{gps_model}{Model type which is used for estimating GPS value, including
+parametric (default) and non-parametric.}
+
+\item{use_cov_transform}{If TRUE, the function uses transformer to meet the
+covariate balance.}
+
+\item{transformers}{A list of transformers. Is transformer should be a
+unary function. You can pass name of customized function in the quotes.
+Available transformers:
+\itemize{
+\item pow2: to the power of 2
+\item pow3: to the power of 3#'
+}}
+
+\item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
+NULL is passed the default value will be used, which is
+\code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
+
 \item{save_output}{If TRUE, output results will be stored at the save.path.
 Default is FALSE.}
 
 \item{save_path}{location for storing the final results, format of the saved
 file will be detected by the file name extension.}
 
+\item{params}{Includes list of params that is used internally. Unrelated
+parameters will be ignored.}
+
+\item{nthread}{An integer value that represents then number threads to use by
+internal packages.}
+
 \item{...}{Additional arguments passed to different models.}
 }
 \value{
-\code{GenPseudoPop} returns a data.table pseudo population that is generated
-or augmented based on the selected causal inference approach (ci_appr).
+Returns a pseudo population (gpsm_pspop) object that is generated
+or augmented based on the selected causal inference approach (ci_appr). The
+object includes the following objects:
+\itemize{
+\item params
+\itemize{
+\item ci_appr
+\item running_appr
+\item pred_model
+\item params
+}
+\item pseudo_pop
+\item adjusted_corr_results
+\item original_corr_results
+}
 }
 \description{
 Generates pseudo population dataset based on user defined causal inference
@@ -91,7 +134,7 @@ values.
 \itemize{
 \item if pred_model = 'sl':
 \itemize{
-\item \emph{sl.lib}: A vector of prediction algorithms.
+\item \emph{sl_lib}: A vector of prediction algorithms.
 }
 }
 }
@@ -100,18 +143,25 @@ values.
 }
 \examples{
 m_d <- gen_syn_data(sample_size = 100)
-pseuodo_pop <- gen_pseudo_pop(m_d$Y,
-                              m_d$treat,
-                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                              ci_appr = "matching",
-                              running_appr = "base",
-                              pred_model = "sl",
-                              sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
-                              covar_bl_method = "absolute",
-                              covar_bl_trs = 0.1,
-                              max_attempt = 1,
-                              matching_fun = "matching_l1",
-                              delta_n = 1,
-                              scale = 0.5)
+pseuoo_pop <- gen_pseudo_pop(m_d$Y,
+                             m_d$treat,
+                             m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                             ci_appr = "matching",
+                             running_appr = "base",
+                             pred_model = "sl",
+                             gps_model = "parametric",
+                             bin_seq = NULL,
+                             use_cov_transform = FALSE,
+                             transformers = list(),
+                             sl_lib = c("m_xgboost"),
+                             params = list(xgb_nrounds=c(10,20,30),
+                              xgb_eta=c(0.1,0.2,0.3)),
+                             nthread = 1,
+                             covar_bl_method = "absolute",
+                             covar_bl_trs = 0.1,
+                             max_attempt = 1,
+                             matching_fun = "matching_l1",
+                             delta_n = 1,
+                             scale = 0.5)
 
 }

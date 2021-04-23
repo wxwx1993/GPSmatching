@@ -50,6 +50,18 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 - If you are adding new features, please make sure that appropriate documentation is added or updated.
 - Please clean up white spaces. Read more [here](https://softwareengineering.stackexchange.com/questions/121555/why-is-trailing-whitespace-a-big-deal).
 
+## Reporting bugs
+
+Please report potential bugs by creating a [new issue](https://github.com/fasrc/GPSmatching/issues) or sending us an email. Please include the following information in your bug report:
+- A brief description of what you are doing, what you expected to happen, and what happened. 
+- OS that you are using and whether you are using a personal computer or HPC cluster. 
+- The version of the package that you have installed.
+
+## Testing the package
+Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/GPSmatching/issues). In the following link, there steps to generate synthetic data and conduct some testing. 
+
+- [Testing the package, examples, and discussion](testing_example_discussion.md)
+
 ## Style Guide
 
 In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
@@ -135,3 +147,14 @@ if(x > 2){
 - Maximum line length is 80 character
 - Use explicit returns
 - Use explicit tags in documentation (e.g., @title, @description, ...)
+
+## Notes on SuperLearner
+
+In this package we create a customized wrapper for the SuperLearner internal libraries. Please read the following page for more details.
+- [Creating Customized Wrappers for the SuperLearner Package](notes_on_superlearner.md)
+
+## Logger
+
+Use logger to investigate the internal process. The default level is "INFO", which writes messages into "GPSmatching.log" file. You can 
+use `update_logger` function to change the log file location and level. 
+

@@ -13,7 +13,9 @@
 #' @docType package
 #' @name GPSmatching-package
 #' @aliases GPSmatching
+#' @author Naeem Khoshnevis
 #' @author Xiao Wu
+#' @author Danielle Braun
 #' @import parallel
 #' @import data.table
 #' @import SuperLearner
@@ -23,6 +25,8 @@
 #' @import gam
 #' @import KernSmooth
 #' @import polycor
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib GPSmatching, .registration = TRUE
 #'
 #' @references
 #' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.

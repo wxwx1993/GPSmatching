@@ -35,6 +35,7 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
 
   #TODO: Check other input arguments.
 
+  #stop()
   #options(digits=4) # only print 4 sig digits
   set.seed(seed)
   size <- sample_size

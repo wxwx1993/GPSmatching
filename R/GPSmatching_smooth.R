@@ -39,6 +39,3 @@ w_fun <- function(bw,matched_w,w_vals){
   }
   return(w_avals/length(matched_w))
 }
-
-
-

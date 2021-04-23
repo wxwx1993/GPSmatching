@@ -10,6 +10,7 @@
 #'   - 3rd column: gps
 #'   - 4th column to the end: covariates (c)
 #' @param ci_appr The causal inference approach.
+#' @param nthread The number of available threads.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @keywords internal
@@ -19,12 +20,16 @@
 #'  requirements.
 #' @export
 #'
-check_covar_balance <- function(pseudo_pop, ci_appr, ...){
+check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
   covar_bl_trs <- NULL
   # ------------------------------------------------------
+
+  logger::log_debug("Started checking covariate balance ... ")
+  s_ccb_t <- proc.time()
+
 
   # collect additional arguments
   dot_args <- list(...)
@@ -41,18 +46,34 @@ check_covar_balance <- function(pseudo_pop, ci_appr, ...){
   }
 
   if (covar_bl_method == 'absolute'){
-    abs_cor <- absolute_corr_fun(pseudo_pop[,2], pseudo_pop[,4:length(pseudo_pop)])
-
+    if (ci_appr == 'matching'){
+      abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
+                                   pseudo_pop[,4:length(pseudo_pop)], nthread=min(nthread,4))
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
+    } else if (ci_appr == 'weighting') {
+      abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
+                                            pseudo_pop[, 5:length(pseudo_pop)])
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[5:length(pseudo_pop)]
+    } else {
+      stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
+                 ") is not implemented."))
+    }
 
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
+
+    output <- list(corr_results = abs_cor)
     if (abs_cor$mean_absolute_corr < covar_bl_trs){
-      return(TRUE)
+      output$pass <- TRUE
     } else {
-      return(FALSE)
+      output$pass <- FALSE
     }
 
+      e_ccb_t <- proc.time()
+      logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+                      " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
+      return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))
