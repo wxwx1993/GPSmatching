@@ -1,4 +1,4 @@
-## GPSmatching (development version)
+## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added
 
@@ -23,6 +23,8 @@
 
 ### Changed
 
+* R dependency 2.7 --> 3.5
+* mclapply --> parLapply
 * estimate_erf output returns S3 object.
 * test-Covariate_balance.R --> test-absolute_corr_fun.R
 * covarate_balance.R --> absolute_corr_fun.R

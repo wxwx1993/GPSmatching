@@ -1,7 +1,7 @@
 Package: GPSmatching
 Type: Package
 Title: Matching on generalized propensity scores with continuous exposures
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 

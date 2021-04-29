@@ -31,6 +31,9 @@ Input parameters:
 `w`: a vector of observed continues exposure  
 `c`: data frame or matrix of observed baseline covariates  
 `matching_fun`: specified matching function  
+`pred_model`: prediction model 
+`gps_model`: model type for estimating GPS (parametric, non-parametric)
+`bin_seq`: sequence of treatment (w) to generate pseudo population 
 `scale`: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
 `delta_n`: specified caliper parameter on the exposure  
 `sl_lib`: a set of machine learning methods used for estimating GPS  
@@ -80,6 +83,7 @@ data_with_gps <- estimate_gps(Y,
                               w,
                               c,
                               pred_model = "sl",
+                              gps_model = "parametric",
                               running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
