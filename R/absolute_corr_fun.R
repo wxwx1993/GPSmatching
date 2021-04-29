@@ -29,6 +29,9 @@ absolute_corr_fun <- function(w,
     }
   }
 
+  # convert c to datatable
+  data.table::setDT(c)
+
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 
@@ -41,21 +44,28 @@ absolute_corr_fun <- function(w,
 
   if (length(col_n) > 0){
     # if (is.element(platform_os,c("unix"))){
-    #   absolute_corr_n<- mclapply(col_n,function(i){
-    #     abs(cor(w,c[[i]],method = c("spearman")))}, mc.cores = nthread)
+    #c_col_n <- c[,..col_n]
+    cl <- parallel::makeCluster(nthread, type="PSOCK")
+      absolute_corr_n<- parallel::parLapply(cl, c[,..col_n], function(c_data){
+        abs(cor(w,c_data,method = c("spearman")))})
+    parallel::stopCluster(cl)
+
     # } else {
-      absolute_corr_n<- lapply(col_n,function(i){
-        abs(cor(w,c[[i]],method = c("spearman")))})
+      # absolute_corr_n<- lapply(col_n,function(i){
+      #   abs(cor(w,c[[i]],method = c("spearman")))})
     # }
   }
 
   if (length(col_f) > 0) {
     # if (is.element(platform_os,c("unix"))){
-    #   absolute_corr_f<- mclapply(col_f,function(i){
-    #     abs(polycor::polyserial(w,c[[i]]))}, mc.cores = nthread)
+    #c_col_f <- c[,..col_f]
+    cl <- parallel::makeCluster(nthread, type="PSOCK")
+      absolute_corr_f<- parallel::parLapply(cl, c[,..col_f],function(c_data){
+        abs(polycor::polyserial(w,c_data))})
+    parallel::stopCluster(cl)
     # } else {
-      absolute_corr_f<- lapply(col_f,function(i){
-        abs(polycor::polyserial(w,c[[i]]))})
+      # absolute_corr_f<- lapply(col_f,function(i){
+      #   abs(polycor::polyserial(w,c[[i]]))})
     # }
   }
 
