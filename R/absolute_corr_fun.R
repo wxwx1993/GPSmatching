@@ -43,30 +43,17 @@ absolute_corr_fun <- function(w,
   platform_os <- .Platform$OS.type
 
   if (length(col_n) > 0){
-    # if (is.element(platform_os,c("unix"))){
-    #c_col_n <- c[,..col_n]
     cl <- parallel::makeCluster(nthread, type="PSOCK")
       absolute_corr_n<- parallel::parLapply(cl, c[,..col_n], function(c_data){
         abs(cor(w,c_data,method = c("spearman")))})
     parallel::stopCluster(cl)
-
-    # } else {
-      # absolute_corr_n<- lapply(col_n,function(i){
-      #   abs(cor(w,c[[i]],method = c("spearman")))})
-    # }
   }
 
   if (length(col_f) > 0) {
-    # if (is.element(platform_os,c("unix"))){
-    #c_col_f <- c[,..col_f]
     cl <- parallel::makeCluster(nthread, type="PSOCK")
       absolute_corr_f<- parallel::parLapply(cl, c[,..col_f],function(c_data){
         abs(polycor::polyserial(w,c_data))})
     parallel::stopCluster(cl)
-    # } else {
-      # absolute_corr_f<- lapply(col_f,function(i){
-      #   abs(polycor::polyserial(w,c[[i]]))})
-    # }
   }
 
   absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
