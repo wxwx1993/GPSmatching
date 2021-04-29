@@ -62,7 +62,14 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
   platform_os <- .Platform$OS.type
 
   if (is.element(platform_os,c("unix"))){
-    cl <- parallel::makeCluster(min(nthread,4))
+
+    p_c_t_s <- proc.time()
+
+    cl <- parallel::makeCluster(nthread, type="PSOCK")
+
+    p_c_t_e <- proc.time()
+    logger::log_debug("Time taken to create cluster with {nthread}: {p_c_t_e - p_c_t_s} s.")
+
     parallel::clusterExport(cl=cl,
                           varlist = c("bin_num", "matching_fun", "dataset",
                                       "gps_mx", "w_mx", "delta_n", "scale",
