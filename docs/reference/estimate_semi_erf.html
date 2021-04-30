@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Match dataset — matching_l1 • GPSmatching</title>
+<title>Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf • GPSmatching</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Match dataset — matching_l1" />
-<meta property="og:description" content="Matching function using L1 distance on single exposure level w" />
+<meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
+<meta property="og:description" content="TODO" />
 
 
 
@@ -160,84 +160,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Match dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/matching_l1.R'><code>R/matching_l1.R</code></a></small>
-    <div class="hidden name"><code>matching_l1.Rd</code></div>
+    <h1>Estimate semi exposure-response function (semi-ERF).</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/estimate_semi_erf.R'><code>R/estimate_semi_erf.R</code></a></small>
+    <div class="hidden name"><code>estimate_semi_erf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Matching function using L1 distance on single exposure level w</p>
+    <p>TODO</p>
     </div>
 
-    <pre class="usage"><span class='fu'>matching_l1</span><span class='op'>(</span>
-  <span class='va'>w</span>,
-  <span class='va'>dataset</span>,
-  <span class='va'>e_gps_pred</span>,
-  <span class='va'>e_gps_std_pred</span>,
-  <span class='va'>w_resid</span>,
-  <span class='va'>gps_mx</span>,
-  <span class='va'>w_mx</span>,
-  gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
-  delta_n <span class='op'>=</span> <span class='fl'>1</span>,
-  scale <span class='op'>=</span> <span class='fl'>0.5</span>,
-  nthread <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>w</th>
-      <td><p>the targeted single exposure levels.</p></td>
+      <th>formula</th>
+      <td><p>a vector of outcome variable in matched set.</p></td>
     </tr>
     <tr>
-      <th>dataset</th>
-      <td><p>a completed observational data frame or matrix containing (Y, w, c).</p></td>
+      <th>family</th>
+      <td><p>a description of the error distribution (see ?gam)</p></td>
     </tr>
     <tr>
-      <th>e_gps_pred</th>
-      <td><p>a vector of predicted gps values obtained by Machine learning methods.</p></td>
-    </tr>
-    <tr>
-      <th>e_gps_std_pred</th>
-      <td><p>a vector of predicted std of gps obtained by Machine learning methods.</p></td>
-    </tr>
-    <tr>
-      <th>w_resid</th>
-      <td><p>the standardized residuals for w.</p></td>
-    </tr>
-    <tr>
-      <th>gps_mx</th>
-      <td><p>a vector with length 2, includes min(gps), max(gps)</p></td>
-    </tr>
-    <tr>
-      <th>w_mx</th>
-      <td><p>a vector with length 2, includes min(w), max(w).</p></td>
-    </tr>
-    <tr>
-      <th>gps_model</th>
-      <td><p>Model type which is used for estimating GPS value, including
-parametric (default) and non-parametric.</p></td>
-    </tr>
-    <tr>
-      <th>delta_n</th>
-      <td><p>a specified caliper parameter on the exposure (Default is 1).</p></td>
-    </tr>
-    <tr>
-      <th>scale</th>
-      <td><p>a specified scale parameter to control the relative weight that is attributed to
-the distance measures of the exposure versus the GPS estimates (Default is 0.5).</p></td>
-    </tr>
-    <tr>
-      <th>nthread</th>
-      <td><p>Number of available cores.</p></td>
+      <th>data</th>
+      <td><p>dataset that formula is build upon</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dp</code>: The function returns a data.table saved the matched points on by single exposure
-level w by the proposed GPS matching approaches.</p>
+    <p>returns an object of class Gam</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
