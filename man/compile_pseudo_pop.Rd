@@ -10,6 +10,7 @@ compile_pseudo_pop(
   gps_model = "parametric",
   bin_seq = NULL,
   nthread = 1,
+  trim_quantiles,
   ...
 )
 }

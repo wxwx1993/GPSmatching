@@ -15,6 +15,7 @@ gen_pseudo_pop(
   use_cov_transform = FALSE,
   transformers = list("pow2", "pow3"),
   bin_seq = NULL,
+  trim_quantiles = c(0.01, 0.99),
   save_output = FALSE,
   save_path = NULL,
   params = list(),
@@ -62,6 +63,10 @@ Available transformers:
 \item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
 NULL is passed the default value will be used, which is
 \code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
+
+\item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
+level. Both number should be in the range of [0,1] and in increasing order
+(default: c(0.01,0.99)).}
 
 \item{save_output}{If TRUE, output results will be stored at the save.path.
 Default is FALSE.}
@@ -151,6 +156,7 @@ pseuoo_pop <- gen_pseudo_pop(m_d$Y,
                              pred_model = "sl",
                              gps_model = "parametric",
                              bin_seq = NULL,
+                             trim_quantiles = c(0.01,0.99),
                              use_cov_transform = FALSE,
                              transformers = list(),
                              sl_lib = c("m_xgboost"),

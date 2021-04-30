@@ -8,6 +8,7 @@ test_that("Check arguments works as expected.", {
                      use_cov_transform = FALSE,
                      transformers = list(),
                      sl_lib=c("xyz"),
+                     trim_quantiles = c(0.01,0.99),
                      covar_bl_method="absolute",
                      ci_appr = "matching",
                      gps_model = "non-parametric",
@@ -28,9 +29,37 @@ test_that("Check arguments works as expected.", {
                                         covar_bl_method="absolute",
                                         covar_bl_trs=1,
                                         max_attempt=10,
+                                        trim_quantiles = c(0.01,0.99),
                                         matching_fun="matching_l1",
                                         delta_n=1,
                                         scale=0.5)
   expect_true(val3)
+
+  # trim_quantiles should be in [0,1] range and first element less than
+  # the second element.
+  expect_error(
+    check_args_compile_pseudo_pop(ci_appr = "matching",
+                                  covar_bl_method="absolute",
+                                  covar_bl_trs=1,
+                                  max_attempt=10,
+                                  trim_quantiles = c(1,2),
+                                  matching_fun="matching_l1",
+                                  delta_n=1,
+                                  scale=0.5)
+
+  )
+
+  # trim_quantiles should be numeric values.
+  expect_error(
+    check_args_compile_pseudo_pop(ci_appr = "matching",
+                                  covar_bl_method="absolute",
+                                  covar_bl_trs=1,
+                                  max_attempt=10,
+                                  trim_quantiles = c("a","b"),
+                                  matching_fun="matching_l1",
+                                  delta_n=1,
+                                  scale=0.5)
+
+  )
 
 })

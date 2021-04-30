@@ -21,7 +21,7 @@
 #'
 check_args <- function(pred_model, ci_appr, running_appr,
                        use_cov_transform, transformers,
-                       gps_model, ...){
+                       gps_model, trim_quantiles, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -33,7 +33,8 @@ check_args <- function(pred_model, ci_appr, running_appr,
   required_args <- NULL
 
   check_args_estimate_gps(pred_model, running_appr, gps_model, ...)
-  check_args_compile_pseudo_pop(ci_appr, ...)
+  check_args_compile_pseudo_pop(ci_appr, use_cov_transform,
+                                transformers, trim_quantiles, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
   invisible(TRUE)
@@ -112,7 +113,7 @@ check_args_estimate_gps <- function(pred_model, running_appr, gps_model, ...){
 #' @keywords internal
 #'
 check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
-                                          transformers, ...){
+                                          transformers, trim_quantiles, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -126,6 +127,18 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
   if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
+
+  if (!is.numeric(trim_quantiles)){
+    stop("trim_quantiles should be numeric values.")
+  }
+
+  if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
+      (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
+      (trim_quantiles[1] > trim_quantiles[2])){
+    stop(paste("trim_quntiles should be in the [0,1] range,",
+               " and the first quantile should be less than the second one."))
+  }
+
 
   # checkpoint 2 ------------------------------------------
   if (ci_appr == 'matching'){

@@ -1,3 +1,17 @@
+## GPSmatching (development version)
+
+### Added
+
+* estimate_semi_erf
+* estimate_hr
+
+### Changed
+
+### Fixed
+
+### Removed
+
+
 ## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added
