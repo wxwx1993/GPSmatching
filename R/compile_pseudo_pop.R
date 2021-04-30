@@ -22,11 +22,11 @@
 #' on selected causal inference approach.
 #'
 compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
-                               bin_seq = NULL, nthread = 1,
+                               bin_seq = NULL, nthread = 1, trim_quantiles,
                                ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr, ...)
+  check_args_compile_pseudo_pop(ci_appr, trim_quantiles=trim_quantiles, ...)
 
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(dataset[[1]])}) ... ")

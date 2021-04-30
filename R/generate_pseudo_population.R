@@ -30,6 +30,9 @@
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
+#' @param trim_quantiles A numerical vector of two. Represents the trim quantile
+#' level. Both number should be in the range of \[0,1] and in increasing order
+#' (default: c(0.01,0.99)).
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
@@ -86,6 +89,7 @@
 #'                              pred_model = "sl",
 #'                              gps_model = "parametric",
 #'                              bin_seq = NULL,
+#'                              trim_quantiles = c(0.01,0.99),
 #'                              use_cov_transform = FALSE,
 #'                              transformers = list(),
 #'                              sl_lib = c("m_xgboost"),
@@ -109,6 +113,7 @@ gen_pseudo_pop <- function(Y,
                            use_cov_transform = FALSE,
                            transformers = list("pow2","pow3"),
                            bin_seq = NULL,
+                           trim_quantiles = c(0.01,0.99),
                            save_output = FALSE,
                            save_path = NULL,
                            params = list(),
@@ -128,7 +133,7 @@ gen_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(pred_model,ci_appr,running_appr, use_cov_transform, transformers,
-             gps_model, ...)
+             gps_model, trim_quantiles, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -146,8 +151,8 @@ gen_pseudo_pop <- function(Y,
   # do not use gps values.
   # TODO: find a better place to the following code.
   tmp_data <- cbind(Y,w,w,c)
-  q1 <- stats::quantile(tmp_data$w,0.01)
-  q2 <- stats::quantile(tmp_data$w,0.99)
+  q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
+  q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread, ...)
   tmp_data <- NULL
@@ -199,7 +204,8 @@ gen_pseudo_pop <- function(Y,
     ## Compile data ---------
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out, ci_appr=ci_appr,
-                                     gps_model,bin_seq, nthread = nthread, ...)
+                                     gps_model,bin_seq, nthread = nthread,
+                                     trim_quantiles = trim_quantiles, ...)
     pseudo_pop <- subset(pseudo_pop[stats::complete.cases(pseudo_pop) ,],
                          w < q2  & w > q1)
     logger::log_debug("Finished compiling pseudo population.")

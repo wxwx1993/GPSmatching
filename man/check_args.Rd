@@ -11,6 +11,7 @@ check_args(
   use_cov_transform,
   transformers,
   gps_model,
+  trim_quantiles,
   ...
 )
 }
