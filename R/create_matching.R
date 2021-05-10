@@ -65,7 +65,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     p_c_t_s <- proc.time()
 
-    cl <- parallel::makeCluster(nthread, type="PSOCK")
+    cl <- parallel::makeCluster(nthread, type="PSOCK",
+                                outfile="GPSmatching.log")
 
     p_c_t_e <- proc.time()
     logger::log_debug("Time taken to create cluster with {nthread}: {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
