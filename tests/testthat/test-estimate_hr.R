@@ -1,6 +1,7 @@
 test_that("estimate_hr works as expected", {
 
   set.seed(6451)
+  rm(s)
   gnm_model <-  estimate_hr(Y ~ s(w) + cf5,
                             family = gaussian,
                             data = pseudo_pop_covar_test)
