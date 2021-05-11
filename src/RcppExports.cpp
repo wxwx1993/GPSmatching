@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // compute_closest_wgps_helper
 IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, double sc);
-RcppExport SEXP _GPSmatching_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP) {
+RcppExport SEXP _CausalGPS_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,11 +21,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_GPSmatching_compute_closest_wgps_helper", (DL_FUNC) &_GPSmatching_compute_closest_wgps_helper, 4},
+    {"_CausalGPS_compute_closest_wgps_helper", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper, 4},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_GPSmatching(DllInfo *dll) {
+RcppExport void R_init_CausalGPS(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

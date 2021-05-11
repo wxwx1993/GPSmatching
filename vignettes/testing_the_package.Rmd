@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 
-Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/GPSmatching/issues). In the following, there steps to generate synthetic data and conduct some testing. 
+Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/CausalGPS/issues). In the following, there steps to generate synthetic data and conduct some testing. 
 
 In order to test the package, you need to have the code on your system. There are two options:
 
@@ -31,18 +31,20 @@ If you are running the code on a cluster and trying to carry out some test on sc
 
 Use `devtools::install_github` to install the package. If you do not specify the `ref`, it will install the master (or main) branch. The `master` branch hosts the latest released code. The latest updates are committed to the `develop` branch. Read [Git Branching Model](contribution.Rmd) for more details. 
 
+
 ```r
 require(devtools)
-try(detach("package:GPSmatching", unload = TRUE), silent = TRUE) # if already you have the package, detach and unload it, to have a new install. 
-install_githab("fasrc/GPSmatching", ref="develop")
-library(GPSmatching)
+try(detach("package:CausalGPS", unload = TRUE), silent = TRUE) # if already you have the package, detach and unload it, to have a new install. 
+install_githab("fasrc/CausalGPS", ref="develop")
+library(CausalGPS)
 ```
 
-The process should run smoothly. Try `?GPSmatching`. It should open the package description page under the help tab (assuming you are using RStudio).
+The process should run smoothly. Try `?CausalGPS`. It should open the package description page under the help tab (assuming you are using RStudio).
+
 
 ### Cloning the Package
 
-Go to the package [Github reposirory](https://github.com/fasrc/GPSmatching), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
+Go to the package [Github reposirory](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
 
 <p float="center">
   <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600">
@@ -77,7 +79,7 @@ The package can generate synthetic data that can be used to test different featu
 ### Generating Synthetic Data
 
 ```r
-library("GPSmatching")
+library("CausalGPS")
 
 mydata <- gen_syn_data(sample_size = 10000) 
 str(mydata)
@@ -100,7 +102,7 @@ In the following example, first, we generate 10000 synthetic data samples, then 
 - In `params`, we passed the list of parameters; the function will choose one from each list at random and will generate a customize wrapper based on them. If you want to use a specific value, just give a list one number (e.g., xgb_max_depth = c(3)). All parameters that start with `xgb_` will only change XGBoost hyperparameters.
 
 ```r
-library("GPSmatching")
+library("CausalGPS")
 mydata <- gen_syn_data(sample_size = 10000) 
 data_with_gps <- estimate_gps(mydata$Y,
                               mydata$treat,
@@ -118,7 +120,7 @@ data_with_gps <- estimate_gps(mydata$Y,
 Now, let's add some categorical data. Let's say our data belongs to 5 different years (2000 observations per year), and each year we have data from 4 different regions, including *North*, *South*, *East*, and *West*.
 
 ```r
-library("GPSmatching")
+library("CausalGPS")
 mydata <- gen_syn_data(sample_size = 10000) 
 
 year <- c(rep(c("2001"), each=2000),
@@ -161,7 +163,7 @@ After estimating the GPS values, we need to compile the population. There are th
 Among different methods for testing covariate balance test, only `absolute` approach is implemented.
 
 ```r
-library("GPSmatching")
+library("CausalGPS")
 mydata <- gen_syn_data(sample_size = 10000) 
 pseudo_pop <- gen_pseudo_pop(mydata$Y,
                              mydata$treat,
@@ -221,7 +223,7 @@ pseudo_pop <- gen_pseudo_pop(mydata$Y,
 After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (`estimate_erf`) is implemented. 
 
 ```r
-library("GPSmatching")
+library("CausalGPS")
 mydata <- gen_syn_data(sample_size = 10000) 
 pseudo_pop <- gen_pseudo_pop(mydata$Y,
                             mydata$treat,
@@ -285,4 +287,7 @@ save(list=list_names, file="R/sysdata.rda"
 ``` 
 
 - Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
-- Step 9: After succssfull `check()/pass()` remove the backup file. 
+- Step 9: After successful `check()/pass()` remove the backup file. 
+
+
+

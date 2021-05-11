@@ -6,7 +6,7 @@
                                                  '{namespace} {fn} ',
                                                  '{level}:  {msg}',
                                                  sep = ""))
-  logger::log_appender(appender = logger::appender_file("GPSmatching.log"),
+  logger::log_appender(appender = logger::appender_file("CausalGPS.log"),
                        index = 1)
   logger::log_threshold(logger::INFO,index = 1)
   logger::log_layout(flogger, index = 1)
