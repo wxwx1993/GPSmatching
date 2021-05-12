@@ -5,7 +5,11 @@
 .Ruserdata
 inst/doc
 tests/testthat/_snaps/*
-GPSmatching.log
+CausalGPS.log
 tests/testthat/.DS_Store
 doc
 Meta
+src/.DS_Store
+/doc/
+/Meta/
+src-i386

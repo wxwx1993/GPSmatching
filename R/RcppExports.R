@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 compute_closest_wgps_helper <- function(a, b, cd, sc) {
-    .Call(`_GPSmatching_compute_closest_wgps_helper`, a, b, cd, sc)
+    .Call(`_CausalGPS_compute_closest_wgps_helper`, a, b, cd, sc)
 }
 

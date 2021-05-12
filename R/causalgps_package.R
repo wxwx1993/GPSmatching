@@ -1,5 +1,5 @@
 #' @title
-#' The 'GPSmatching' package.
+#' The 'CausalGPS' package.
 #'
 #' @description
 #' An R package for implementing matching on generalized propensity scores with
@@ -11,8 +11,8 @@
 #' framework for GPS caliper matching.
 #'
 #' @docType package
-#' @name GPSmatching-package
-#' @aliases GPSmatching
+#' @name CausalGPS-package
+#' @aliases CausalGPS
 #' @author Naeem Khoshnevis
 #' @author Xiao Wu
 #' @author Danielle Braun
@@ -26,7 +26,7 @@
 #' @import KernSmooth
 #' @import polycor
 #' @importFrom Rcpp sourceCpp
-#' @useDynLib GPSmatching, .registration = TRUE
+#' @useDynLib CausalGPS, .registration = TRUE
 #'
 #' @references
 #' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.

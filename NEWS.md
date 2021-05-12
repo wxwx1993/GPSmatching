@@ -1,3 +1,19 @@
+## CausalGPS (2021-05-12)
+
+### Added
+
+* estimate_semi_erf
+* estimate_hr
+
+### Changed
+
+* Package name: GPSmatching --> CausalGPS 
+
+### Fixed
+
+### Removed
+
+
 ## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added

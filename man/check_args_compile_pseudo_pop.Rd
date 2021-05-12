@@ -4,7 +4,13 @@
 \alias{check_args_compile_pseudo_pop}
 \title{Check compile_pseudo_pop function arguments}
 \usage{
-check_args_compile_pseudo_pop(ci_appr, use_cov_transform, transformers, ...)
+check_args_compile_pseudo_pop(
+  ci_appr,
+  use_cov_transform,
+  transformers,
+  trim_quantiles,
+  ...
+)
 }
 \arguments{
 \item{...}{Additional arguments to successfully run the selected ci_appr.}

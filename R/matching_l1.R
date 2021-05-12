@@ -39,7 +39,7 @@ matching_l1 <- function(w,
     stop("w should be a vector of size 1.")
   }
 
-  logger::log_trace("Started matching on single w value (w = {w}) ...")
+  logger::log_debug("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()
 
   if (gps_model == "parametric"){
@@ -86,7 +86,7 @@ matching_l1 <- function(w,
   dp["std_gps"] <- NULL
 
   e_ml_t <- proc.time()
-  logger::log_trace("Finished matching on single w value (w = {w}), ",
+  logger::log_debug("Finished matching on single w value (w = {w}), ",
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
   return(dp)

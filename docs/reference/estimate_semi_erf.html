@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The 'GPSmatching' package. — GPSmatching-package • GPSmatching</title>
+<title>Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,8 @@
 
 
 
-<meta property="og:title" content="The 'GPSmatching' package. — GPSmatching-package" />
-<meta property="og:description" content="An R package for implementing matching on generalized propensity scores with
-continuous exposures." />
+<meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
+<meta property="og:description" content="TODO" />
 
 
 
@@ -78,8 +77,8 @@ continuous exposures." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GPSmatching</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">CausalGPS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -92,7 +91,7 @@ continuous exposures." />
   </a>
 </li>
 <li>
-  <a href="../articles/GPSmatching.html">Get started</a>
+  <a href="../articles/CausalGPS.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -137,7 +136,7 @@ continuous exposures." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fasrc/GPSmatching/">
+  <a href="https://github.com/fasrc/CausalGPS/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -161,37 +160,37 @@ continuous exposures." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The 'GPSmatching' package.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/gpsmatching_package.R'><code>R/gpsmatching_package.R</code></a></small>
-    <div class="hidden name"><code>GPSmatching-package.Rd</code></div>
+    <h1>Estimate semi exposure-response function (semi-ERF).</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_semi_erf.R'><code>R/estimate_semi_erf.R</code></a></small>
+    <div class="hidden name"><code>estimate_semi_erf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R package for implementing matching on generalized propensity scores with
-continuous exposures.</p>
+    <p>TODO</p>
     </div>
 
+    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>formula</th>
+      <td><p>a vector of outcome variable in matched set.</p></td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td><p>a description of the error distribution (see ?gam)</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>dataset that formula is build upon</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>We developed an innovative approach for estimating causal effects using
-observational data in settings with continuous exposures, and introduce a new
-framework for GPS caliper matching.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.
-Matching on generalized propensity scores with continuous exposures.
-arXiv preprint arXiv:1812.06575.</p>
-<p>Kennedy, E.H., Ma, Z., McHugh, M.D. and Small, D.S., 2017. Non‐parametric
-methods for doubly robust estimation of continuous treatment effects.
-Journal of the Royal Statistical Society: Series B (Statistical Methodology),
-79(4), pp.1229-1245.</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Naeem Khoshnevis</p>
-<p>Xiao Wu</p>
-<p>Danielle Braun</p>
+    <p>returns an object of class Gam</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

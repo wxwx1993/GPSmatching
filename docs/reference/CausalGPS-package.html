@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update logger settings — update_logger • GPSmatching</title>
+<title>The 'CausalGPS' package. — CausalGPS-package • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,9 @@
 
 
 
-<meta property="og:title" content="Update logger settings — update_logger" />
-<meta property="og:description" content="Updates logger settings, including log level and location of the file." />
+<meta property="og:title" content="The 'CausalGPS' package. — CausalGPS-package" />
+<meta property="og:description" content="An R package for implementing matching on generalized propensity scores with
+continuous exposures." />
 
 
 
@@ -77,8 +78,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GPSmatching</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">CausalGPS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -91,7 +92,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/GPSmatching.html">Get started</a>
+  <a href="../articles/CausalGPS.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -136,7 +137,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fasrc/GPSmatching/">
+  <a href="https://github.com/fasrc/CausalGPS/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -160,44 +161,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update logger settings</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/update_logger.R'><code>R/update_logger.R</code></a></small>
-    <div class="hidden name"><code>update_logger.Rd</code></div>
+    <h1>The 'CausalGPS' package.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/causalgps_package.R'><code>R/causalgps_package.R</code></a></small>
+    <div class="hidden name"><code>CausalGPS-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Updates logger settings, including log level and location of the file.</p>
+    <p>An R package for implementing matching on generalized propensity scores with
+continuous exposures.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_logger</span><span class='op'>(</span>logger_file_path <span class='op'>=</span> <span class='cn'>NULL</span>, logger_level <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>logger_file_path</th>
-      <td><p>A path (including file name) to log the messages.</p></td>
-    </tr>
-    <tr>
-      <th>logger_level</th>
-      <td><p>The log level. Available levels include:</p><ul>
-<li><p>TRACE</p></li>
-<li><p>DEBUG</p></li>
-<li><p>INFO</p></li>
-<li><p>SUCESS</p></li>
-<li><p>WARN</p></li>
-<li><p>ERROR</p></li>
-<li><p>FATAL</p></li>
-</ul></td>
-    </tr>
-    </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>update_logger</span><span class='op'>(</span><span class='st'>"Debug"</span><span class='op'>)</span>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-</div></pre>
+    <p>We developed an innovative approach for estimating causal effects using
+observational data in settings with continuous exposures, and introduce a new
+framework for GPS caliper matching.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.
+Matching on generalized propensity scores with continuous exposures.
+arXiv preprint arXiv:1812.06575.</p>
+<p>Kennedy, E.H., Ma, Z., McHugh, M.D. and Small, D.S., 2017. Non‐parametric
+methods for doubly robust estimation of continuous treatment effects.
+Journal of the Royal Statistical Society: Series B (Statistical Methodology),
+79(4), pp.1229-1245.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Naeem Khoshnevis</p>
+<p>Xiao Wu</p>
+<p>Danielle Braun</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

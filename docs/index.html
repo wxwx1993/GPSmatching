@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matching on generalized propensity scores with continuous exposures • GPSmatching</title>
+<title>Matching on generalized propensity scores with continuous exposures • CausalGPS</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -38,8 +38,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">GPSmatching</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="index.html">CausalGPS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -52,7 +52,7 @@
   </a>
 </li>
 <li>
-  <a href="articles/GPSmatching.html">Get started</a>
+  <a href="articles/CausalGPS.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -97,7 +97,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/fasrc/GPSmatching/">
+  <a href="https://github.com/fasrc/CausalGPS/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -137,17 +137,17 @@
 <div id="estimating-gps" class="section level3">
 <h3 class="hasAnchor">
 <a href="#estimating-gps" class="anchor"></a>Estimating GPS</h3>
-<p><em>TBD</em></p>
+<p>The generalized propensity scores are computed using various parametric and/or non-parametric models. The generalized propensity scores are used for the following causal inference approaches.</p>
 </div>
 <div id="generating-pseudo-population" class="section level3">
 <h3 class="hasAnchor">
 <a href="#generating-pseudo-population" class="anchor"></a>Generating Pseudo Population</h3>
-<p><em>TBD</em></p>
+<p>Pseudo population dataset is computed based on user-defined causal inference approaches (e.g., matching or weighting). A covariate balance test is performed on the pseudo population dataset. Users can specify covariate balance criteria and activate an adaptive approach and number of attempts to search for a target pseudo population dataset that meets the covariate balance criteria.</p>
 </div>
 <div id="outcome-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#outcome-models" class="anchor"></a>Outcome Models</h3>
-<p><em>TBD</em></p>
+<p>Several outcome models can be achieved using the generated pseudo population dataset. Users can specify non-/semi-parametric models to obtain exposure-response curves and parametric models to obtain regression coefficients of interest.</p>
 </div>
 </div>
 </div>
@@ -157,9 +157,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/fasrc/GPSmatching/">https://​github.com/​fasrc/​GPSmatching/​</a>
+<li>Browse source code at <br><a href="https://github.com/fasrc/CausalGPS/">https://​github.com/​fasrc/​CausalGPS/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/fasrc/GPSmatching/issues">https://​github.com/​fasrc/​GPSmatching/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/fasrc/CausalGPS/issues">https://​github.com/​fasrc/​CausalGPS/​issues</a>
 </li>
 </ul>
 </div>
@@ -172,7 +172,7 @@
 <div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing GPSmatching</a></li>
+<li><a href="authors.html">Citing CausalGPS</a></li>
 </ul>
 </div>
 <div class="developers">

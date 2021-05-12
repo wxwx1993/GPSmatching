@@ -29,6 +29,9 @@ absolute_corr_fun <- function(w,
     }
   }
 
+  # convert c to datatable
+  data.table::setDT(c)
+
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 

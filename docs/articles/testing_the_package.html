@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Testing the Package • GPSmatching</title>
+<title>Testing the Package • CausalGPS</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -14,7 +14,7 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Testing the Package">
-<meta property="og:description" content="GPSmatching">
+<meta property="og:description" content="CausalGPS">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -32,8 +32,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GPSmatching</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">CausalGPS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/GPSmatching.html">Get started</a>
+  <a href="../articles/CausalGPS.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -91,7 +91,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/fasrc/GPSmatching/">
+  <a href="https://github.com/fasrc/CausalGPS/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -112,20 +112,20 @@
 
       
 
-      </header><script src="testing_the_package_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="testing_the_package_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Testing the Package</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/GPSmatching/blob/master/vignettes/testing_the_package.Rmd"><code>vignettes/testing_the_package.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/testing_the_package.Rmd"><code>vignettes/testing_the_package.Rmd</code></a></small>
       <div class="hidden name"><code>testing_the_package.Rmd</code></div>
 
     </div>
 
     
     
-<p>Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a <a href="https://github.com/fasrc/GPSmatching/issues">new issue</a>. In the following, there steps to generate synthetic data and conduct some testing.</p>
+<p>Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a <a href="https://github.com/fasrc/CausalGPS/issues">new issue</a>. In the following, there steps to generate synthetic data and conduct some testing.</p>
 <p>In order to test the package, you need to have the code on your system. There are two options:</p>
 <ul>
 <li>Installing the package</li>
@@ -142,15 +142,15 @@
 <p>Use <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github</a></code> to install the package. If you do not specify the <code>ref</code>, it will install the master (or main) branch. The <code>master</code> branch hosts the latest released code. The latest updates are committed to the <code>develop</code> branch. Read <a href="contribution.Rmd">Git Branching Model</a> for more details.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="st">"package:GPSmatching"</span>, unload <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># if already you have the package, detach and unload it, to have a new install. </span>
-<span class="fu">install_githab</span><span class="op">(</span><span class="st">"fasrc/GPSmatching"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fasrc/GPSmatching">GPSmatching</a></span><span class="op">)</span></code></pre></div>
-<p>The process should run smoothly. Try <code><a href="../reference/GPSmatching-package.html">?GPSmatching</a></code>. It should open the package description page under the help tab (assuming you are using RStudio).</p>
+<span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="st">"package:CausalGPS"</span>, unload <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># if already you have the package, detach and unload it, to have a new install. </span>
+<span class="fu">install_githab</span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fasrc/CausalGPS">CausalGPS</a></span><span class="op">)</span></code></pre></div>
+<p>The process should run smoothly. Try <code><a href="../reference/CausalGPS-package.html">?CausalGPS</a></code>. It should open the package description page under the help tab (assuming you are using RStudio).</p>
 </div>
 <div id="cloning-the-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cloning-the-package" class="anchor"></a>Cloning the Package</h3>
-<p>Go to the package <a href="https://github.com/fasrc/GPSmatching">Github reposirory</a>, at the top left (A), choose the branch that you want to clone, then click on the <code>Code</code> button (B), then choose <code>Download ZIP</code>. The following figure shows the buttons’ location.</p>
+<p>Go to the package <a href="https://github.com/fasrc/CausalGPS">Github reposirory</a>, at the top left (A), choose the branch that you want to clone, then click on the <code>Code</code> button (B), then choose <code>Download ZIP</code>. The following figure shows the buttons’ location.</p>
 <p float="center">
 <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600"></p>
 <p>After cloning the code, open one of the files using RStudio, then change the project directory to the project directory (<code>Session &gt; Set Working Directory &gt; To Project Directory</code>).</p>
@@ -195,7 +195,7 @@
 <h3 class="hasAnchor">
 <a href="#generating-synthetic-data" class="anchor"></a>Generating Synthetic Data</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 
 <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span>
@@ -214,7 +214,7 @@
 <a href="#estimating-gps-values-for-the-dataset" class="anchor"></a>Estimating GPS Values for the Dataset</h3>
 <p>In the following example, first, we generate 10000 synthetic data samples, then we feed them into <code>estimate_gps</code> function to estimate their GPS values. Please note that the Y variable is not used inside the code, and it is only provided to cbind with the generated GPS values. You can read more about different arguments in the documentation (<code><a href="../reference/estimate_gps.html">?estimate_gps</a></code>). In summary, - We want to run a code using SuperLearner (<code>sl</code>) prediction model. Inside the SuperLearner package, we want to use the XGBoost package. As you know, we internally generate a customized wrapper for the XGBoost package; thus, the correct way to activate that is by passing <code>m_xgboost</code>, which stands for <em>modified xgboost</em>. - We requested for one thread (<code>nthread = 1</code>); you can use as much as you want; the package will use the available one and will ignore the rest of them. XGBoost uses OpenMP backend to use all cores. Sometimes it becomes a really big challenge on Mac systems. So if you are using Mac and do not see any performance improvement, be aware of that. - In <code>params</code>, we passed the list of parameters; the function will choose one from each list at random and will generate a customize wrapper based on them. If you want to use a specific value, just give a list one number (e.g., xgb_max_depth = c(3)). All parameters that start with <code>xgb_</code> will only change XGBoost hyperparameters.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
                               <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
@@ -229,7 +229,7 @@
                              <span class="op">)</span></code></pre></div>
 <p>Now, let’s add some categorical data. Let’s say our data belongs to 5 different years (2000 observations per year), and each year we have data from 4 different regions, including <em>North</em>, <em>South</em>, <em>East</em>, and <em>West</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 
 <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001"</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>,
@@ -269,7 +269,7 @@
 </ul>
 <p>Among different methods for testing covariate balance test, only <code>absolute</code> approach is implemented.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
                              <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
@@ -325,7 +325,7 @@
 <a href="#further-processing" class="anchor"></a>Further Processing</h3>
 <p>After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (<code>estimate_erf</code>) is implemented.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/GPSmatching">"GPSmatching"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
                             <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
@@ -383,7 +383,7 @@
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list=</span>list_names, <span class="at">file=</span><span class="st">"R/sysdata.rda"</span></span></code></pre></div>
 <ul>
 <li>Step 8: Run <code>check()/test()</code> to make sure that it passes all tests. If it does not pass all tests, address the problem.</li>
-<li>Step 9: After succssfull <code>check()/pass()</code> remove the backup file.</li>
+<li>Step 9: After successful <code>check()/pass()</code> remove the backup file.</li>
 </ul>
 </div>
   </div>

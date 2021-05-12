@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smooth exposure response function — smooth_erf • CausalGPS</title>
+<title>Estimate hazard ratio — estimate_hr • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Smooth exposure response function — smooth_erf" />
-<meta property="og:description" content="Smooths exposure response function based on bandwidth" />
+<meta property="og:title" content="Estimate hazard ratio — estimate_hr" />
+<meta property="og:description" content="TODO" />
 
 
 
@@ -160,37 +160,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Smooth exposure response function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/smooth_erf.R'><code>R/smooth_erf.R</code></a></small>
-    <div class="hidden name"><code>smooth_erf.Rd</code></div>
+    <h1>Estimate hazard ratio</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_hr.R'><code>R/estimate_hr.R</code></a></small>
+    <div class="hidden name"><code>estimate_hr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Smooths exposure response function based on bandwidth</p>
+    <p>TODO</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_erf</span><span class='op'>(</span><span class='va'>matched_Y</span>, <span class='va'>bw</span>, <span class='va'>matched_w</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>estimate_hr</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>matched_Y</th>
-      <td><p>A vector of the outcome variable in the matched set.</p></td>
+      <th>formula</th>
+      <td><p>a vector of outcome variable in matched set.</p></td>
     </tr>
     <tr>
-      <th>bw</th>
-      <td><p>The bandwidth value.</p></td>
+      <th>family</th>
+      <td><p>a description of the error distribution (see ?gam)</p></td>
     </tr>
     <tr>
-      <th>matched_w</th>
-      <td><p>A vector of continuous exposure variable in the matched set.</p></td>
+      <th>data</th>
+      <td><p>dataset that formula is build upon</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Smoothed value of ERF</p>
+    <p>returns an object of class gnm</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
