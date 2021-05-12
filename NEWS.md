@@ -1,4 +1,4 @@
-## GPSmatching (development version)
+## CausalGPS (2021-05-12)
 
 ### Added
 
@@ -6,6 +6,8 @@
 * estimate_hr
 
 ### Changed
+
+* Package name: GPSmatching --> CausalGPS 
 
 ### Fixed
 
