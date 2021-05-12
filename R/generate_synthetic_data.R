@@ -1,5 +1,5 @@
 #' @title
-#' Generate synthetic data for GPSmatching package
+#' Generate synthetic data for CausalGPS package
 #'
 #' @description
 #' Generates synthetic dataset

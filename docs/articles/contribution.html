@@ -137,12 +137,12 @@
 <div id="environment-setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#environment-setup" class="anchor"></a>Environment Setup</h2>
-<p>In order to contribute to the project, it is a better idea to have your own local copy of <em>GPSmatching</em> on your Github account. Here are the steps:</p>
+<p>In order to contribute to the project, it is a better idea to have your own local copy of <em>CausalGPS</em> on your Github account. Here are the steps:</p>
 <ul>
-<li>Navigate to GPSmatching Github <a href="https://github.com/fasrc/GPSmatching">repository</a>, and at the top right corner, click on the <code>Fork</code> button. This will add a clone of the project to your Github account.</li>
+<li>Navigate to CausalGPS Github <a href="https://github.com/fasrc/CausalGPS">repository</a>, and at the top right corner, click on the <code>Fork</code> button. This will add a clone of the project to your Github account.</li>
 <li>Open your terminal (or Gitbash for Windows, Anaconda prompt, …) and run the following command (brackets are not included):</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone git<span class="co">@github.com:[your user name]/GPSmatching.git</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone git<span class="co">@github.com:[your user name]/CausalGPS.git</span></span></code></pre></div>
 <ul>
 <li>If you do not already have an SSH key, you need to generate one. Read more <a href="https://docs.github.com/en/github-ae@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">here</a>.</li>
 <li>Now, you can modify the codebase and track your modification.</li>
@@ -163,7 +163,7 @@
 <strong>supporting</strong> branch: There are different supporting branches, three main supporting branches that we suggest the contributors to follow the naming convention includes:
 <ul>
 <li>
-<em>feature</em>: we start a new feature branch to add new features to the software. The naming convention is iss[issue_number]_short_description. For example, if I need to add unittest to one of the functions in the package and the issue number is 12, iss12_add_unittest can be a valid git branch name. We start it with the issue number to go back and take a look at the issue details if necessary. Although feature branches are temporary, this naming convention helps developers to understand the situation while working on the codebase. If you are working on some features that there is no open issue for that, please open an issue <a href="https://github.com/fasrc/GPSmatching/issues">here</a> and assign it to yourself. You can also make a comment that you are working on that.</li>
+<em>feature</em>: we start a new feature branch to add new features to the software. The naming convention is iss[issue_number]_short_description. For example, if I need to add unittest to one of the functions in the package and the issue number is 12, iss12_add_unittest can be a valid git branch name. We start it with the issue number to go back and take a look at the issue details if necessary. Although feature branches are temporary, this naming convention helps developers to understand the situation while working on the codebase. If you are working on some features that there is no open issue for that, please open an issue <a href="https://github.com/fasrc/CausalGPS/issues">here</a> and assign it to yourself. You can also make a comment that you are working on that.</li>
 <li>
 <em>hotfix</em>: hotfix branches will be only used for fixing a bug on a released package. After fixing the bug, the third digit of the version number should be incremented by one. For example, 2.3.5 –&gt; 2.3.6. These branches will be prefixed with hotfix and followed by the upcoming version number (e.g., in this case, hotfix_2.3.6)</li>
 <li>
@@ -192,7 +192,7 @@
 <div id="reporting-bugs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reporting-bugs" class="anchor"></a>Reporting bugs</h2>
-<p>Please report potential bugs by creating a <a href="https://github.com/fasrc/GPSmatching/issues">new issue</a> or sending us an email. Please include the following information in your bug report:</p>
+<p>Please report potential bugs by creating a <a href="https://github.com/fasrc/CausalGPS/issues">new issue</a> or sending us an email. Please include the following information in your bug report:</p>
 <ul>
 <li>A brief description of what you are doing, what you expected to happen, and what happened.</li>
 <li>OS that you are using and whether you are using a personal computer or HPC cluster.</li>
@@ -299,7 +299,7 @@
 <div id="logger" class="section level2">
 <h2 class="hasAnchor">
 <a href="#logger" class="anchor"></a>Logger</h2>
-<p>Use logger to investigate the internal process. The default level is “INFO”, which writes messages into “GPSmatching.log” file. You can use <code>update_logger</code> function to change the log file location and level.</p>
+<p>Use logger to investigate the internal process. The default level is “INFO”, which writes messages into “CausalGPS.log” file. You can use <code>update_logger</code> function to change the log file location and level.</p>
 </div>
   </div>
 

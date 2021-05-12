@@ -1,4 +1,4 @@
-# GPSmatching
+# CausalGPS
 
 
 | Resource    |  Github Actions      |
@@ -19,8 +19,8 @@ An R package for implementing matching on generalized propensity scores with con
 
 ```r
 library("devtools")
-install_github("fasrc/GPSmatching")
-library("GPSmatching")
+install_github("fasrc/CausalGPS")
+library("CausalGPS")
 ```
 
 ## Usage
@@ -41,7 +41,10 @@ Input parameters:
 `running_appr`: running approach (base, parallel)  
 `covar_bl_method`: specified covariate balance method  
 `covar_bl_trs`: specified covariate balance threshold  
-`max_attempt`: maximum number of attempt to satisfy covariate balance  
+`max_attempt`: maximum number of attempt to satisfy covariate balance 
+`use_cov_transform`: If `TRUE`, uses internal transformers to achehive covariate balance.
+`transformers`: List of transformers (default: list("pow2","pow3")). Users can define a unary function and pass as transformer to the list.
+`trim_quantiles`: a vector of two indicating upper and lower trimming quantiles (default: c(0.01, 0.99)). 
 
 - Generating Pseudo Population
 
@@ -52,6 +55,7 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              ci_appr = "matching",
                              running_appr = "base",
                              pred_model = "sl",
+                             gps_model = "parametric",
                              use_cov_transform = TRUE,
                              transformers = list("pow2", "pow3"),
                              sl_lib = c("m_xgboost","SL.earth","SL.gam",
@@ -61,6 +65,7 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              nthread = 1,
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
+                             trim_quantiles = c(0.01,0.99),
                              max_attempt = 1,
                              matching_fun = "matching_l1",
                              delta_n = 1,
