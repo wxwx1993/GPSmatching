@@ -1,7 +1,7 @@
-# GPSmatching  <a href="https://fasrc.github.io/GPSmatching/"><img src="man/figures/png/logo_place_holder.png" align="right" height="115" /></a>
+# CausalGPS  <a href="https://fasrc.github.io/GPSmatching/"><img src="man/figures/png/logo_place_holder.png" align="right" height="115" /></a>
 
 <!-- badges: start -->
-[![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/GPSmatching/actions)
+[![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/CausalGPS/actions)
 <!-- badges: end -->
 
 

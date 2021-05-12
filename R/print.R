@@ -12,7 +12,7 @@ print.gpsm_erf <- function(x, ...){
 
   x <- unclass(x)
 
-  cat(" GPSmatching exposure rate function object\n")
+  cat(" CausalGPS exposure rate function object\n")
   cat(" function call: \n")
   cat("      ***       \n")
   print(x$fcall, ...)
@@ -74,7 +74,7 @@ print.gpsm_pspop <- function(x, ...){
 
   x <- unclass(x)
 
-  cat(" GPSmatching pseudo population object\n")
+  cat(" CausalGPS pseudo population object\n")
   cat(" function call: \n")
   cat("      ***       \n")
   print(x$fcall, ...)
@@ -96,7 +96,7 @@ print.gpsm_pspop <- function(x, ...){
 #' @export
 summary.gpsm_pspop <- function(object, ...){
 
-  cat("GPSmatching pseudo population object summary\n")
+  cat("CausalGPS pseudo population object summary\n")
   cat_list <- function(input){
     cat(paste("   size: ", length(input),
               ", class: ", class(input),
