@@ -1,7 +1,7 @@
 Package: CausalGPS
 Type: Package
 Title: Matching on generalized propensity scores with continuous exposures
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
