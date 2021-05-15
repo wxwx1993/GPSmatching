@@ -33,24 +33,24 @@ train_it <- function(target, input, pred_model, running_appr,
 
   if (pred_model == 'sl'){
 
-    if (running_appr=="parallel"){
-      if (is.element(platform_os,c("unix"))){
-        pr_mdl <- SuperLearner::mcSuperLearner(Y=target, X=data.frame(input),
-                                               SL.library=sl_lib_internal)
-      } else {
-        message(paste("Running on multiple cores is not implemented for ",
-                       platform_os, " platform. Running on single core ..."))
-        pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
-                                             SL.library=sl_lib_internal)
-        }
-    } else if (running_appr=="base") {
+    # if (running_appr=="parallel"){
+    #   if (is.element(platform_os,c("unix"))){
+    #     pr_mdl <- SuperLearner::mcSuperLearner(Y=target, X=data.frame(input),
+    #                                            SL.library=sl_lib_internal)
+    #   } else {
+    #     message(paste("Running on multiple cores is not implemented for ",
+    #                    platform_os, " platform. Running on single core ..."))
+    #     pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
+    #                                          SL.library=sl_lib_internal)
+    #     }
+    # } else if (running_appr=="base") {
 
       pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
                                            SL.library=sl_lib_internal)
-    } else {
-      stop(' The requested running approach (',running_appr,
-           ') is not implemented.')
-    }
+    # } else {
+    #   stop(' The requested running approach (',running_appr,
+    #        ') is not implemented.')
+    # }
       return(pr_mdl)
 
     } else {
