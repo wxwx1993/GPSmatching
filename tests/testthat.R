@@ -1,6 +1,6 @@
 library(testthat)
-library(GPSmatching)
+library(CausalGPS)
 
 Sys.setenv("R_TESTS" = "")
 library(testthat)
-test_check("GPSmatching")
+test_check("CausalGPS")

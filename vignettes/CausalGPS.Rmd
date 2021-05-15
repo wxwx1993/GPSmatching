@@ -1,8 +1,8 @@
 ---
-title: "GPSmatching"
+title: "CausalGPS"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{GPSmatching}
+  %\VignetteIndexEntry{CausalGPS}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
 
 ```r
 library("devtools")
-install_github("fasrc/GPSmatching", ref="develop")
-library("GPSmatching")
+install_github("fasrc/CausalGPS", ref="develop")
+library("CausalGPS")
 ```
 
 ## Usage

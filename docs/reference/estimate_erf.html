@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate smoothed exposure-response function (ERF). — estimate_erf • GPSmatching</title>
+<title>Estimate smoothed exposure-response function (ERF). — estimate_erf • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -77,8 +77,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GPSmatching</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <a class="navbar-link" href="../index.html">CausalGPS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/GPSmatching.html">Get started</a>
+  <a href="../articles/CausalGPS.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -136,7 +136,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fasrc/GPSmatching/">
+  <a href="https://github.com/fasrc/CausalGPS/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -161,7 +161,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate smoothed exposure-response function (ERF).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/GPSmatching/blob/master/R/estimate_erf.R'><code>R/estimate_erf.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_erf.R'><code>R/estimate_erf.R</code></a></small>
     <div class="hidden name"><code>estimate_erf.Rd</code></div>
     </div>
 
@@ -226,17 +226,7 @@ attributes:</p><ul>
                              matching_fun <span class='op'>=</span> <span class='st'>"matching_l1"</span>,
                              delta_n <span class='op'>=</span> <span class='fl'>1</span>,
                              scale <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.211848109584963 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.
-#&gt; [12:07:35] WARNING: /Users/nak443/Documents/Naeem_folder_mac_h/Research_projects/F2020_010_tech/experiment_010_20210302_xgboost/install_folder/xgboost/src/objective/regression_obj.cu:171: reg:linear is now deprecated in favor of reg:squarederror.</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.211848109584963 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='input'>
 <span class='va'>erf_obj</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_erf</span><span class='op'>(</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>Y</span>,
                         <span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>w</span>,
                         bw_seq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.2</span>,<span class='fl'>2</span>,<span class='fl'>0.2</span><span class='op'>)</span>,

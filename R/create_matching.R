@@ -59,22 +59,21 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
   st_t_m <- proc.time()
 
 
-  platform_os <- .Platform$OS.type
-
-  if (is.element(platform_os,c("unix"))){
-
     p_c_t_s <- proc.time()
-
     cl <- parallel::makeCluster(nthread, type="PSOCK",
-                                outfile="GPSmatching.log")
+                                outfile="CausalGPS.log")
 
+
+    parallel::clusterEvalQ(cl, {library("CausalGPS")})
     p_c_t_e <- proc.time()
-    logger::log_debug("Time taken to create cluster with {nthread}: {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
 
+    logger::log_debug("Time taken to create cluster with {nthread}: {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
     parallel::clusterExport(cl=cl,
                           varlist = c("bin_num", "matching_fun", "dataset",
                                       "gps_mx", "w_mx", "delta_n", "scale",
-                                      "nthread"), envir=environment())
+                                      "nthread", "compute_closest_wgps",
+                                      "compute_resid", "compute_density"),
+                          envir=environment())
 
     matched_set <-  parallel::parLapply(cl,
                                         bin_num,
@@ -90,21 +89,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                                         scale = scale,
                                         nthread = nthread)
     parallel::stopCluster(cl)
-  } else {
-    matched_set <-  lapply(bin_num,
-                           matching_fun,
-                           dataset=dataset[[1]],
-                           e_gps_pred = dataset[[2]],
-                           e_gps_std_pred = dataset[[3]],
-                           w_resid=dataset[[4]],
-                           gps_mx = gps_mx,
-                           w_mx = w_mx,
-                           gps_model = gps_model,
-                           delta_n = delta_n,
-                           scale = scale,
-                           nthread = nthread)
-
-  }
 
   logger::log_debug("Started generating matched set ...")
 

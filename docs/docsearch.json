@@ -36,7 +36,7 @@
     "homepage": {
       "lvl0": {
         "selector": ".contents h1",
-        "default_value": "GPSmatching Home page"
+        "default_value": "CausalGPS Home page"
       },
       "lvl1": {
         "selector": ".contents h2"

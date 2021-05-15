@@ -1,7 +1,7 @@
-Package: GPSmatching
+Package: CausalGPS
 Type: Package
 Title: Matching on generalized propensity scores with continuous exposures
-Version: 0.2.1
+Version: 0.2.3
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
@@ -21,8 +21,8 @@ Description: An R package for implementing matching on generalized propensity
     2018. Matching on generalized propensity scores with continuous exposures. 
     arXiv preprint arXiv:1812.06575.
 License: GPL-3
-URL: https://github.com/fasrc/GPSmatching, https://fasrc.github.io/GPSmatching
-BugReports: https://github.com/fasrc/GPSmatching/issues
+URL: https://github.com/fasrc/CausalGPS
+BugReports: https://github.com/fasrc/CausalGPS/issues
 Copyright: See COPYRIGHTS for details.
 Imports: 
     parallel,
