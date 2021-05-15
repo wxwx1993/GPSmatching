@@ -4,7 +4,9 @@
 * logo 
 ### Changed
 ### Fixed
+* RCpp parLapply worker processors arguments
 ### Removed
+
 
 ## CausalGPS 0.2.3 (2021-05-12)
 
