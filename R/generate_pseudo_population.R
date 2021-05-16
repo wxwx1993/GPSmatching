@@ -18,11 +18,11 @@
 #' parametric (default) and non-parametric.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
 #'  covariate balance.
-#' @param transformers A list of transformers. Is transformer should be a
+#' @param transformers A list of transformers. Each transformer should be a
 #' unary function. You can pass name of customized function in the quotes.
 #' Available transformers:
 #'   - pow2: to the power of 2
-#'   - pow3: to the power of 3#'
+#'   - pow3: to the power of 3'
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.

@@ -8,7 +8,7 @@ template:
 articles:
   - title: Introduction
     navbar: Introduction
-    contents: [estimating_gps,generating_pseudo_population,outcome_models,generate_synthetic_data]
+    contents: [estimating_gps,generating_pseudo_population,outcome_models,generate_synthetic_data,faq]
 
   - title: Collabration
     navbar: Collabration

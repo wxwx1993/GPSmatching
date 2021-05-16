@@ -1,25 +1,36 @@
 ## CausalGPS (devloping version)
 
 ### Added
+
 * logo 
+* Frequently asked questions
+
 ### Changed
+
 ### Fixed
+
 * RCpp parLapply worker processors arguments
+
 ### Removed
+
 * running_appr
 
 
 ## CausalGPS 0.2.3 (2021-05-12)
+
+### Fixed
 
 *  Fixed documentations
 
 ## CausalGPS 0.2.2 (2021-05-12)
 
 ### Added
+
 * estimate_semi_erf
 * estimate_hr
 
 ### Changed
+
 * Package name: GPSmatching --> CausalGPS 
 
 ### Fixed

@@ -44,12 +44,12 @@ parametric (default) and non-parametric.}
 \item{use_cov_transform}{If TRUE, the function uses transformer to meet the
 covariate balance.}
 
-\item{transformers}{A list of transformers. Is transformer should be a
+\item{transformers}{A list of transformers. Each transformer should be a
 unary function. You can pass name of customized function in the quotes.
 Available transformers:
 \itemize{
 \item pow2: to the power of 2
-\item pow3: to the power of 3#'
+\item pow3: to the power of 3'
 }}
 
 \item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If

@@ -15,3 +15,5 @@ knitr::opts_chunk$set(
 ```
 
 *TBD*
+- Transformers
+- Covariate balance test
