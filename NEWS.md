@@ -6,6 +6,7 @@
 ### Fixed
 * RCpp parLapply worker processors arguments
 ### Removed
+* running_appr
 
 
 ## CausalGPS 0.2.3 (2021-05-12)

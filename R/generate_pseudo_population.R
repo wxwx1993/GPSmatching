@@ -13,10 +13,6 @@
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
 #'   - "adjusting": Adjusting by GPS
-#' @param running_appr The running approach.
-#'   - "base": Base implementation
-#'   - "parallel": Uses parallel flag whenever possible. (Currently is activated
-#'    on the SuperLearner Module.)
 #' @param pred_model a prediction model
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
@@ -71,7 +67,6 @@
 #' object includes the following objects:
 #' - params
 #'   - ci_appr
-#'   - running_appr
 #'   - pred_model
 #'   - params
 #' - pseudo_pop
@@ -85,7 +80,6 @@
 #'                              m_d$treat,
 #'                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                              ci_appr = "matching",
-#'                              running_appr = "base",
 #'                              pred_model = "sl",
 #'                              gps_model = "parametric",
 #'                              bin_seq = NULL,
@@ -107,7 +101,6 @@ gen_pseudo_pop <- function(Y,
                            w,
                            c,
                            ci_appr,
-                           running_appr,
                            pred_model,
                            gps_model = "parametric",
                            use_cov_transform = FALSE,
@@ -132,7 +125,7 @@ gen_pseudo_pop <- function(Y,
   fcall <- match.call()
 
   # Check arguments ----------------------------------------
-  check_args(pred_model,ci_appr,running_appr, use_cov_transform, transformers,
+  check_args(pred_model,ci_appr, use_cov_transform, transformers,
              gps_model, trim_quantiles, ...)
 
   # Generate output set ------------------------------------
@@ -183,7 +176,7 @@ gen_pseudo_pop <- function(Y,
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
-                                     pred_model, running_appr, gps_model,
+                                     pred_model, gps_model,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
     logger::log_debug("Finished estimating gps.")
@@ -313,7 +306,6 @@ gen_pseudo_pop <- function(Y,
   class(result) <- "gpsm_pspop"
 
   result$params$ci_appr <- ci_appr
-  result$params$running_appr <- running_appr
   result$params$pred_model <- pred_model
   result$params$params <- params
   for (item in arg_names){
@@ -334,7 +326,6 @@ gen_pseudo_pop <- function(Y,
   logger::log_debug("Covariate balance condition has been met (TRUE/FALSE):",
                     " {adjusted_corr_obj$pass}, (iteration:",
                     " {counter} / {max_attempt})")
-
   invisible(result)
 }
 
