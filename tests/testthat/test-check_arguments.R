@@ -4,7 +4,6 @@ test_that("Check arguments works as expected.", {
   expect_error(check_args_compile_pseudo_pop())
 
   val1 <- check_args(pred_model = "sl",
-                     running_appr = "base",
                      use_cov_transform = FALSE,
                      transformers = list(),
                      sl_lib=c("xyz"),
@@ -20,7 +19,6 @@ test_that("Check arguments works as expected.", {
   expect_true(val1)
 
   val2 <- check_args_estimate_gps(pred_model = "sl",
-                                  running_appr = "base",
                                   gps_model = "non-parametric",
                                   sl_lib=c("xgboost"))
   expect_true(val2)

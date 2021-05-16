@@ -7,7 +7,6 @@
 #'
 #' @param pred_model The prediction model.
 #' @param ci_appr The causal inference approach.
-#' @param running_appr The running approach.
 #' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
 #' transforming.
 #' @param transformers A list of transformers.
@@ -19,7 +18,7 @@
 #'
 #' @keywords internal
 #'
-check_args <- function(pred_model, ci_appr, running_appr,
+check_args <- function(pred_model, ci_appr,
                        use_cov_transform, transformers,
                        gps_model, trim_quantiles, ...){
 
@@ -32,7 +31,7 @@ check_args <- function(pred_model, ci_appr, running_appr,
 
   required_args <- NULL
 
-  check_args_estimate_gps(pred_model, running_appr, gps_model, ...)
+  check_args_estimate_gps(pred_model, gps_model, ...)
   check_args_compile_pseudo_pop(ci_appr, use_cov_transform,
                                 transformers, trim_quantiles, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
@@ -56,17 +55,13 @@ check_args <- function(pred_model, ci_appr, running_appr,
 #'
 #' @keywords internal
 #'
-check_args_estimate_gps <- function(pred_model, running_appr, gps_model, ...){
+check_args_estimate_gps <- function(pred_model, gps_model, ...){
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
   if (!is.element(pred_model, c('sl'))){
     stop(paste(pred_model, " is not a valid prediction model."))
-  }
-
-  if (!is.element(running_appr,c('base', 'parallel'))){
-    stop(paste(running_appr, " is not a valid running approach."))
   }
 
   if (!is.element(gps_model, c('parametric','non-parametric'))){
@@ -228,5 +223,4 @@ check_args_use_cov_transformers <- function(use_cov_transform,
   # None
 
   invisible(TRUE)
-
 }

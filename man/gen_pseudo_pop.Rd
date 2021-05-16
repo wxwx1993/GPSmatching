@@ -9,7 +9,6 @@ gen_pseudo_pop(
   w,
   c,
   ci_appr,
-  running_appr,
   pred_model,
   gps_model = "parametric",
   use_cov_transform = FALSE,
@@ -37,13 +36,6 @@ gen_pseudo_pop(
 \item "adjusting": Adjusting by GPS
 }}
 
-\item{running_appr}{The running approach.
-\itemize{
-\item "base": Base implementation
-\item "parallel": Uses parallel flag whenever possible. (Currently is activated
-on the SuperLearner Module.)
-}}
-
 \item{pred_model}{a prediction model}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
@@ -52,12 +44,12 @@ parametric (default) and non-parametric.}
 \item{use_cov_transform}{If TRUE, the function uses transformer to meet the
 covariate balance.}
 
-\item{transformers}{A list of transformers. Is transformer should be a
+\item{transformers}{A list of transformers. Each transformer should be a
 unary function. You can pass name of customized function in the quotes.
 Available transformers:
 \itemize{
 \item pow2: to the power of 2
-\item pow3: to the power of 3#'
+\item pow3: to the power of 3'
 }}
 
 \item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
@@ -90,7 +82,6 @@ object includes the following objects:
 \item params
 \itemize{
 \item ci_appr
-\item running_appr
 \item pred_model
 \item params
 }
@@ -152,7 +143,6 @@ pseuoo_pop <- gen_pseudo_pop(m_d$Y,
                              m_d$treat,
                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                              ci_appr = "matching",
-                             running_appr = "base",
                              pred_model = "sl",
                              gps_model = "parametric",
                              bin_seq = NULL,

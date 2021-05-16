@@ -29,7 +29,7 @@ absolute_corr_fun <- function(w,
     }
   }
 
-  # convert c to datatable
+  # convert c to data table
   data.table::setDT(c)
 
   # detect numeric columns
@@ -53,7 +53,6 @@ absolute_corr_fun <- function(w,
   }
 
   absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
-
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))
 }

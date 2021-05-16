@@ -9,7 +9,6 @@ estimate_gps(
   w,
   c,
   pred_model,
-  running_appr,
   gps_model = "parametric",
   internal_use = TRUE,
   params = list(),
@@ -25,8 +24,6 @@ estimate_gps(
 \item{c}{A matrix or dataframe of observed covariates variable.}
 
 \item{pred_model}{The selected prediction model.}
-
-\item{running_appr}{The running approach.}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
@@ -65,7 +62,6 @@ data_with_gps <- estimate_gps(m_d$Y,
                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                               pred_model = "sl",
                               gps_model = "parametric",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),

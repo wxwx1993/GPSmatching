@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ```r
 library("devtools")
-install_github("fasrc/CausalGPS", ref="develop")
+install_github("fasrc/CausalGPS", ref="master")
 library("CausalGPS")
 ```
 
@@ -29,14 +29,17 @@ Input parameters:
 
 
 **`Y`**  a vector of observed outcome  
-**`w`**  a vector of observed continues exposure  
-**`c`**  data frame or matrix of observed baseline covariates  
-**`matching_fun`**  specified matching function  
+**`w`**  a vector of observed continues exposure    
+**`c`**  data frame or matrix of observed baseline covariates    
+**`ci_appr`** The causal inference approach. Options are "matching", "weighting", and "adjusting".  
+**`gps_model`** Model type which is used for estimating GPS value, including "parametric" (default) and "non-parametric".  
+**`use_cov_transform`** If TRUE, the function uses transformer to meet the covariate balance.  
+**`transformers`** Is a list of transformers. Each transformer should be a unary function. Available transformers are "pow2" and "pow3".   
+**`matching_fun`**  specified matching function    
 **`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
 **`delta_n`**  specified caliper parameter on the exposure  
 **`sl_lib`**  a set of machine learning methods used for estimating GPS  
 **`ci_appr`**  causal inference approach   
-**`running_appr`**  running approach (base, parallel)  
 **`covar_bl_method`**  specified covariate balance method  
 **`covar_bl_trs`**  specified covariate balance threshold  
 **`max_attempt`**  maximum number of attempt to satisfy covariate balance  
@@ -48,7 +51,6 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              w,
                              c,
                              ci_appr = "matching",
-                             running_appr = "base",
                              pred_model = "sl",
                              sl_lib = c("m_xgboost","SL.earth","SL.gam",
                                         "SL.ranger"),
@@ -84,7 +86,6 @@ data_with_gps <- estimate_gps(Y,
                               w,
                               c,
                               pred_model = "sl",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                             xgb_rounds = c(10,20,30,40)),
@@ -116,3 +117,7 @@ syn_data <- gen_syn_data(sample_size=1000,
                          cova_spec = 1)
 
 ```
+
+- Logging
+
+The CausalGPS package is logging internal activities into the `CausalGPS.log` file. The file is located in the source file location and will be appended. Users can change the logging file name (and path) and logging threshold. The logging mechanism has different thresholds (see [logger](https://cran.r-project.org/web/packages/logger/index.html) package). The two most important thresholds are INFO and DEBUG levels. The former, which is the default level, logs more general information about the process. The latter, if activated, logs more detailed information that can be used for debugging purposes.

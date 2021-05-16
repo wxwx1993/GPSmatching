@@ -38,7 +38,6 @@ Input parameters:
 `delta_n`: specified caliper parameter on the exposure  
 `sl_lib`: a set of machine learning methods used for estimating GPS  
 `ci_appr`: causal inference approach   
-`running_appr`: running approach (base, parallel)  
 `covar_bl_method`: specified covariate balance method  
 `covar_bl_trs`: specified covariate balance threshold  
 `max_attempt`: maximum number of attempt to satisfy covariate balance 
@@ -53,7 +52,6 @@ pseudo_pop <- gen_pseudo_pop(Y,
                              w,
                              c,
                              ci_appr = "matching",
-                             running_appr = "base",
                              pred_model = "sl",
                              gps_model = "parametric",
                              use_cov_transform = TRUE,
@@ -89,7 +87,6 @@ data_with_gps <- estimate_gps(Y,
                               c,
                               pred_model = "sl",
                               gps_model = "parametric",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                             xgb_rounds = c(10,20,30,40)),

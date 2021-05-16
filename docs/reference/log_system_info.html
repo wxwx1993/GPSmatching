@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compile pseudo population — compile_pseudo_pop • CausalGPS</title>
+<title>Log system information — log_system_info • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,8 @@
 
 
 
-<meta property="og:title" content="Compile pseudo population — compile_pseudo_pop" />
-<meta property="og:description" content="Copiles pseudo population based on the original population and estimated GPS
-value." />
+<meta property="og:title" content="Log system information — log_system_info" />
+<meta property="og:description" content="Logs system related information into the log file." />
 
 
 
@@ -164,54 +163,18 @@ value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compile pseudo population</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/compile_pseudo_pop.R'><code>R/compile_pseudo_pop.R</code></a></small>
-    <div class="hidden name"><code>compile_pseudo_pop.Rd</code></div>
+    <h1>Log system information</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>log_system_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Copiles pseudo population based on the original population and estimated GPS
-value.</p>
+    <p>Logs system related information into the log file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compile_pseudo_pop</span><span class='op'>(</span>
-  <span class='va'>dataset</span>,
-  <span class='va'>ci_appr</span>,
-  gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
-  bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
-  nthread <span class='op'>=</span> <span class='fl'>1</span>,
-  <span class='va'>trim_quantiles</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>log_system_info</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dataset</th>
-      <td><p>List of size 6 including the following:</p><ul>
-<li><p>Original data set + GPS values (Y, w, GPS, c)</p></li>
-<li><p>e_gps_pred</p></li>
-<li><p>e_gps_std_pred</p></li>
-<li><p>w_resid</p></li>
-<li><p>gps_mx (min and max of gps)</p></li>
-<li><p>w_mx (min and max of w).</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>ci_appr</th>
-      <td><p>Causal inference approach.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional parameters.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>compile_pseudo_pop</code> returns the pseudo population data that is compiled based
-on selected causal inference approach.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

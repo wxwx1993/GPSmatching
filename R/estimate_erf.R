@@ -31,7 +31,6 @@
 #'                              m_d$treat,
 #'                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                              ci_appr = "matching",
-#'                              running_appr = "base",
 #'                              pred_model = "sl",
 #'                              sl_lib = c("m_xgboost"),
 #'                              params = list(xgb_nrounds=c(10,20,30),

@@ -72,6 +72,9 @@
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
     </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
+    </li>
     <li class="divider">
     <li class="dropdown-header">Collabration</li>
     <li>
@@ -130,14 +133,14 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"master"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Input parameters:</p>
-<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>sl_lib</code></strong> a set of machine learning methods used for estimating GPS<br><strong><code>ci_appr</code></strong> causal inference approach<br><strong><code>running_appr</code></strong> running approach (base, parallel)<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
+<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>gps_model</code></strong> Model type which is used for estimating GPS value, including “parametric” (default) and “non-parametric”.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> Is a list of transformers. Each transformer should be a unary function. Available transformers are “pow2” and “pow3”.<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>sl_lib</code></strong> a set of machine learning methods used for estimating GPS<br><strong><code>ci_appr</code></strong> causal inference approach<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
 <ul>
 <li>Generating Pseudo Population</li>
 </ul>
@@ -146,7 +149,6 @@
                              <span class="va">w</span>,
                              <span class="va">c</span>,
                              ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
-                             running_appr <span class="op">=</span> <span class="st">"base"</span>,
                              pred_model <span class="op">=</span> <span class="st">"sl"</span>,
                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span>,<span class="st">"SL.earth"</span>,<span class="st">"SL.gam"</span>,
                                         <span class="st">"SL.ranger"</span><span class="op">)</span>,
@@ -192,7 +194,6 @@
                               <span class="va">w</span>,
                               <span class="va">c</span>,
                               pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                              running_appr <span class="op">=</span> <span class="st">"base"</span>,
                               internal_use <span class="op">=</span> <span class="cn">FALSE</span>,
                               params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
                                             xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,
@@ -217,6 +218,10 @@
                          outcome_sd <span class="op">=</span> <span class="fl">10</span>,
                          gps_spec <span class="op">=</span> <span class="fl">1</span>,
                          cova_spec <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Logging</li>
+</ul>
+<p>The CausalGPS package is logging internal activities into the <code>CausalGPS.log</code> file. The file is located in the source file location and will be appended. Users can change the logging file name (and path) and logging threshold. The logging mechanism has different thresholds (see <a href="https://cran.r-project.org/web/packages/logger/index.html">logger</a> package). The two most important thresholds are INFO and DEBUG levels. The former, which is the default level, logs more general information about the process. The latter, if activated, logs more detailed information that can be used for debugging purposes.</p>
 </div>
   </div>
 
