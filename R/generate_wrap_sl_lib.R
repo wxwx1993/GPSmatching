@@ -56,8 +56,8 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "...)}", sep="")), envir = .GlobalEnv)
 
 
-    logger::log_debug("Hyperparameters for m_xgboost: ntrees: {xgb_nrounds}",
-                      " eta: {xgb_eta}, max_depth: {xgb_max_depth}",
+    logger::log_debug("Hyperparameters for m_xgboost: ntrees: {xgb_nrounds}, ",
+                      " eta: {xgb_eta}, max_depth: {xgb_max_depth}, ",
                       " min_child_weight: {xgb_min_child_weight}.")
     return(TRUE)
 
@@ -97,9 +97,9 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "verbose=verbose, family=family, ",
                            "...)}", sep="")), envir = .GlobalEnv)
 
-    logger::log_debug("Hyperparameters for m_ranger: num.trees: {rgr_num.trees}",
-                      " write.forest: {rgr_write.forest}, replace: {rgr_replace}",
-                      " verbose: {rgr_verbose}", "family: {rgr_family}.")
+    logger::log_debug("Hyperparameters for m_ranger: num.trees: {rgr_num.trees}, ",
+                      " write.forest: {rgr_write.forest}, replace: {rgr_replace}, ",
+                      " verbose: {rgr_verbose}, family: {rgr_family}.")
 
     return(TRUE)
   } else {

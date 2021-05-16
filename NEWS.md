@@ -4,6 +4,7 @@
 
 * logo 
 * Frequently asked questions
+* log_system_info()
 
 ### Changed
 

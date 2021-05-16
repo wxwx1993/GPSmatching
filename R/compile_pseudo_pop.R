@@ -34,18 +34,19 @@ compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
   if (ci_appr == 'matching'){
     matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
     logger::log_info("Finished compiling pseudo population ",
-                      " (Pseudo population data size: {nrow(matched_set)}) ... ")
+                      " (Pseudo population data size: {nrow(matched_set)})")
     return(matched_set)
   }
 
   if (ci_appr == 'weighting'){
     weighted_set <- create_weighting(dataset, ...)
+    logger::log_info("Finished compiling pseudo population ",
+                     " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)
   }
 
   if (is.element(ci_appr, c('adjusting'))){
     stop(paste(ci_appr, " casual inference approach is not implemented."))
   }
-
-  stop('The code should get here. Something is wrong with checing arguments.')
+  stop('The code should not get here. Something is wrong with checking arguments.')
 }

@@ -118,6 +118,9 @@ gen_pseudo_pop <- function(Y,
   covar_bl_trs <- NULL
   # --------------------------------------------------------
 
+  # Log system info
+  log_system_info()
+
   # timing the function
   st_time_gpp <- proc.time()
 

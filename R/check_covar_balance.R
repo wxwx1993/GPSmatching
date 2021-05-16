@@ -30,7 +30,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
   logger::log_debug("Started checking covariate balance ... ")
   s_ccb_t <- proc.time()
 
-
   # collect additional arguments
   dot_args <- list(...)
   arg_names <- names(dot_args)
