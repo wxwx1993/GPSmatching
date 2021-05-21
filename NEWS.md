@@ -1,4 +1,3 @@
-
 ## CausalGPS (devloping version)
 
 ### Added
