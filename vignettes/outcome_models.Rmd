@@ -14,4 +14,4 @@ knitr::opts_chunk$set(
 )
 ```
 
-*TBD*
+this is a outcome model
