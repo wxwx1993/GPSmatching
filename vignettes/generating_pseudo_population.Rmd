@@ -38,23 +38,23 @@ The matching algorithm aims to match an observed unit $j$ to each $j'$ at each e
 1) We specify **`delta_n`** ($\delta_n$), a caliper for any exposure level $w$, which constitutes equally sized bins, i.e., $[w-\delta_n, w+\delta_n]$. Based on the caliper **`delta_n`** , we define a predetermined set of $L$ exposure levels $\{w^{(1)}=\min(w)+ \delta_n,w^{(2)}=\min(w)+3 \delta_n,...,w^{(L)} = \min(w)+(2L-1) \delta_n\}$, where $L = \lfloor \frac{\max(w)-\min(w)}{2\delta_n} + \frac{1}{2} \rfloor$. Each exposure level $w^{(l)}$ is the midpoint of equally sized bins, $[w^{(l)}-\delta_n, w^{(l)}+\delta_n]$. 
 
 2) We implement a nested-loop algorithm, with $l$ in $1,2,\ldots, L$ as the outer-loop, and $j'$ in $1 ,\ldots,N$ as the inner-loop. The algorithm outputs the final product of our design stage, i.e., a matched set with $N\times L$ units. \
-		\textbf{for} $l = 1,2,\ldots, L$ \textbf{do} \
-		 Choose  \textbf{one} exposure level of interest $w^{(l)} \in  \{w^{(1)}, w^{(2)}, ..., w^{(L)}\}$. \
-		\textbf{for} $j' = 1 ,\ldots,N$ \textbf{do} \
+		**for** $l = 1,2,\ldots, L$ **do** \
+	&nbsp;	 Choose  **one** exposure level of interest $w^{(l)} \in  \{w^{(1)}, w^{(2)}, ..., w^{(L)}\}$. \
+	&nbsp;	**for** $j' = 1 ,\ldots,N$ **do** \
 		\setlength{\leftskip}{0pt}
-			2.1 Evaluate the GPS $\hat{e}(w^{(l)}, \mathbf{c}_{j'})$ (for short $e^{(l)}_{j'}$) at $w^{(l)}$ based on the fitted GPS model in Step 1 for each unit $j'$ having observed covariates $\mathbf{c}_{j'}$.   \
-			2.2 Implement the matching to find \textbf{an} observed unit -- denoted by $j$ -- that matched with $j'$ with respect to \underline{both} the exposure $w_{j}\approx w^{(l)}$ and the estimated GPS $\hat{e}(w_j, \mathbf{c}_{j}) \approx e^{(l)}_{j'}$ (under a standardized Euclidean transformation). 
+	&nbsp;		2.1 Evaluate the GPS $\hat{e}(w^{(l)}, \mathbf{c}_{j'})$ (for short $e^{(l)}_{j'}$) at $w^{(l)}$ based on the fitted GPS model in Step 1 for each unit $j'$ having observed covariates $\mathbf{c}_{j'}$.   \
+	&nbsp;		2.2 Implement the matching to find **an** observed unit -- denoted by $j$ -- that matched with $j'$ with respect to both the exposure $w_{j}\approx w^{(l)}$ and the estimated GPS $\hat{e}(w_j, \mathbf{c}_{j}) \approx e^{(l)}_{j'}$ (under a standardized Euclidean transformation). 
 			More specifically, we find a $j$ as 
     $$
     j_{{gps}}(e^{(l)}_{j'},w^{(l)})=\text{arg} \ \underset{j: w_j \in [w^{(l)}-\delta_n,w^{(l)}+\delta_n]}{\text{min}} \ \mid\mid( \lambda \hat{e}^{*}(w_j,\mathbf{c}_j), (1-\lambda)w^{*}_j) -(\lambda e_{j'}^{(l)*}, (1-\lambda) w^{(l)*})\mid\mid,
     $$
     where **`matching_fun`** ($||.||$) is a pre-specified two-dimensional metric, **`scale`** ($\lambda$) is the scale parameter assigning weights to the corresponding two dimensions (i.e., the GPS and exposure), and $\delta$ is the caliper defined in Step 2 allowing that only the unit $j$ with an observed exposure $w_j \in [w^{(l)}-\delta,w^{(l)}+\delta]$ can get matched. \
-    2.3 Impute $Y_{j'}(w^{(l)})$ as: $\hat{Y}_{j'}(w^{(l)})=Y^{obs}_{j_{{gps}}(e^{(l)}_{j'},w^{(l)})}$.
-	\text{} \hspace{0.5cm} \textbf{end for}
+  &nbsp;  2.3 Impute $Y_{j'}(w^{(l)})$ as: $\hat{Y}_{j'}(w^{(l)})=Y^{obs}_{j_{{gps}}(e^{(l)}_{j'},w^{(l)})}$. \
+	&nbsp; **end for**
 	\begin{itemize}
-	\text{} \hspace{0.5cm} \item[] Note: We allow multiple $j'$ (e.g., $j' =1$ and $j' = 5$) to be matched with the same observed unit $j$ throughout the inner-loop $j'$ in $1 ,\ldots,N$ (``matching with replacement").
+	 &nbsp; Note: We allow multiple $j'$ (e.g., $j' =1$ and $j' = 5$) to be matched with the same observed unit $j$ throughout the inner-loop $j'$ in $1 ,\ldots,N$ (matching with replacement).
 	\end{itemize}
-	\textbf{end for}
+	**end for**
 3) After implementing the matching algorithm, we construct the matched set with $N\times L$ units by combining all $\hat{Y}_{j'}(w^{(l)})$ for $j'=1,\ldots,N$ and for all $w^{(l)} \in  \{w^{(1)},w^{(2)},...,w^{(L)}\}$. 
 
 ## Technical Details for Covariate Balance
