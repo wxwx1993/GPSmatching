@@ -8,6 +8,8 @@
 
 ### Changed
 
+* generating_pseudo_population.Rmd
+
 ### Fixed
 
 * RCpp parLapply worker processors arguments
