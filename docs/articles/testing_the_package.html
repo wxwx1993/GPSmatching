@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,8 @@
 
       
 
-      </header><script src="testing_the_package_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="testing_the_package_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="testing_the_package_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="testing_the_package_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Testing the Package</h1>
@@ -356,8 +357,8 @@
 <li><p>Step 1: Run <code><a href="https://devtools.r-lib.org//reference/check.html">check()</a></code> to make sure that the file as-is satisfies all test requirements. If it raises an error, warning, or note, please address them before modifying the data. In some rare cases, <code><a href="https://devtools.r-lib.org//reference/check.html">check()</a></code> does not pass successfully, however, test() does. This is sufficient for changing the data; however, you need to address it before submitting a pull request.</p></li>
 <li><p>Step 2: Create a backup data from the current data.</p></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in terminal</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cp  R/sysdata.rda R/sysdata_backup.rda</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># in terminal</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>cp  R/sysdata.rda R/sysdata_backup.rda</span></code></pre></div>
 <ul>
 <li>Step 3: Clean Global environment</li>
 </ul>
@@ -378,7 +379,7 @@
 <ul>
 <li>Step 7: Save the data.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list=</span>list_names, <span class="at">file=</span><span class="st">"R/sysdata.rda"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">save</span>(<span class="dt">list=</span>list_names, <span class="dt">file=</span><span class="st">"R/sysdata.rda"</span></span></code></pre></div>
 <ul>
 <li>Step 8: Run <code>check()/test()</code> to make sure that it passes all tests. If it does not pass all tests, address the problem.</li>
 <li>Step 9: After successful <code>check()/pass()</code> remove the backup file.</li>
