@@ -29,6 +29,13 @@
 #' @param trim_quantiles A numerical vector of two. Represents the trim quantile
 #' level. Both number should be in the range of \[0,1] and in increasing order
 #' (default: c(0.01,0.99)).
+#' @param compile_appr Indicates compiling approach:
+#'   - normal(default): matched data is added to the pseudo population
+#'   - approximate: count of matched data on original data is stored and the
+#'   covariate balance is computed using weighted correlation functions.
+#'   - accurate: count of matched data on original data is stored, however, in
+#'   computing covariate balance the actual data is built and normal correlation
+#'   is computed.
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
@@ -84,6 +91,7 @@
 #'                              gps_model = "parametric",
 #'                              bin_seq = NULL,
 #'                              trim_quantiles = c(0.01,0.99),
+#'                              compile_appr = "normal",
 #'                              use_cov_transform = FALSE,
 #'                              transformers = list(),
 #'                              sl_lib = c("m_xgboost"),
@@ -107,6 +115,7 @@ gen_pseudo_pop <- function(Y,
                            transformers = list("pow2","pow3"),
                            bin_seq = NULL,
                            trim_quantiles = c(0.01,0.99),
+                           compile_appr = "normal",
                            save_output = FALSE,
                            save_path = NULL,
                            params = list(),
@@ -129,7 +138,7 @@ gen_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(pred_model,ci_appr, use_cov_transform, transformers,
-             gps_model, trim_quantiles, ...)
+             gps_model, trim_quantiles, compile_appr, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -150,7 +159,8 @@ gen_pseudo_pop <- function(Y,
   q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
   q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
-  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread, ...)
+  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
+                                           compile_appr, ...)
   tmp_data <- NULL
 
   logger::log_debug("1% qauntile for trim: {q1}")
@@ -201,7 +211,9 @@ gen_pseudo_pop <- function(Y,
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out, ci_appr=ci_appr,
                                      gps_model,bin_seq, nthread = nthread,
-                                     trim_quantiles = trim_quantiles, ...)
+                                     trim_quantiles = trim_quantiles,
+                                     compile_appr,...)
+    # trim pseudo population
     pseudo_pop <- subset(pseudo_pop[stats::complete.cases(pseudo_pop) ,],
                          w < q2  & w > q1)
     logger::log_debug("Finished compiling pseudo population.")
@@ -211,7 +223,8 @@ gen_pseudo_pop <- function(Y,
       break
     }
     # check covariate balance
-    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread, ...)
+    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread,
+                                             compile_appr, ...)
 
     if (is.null(best_ach_covar_balance)){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr

@@ -23,19 +23,28 @@
 #'
 compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
                                bin_seq = NULL, nthread = 1, trim_quantiles,
-                               ...){
+                               compile_appr, ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr, trim_quantiles=trim_quantiles, ...)
+  check_args_compile_pseudo_pop(ci_appr, trim_quantiles=trim_quantiles,
+                                compile_appr=compile_appr, ...)
 
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(dataset[[1]])}) ... ")
 
   if (ci_appr == 'matching'){
-    matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
-    logger::log_info("Finished compiling pseudo population ",
+    if (compile_appr == 'normal'){
+      matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
+      logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
-    return(matched_set)
+      return(matched_set)
+    } else if (compile_appr == 'approximate'){
+      stop("The compile appr: approximate has not been implemented.")
+    } else if (compile_appr == 'accurate'){
+      stop("The compile appr: accurate has not been implemented.")
+    } else {
+      stop("The code should not get here. Something is wrong with check arguments.")
+    }
   }
 
   if (ci_appr == 'weighting'){

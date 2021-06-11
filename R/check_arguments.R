@@ -20,7 +20,8 @@
 #'
 check_args <- function(pred_model, ci_appr,
                        use_cov_transform, transformers,
-                       gps_model, trim_quantiles, ...){
+                       gps_model, trim_quantiles,
+                       compile_appr, ...){
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -33,7 +34,8 @@ check_args <- function(pred_model, ci_appr,
 
   check_args_estimate_gps(pred_model, gps_model, ...)
   check_args_compile_pseudo_pop(ci_appr, use_cov_transform,
-                                transformers, trim_quantiles, ...)
+                                transformers, trim_quantiles,
+                                compile_appr, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
   invisible(TRUE)
@@ -108,7 +110,8 @@ check_args_estimate_gps <- function(pred_model, gps_model, ...){
 #' @keywords internal
 #'
 check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
-                                          transformers, trim_quantiles, ...){
+                                          transformers, trim_quantiles,
+                                          compile_appr, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -132,6 +135,11 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
       (trim_quantiles[1] > trim_quantiles[2])){
     stop(paste("trim_quntiles should be in the [0,1] range,",
                " and the first quantile should be less than the second one."))
+  }
+
+  if (!is.element(compile_appr, c('normal','approximate','accurate'))){
+    stop(paste("compile_appr: ", compile_appr," is not valid.",
+    "Acceptible options: normal, approxiamte, accurate."))
   }
 
 

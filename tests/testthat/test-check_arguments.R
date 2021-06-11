@@ -8,6 +8,7 @@ test_that("Check arguments works as expected.", {
                      transformers = list(),
                      sl_lib=c("xyz"),
                      trim_quantiles = c(0.01,0.99),
+                     compile_appr = "normal",
                      covar_bl_method="absolute",
                      ci_appr = "matching",
                      gps_model = "non-parametric",
@@ -28,6 +29,7 @@ test_that("Check arguments works as expected.", {
                                         covar_bl_trs=1,
                                         max_attempt=10,
                                         trim_quantiles = c(0.01,0.99),
+                                        compile_appr = "normal",
                                         matching_fun="matching_l1",
                                         delta_n=1,
                                         scale=0.5)
@@ -41,6 +43,7 @@ test_that("Check arguments works as expected.", {
                                   covar_bl_trs=1,
                                   max_attempt=10,
                                   trim_quantiles = c(1,2),
+                                  compile_appr = "normal",
                                   matching_fun="matching_l1",
                                   delta_n=1,
                                   scale=0.5)
@@ -54,6 +57,7 @@ test_that("Check arguments works as expected.", {
                                   covar_bl_trs=1,
                                   max_attempt=10,
                                   trim_quantiles = c("a","b"),
+                                  compile_appr = "normal",
                                   matching_fun="matching_l1",
                                   delta_n=1,
                                   scale=0.5)
