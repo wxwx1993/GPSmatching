@@ -11,7 +11,7 @@
 #'   - 4th column to the end: covariates (c)
 #' @param ci_appr The causal inference approach.
 #' @param nthread The number of available threads.
-#' @param compile_appr The compile approach
+#' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @keywords internal
@@ -22,7 +22,7 @@
 #' @export
 #'
 check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
-                                compile_appr, ...){
+                                optimized_compile, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -48,14 +48,12 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
 
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
-      if (compile_appr == 'normal'){
+      if (!optimized_compile){
         abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
                                      pseudo_pop[,4:length(pseudo_pop)],
                                      nthread=min(nthread,4))
         names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
-      } else if (compile_appr == 'approximate'){
-        stop("Has not been implemented.")
-      } else if (compile_appr == 'accurate'){
+      } else if (optimized_compile){
         stop("Has not been implemented.")
       } else {
         stop("The code should never get here. There is something wrong with check arguments.")

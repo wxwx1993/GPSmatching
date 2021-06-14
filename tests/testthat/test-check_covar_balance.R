@@ -56,7 +56,7 @@ test_that("Covariate balance check works as expected", {
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.3,
-                              compile_appr = 'normal')
+                              optimized_compile = FALSE)
 
   expect_true(val1$pass)
 
@@ -64,7 +64,7 @@ test_that("Covariate balance check works as expected", {
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1,
-                              compile_appr = 'normal')
+                              optimized_compile = FALSE)
 
   expect_false(val2$pass)
 
@@ -72,7 +72,7 @@ test_that("Covariate balance check works as expected", {
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1,
-                              compile_appr = 'normal')
+                              optimized_compile = FALSE)
 
   expect_false(val3$pass)
 
@@ -80,7 +80,7 @@ test_that("Covariate balance check works as expected", {
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.12,
-                              compile_appr = 'normal')
+                              optimized_compile = FALSE)
   expect_true(val4$pass)
 
 })
