@@ -187,6 +187,7 @@ required for the selected causal inference approach.</p>
   transformers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"pow2"</span>, <span class='st'>"pow3"</span><span class='op'>)</span>,
   bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
   trim_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span><span class='op'>)</span>,
+  optimized_compile <span class='op'>=</span> <span class='cn'>FALSE</span>,
   save_output <span class='op'>=</span> <span class='cn'>FALSE</span>,
   save_path <span class='op'>=</span> <span class='cn'>NULL</span>,
   params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -251,6 +252,11 @@ NULL is passed the default value will be used, which is
       <td><p>A numerical vector of two. Represents the trim quantile
 level. Both number should be in the range of [0,1] and in increasing order
 (default: c(0.01,0.99)).</p></td>
+    </tr>
+    <tr>
+      <th>optimized_compile</th>
+      <td><p>If TRUE, uses counts to keep track of number of replicated
+pseudo population.</p></td>
     </tr>
     <tr>
       <th>save_output</th>
@@ -346,6 +352,7 @@ values.</p></li>
                              gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
                              bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
                              trim_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>,<span class='fl'>0.99</span><span class='op'>)</span>,
+                             optimized_compile <span class='op'>=</span> <span class='cn'>FALSE</span>,
                              use_cov_transform <span class='op'>=</span> <span class='cn'>FALSE</span>,
                              transformers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
                              sl_lib <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"m_xgboost"</span><span class='op'>)</span>,

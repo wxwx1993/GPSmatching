@@ -108,7 +108,9 @@ estimate_gps <- function(Y,
 
   w_mx <- compute_min_max(w)
   gps_mx <- compute_min_max(gps)
-  dataset <- cbind(Y,w,gps,c)
+  counter <- (w*0)+1 # initialize counter.
+  row_index <- seq(1,length(w),1) # initialize row index.
+  dataset <- cbind(Y,w,gps,counter, row_index, c)
 
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")

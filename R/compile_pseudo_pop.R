@@ -33,16 +33,11 @@ compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
                     " (original data size: {nrow(dataset[[1]])}) ... ")
 
   if (ci_appr == 'matching'){
-    if (!optimized_compile){
-      matched_set <- create_matching(dataset, bin_seq, gps_model, nthread, ...)
+      matched_set <- create_matching(dataset, bin_seq, gps_model, nthread,
+                                     optimized_compile,...)
       logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
       return(matched_set)
-    } else if (optimized_compile){
-      stop("The compile appr: approximate has not been implemented.")
-    } else {
-      stop("The code should not get here. Something is wrong with check arguments.")
-    }
   }
 
   if (ci_appr == 'weighting'){

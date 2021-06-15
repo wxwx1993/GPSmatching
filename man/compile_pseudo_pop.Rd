@@ -11,6 +11,7 @@ compile_pseudo_pop(
   bin_seq = NULL,
   nthread = 1,
   trim_quantiles,
+  optimized_compile,
   ...
 )
 }

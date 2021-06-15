@@ -149,11 +149,19 @@ gen_pseudo_pop <- function(Y,
   # Compute original data absolute correlation
   # The third column is reserved for gps, however, in covariate balance test we
   # do not use gps values.
+  # The forth column is reserved for counter.
+  # The fifth column is reserved for row_index
   # TODO: find a better place to the following code.
-  tmp_data <- cbind(Y,w,w,c)
+
+  if (ci_appr=="matching"){
+    tmp_data <- cbind(Y,w,w,w,w,c)
+  } else if (ci_appr=="weighting"){
+    tmp_data <- cbind(Y,w,w,w,w,w*0+1,c)
+  }
   q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
   q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
+  tmp_data <- data.table(tmp_data)
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
                                            optimized_compile, ...)
   tmp_data <- NULL
