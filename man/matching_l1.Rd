@@ -15,7 +15,8 @@ matching_l1(
   gps_model = "parametric",
   delta_n = 1,
   scale = 0.5,
-  nthread = 1
+  nthread = 1,
+  optimized_compile
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ parametric (default) and non-parametric.}
 the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
 
 \item{nthread}{Number of available cores.}
+
+\item{optimized_compile}{An option to activate optimized compilation.}
 }
 \value{
 \code{dp}: The function returns a data.table saved the matched points on by single exposure

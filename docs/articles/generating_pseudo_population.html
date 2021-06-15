@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,14 +115,13 @@
 
       
 
-      </header><script src="generating_pseudo_population_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="generating_pseudo_population_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="generating_pseudo_population_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="generating_pseudo_population_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Generating Pseudo Population</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/generating_pseudo_population.Rmd"><code>vignettes/generating_pseudo_population.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/R/vignettes/generating_pseudo_population.Rmd"><code>R/vignettes/generating_pseudo_population.Rmd</code></a></small>
       <div class="hidden name"><code>generating_pseudo_population.Rmd</code></div>
 
     </div>
@@ -134,7 +133,7 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Input parameters:</p>
-<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
+<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching,” “weighting,” and “adjusting.”<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
 </div>
 <div id="technical-details-for-matching" class="section level2">
 <h2 class="hasAnchor">
@@ -171,9 +170,9 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
-<div id="ref-austin2019assessing">
-<p>Austin, Peter C. 2019. “Assessing Covariate Balance When Using the Generalized Propensity Score with Quantitative or Continuous Exposures.” <em>Statistical Methods in Medical Research</em> 28 (5): 1365–77.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-austin2019assessing" class="csl-entry">
+Austin, Peter C. 2019. <span>“Assessing Covariate Balance When Using the Generalized Propensity Score with Quantitative or Continuous Exposures.”</span> <em>Statistical Methods in Medical Research</em> 28 (5): 1365–77.
 </div>
 </div>
 </div>

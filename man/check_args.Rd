@@ -11,6 +11,7 @@ check_args(
   transformers,
   gps_model,
   trim_quantiles,
+  optimized_compile,
   ...
 )
 }

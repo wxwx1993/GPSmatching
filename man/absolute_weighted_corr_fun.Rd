@@ -4,14 +4,14 @@
 \alias{absolute_weighted_corr_fun}
 \title{Check covariate balance (weighted correlation)}
 \usage{
-absolute_weighted_corr_fun(w, ipw, c)
+absolute_weighted_corr_fun(w, vw, c)
 }
 \arguments{
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{ipw}{A vector of weights.}
+\item{vw}{A vector of weights.}
 
-\item{c}{A data frame or matrix of observed covariates variable.}
+\item{c}{A data.table of observed covariates variable.}
 }
 \value{
 The function returns a list saved the measure related to covariate balance

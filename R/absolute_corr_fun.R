@@ -21,16 +21,21 @@ absolute_corr_fun <- function(w,
                               c,
                               nthread){
 
-  # w type should be numeric (polyserial requirments)
-  if (!is.numeric(w)) {
-     w <- unlist(w)
-     if (!is.numeric(w)) {
-       stop('w type should be numeric.')
-    }
-  }
+
+  if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
+  if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
+
+  # # w type should be numeric (polyserial requirments)
+  # if (!is.numeric(w)) {
+  #    w <- unlist(w)
+  #    row.names(w) <- NULL
+  #    if (!is.numeric(w)) {
+  #      stop('w type should be numeric.')
+  #   }
+  # }
 
   # convert c to data table
-  data.table::setDT(c)
+  #data.table::setDT(c)
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]

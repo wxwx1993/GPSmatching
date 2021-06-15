@@ -55,28 +55,39 @@ test_that("Covariate balance check works as expected", {
   val1 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
                               ci_appr = "matching",
                               covar_bl_method="absolute",
-                              covar_bl_trs=0.3)
+                              covar_bl_trs=0.3,
+                              optimized_compile = FALSE)
 
   expect_true(val1$pass)
 
   val2 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
                               ci_appr = "matching",
                               covar_bl_method="absolute",
-                              covar_bl_trs=0.1)
+                              covar_bl_trs=0.1,
+                              optimized_compile = FALSE)
 
   expect_false(val2$pass)
 
-  val3 <- check_covar_balance(pseudo_pop = pseudo_pop_weight_test,
+  # temp solution.
+  # TODO: regenrate pseudo_pop_weight_test to include counter and row_index.
+  mydata <- data.frame(pseudo_pop_weight_test[,c("Y","w","gps","gps","gps",
+                                                 "ipw","cf1","cf2","cf3",
+                                                 "cf4","cf5","cf6",
+                                                 "year","region")])
+  setDT(mydata)
+  val3 <- check_covar_balance(pseudo_pop = mydata,
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
-                              covar_bl_trs=0.1)
+                              covar_bl_trs=0.1,
+                              optimized_compile = FALSE)
 
   expect_false(val3$pass)
 
-  val4 <- check_covar_balance(pseudo_pop = pseudo_pop_weight_test,
+  val4 <- check_covar_balance(pseudo_pop = mydata,
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
-                              covar_bl_trs=0.12)
+                              covar_bl_trs=0.12,
+                              optimized_compile = FALSE)
   expect_true(val4$pass)
 
 })

@@ -6,5 +6,5 @@ create_weighting <- function(dataset, ...){
               sd = stats::sd(dataset[["w"]], na.rm = TRUE))
 
   ipw <- Nm / (dataset[["gps"]])
-  return(cbind(dataset[,c("Y","w","gps")],ipw,dataset[,4:length(dataset)]))
+  return(data.table(cbind(dataset[,c("Y","w","gps")],ipw,dataset[,4:length(dataset)])))
 }
