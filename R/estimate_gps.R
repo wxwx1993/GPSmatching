@@ -2,11 +2,13 @@
 #' Estimate GPS values
 #'
 #' @description
-#' Estimates GPS value for each observation.
+#' Estimates GPS value for each observation using parametric or non-parametric
+#' approaches.
+#'
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A matrix or dataframe of observed covariates variable.
+#' @param c A data frame of observed covariates variable.
 #' @param pred_model The selected prediction model.
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
@@ -20,7 +22,8 @@
 #'
 #' @return
 #' The function returns a list of 6 objects according to the following order:
-#'   - Original data set + GPS values (Y, w, GPS, c)
+#'   - Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
+#'    row_index, c)
 #'   - e_gps_pred
 #'   - e_gps_std_pred
 #'   - w_resid

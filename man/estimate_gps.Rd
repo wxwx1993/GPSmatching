@@ -21,7 +21,7 @@ estimate_gps(
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A matrix or dataframe of observed covariates variable.}
+\item{c}{A data frame of observed covariates variable.}
 
 \item{pred_model}{The selected prediction model.}
 
@@ -42,7 +42,8 @@ internal packages.}
 \value{
 The function returns a list of 6 objects according to the following order:
 \itemize{
-\item Original data set + GPS values (Y, w, GPS, c)
+\item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
+row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -53,7 +54,8 @@ be returned.
 }
 }
 \description{
-Estimates GPS value for each observation.
+Estimates GPS value for each observation using parametric or non-parametric
+approaches.
 }
 \examples{
 m_d <- gen_syn_data(sample_size = 100)

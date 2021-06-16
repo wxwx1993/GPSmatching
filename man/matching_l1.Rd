@@ -2,7 +2,7 @@
 % Please edit documentation in R/matching_l1.R
 \name{matching_l1}
 \alias{matching_l1}
-\title{Match dataset}
+\title{Match observations}
 \usage{
 matching_l1(
   w,
@@ -22,11 +22,14 @@ matching_l1(
 \arguments{
 \item{w}{the targeted single exposure levels.}
 
-\item{dataset}{a completed observational data frame or matrix containing (Y, w, c).}
+\item{dataset}{a completed observational data frame or matrix containing
+(Y, w, gps, couner, row_index, c).}
 
-\item{e_gps_pred}{a vector of predicted gps values obtained by Machine learning methods.}
+\item{e_gps_pred}{a vector of predicted gps values obtained by Machine
+learning methods.}
 
-\item{e_gps_std_pred}{a vector of predicted std of gps obtained by Machine learning methods.}
+\item{e_gps_std_pred}{a vector of predicted std of gps obtained by
+Machine learning methods.}
 
 \item{w_resid}{the standardized residuals for w.}
 
@@ -39,15 +42,18 @@ parametric (default) and non-parametric.}
 
 \item{delta_n}{a specified caliper parameter on the exposure (Default is 1).}
 
-\item{scale}{a specified scale parameter to control the relative weight that is attributed to
-the distance measures of the exposure versus the GPS estimates (Default is 0.5).}
+\item{scale}{a specified scale parameter to control the relative weight
+that is attributed to
+the distance measures of the exposure versus the GPS estimates
+(Default is 0.5).}
 
 \item{nthread}{Number of available cores.}
 
 \item{optimized_compile}{An option to activate optimized compilation.}
 }
 \value{
-\code{dp}: The function returns a data.table saved the matched points on by single exposure
+\code{dp}: The function returns a data.table saved the matched points on
+by single exposure
 level w by the proposed GPS matching approaches.
 }
 \description{
