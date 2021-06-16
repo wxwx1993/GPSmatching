@@ -18,7 +18,7 @@ compile_pseudo_pop(
 \arguments{
 \item{dataset}{List of size 6 including the following:
 \itemize{
-\item Original data set + GPS values (Y, w, GPS, c)
+\item Original data set + GPS values (Y, w, GPS, counter, row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -35,7 +35,7 @@ compile_pseudo_pop(
 on selected causal inference approach.
 }
 \description{
-Copiles pseudo population based on the original population and estimated GPS
+Compiles pseudo population based on the original population and estimated GPS
 value.
 }
 \keyword{internal}

@@ -21,14 +21,7 @@ check_covar_balance(pseudo_pop, ci_appr, nthread = 1, optimized_compile, ...)
 
 \item{optimized_compile}{If TRUE, use optimized compile approach.}
 
-\item{...}{Additional arguments passed to different models.
-\itemize{
-\item For ci_appr == matching:
-\itemize{
-\item covar_bl_method
-\item covar_bl_trs
-}
-}}
+\item{...}{Additional arguments passed to different models.}
 }
 \value{
 output object:
@@ -43,6 +36,17 @@ output object:
 }
 \description{
 Checks the covariate balance of
+}
+\details{
+\subsection{Additional parameters}{
+\itemize{
+\item For ci_appr == matching:
+\itemize{
+\item covar_bl_method
+\item covar_bl_trs
+}
+}
+}
 }
 \examples{
 set.seed(422)

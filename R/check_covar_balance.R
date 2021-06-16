@@ -13,6 +13,9 @@
 #' @param nthread The number of available threads.
 #' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param ... Additional arguments passed to different models.
+#'
+#' @details
+#' ## Additional parameters
 #'   - For ci_appr == matching:
 #'     - covar_bl_method
 #'     - covar_bl_trs
