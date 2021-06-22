@@ -115,7 +115,7 @@
 
       
 
-      </header><script src="generating_pseudo_population_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="generating_pseudo_population_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+      </header><script src="generating_pseudo_population_files/header-attrs-2.5/header-attrs.js"></script><link href="generating_pseudo_population_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="generating_pseudo_population_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -134,7 +134,7 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Input parameters:</p>
-<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
+<p><strong><code>Y</code></strong> a vector of observed outcome<br><strong><code>w</code></strong> a vector of observed continues exposure<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching,” “weighting,” and “adjusting.”<br><strong><code>matching_fun</code></strong> specified matching function<br><strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
 </div>
 <div id="technical-details-for-matching" class="section level2">
 <h2 class="hasAnchor">
@@ -160,20 +160,20 @@
 <div id="technical-details-for-covariate-balance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#technical-details-for-covariate-balance" class="anchor"></a>Technical Details for Covariate Balance</h2>
-<p>We introduce the absolute correlation measure (<strong><code>covar_bl_method</code></strong> = “absolute”) to assess covariate balance for continuous exposures . The absolute correlation between the exposure and each pre-exposure covariate is a global measure and can inform whether the whole matched set is balanced. The measures above build upon the work by <span class="citation">(Austin 2019)</span> who examine covariate balance conditions with continuous exposures. We adapt them into the proposed matching framework.</p>
-<p>In a balanced pseudo population dataset, the correlations between the exposure and pre-exposure covariates should close to zero, that is <span class="math inline">\(E [\mathbf{c}_{i}^{*} w_{i}^{*} ] \approx \mathbf{0}.\)</span> We calculate the absolute correlation in the pseudo population dataset as<br><span class="math display">\[\begin{align*}
- \big\lvert \sum_{i=1}^{N\times L}  \mathbf{c}_{i}^{*}  w_{i}^{*} \big\lvert
-\end{align*}\]</span></p>
+<p>We introduce the absolute correlation measure (<strong><code>covar_bl_method</code></strong> = “absolute”) to assess covariate balance for continuous exposures. The absolute correlation between the exposure and each pre-exposure covariate is a global measure and can inform whether the whole matched set is balanced. The measures above build upon the work by <span class="citation">(Austin 2019)</span> who examine covariate balance conditions with continuous exposures. We adapt them into the proposed matching framework.</p>
+<p>In a balanced pseudo population dataset, the correlations between the exposure and pre-exposure covariates should close to zero, that is <span class="math inline">\(Corr [\mathbf{c}_{i}, w_{i}] \approx \mathbf{0}.\)</span> We calculate the absolute correlation in the pseudo population dataset as<br><span class="math display">\[\begin{align*}
+ \big\lvert \sum_{i=1}^{N\times L}  \tilde{\mathbf{c}}_{i}  \tilde{w}_{i} \big\lvert,
+\end{align*}\]</span> where <span class="math inline">\(\tilde{}\)</span> indicates centered and scaled variables.</p>
 <p>The average absolute correlations are defined as the average of absolute correlations among all covariates. Average absolute correlation: <span class="math display">\[\begin{align*}
-\overline{\big\lvert \sum_{i=1}^{N\times L} \mathbf{c}_{i}^{*}  w_{i}^{*} \big\lvert} &lt; \boldsymbol{\epsilon}_1.
+\overline{\big\lvert \sum_{i=1}^{N\times L} \tilde{\mathbf{c}}_{i}  \tilde{w}_{i} \big\lvert} &lt; \boldsymbol{\epsilon}_1.
 \end{align*}\]</span> We specify a pre-specified threshold <strong><code>covar_bl_trs</code></strong> (<span class="math inline">\(\boldsymbol{\epsilon}_1\)</span>), for example 0.1, on average absolute correlation as the threshold for covariate balance in the pseudo population dataset.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
-<div id="ref-austin2019assessing">
-<p>Austin, Peter C. 2019. “Assessing Covariate Balance When Using the Generalized Propensity Score with Quantitative or Continuous Exposures.” <em>Statistical Methods in Medical Research</em> 28 (5): 1365–77.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-austin2019assessing" class="csl-entry">
+Austin, Peter C. 2019. <span>“Assessing Covariate Balance When Using the Generalized Propensity Score with Quantitative or Continuous Exposures.”</span> <em>Statistical Methods in Medical Research</em> 28 (5): 1365–77.
 </div>
 </div>
 </div>
