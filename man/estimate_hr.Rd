@@ -17,5 +17,5 @@ estimate_hr(formula, family, data)
 returns an object of class gnm
 }
 \description{
-TODO
+Estimates the hazard ratios using a parametric regression model.
 }
