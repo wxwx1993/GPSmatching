@@ -2,14 +2,15 @@
 #' Estimate semi exposure-response function (semi-ERF).
 #'
 #' @description
-#' TODO
+#' Estimates the smoothed exposure-response function using a generalized
+#' additive model with splines.
 #'
 #' @param formula a vector of outcome variable in matched set.
 #' @param family a description of the error distribution (see ?gam)
 #' @param data dataset that formula is build upon
 #'
 #' @return
-#' returns an object of class Gam
+#' returns an object of class gam
 #'
 #' @export
 #'
