@@ -9,6 +9,7 @@ check_args_compile_pseudo_pop(
   use_cov_transform,
   transformers,
   trim_quantiles,
+  optimized_compile,
   ...
 )
 }

@@ -4,7 +4,7 @@
 \alias{check_covar_balance}
 \title{Check covariate balance}
 \usage{
-check_covar_balance(pseudo_pop, ci_appr, nthread = 1, ...)
+check_covar_balance(pseudo_pop, ci_appr, nthread = 1, optimized_compile, ...)
 }
 \arguments{
 \item{pseudo_pop}{The generated pseudo population. In the following format:
@@ -18,6 +18,8 @@ check_covar_balance(pseudo_pop, ci_appr, nthread = 1, ...)
 \item{ci_appr}{The causal inference approach.}
 
 \item{nthread}{The number of available threads.}
+
+\item{optimized_compile}{If TRUE, use optimized compile approach.}
 
 \item{...}{Additional arguments passed to different models.}
 }

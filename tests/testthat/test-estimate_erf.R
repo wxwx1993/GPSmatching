@@ -9,6 +9,7 @@ test_that("estimate_erf works as expected", {
                                pred_model = "sl",
                                gps_model = "non-parametric",
                                trim_quantiles = c(0.01,0.99),
+                               optimized_compile = FALSE,
                                sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
                                covar_bl_method = "absolute",
                                covar_bl_trs = 0.1,

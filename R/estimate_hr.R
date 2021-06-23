@@ -2,7 +2,7 @@
 #' Estimate hazard ratio
 #'
 #' @description
-#' Estimates the hazard ratios using a parametric regression model.
+#' TODO
 #'
 #' @param formula a vector of outcome variable in matched set.
 #' @param family a description of the error distribution (see ?gam)

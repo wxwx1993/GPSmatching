@@ -2,8 +2,7 @@
 #' Estimate smoothed exposure-response function (ERF).
 #'
 #' @description
-#' Estimates the smoothed exposure-response function using a kernel smoothing
-#' approach. We use a data-driven bandwidth selection.
+#' TODO
 #'
 #' @param matched_Y a vector of outcome variable in matched set.
 #' @param matched_w a vector of continuous exposure variable in matched set.

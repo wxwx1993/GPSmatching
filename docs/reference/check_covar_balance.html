@@ -86,7 +86,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -140,7 +140,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -172,7 +172,7 @@
     <p>Checks the covariate balance of</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span>, <span class='va'>ci_appr</span>, nthread <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span>, <span class='va'>ci_appr</span>, nthread <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>optimized_compile</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,6 +193,10 @@
     <tr>
       <th>nthread</th>
       <td><p>The number of available threads.</p></td>
+    </tr>
+    <tr>
+      <th>optimized_compile</th>
+      <td><p>If TRUE, use optimized compile approach.</p></td>
     </tr>
     <tr>
       <th>...</th>

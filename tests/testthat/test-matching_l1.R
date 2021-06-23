@@ -22,7 +22,8 @@ test_that("matching_l1 functions as expected.", {
                      m_d[[6]],
                      gps_model = "non-parametric",
                      delta_n=1,
-                     scale=0.5)
+                     scale=0.5,
+                     optimized_compile = FALSE)
 
    expect_equal(nrow(val),200)
    expect_equal(length(val),9)

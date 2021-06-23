@@ -43,7 +43,7 @@ The matching algorithm aims to match an observed unit $j$ to each $j'$ at each e
 	&nbsp;	**for** $j' = 1 ,\ldots,N$ **do** \
 		\setlength{\leftskip}{0pt}
 	&nbsp;		2.1 Evaluate the GPS $\hat{e}(w^{(l)}, \mathbf{c}_{j'})$ (for short $e^{(l)}_{j'}$) at $w^{(l)}$ based on the fitted GPS model in Step 1 for each unit $j'$ having observed covariates $\mathbf{c}_{j'}$.   \
-	&nbsp;		2.2 Implement the matching to find **an** observed unit -- denoted by $j$ -- that matched with $j'$ with respect to both the exposure $w_{j}\approx w^{(l)}$ and the estimated GPS   $\hat{e}(w_j, \mathbf{c}_{j}) \approx e^{(l)}_{j'}$ (under a standardized Euclidean transformation). 
+	&nbsp;		2.2 Implement the matching to find **an** observed unit -- denoted by $j$ -- that matched with $j'$ with respect to both the exposure $w_{j}\approx w^{(l)}$ and the estimated GPS $\hat{e}(w_j, \mathbf{c}_{j}) \approx e^{(l)}_{j'}$ (under a standardized Euclidean transformation). 
 			More specifically, we find a $j$ as 
     $$
     j_{{gps}}(e^{(l)}_{j'},w^{(l)})=\text{arg} \ \underset{j: w_j \in [w^{(l)}-\delta_n,w^{(l)}+\delta_n]}{\text{min}} \ \mid\mid( \lambda \hat{e}^{*}(w_j,\mathbf{c}_j), (1-\lambda)w^{*}_j) -(\lambda e_{j'}^{(l)*}, (1-\lambda) w^{(l)*})\mid\mid,
@@ -58,19 +58,18 @@ The matching algorithm aims to match an observed unit $j$ to each $j'$ at each e
 3) After implementing the matching algorithm, we construct the matched set with $N\times L$ units by combining all $\hat{Y}_{j'}(w^{(l)})$ for $j'=1,\ldots,N$ and for all $w^{(l)} \in  \{w^{(1)},w^{(2)},...,w^{(L)}\}$. 
 
 ## Technical Details for Covariate Balance
-We introduce the absolute correlation measure (**`covar_bl_method`** = "absolute") to assess covariate balance for continuous exposures. The absolute correlation between the exposure and each pre-exposure covariate is a global measure and can inform whether the whole matched set is balanced. The measures above build upon the work by [@austin2019assessing] who examine covariate balance conditions with continuous exposures. We adapt them into the proposed matching framework.
+We introduce the absolute correlation measure (**`covar_bl_method`** = "absolute") to assess covariate balance for continuous exposures . The absolute correlation between the exposure and each pre-exposure covariate is a global measure and can inform whether the whole matched set is balanced. The measures above build upon the work by [@austin2019assessing] who examine covariate balance conditions with continuous exposures. We adapt them into the proposed matching framework.
 
 In a balanced pseudo population dataset, the correlations between the exposure and pre-exposure covariates should close to zero, that is
-$Corr [\mathbf{c}_{i},  w_{i}] \approx \mathbf{0}.$
+$E [\mathbf{c}_{i}^{*}  w_{i}^{*} ] \approx \mathbf{0}.$
 We calculate the absolute correlation in the pseudo population dataset as  
 \begin{align*}
- \big\lvert \sum_{i=1}^{N\times L}  \tilde{\mathbf{c}}_{i}  \tilde{w}_{i} \big\lvert,
+ \big\lvert \sum_{i=1}^{N\times L}  \mathbf{c}_{i}^{*}  w_{i}^{*} \big\lvert
 \end{align*}
-where $\tilde{}$ indicates centered and scaled variables.
 
 The average absolute correlations are defined as the average of absolute correlations among all covariates. Average absolute correlation: 
 \begin{align*}
-\overline{\big\lvert \sum_{i=1}^{N\times L} \tilde{\mathbf{c}}_{i}  \tilde{w}_{i} \big\lvert} < \boldsymbol{\epsilon}_1.
+\overline{\big\lvert \sum_{i=1}^{N\times L} \mathbf{c}_{i}^{*}  w_{i}^{*} \big\lvert} < \boldsymbol{\epsilon}_1.
 \end{align*}
 We specify a pre-specified threshold **`covar_bl_trs`** ($\boldsymbol{\epsilon}_1$), for example 0.1, on average absolute correlation as the threshold for covariate balance in the pseudo population dataset.
 

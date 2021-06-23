@@ -11,6 +11,7 @@
 #'   - 4th column to the end: covariates (c)
 #' @param ci_appr The causal inference approach.
 #' @param nthread The number of available threads.
+#' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @keywords internal
@@ -20,7 +21,8 @@
 #'  requirements.
 #' @export
 #'
-check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
+check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
+                                optimized_compile, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -46,13 +48,25 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1, ...){
 
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
-      abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
-                                   pseudo_pop[,4:length(pseudo_pop)], nthread=min(nthread,4))
-      names(abs_cor$absolute_corr) <- names(pseudo_pop)[4:length(pseudo_pop)]
+      if (!optimized_compile){
+
+
+        abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
+                                     pseudo_pop[,6:length(pseudo_pop)],
+                                     nthread=min(nthread,4))
+        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+      } else if (optimized_compile){
+
+        abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
+                                     pseudo_pop[,6:length(pseudo_pop)])
+        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+      } else {
+        stop("The code should never get here. There is something wrong with check arguments.")
+      }
     } else if (ci_appr == 'weighting') {
-      abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 4],
-                                            pseudo_pop[, 5:length(pseudo_pop)])
-      names(abs_cor$absolute_corr) <- names(pseudo_pop)[5:length(pseudo_pop)]
+      abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 6],
+                                            pseudo_pop[, 7:length(pseudo_pop)])
+      names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))
