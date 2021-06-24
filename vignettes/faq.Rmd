@@ -46,7 +46,7 @@ Many internal libraries (e.g., `XGBoost`) are dependent on OpenMP library for pa
 
 In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.
 
-```SH
+```sh
 module load intel/19.0.5-fasrc01
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ```

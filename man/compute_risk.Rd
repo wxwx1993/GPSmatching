@@ -17,9 +17,10 @@ compute_risk(h, matched_Y, matched_w, w_vals)
 the ERF at.}
 }
 \value{
-TODO: return value
+returns a cross-validated risk value for the input bandwidth
 }
 \description{
-TODO
+Calculates the cross-validated risk for the optimal bandwidth selection in
+kernel smoothing approach.
 }
 \keyword{internal}
