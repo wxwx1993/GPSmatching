@@ -11,6 +11,10 @@
 ### Changed
 
 * generating_pseudo_population.Rmd
+* estimate_erf function description
+* estimate_hr function description
+* estimate_semi_erf function description
+* compute_risk function description and return value
 
 ### Fixed
 

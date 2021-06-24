@@ -2,7 +2,8 @@
 #' Compute risk value
 #'
 #' @description
-#' TODO
+#' Calculates the cross-validated risk for the optimal bandwidth selection in
+#' kernel smoothing approach.
 #'
 #' @param h A scalar representing the bandwidth value.
 #' @param matched_Y A vector of outcome variable in the matched set.
@@ -11,7 +12,7 @@
 #'  the ERF at.
 #'
 #' @return
-#' TODO: return value
+#' returns a cross-validated risk value for the input bandwidth
 #' @keywords internal
 #'
 compute_risk <- function(h, matched_Y,matched_w,w_vals){
