@@ -121,7 +121,7 @@
       <h1 data-toc-skip>Frequently Asked Questions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/R/vignettes/faq.Rmd"><code>R/vignettes/faq.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/faq.Rmd"><code>vignettes/faq.Rmd</code></a></small>
       <div class="hidden name"><code>faq.Rmd</code></div>
 
     </div>
@@ -161,6 +161,14 @@
 </li>
 <li><a href="https://xgboost.readthedocs.io/en/latest/install.html#r">Installing XGBoost on macOS</a></li>
 </ul>
+</div>
+<div id="i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="anchor"></a>6) I am running the package on HPC; however, I think the package is using only one core.</h3>
+<p>In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load intel/19.0.5-fasrc01</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK</span></span></code></pre></div>
+<p>Please read more <a href="https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP">here</a>.</p>
 </div>
   </div>
 
