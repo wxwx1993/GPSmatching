@@ -15,6 +15,9 @@
 * estimate_hr function description
 * estimate_semi_erf function description
 * compute_risk function description and return value
+* outcome_models.Rmd
+* generate_synthetic_data.Rmd
+
 
 ### Fixed
 

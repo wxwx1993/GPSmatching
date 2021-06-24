@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,8 @@
 
       
 
-      </header><script src="outcome_models_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="outcome_models_files/header-attrs-2.5/header-attrs.js"></script><link href="outcome_models_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="outcome_models_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Outcome Models</h1>
@@ -128,7 +129,11 @@
 
     
     
-<p>this is a outcome model</p>
+<p>After the pseudo population dataset was generated, we apply outcome models on the pseudo population as-if the datset is from a randomized experiment.</p>
+<p>We propose three types of outcome models using parametric, semi-parametric and non-parametric approaches, respectively.</p>
+<p><strong><code>estimate_hr</code></strong> estimates the hazard ratios using a parametric regression model. By default, call <strong><code>gnm</code></strong> library to implement generalized nonlinear models.</p>
+<p><strong><code>estimate_semi_erf</code></strong> estimates the smoothed exposure-response function using a generalized additive model with splines. By default, call <strong><code>gam</code></strong> library to implement generalized additive models.</p>
+<p><strong><code>estimate_erf</code></strong> estimates the smoothed exposure-response function using a kernel smoothing approach. By default, call <strong><code>KernSmooth</code></strong> library to implement local polynomial fitting with a kernel weight. We use a data-driven bandwidth selection.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
