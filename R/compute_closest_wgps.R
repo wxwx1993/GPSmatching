@@ -51,7 +51,7 @@ compute_closest_wgps <- function(a, b, c, d, sc){
 
 
    c_minus_d <- abs(c-d)*(1-sc)
-   wm <- compute_closest_wgps_helper(a, b, c_minus_d, c(sc))
+   wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc)
 
    return(wm)
 }

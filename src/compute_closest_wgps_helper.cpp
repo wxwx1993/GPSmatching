@@ -8,7 +8,7 @@ using namespace Rcpp;
 IntegerVector compute_closest_wgps_helper(NumericVector a,
                                           NumericVector b,
                                           NumericVector cd,
-                                          NumericVector sc) {
+                                          double sc) {
 
   // a is the subset of data
   // b is the original data
@@ -26,13 +26,13 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
   NumericVector tmp(size_a);
   IntegerVector out(size_b);
 
-
   int nthread = omp_get_max_threads();
-  #pragma omp parallel for num_threads(nthread)
+  omp_set_num_threads(nthread);
+  #pragma omp parallel for
   for(int i = 0; i < size_b; ++i) {
     for(int j=0; j < size_a; ++j) {
 
-      subtract_val = (b[i]-a[j])*sc[0];
+      subtract_val = (b[i]-a[j])*sc;
 
       if (subtract_val < 0){subtract_val *= -1;}
 

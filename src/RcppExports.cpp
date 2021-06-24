@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // compute_closest_wgps_helper
-IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, NumericVector sc);
+IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, double sc);
 RcppExport SEXP _CausalGPS_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -14,7 +14,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type cd(cdSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type sc(scSEXP);
+    Rcpp::traits::input_parameter< double >::type sc(scSEXP);
     rcpp_result_gen = Rcpp::wrap(compute_closest_wgps_helper(a, b, cd, sc));
     return rcpp_result_gen;
 END_RCPP
