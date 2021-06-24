@@ -30,7 +30,8 @@ attributes:
 }
 }
 \description{
-TODO
+Estimates the smoothed exposure-response function using a kernel smoothing
+approach. We use a data-driven bandwidth selection.
 }
 \examples{
 

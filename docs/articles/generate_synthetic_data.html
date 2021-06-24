@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,25 +115,56 @@
 
       
 
-      </header><script src="generate_synthetic_data_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="generate_synthetic_data_files/header-attrs-2.5/header-attrs.js"></script><link href="generate_synthetic_data_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="generate_synthetic_data_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Generate Synthetic Data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/R/vignettes/generate_synthetic_data.Rmd"><code>R/vignettes/generate_synthetic_data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/generate_synthetic_data.Rmd"><code>vignettes/generate_synthetic_data.Rmd</code></a></small>
       <div class="hidden name"><code>generate_synthetic_data.Rmd</code></div>
 
     </div>
 
     
     
-<p><em>TBD</em> - Transformers - Covariate balance test</p>
+<p>We provide <strong><code>gen_syn_data</code></strong> to generate synthetic data for CausalGPS package</p>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>Input parameters:</p>
+<p><strong><code>sample_size</code></strong> Number of data samples</p>
+<p><strong><code>seed</code></strong> The seed of R’s random number generator</p>
+<p><strong><code>outcome_sd</code></strong> Standard deviation used to generate the outcome</p>
+<p><strong><code>gps_spec</code></strong> A numerical value (1-7) that indicates the GPS model used to generate synthetic data. See the following section for more details.</p>
+<p><strong><code>cova_spec</code></strong> A numerical value (1-2) to modify the covariates. See the code for more details.</p>
+</div>
+<div id="technical-details-for-data-generating-process" class="section level2">
+<h2 class="hasAnchor">
+<a href="#technical-details-for-data-generating-process" class="anchor"></a>Technical Details for Data Generating Process</h2>
+<p>We generate six confounders <span class="math inline">\((C_1,C_2,...,C_6)\)</span>, which include a combination of continuous and categorical variables, <span class="math display">\[\begin{align*}
+    C_1,\ldots,C_4 \sim N(0,\boldsymbol{I}_4), C_5 \sim U\{-2,2\}, C_6 \sim U(-3,3),
+\end{align*}\]</span> and generate <span class="math inline">\(W\)</span> using six specifications of the generalized propensity score model,</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} +17 + N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = 15\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 22 + T(2)\)</span></p></li>
+<li><p><span class="math inline">\(W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 3/2 C_3^2 + 15 + N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = \frac{49 \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} -6 + N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = \frac{42}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} - 18 + N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = 7 \text{log} ( \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\}) + 13 + N(0,4)\)</span></p></li>
+</ol>
+<p>We generate <span class="math inline">\(Y\)</span> from an outcome model which is assumed to be a cubical function of <span class="math inline">\(W\)</span> with additive terms for the confounders and interactions between <span class="math inline">\(W\)</span> and confounders <span class="math inline">\(\mathbf{C}\)</span>,</p>
+<p><span class="math display">\[Y | W, \mathbf{C} \sim N\{\mu(W, \mathbf{C}),\text{sd}^2\}\]</span></p>
+<p><span class="math display">\[\mu(W, \mathbf{C}) = -10 - (2, 2, 3, -1,2,2)\mathbf{C}  - W(0.1 - 0.1C_1 + 0.1C_4 + 0.1C_5 + 0.1C_3^2)  + 0.13^2W^3\]</span></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

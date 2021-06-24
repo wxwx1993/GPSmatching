@@ -14,8 +14,9 @@ estimate_semi_erf(formula, family, data)
 \item{data}{dataset that formula is build upon}
 }
 \value{
-returns an object of class Gam
+returns an object of class gam
 }
 \description{
-TODO
+Estimates the smoothed exposure-response function using a generalized
+additive model with splines.
 }
