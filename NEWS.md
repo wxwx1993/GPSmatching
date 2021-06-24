@@ -5,6 +5,8 @@
 * logo 
 * Frequently asked questions
 * log_system_info()
+* optimized_compile
+* OpenMP for Rcpp code
 
 ### Changed
 

@@ -49,8 +49,9 @@ compute_closest_wgps <- function(a, b, c, d, sc){
     stop('Expecting sc in [0,1] range.')
   }
 
+
    c_minus_d <- abs(c-d)*(1-sc)
-   wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc)
+   wm <- compute_closest_wgps_helper(a, b, c_minus_d, c(sc))
 
    return(wm)
 }
