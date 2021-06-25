@@ -1,15 +1,15 @@
-#'@title
-#'Compute Residual
+#' @title
+#' Compute Residual
 #'
-#'@description
+#' @description
 #' Function to compute residual
 #'
-#' @param a description
-#' @param b description
-#' @param c description
+#' @param a A vector
+#' @param b A vector
+#' @param c A vector
 #'
 #' @return
-#' return value (TODO)
+#' returns a residual values.
 #'
 #' @keywords internal
 #'

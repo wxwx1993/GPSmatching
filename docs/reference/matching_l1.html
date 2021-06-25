@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Match dataset — matching_l1 • CausalGPS</title>
+<title>Match observations — matching_l1 • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,7 @@
 
 
 
-<meta property="og:title" content="Match dataset — matching_l1" />
+<meta property="og:title" content="Match observations — matching_l1" />
 <meta property="og:description" content="Matching function using L1 distance on single exposure level w" />
 
 
@@ -86,7 +86,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -140,7 +140,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Match dataset</h1>
+    <h1>Match observations</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/matching_l1.R'><code>R/matching_l1.R</code></a></small>
     <div class="hidden name"><code>matching_l1.Rd</code></div>
     </div>
@@ -196,15 +196,18 @@
     </tr>
     <tr>
       <th>dataset</th>
-      <td><p>a completed observational data frame or matrix containing (Y, w, c).</p></td>
+      <td><p>a completed observational data frame or matrix containing
+(Y, w, gps, couner, row_index, c).</p></td>
     </tr>
     <tr>
       <th>e_gps_pred</th>
-      <td><p>a vector of predicted gps values obtained by Machine learning methods.</p></td>
+      <td><p>a vector of predicted gps values obtained by Machine
+learning methods.</p></td>
     </tr>
     <tr>
       <th>e_gps_std_pred</th>
-      <td><p>a vector of predicted std of gps obtained by Machine learning methods.</p></td>
+      <td><p>a vector of predicted std of gps obtained by
+Machine learning methods.</p></td>
     </tr>
     <tr>
       <th>w_resid</th>
@@ -229,8 +232,10 @@ parametric (default) and non-parametric.</p></td>
     </tr>
     <tr>
       <th>scale</th>
-      <td><p>a specified scale parameter to control the relative weight that is attributed to
-the distance measures of the exposure versus the GPS estimates (Default is 0.5).</p></td>
+      <td><p>a specified scale parameter to control the relative weight
+that is attributed to
+the distance measures of the exposure versus the GPS estimates
+(Default is 0.5).</p></td>
     </tr>
     <tr>
       <th>nthread</th>
@@ -244,7 +249,8 @@ the distance measures of the exposure versus the GPS estimates (Default is 0.5).
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dp</code>: The function returns a data.table saved the matched points on by single exposure
+    <p><code>dp</code>: The function returns a data.table saved the matched points on
+by single exposure
 level w by the proposed GPS matching approaches.</p>
 
   </div>
