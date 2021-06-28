@@ -5,8 +5,9 @@
 #' Estimates the smoothed exposure-response function using a kernel smoothing
 #' approach. We use a data-driven bandwidth selection.
 #'
-#' @param matched_Y a vector of outcome variable in matched set.
-#' @param matched_w a vector of continuous exposure variable in matched set.
+#' @param matched_Y a vector of outcome variable in the matched set.
+#' @param matched_w a vector of continuous exposure variable in the matched set.
+#' @param matched_counter a vector of counter variable in the matched set.
 #' @param bw_seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
 #' @param w_vals a vector of values that you want to calculate the values of
 #'  the ERF at.
@@ -54,12 +55,30 @@
 #'
 estimate_erf<-function(matched_Y,
                        matched_w,
+                       matched_counter = NULL,
                        bw_seq=seq(0.2,2,0.2),
                        w_vals,
                        nthread){
 
   # function call
   fcall <- match.call()
+
+  if (length(matched_Y) != length(matched_w)){
+    stop("Length of output and treatment should be equal!")
+  }
+
+  if (!is.double(matched_Y) || !is.double(matched_w)){
+    stop("Output and treatment vectors should be double vectors.")
+  }
+
+  if (!is.null(matched_counter)){
+    if (length(matched_Y) != length(matched_counter)){
+      stop("Length of matched_counter should be according to other inputs.")
+    } else {
+      matched_Y <- tidyr::uncount(data.frame(matched_Y), matched_counter)[,1]
+      matched_w <- tidyr::uncount(data.frame(matched_w), matched_counter)[,1]
+    }
+  }
 
   cl <- parallel::makeCluster(nthread, type="PSOCK",
                               outfile="CausalGPS.log")

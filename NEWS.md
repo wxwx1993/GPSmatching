@@ -10,6 +10,7 @@
 
 ### Changed
 
+* estimate_erf accepts counter as an input
 * estimate_erf can use multiple cores
 * generating_pseudo_population.Rmd
 * estimate_erf function description

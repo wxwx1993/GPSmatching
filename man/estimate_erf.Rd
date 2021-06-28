@@ -4,12 +4,21 @@
 \alias{estimate_erf}
 \title{Estimate smoothed exposure-response function (ERF).}
 \usage{
-estimate_erf(matched_Y, matched_w, bw_seq = seq(0.2, 2, 0.2), w_vals, nthread)
+estimate_erf(
+  matched_Y,
+  matched_w,
+  matched_counter = NULL,
+  bw_seq = seq(0.2, 2, 0.2),
+  w_vals,
+  nthread
+)
 }
 \arguments{
-\item{matched_Y}{a vector of outcome variable in matched set.}
+\item{matched_Y}{a vector of outcome variable in the matched set.}
 
-\item{matched_w}{a vector of continuous exposure variable in matched set.}
+\item{matched_w}{a vector of continuous exposure variable in the matched set.}
+
+\item{matched_counter}{a vector of counter variable in the matched set.}
 
 \item{bw_seq}{a vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
