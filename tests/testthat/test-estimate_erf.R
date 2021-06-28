@@ -24,7 +24,8 @@ test_that("estimate_erf works as expected", {
   res <- estimate_erf(pseudo_pop$pseudo_pop$Y,
                       pseudo_pop$pseudo_pop$w,
                       bw_seq=seq(0.2,2,0.2),
-                      w_vals=seq(min_w,max_w,0.5))
+                      w_vals=seq(min_w,max_w,0.5),
+                      nthread = 1)
 
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)

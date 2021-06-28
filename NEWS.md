@@ -2,14 +2,15 @@
 
 ### Added
 
-* logo 
-* Frequently asked questions
-* log_system_info()
-* optimized_compile
 * OpenMP for Rcpp code
+* optimized_compile
+* log_system_info()
+* Frequently asked questions
+* logo 
 
 ### Changed
 
+* estimate_erf can use multiple cores
 * generating_pseudo_population.Rmd
 * estimate_erf function description
 * estimate_hr function description

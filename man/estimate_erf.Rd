@@ -4,7 +4,7 @@
 \alias{estimate_erf}
 \title{Estimate smoothed exposure-response function (ERF).}
 \usage{
-estimate_erf(matched_Y, matched_w, bw_seq = seq(0.2, 2, 0.2), w_vals)
+estimate_erf(matched_Y, matched_w, bw_seq = seq(0.2, 2, 0.2), w_vals, nthread)
 }
 \arguments{
 \item{matched_Y}{a vector of outcome variable in matched set.}
@@ -15,6 +15,8 @@ estimate_erf(matched_Y, matched_w, bw_seq = seq(0.2, 2, 0.2), w_vals)
 
 \item{w_vals}{a vector of values that you want to calculate the values of
 the ERF at.}
+
+\item{nthread}{number of available cores.}
 }
 \value{
 The function returns a gpsm_erf object. The object includes the following
@@ -55,7 +57,8 @@ pseudo_pop <- gen_pseudo_pop(m_d$Y,
 erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
                         pseudo_pop$pseudo_pop$w,
                         bw_seq=seq(0.2,2,0.2),
-                        w_vals = seq(2,20,0.5))
+                        w_vals = seq(2,20,0.5),
+                        nthread = 1)
 
 
 }

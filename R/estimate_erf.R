@@ -10,6 +10,7 @@
 #' @param bw_seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
 #' @param w_vals a vector of values that you want to calculate the values of
 #'  the ERF at.
+#' @param nthread number of available cores.
 #'
 #' @return
 #' The function returns a gpsm_erf object. The object includes the following
@@ -47,19 +48,33 @@
 #' erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
 #'                         pseudo_pop$pseudo_pop$w,
 #'                         bw_seq=seq(0.2,2,0.2),
-#'                         w_vals = seq(2,20,0.5))
+#'                         w_vals = seq(2,20,0.5),
+#'                         nthread = 1)
 #'
 #'
 estimate_erf<-function(matched_Y,
                        matched_w,
                        bw_seq=seq(0.2,2,0.2),
-                       w_vals){
+                       w_vals,
+                       nthread){
 
   # function call
   fcall <- match.call()
 
-  risk_val <- sapply(bw_seq, compute_risk, matched_Y = matched_Y,
-                     matched_w = matched_w, w_vals = w_vals)
+  cl <- parallel::makeCluster(nthread, type="PSOCK",
+                              outfile="CausalGPS.log")
+
+  risk_val_1 <-  parallel::parLapply(cl,
+                                     bw_seq,
+                                     compute_risk,
+                                     matched_Y = matched_Y,
+                                     matched_w = matched_w,
+                                     w_vals = w_vals)
+  parallel::stopCluster(cl)
+
+  risk_val <- do.call(rbind, risk_val_1)[,1]
+
+
   h_opt <- bw_seq[which.min(risk_val)]
   erf <- approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
 
