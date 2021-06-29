@@ -21,9 +21,7 @@
 create_weighting <- function(dataset, ...){
   # dataset content: Y, w, gps, counter, row_index, c
 
-  Nm <- stats::dnorm(dataset[["w"]],
-              mean = mean(dataset[["w"]], na.rm=TRUE),
-              sd = stats::sd(dataset[["w"]], na.rm = TRUE))
+  Nm <- compute_density(dataset[["w"]], dataset[["w"]])
 
   ipw <- Nm / (dataset[["gps"]])
 
