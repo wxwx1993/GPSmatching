@@ -23,7 +23,7 @@ Description: An R package for implementing matching on generalized propensity
 License: GPL-3
 URL: https://github.com/fasrc/CausalGPS
 BugReports: https://github.com/fasrc/CausalGPS/issues
-Copyright: See COPYRIGHTS for details.
+Copyright: Harvard University
 Imports: 
     parallel,
     data.table,
