@@ -2,12 +2,16 @@
 
 ### Added
 
-* logo 
-* Frequently asked questions
+* OpenMP for Rcpp code
+* optimized_compile
 * log_system_info()
+* Frequently asked questions
+* logo 
 
 ### Changed
 
+* estimate_erf accepts counter as an input
+* estimate_erf can use multiple cores
 * generating_pseudo_population.Rmd
 * estimate_erf function description
 * estimate_hr function description

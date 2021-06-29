@@ -2,11 +2,11 @@
 #' Compile pseudo population
 #'
 #' @description
-#' Copiles pseudo population based on the original population and estimated GPS
+#' Compiles pseudo population based on the original population and estimated GPS
 #' value.
 #'
 #' @param dataset List of size 6 including the following:
-#'   - Original data set + GPS values (Y, w, GPS, c)
+#'   - Original data set + GPS values (Y, w, GPS, counter, row_index, c)
 #'   - e_gps_pred
 #'   - e_gps_std_pred
 #'   - w_resid

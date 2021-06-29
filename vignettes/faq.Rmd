@@ -42,3 +42,13 @@ Many internal libraries (e.g., `XGBoost`) are dependent on OpenMP library for pa
 - [Installing data.table on macOS](https://github.com/Rdatatable/data.table/wiki/Installation)  
 - [Installing XGBoost on macOS ](https://xgboost.readthedocs.io/en/latest/install.html#r)  
  
+### 6) I am running the package on HPC; however, I think the package is using only one core. 
+
+In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.
+
+```sh
+module load intel/19.0.5-fasrc01
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+```
+
+Please read more [here](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP).

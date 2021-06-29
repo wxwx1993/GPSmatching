@@ -15,7 +15,7 @@
 #' The function returns index of subset data that is closest to the original data
 #' sample.
 #'
-#' @keywords internal
+#' @export
 #'
 compute_closest_wgps <- function(a, b, c, d, sc){
 
@@ -48,6 +48,7 @@ compute_closest_wgps <- function(a, b, c, d, sc){
   if (sc < 0 || sc > 1 ){
     stop('Expecting sc in [0,1] range.')
   }
+
 
    c_minus_d <- abs(c-d)*(1-sc)
    wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc)

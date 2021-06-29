@@ -25,4 +25,3 @@ sample.
 A function to compute the closest data in subset of data to the original data
 based on two attributes: vector and scalar (vector of size one).
 }
-\keyword{internal}

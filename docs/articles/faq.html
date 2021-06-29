@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,8 +115,7 @@
 
       
 
-      </header><script src="faq_files/header-attrs-2.5/header-attrs.js"></script><link href="faq_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="faq_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="faq_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Frequently Asked Questions</h1>
@@ -162,6 +161,14 @@
 </li>
 <li><a href="https://xgboost.readthedocs.io/en/latest/install.html#r">Installing XGBoost on macOS</a></li>
 </ul>
+</div>
+<div id="i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="anchor"></a>6) I am running the package on HPC; however, I think the package is using only one core.</h3>
+<p>In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load intel/19.0.5-fasrc01</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK</span></span></code></pre></div>
+<p>Please read more <a href="https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP">here</a>.</p>
 </div>
   </div>
 
