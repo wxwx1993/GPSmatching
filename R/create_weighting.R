@@ -16,15 +16,15 @@
 #'  - row_index
 #'  - ipw
 #'  - covaraites
-#' @export
+#'
+#' @keywords internal
 #'
 create_weighting <- function(dataset, ...){
-  # dataset content: Y, w, gps, counter, row_index, c
+
+  # data set content: Y, w, gps, counter, row_index, c
 
   Nm <- compute_density(dataset[["w"]], dataset[["w"]])
-
   ipw <- Nm / (dataset[["gps"]])
-
   return(data.table(cbind(dataset[,c("Y","w","gps")],
                           ipw, dataset[,6:length(dataset)])))
 }

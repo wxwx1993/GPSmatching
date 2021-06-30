@@ -26,3 +26,4 @@ Returns a data table which includes the following columns:
 \description{
 Generates pseudo population based on weighting casual inference method.
 }
+\keyword{internal}

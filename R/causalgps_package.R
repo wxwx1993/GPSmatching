@@ -2,8 +2,8 @@
 #' The 'CausalGPS' package.
 #'
 #' @description
-#' An R package for implementing matching on generalized propensity scores with
-#' continuous exposures.
+#' An R package for implementing matching and weighting on generalized
+#' propensity scores with continuous exposures.
 #'
 #' @details
 #' We developed an innovative approach for estimating causal effects using

@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_erf.R
 \name{estimate_erf}
 \alias{estimate_erf}
-\title{Estimate smoothed exposure-response function (ERF).}
+\title{Estimate smoothed exposure-response function (ERF) for matched dataset.}
 \usage{
 estimate_erf(
   matched_Y,
@@ -68,6 +68,5 @@ erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
                         bw_seq=seq(0.2,2,0.2),
                         w_vals = seq(2,20,0.5),
                         nthread = 1)
-
 
 }

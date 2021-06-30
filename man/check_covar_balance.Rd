@@ -35,7 +35,7 @@ output object:
 }
 }
 \description{
-Checks the covariate balance of
+Checks the covariate balance of original population or pseudo population.
 }
 \details{
 \subsection{Additional parameters}{

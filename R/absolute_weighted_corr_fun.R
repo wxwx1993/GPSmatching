@@ -41,17 +41,6 @@ absolute_weighted_corr_fun <- function(w,
   if (class(vw)[1] != "data.table"){stop("vw should be a data.table.")}
   if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
 
-
-
-
-  # # w type should be numeric (polyserial requirments)
-  # if (!is.numeric(w) && class(w)[1] != "data.table") {
-  #   w <- unlist(w)
-  #   if (!is.numeric(w)) {
-  #     stop('w type should be numeric.')
-  #   }
-  # }
-
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 

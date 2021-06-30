@@ -10,6 +10,8 @@
 
 ### Changed
 
+* gen_pseudo_pop -> generate_pseudo_pop
+* gen_syn_data -> generate_syn_data
 * estimate_erf accepts counter as an input
 * estimate_erf can use multiple cores
 * generating_pseudo_population.Rmd

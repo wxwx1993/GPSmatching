@@ -1,5 +1,5 @@
 #' @title
-#' Estimate smoothed exposure-response function (ERF).
+#' Estimate smoothed exposure-response function (ERF) for matched dataset.
 #'
 #' @description
 #' Estimates the smoothed exposure-response function using a kernel smoothing
@@ -52,7 +52,6 @@
 #'                         w_vals = seq(2,20,0.5),
 #'                         nthread = 1)
 #'
-#'
 estimate_erf<-function(matched_Y,
                        matched_w,
                        matched_counter = NULL,
@@ -89,10 +88,10 @@ estimate_erf<-function(matched_Y,
                                      matched_Y = matched_Y,
                                      matched_w = matched_w,
                                      w_vals = w_vals)
+
   parallel::stopCluster(cl)
 
   risk_val <- do.call(rbind, risk_val_1)[,1]
-
 
   h_opt <- bw_seq[which.min(risk_val)]
   erf <- approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y

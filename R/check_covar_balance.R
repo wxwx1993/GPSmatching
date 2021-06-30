@@ -2,7 +2,7 @@
 #' Check covariate balance
 #'
 #' @description
-#' Checks the covariate balance of
+#' Checks the covariate balance of original population or pseudo population.
 #'
 #' @param pseudo_pop The generated pseudo population. In the following format:
 #'   - 1st column: outcome (Y)
@@ -95,7 +95,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                                      pseudo_pop[,6:length(pseudo_pop)])
         names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else if (optimized_compile){
-
         abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
                                      pseudo_pop[,6:length(pseudo_pop)])
         names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
@@ -114,7 +113,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
-
     output <- list(corr_results = abs_cor)
     if (abs_cor$mean_absolute_corr < covar_bl_trs){
       output$pass <- TRUE
@@ -122,10 +120,10 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
       output$pass <- FALSE
     }
 
-      e_ccb_t <- proc.time()
-      logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+    e_ccb_t <- proc.time()
+    logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
                       " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
-      return(output)
+    return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))

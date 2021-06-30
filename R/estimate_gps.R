@@ -118,22 +118,17 @@ estimate_gps <- function(Y,
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")
   logger::log_debug("Min Max of gps: {paste(gps_mx, collapse = ', ')}")
-
-
   logger::log_debug("Weights for the select libraries in predicting e_gps:",
           " {paste(names(e_gps$coef), collapse = ', ')}",
           " {paste(e_gps$coef, collapse = ', ')}",
           " | Overal Risk: {sum(e_gps$coef * e_gps$cvRisk)/length(e_gps$coef)}")
-
   logger::log_debug("Wall clock time to estimate e_gps:",
                     " {e_gps$times$everything[3]} seconds.")
-
   if (gps_model == "non-parametric"){
     logger::log_debug("Weights for the select libraries in predicting residuals:",
             " {paste(names(e_gps_std$coef), collapse = ', ')}",
             " {paste(e_gps_std$coef, collapse = ', ')} | Overal risk:",
             " {sum(e_gps_std$coef * e_gps_std$cvRisk)/length(e_gps_std$coef)}")
-
     logger::log_debug("Wall clock time to estimate residuals:",
                       " {e_gps_std$times$everything[3]} seconds.")
   }

@@ -18,7 +18,8 @@
 #'
 #' @return
 #' Returns data.table of matched set.
-#' @export
+#'
+#' @keywords internal
 #'
 create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                             nthread = 1, optimized_compile, ...){
