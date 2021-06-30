@@ -14,7 +14,7 @@
 #' @keywords internal
 #'
 compute_density <- function(x0, x1){
-  tmp_density <- density(x0, na.rm = TRUE)
-  density <- approx(tmp_density$x, tmp_density$y, xout=x1, rule=2)$y
-  return(density)
+  tmp_density <- stats::density(x0, na.rm = TRUE)
+  dnsty <- stats::approx(tmp_density$x, tmp_density$y, xout=x1, rule=2)$y
+  return(dnsty)
 }

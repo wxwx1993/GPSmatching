@@ -51,29 +51,29 @@ Checks the covariate balance of original population or pseudo population.
 \examples{
 set.seed(422)
 n <- 100
-mydata <- gen_syn_data(sample_size=100)
+mydata <- generate_syn_data(sample_size=100)
 year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
 region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
 mydata$year <- as.factor(year)
 mydata$region <- as.factor(region)
 mydata$cf5 <- as.factor(mydata$cf5)
 
-pseudo_pop <- gen_pseudo_pop(mydata$Y,
-                            mydata$treat,
-                            mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
-                            ci_appr = "matching",
-                            pred_model = "sl",
-                            gps_model = "non-parametric",
-                            trim_quantiles = c(0.01,0.99),
-                            optimized_compile = TRUE,
-                            sl_lib = c("m_xgboost"),
-                            covar_bl_method = "absolute",
-                            covar_bl_trs = 0.1,
-                            max_attempt = 1,
-                            matching_fun = "matching_l1",
-                            delta_n = 1,
-                            scale = 0.5,
-                            nthread = 1)
+pseudo_pop <- generate_pseudo_pop(mydata$Y,
+                                 mydata$treat,
+                                 mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                                 ci_appr = "matching",
+                                 pred_model = "sl",
+                                 gps_model = "non-parametric",
+                                 trim_quantiles = c(0.01,0.99),
+                                 optimized_compile = TRUE,
+                                 sl_lib = c("m_xgboost"),
+                                 covar_bl_method = "absolute",
+                                 covar_bl_trs = 0.1,
+                                 max_attempt = 1,
+                                 matching_fun = "matching_l1",
+                                 delta_n = 1,
+                                 scale = 0.5,
+                                 nthread = 1)
 
 adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
                                         ci_appr="matching",

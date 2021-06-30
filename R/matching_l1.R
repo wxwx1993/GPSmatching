@@ -27,7 +27,8 @@
 #' \code{dp}: The function returns a data.table saved the matched points on
 #'  by single exposure
 #' level w by the proposed GPS matching approaches.
-#' @export
+#'
+#' @keywords internal
 #'
 matching_l1 <- function(w,
                         dataset,

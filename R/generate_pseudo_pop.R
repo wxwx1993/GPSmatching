@@ -155,17 +155,23 @@ generate_pseudo_pop <- function(Y,
   # The fifth column is reserved for row_index
   # TODO: find a better place to the following code.
 
-  w_4 <- replicate(4, w)
-  colnames(w_4) <- replicate(4, "w")
-  if (ci_appr=="matching"){
-    tmp_data <- cbind(Y,w_4,c)
-  } else if (ci_appr=="weighting"){
-    tmp_data <- cbind(Y,w_4,w*0+1,c)
-  }
-  q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
-  q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
-  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
-  tmp_data <- data.table(tmp_data)
+  q1 <- stats::quantile(w,trim_quantiles[1])
+  q2 <- stats::quantile(w,trim_quantiles[2])
+  tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
+
+  # w_4 <- replicate(4, w)
+  # colnames(w_4) <- replicate(4, "w")
+  # if (ci_appr=="matching"){
+  #   tmp_data <- cbind(Y,w_4,c)
+  # } else if (ci_appr=="weighting"){
+  #   tmp_data <- cbind(Y,w_4,w*0+1,c)
+  # }
+  # q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
+  # q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
+  # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
+  # tmp_data <- data.table(tmp_data)
+
+
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
                                            optimized_compile, ...)
   tmp_data <- NULL
@@ -344,7 +350,7 @@ generate_pseudo_pop <- function(Y,
 
   end_time_gpp <- proc.time()
 
-  logger::log_debug("Wall clock time to run gen_pseudo_pop:",
+  logger::log_debug("Wall clock time to run generate_pseudo_pop:",
                     " {(end_time_gpp -   st_time_gpp)[[3]]} seconds.")
   logger::log_debug("Covariate balance condition has been met (TRUE/FALSE):",
                     " {adjusted_corr_obj$pass}, (iteration:",

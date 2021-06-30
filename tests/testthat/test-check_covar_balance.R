@@ -1,13 +1,13 @@
 test_that("Covariate balance check works as expected", {
 
   # Steps for regenerating the pseudo population:
-  # data <- gen_syn_data(sample_size = 100,
-  #                      seed = 532,
-  #                      outcome_sd = 10,
-  #                      gps_spec = 1,
-  #                      cova_spec = 1)
+  # data <- generate_syn_data(sample_size = 100,
+  #                           seed = 532,
+  #                           outcome_sd = 10,
+  #                           gps_spec = 1,
+  #                           cova_spec = 1)
   #
-  # pseudo_pop_covar_test <- gen_pseudo_pop(data$Y,
+  # pseudo_pop_covar_test <- generate_pseudo_pop(data$Y,
   #                               data$treat,
   #                               data[c("cf1","cf2","cf3","cf4","cf5","cf6")],
   #                               ci_appr = "matching",
@@ -20,7 +20,7 @@ test_that("Covariate balance check works as expected", {
   #                               delta_n = 1,
   #                               scale = 0.5)
   #
-  # mydata <- gen_syn_data(sample_size = 1000)
+  # mydata <- generate_syn_data(sample_size = 1000)
   #
   # year <- c(rep(c("2001"), each=200),
   #           rep(c("2002"), each=200),
@@ -36,18 +36,18 @@ test_that("Covariate balance check works as expected", {
   # mydata$year <- as.factor(year)
   # mydata$region <- as.factor(region)
   #
-  # pseudo_pop_weight_test <- gen_pseudo_pop(mydata$Y,
-  #                                           mydata$treat,
-  #                                           mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
-  #                                           ci_appr = "weighting",
-  #                                           pred_model = "sl",
-  #                                           sl_lib = c("m_xgboost"),
-  #                                           params = list(xgb_nrounds=c(10),
-  #                                                         xgb_eta=c(0.3)),
-  #                                           nthread = 1,
-  #                                           covar_bl_method = "absolute",
-  #                                           covar_bl_trs = 0.1,
-  #                                           max_attempt = 1
+  # pseudo_pop_weight_test <- generate_pseudo_pop(mydata$Y,
+  #                                               mydata$treat,
+  #                                               mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+  #                                               ci_appr = "weighting",
+  #                                               pred_model = "sl",
+  #                                               sl_lib = c("m_xgboost"),
+  #                                               params = list(xgb_nrounds=c(10),
+  #                                                             xgb_eta=c(0.3)),
+  #                                               nthread = 1,
+  #                                               covar_bl_method = "absolute",
+  #                                               covar_bl_trs = 0.1,
+  #                                               max_attempt = 1
   # )
 
   # # pseudo_pop_covar_test is saved in R/sysdata.R

@@ -1,6 +1,6 @@
 test_that("matching_l1 functions as expected.", {
 
-  #  s_data <- gen_syn_data(sample_size=200, seed = 721,
+  #  s_data <- generate_syn_data(sample_size=200, seed = 721,
   #                         outcome_sd = 10, gps_spec = 1,
   #                         cova_spec = 1)
   #
