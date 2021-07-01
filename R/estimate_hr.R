@@ -13,9 +13,8 @@
 #'
 #' @export
 #'
-estimate_pmetric_coefs<-function(formula, family, data){
+estimate_hr<-function(formula, family, data){
 
-  gnm_model <- gnm::gnm(formula = formula, family = family,
-                        data = data)
+  gnm_model <- gnm::gnm(formula = formula, family = family, data = data)
   return(gnm_model)
 }
