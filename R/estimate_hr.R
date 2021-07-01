@@ -14,7 +14,7 @@
 #'
 #' @export
 #'
-estimate_hr<-function(formula, family, data, ci_appr){
+estimate_pmetric_coefs<-function(formula, family, data, ci_appr){
 
   counter <- ipw <- NULL
 
