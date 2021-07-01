@@ -10,6 +10,7 @@
 
 ### Changed
 
+* estimate_hr -> estimate_pmetric_coefs
 * gen_pseudo_pop -> generate_pseudo_pop
 * gen_syn_data -> generate_syn_data
 * estimate_erf accepts counter as an input
