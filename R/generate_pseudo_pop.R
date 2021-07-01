@@ -183,6 +183,7 @@ generate_pseudo_pop <- function(Y,
   # allowed iteration.
 
   if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
+  #internal_use = TRUE
 
   covariate_cols <- as.list(colnames(c))
 
@@ -347,6 +348,7 @@ generate_pseudo_pop <- function(Y,
   result$fcall <- fcall
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
+  result$ci_appr <- ci_appr
 
   end_time_gpp <- proc.time()
 

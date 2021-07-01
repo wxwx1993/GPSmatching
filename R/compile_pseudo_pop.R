@@ -41,7 +41,7 @@ compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
   }
 
   if (ci_appr == 'weighting'){
-    weighted_set <- create_weighting(dataset, ...)
+    weighted_set <- create_weighting(dataset[[1]], ...)
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)

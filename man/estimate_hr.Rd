@@ -4,14 +4,16 @@
 \alias{estimate_hr}
 \title{Estimate hazard ratio}
 \usage{
-estimate_hr(formula, family, data)
+estimate_hr(formula, family, data, ci_appr)
 }
 \arguments{
 \item{formula}{a vector of outcome variable in matched set.}
 
-\item{family}{a description of the error distribution (see ?gam)}
+\item{family}{a description of the error distribution (see ?gam).}
 
-\item{data}{dataset that formula is build upon}
+\item{data}{dataset that formula is build upon.}
+
+\item{ci_appr}{causal inference approach ("matching" or "weighting").}
 }
 \value{
 returns an object of class gnm

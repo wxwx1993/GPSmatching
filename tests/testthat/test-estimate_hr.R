@@ -4,6 +4,7 @@ test_that("estimate_hr works as expected", {
 
   gnm_model <-  estimate_hr(Y ~ w + cf5,
                             family = gaussian,
-                            data = pseudo_pop_covar_test)
-  expect_equal(gnm_model$coefficients[3][[1]], 2.032414, tolerance = 0.00001)
+                            data = pseudo_pop_weight_test,
+                            ci_appr = "weighting")
+  expect_equal(gnm_model$coefficients[3][[1]], 2.576177, tolerance = 0.00001)
 })
