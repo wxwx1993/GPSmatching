@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf • CausalGPS</title>
+<title>Estimate parametric coefficients — estimate_pmetric_coefs • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,8 @@
 
 
 
-<meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
-<meta property="og:description" content="Estimates the smoothed exposure-response function using a generalized
-additive model with splines." />
+<meta property="og:title" content="Estimate parametric coefficients — estimate_pmetric_coefs" />
+<meta property="og:description" content="Estimates the parametric coefficients using a parametric regression model." />
 
 
 
@@ -164,17 +163,16 @@ additive model with splines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate semi exposure-response function (semi-ERF).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_semi_erf.R'><code>R/estimate_semi_erf.R</code></a></small>
-    <div class="hidden name"><code>estimate_semi_erf.Rd</code></div>
+    <h1>Estimate parametric coefficients</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_pmetric_coefs.R'><code>R/estimate_pmetric_coefs.R</code></a></small>
+    <div class="hidden name"><code>estimate_pmetric_coefs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimates the smoothed exposure-response function using a generalized
-additive model with splines.</p>
+    <p>Estimates the parametric coefficients using a parametric regression model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>estimate_pmetric_coefs</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,13 +191,13 @@ additive model with splines.</p>
     </tr>
     <tr>
       <th>ci_appr</th>
-      <td><p>causal inference approach (matching or weighting).</p></td>
+      <td><p>causal inference approach ("matching" or "weighting").</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns an object of class gam</p>
+    <p>returns an object of class gnm</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

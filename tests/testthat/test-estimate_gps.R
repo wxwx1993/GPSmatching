@@ -8,6 +8,6 @@ test_that("estimate_gps works as expected.", {
                                   sl_lib = c("m_xgboost")
   )
 
-  expect_equal(length(data_with_gps_1),11)
-  expect_equal(nrow(data_with_gps_1),100)
+  expect_equal(length(data_with_gps_1[[1]]),11)
+  expect_equal(nrow(data_with_gps_1[[1]]),100)
 })

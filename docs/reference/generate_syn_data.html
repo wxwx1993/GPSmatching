@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf • CausalGPS</title>
+<title>Generate synthetic data for CausalGPS package — generate_syn_data • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,8 @@
 
 
 
-<meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
-<meta property="og:description" content="Estimates the smoothed exposure-response function using a generalized
-additive model with splines." />
+<meta property="og:title" content="Generate synthetic data for CausalGPS package — generate_syn_data" />
+<meta property="og:description" content="Generates synthetic data set based on different GPS models and covariates." />
 
 
 
@@ -164,43 +163,62 @@ additive model with splines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate semi exposure-response function (semi-ERF).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_semi_erf.R'><code>R/estimate_semi_erf.R</code></a></small>
-    <div class="hidden name"><code>estimate_semi_erf.Rd</code></div>
+    <h1>Generate synthetic data for CausalGPS package</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/generate_synthetic_data.R'><code>R/generate_synthetic_data.R</code></a></small>
+    <div class="hidden name"><code>generate_syn_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimates the smoothed exposure-response function using a generalized
-additive model with splines.</p>
+    <p>Generates synthetic data set based on different GPS models and covariates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>generate_syn_data</span><span class='op'>(</span>
+  sample_size <span class='op'>=</span> <span class='fl'>1000</span>,
+  seed <span class='op'>=</span> <span class='fl'>300</span>,
+  outcome_sd <span class='op'>=</span> <span class='fl'>10</span>,
+  gps_spec <span class='op'>=</span> <span class='fl'>1</span>,
+  cova_spec <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>a vector of outcome variable in matched set.</p></td>
+      <th>sample_size</th>
+      <td><p>Number of data samples.</p></td>
     </tr>
     <tr>
-      <th>family</th>
-      <td><p>a description of the error distribution (see ?gam).</p></td>
+      <th>seed</th>
+      <td><p>The seed of R's random number generator.</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>dataset that formula is build upon.</p></td>
+      <th>outcome_sd</th>
+      <td><p>Standard deviation used to generate the outcome in the
+synthetic data set.</p></td>
     </tr>
     <tr>
-      <th>ci_appr</th>
-      <td><p>causal inference approach (matching or weighting).</p></td>
+      <th>gps_spec</th>
+      <td><p>A numerical value (1-7) that indicates the GPS model
+used to generate synthetic data. See the code for more details.</p></td>
+    </tr>
+    <tr>
+      <th>cova_spec</th>
+      <td><p>A numerical value (1-2) to modify the covariates. See the
+code for more details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns an object of class gam</p>
+    <p><code>synthetic_data</code>: The function returns a data.frame saved the
+constructed synthetic data.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>s_data</span> <span class='op'>&lt;-</span> <span class='fu'>generate_syn_data</span><span class='op'>(</span>sample_size<span class='op'>=</span><span class='fl'>100</span>, seed <span class='op'>=</span> <span class='fl'>403</span>,
+                                  outcome_sd <span class='op'>=</span> <span class='fl'>10</span>, gps_spec <span class='op'>=</span> <span class='fl'>1</span>,
+                                  cova_spec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
