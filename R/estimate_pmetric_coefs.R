@@ -1,8 +1,8 @@
 #' @title
-#' Estimate hazard ratio
+#' Estimate parametric coefficients
 #'
 #' @description
-#' Estimates the hazard ratios using a parametric regression model.
+#' Estimates the parametric coefficients using a parametric regression model.
 #'
 #' @param formula a vector of outcome variable in matched set.
 #' @param family a description of the error distribution (see ?gam).
