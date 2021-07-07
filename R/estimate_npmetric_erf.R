@@ -1,9 +1,9 @@
 #' @title
-#' Estimate smoothed exposure-response function (ERF) for matched dataset.
+#' Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.
 #'
 #' @description
-#' Estimates the smoothed exposure-response function using a kernel smoothing
-#' approach. We use a data-driven bandwidth selection.
+#' Estimate smoothed exposure-response function (ERF) for matched and weighted
+#' data set using non-parametric models.
 #'
 #' @param matched_Y a vector of outcome variable in the matched set.
 #' @param matched_w a vector of continuous exposure variable in the matched set.
@@ -12,6 +12,9 @@
 #' @param w_vals a vector of values that you want to calculate the values of
 #'  the ERF at.
 #' @param nthread number of available cores.
+#'
+#' @details
+#' Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
 #'
 #' @return
 #' The function returns a gpsm_erf object. The object includes the following
@@ -46,18 +49,18 @@
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'
-#' erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
-#'                         pseudo_pop$pseudo_pop$w,
-#'                         bw_seq=seq(0.2,2,0.2),
-#'                         w_vals = seq(2,20,0.5),
-#'                         nthread = 1)
+#' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
+#'                                  pseudo_pop$pseudo_pop$w,
+#'                                  bw_seq=seq(0.2,2,0.2),
+#'                                  w_vals = seq(2,20,0.5),
+#'                                  nthread = 1)
 #'
-estimate_erf<-function(matched_Y,
-                       matched_w,
-                       matched_counter = NULL,
-                       bw_seq=seq(0.2,2,0.2),
-                       w_vals,
-                       nthread){
+estimate_npmetric_erf<-function(matched_Y,
+                                matched_w,
+                                matched_counter = NULL,
+                                bw_seq=seq(0.2,2,0.2),
+                                w_vals,
+                                nthread){
 
   # function call
   fcall <- match.call()
