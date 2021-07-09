@@ -2,7 +2,7 @@
 #' Check covariate balance
 #'
 #' @description
-#' Checks the covariate balance of
+#' Checks the covariate balance of original population or pseudo population.
 #'
 #' @param pseudo_pop The generated pseudo population. In the following format:
 #'   - 1st column: outcome (Y)
@@ -32,29 +32,29 @@
 #' @examples
 #' set.seed(422)
 #' n <- 100
-#'mydata <- gen_syn_data(sample_size=100)
+#'mydata <- generate_syn_data(sample_size=100)
 #'year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
 #'region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
 #'mydata$year <- as.factor(year)
 #'mydata$region <- as.factor(region)
 #'mydata$cf5 <- as.factor(mydata$cf5)
 #'
-#'pseudo_pop <- gen_pseudo_pop(mydata$Y,
-#'                             mydata$treat,
-#'                             mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
-#'                             ci_appr = "matching",
-#'                             pred_model = "sl",
-#'                             gps_model = "non-parametric",
-#'                             trim_quantiles = c(0.01,0.99),
-#'                             optimized_compile = TRUE,
-#'                             sl_lib = c("m_xgboost"),
-#'                             covar_bl_method = "absolute",
-#'                             covar_bl_trs = 0.1,
-#'                             max_attempt = 1,
-#'                             matching_fun = "matching_l1",
-#'                             delta_n = 1,
-#'                             scale = 0.5,
-#'                             nthread = 1)
+#'pseudo_pop <- generate_pseudo_pop(mydata$Y,
+#'                                  mydata$treat,
+#'                                  mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+#'                                  ci_appr = "matching",
+#'                                  pred_model = "sl",
+#'                                  gps_model = "non-parametric",
+#'                                  trim_quantiles = c(0.01,0.99),
+#'                                  optimized_compile = TRUE,
+#'                                  sl_lib = c("m_xgboost"),
+#'                                  covar_bl_method = "absolute",
+#'                                  covar_bl_trs = 0.1,
+#'                                  max_attempt = 1,
+#'                                  matching_fun = "matching_l1",
+#'                                  delta_n = 1,
+#'                                  scale = 0.5,
+#'                                  nthread = 1)
 #'
 #'adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
 #'                                         ci_appr="matching",
@@ -95,7 +95,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                                      pseudo_pop[,6:length(pseudo_pop)])
         names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else if (optimized_compile){
-
         abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
                                      pseudo_pop[,6:length(pseudo_pop)])
         names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
@@ -114,7 +113,6 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
-
     output <- list(corr_results = abs_cor)
     if (abs_cor$mean_absolute_corr < covar_bl_trs){
       output$pass <- TRUE
@@ -122,10 +120,10 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
       output$pass <- FALSE
     }
 
-      e_ccb_t <- proc.time()
-      logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+    e_ccb_t <- proc.time()
+    logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
                       " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
-      return(output)
+    return(output)
   } else {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option."))

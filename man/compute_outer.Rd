@@ -21,3 +21,4 @@ Computes the distance between all combination of elements in two vector. a is
 vector of size n, and b is a vector of size m, the result, will be a matrix of
 size(n,m)
 }
+\keyword{internal}

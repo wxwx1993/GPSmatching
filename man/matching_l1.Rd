@@ -59,3 +59,4 @@ level w by the proposed GPS matching approaches.
 \description{
 Matching function using L1 distance on single exposure level w
 }
+\keyword{internal}

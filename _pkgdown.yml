@@ -5,6 +5,24 @@ template:
       api_key: API_KEY
       index_name: INDEX_NAME
 
+reference:
+  - title: Estimate GPS values
+    contents:
+    - estimate_gps
+  - title: Generate pseudo population
+    contents:
+    - generate_pseudo_pop
+    - check_covar_balance
+  - title: Outcome models
+    contents:
+    - estimate_npmetric_erf
+    - estimate_semipmetric_erf
+    - estimate_pmetric_erf
+  - title: Utilities
+    contents:
+    - generate_syn_data
+    - set_logger
+
 articles:
   - title: Introduction
     navbar: Introduction

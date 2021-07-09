@@ -14,9 +14,9 @@
 #'
 #' @return
 #' TRUE if requirements are met. Raises error otherwise.
-#' @export
 #'
 #' @keywords internal
+#'
 #'
 check_args <- function(pred_model, ci_appr,
                        use_cov_transform, transformers,

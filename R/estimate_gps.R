@@ -35,7 +35,7 @@
 #' @export
 #'
 #' @examples
-#' m_d <- gen_syn_data(sample_size = 100)
+#' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d$Y,
 #'                               m_d$treat,
 #'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -118,22 +118,17 @@ estimate_gps <- function(Y,
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")
   logger::log_debug("Min Max of gps: {paste(gps_mx, collapse = ', ')}")
-
-
   logger::log_debug("Weights for the select libraries in predicting e_gps:",
           " {paste(names(e_gps$coef), collapse = ', ')}",
           " {paste(e_gps$coef, collapse = ', ')}",
           " | Overal Risk: {sum(e_gps$coef * e_gps$cvRisk)/length(e_gps$coef)}")
-
   logger::log_debug("Wall clock time to estimate e_gps:",
                     " {e_gps$times$everything[3]} seconds.")
-
   if (gps_model == "non-parametric"){
     logger::log_debug("Weights for the select libraries in predicting residuals:",
             " {paste(names(e_gps_std$coef), collapse = ', ')}",
             " {paste(e_gps_std$coef, collapse = ', ')} | Overal risk:",
             " {sum(e_gps_std$coef * e_gps_std$cvRisk)/length(e_gps_std$coef)}")
-
     logger::log_debug("Wall clock time to estimate residuals:",
                       " {e_gps_std$times$everything[3]} seconds.")
   }
@@ -146,6 +141,6 @@ estimate_gps <- function(Y,
   if (internal_use){
     return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
   } else {
-    return(dataset)
+    return(list(dataset))
   }
 }

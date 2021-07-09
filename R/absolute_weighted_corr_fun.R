@@ -20,7 +20,7 @@
 #' @examples
 #' set.seed(639)
 #' n <- 100
-#' mydata <- gen_syn_data(sample_size=100)
+#' mydata <- generate_syn_data(sample_size=100)
 #' year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
 #' region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
 #' mydata$year <- as.factor(year)
@@ -40,17 +40,6 @@ absolute_weighted_corr_fun <- function(w,
   if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
   if (class(vw)[1] != "data.table"){stop("vw should be a data.table.")}
   if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
-
-
-
-
-  # # w type should be numeric (polyserial requirments)
-  # if (!is.numeric(w) && class(w)[1] != "data.table") {
-  #   w <- unlist(w)
-  #   if (!is.numeric(w)) {
-  #     stop('w type should be numeric.')
-  #   }
-  # }
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]

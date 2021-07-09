@@ -1,10 +1,12 @@
 #' @title
-#' Generate pseudo population dataset
+#' Generate pseudo population data set
 #'
 #' @description
-#' Generates pseudo population dataset based on user defined causal inference
-#' approach. The output dataset satisfies covariate balance requirements if
-#' required for the selected causal inference approach.
+#' Generates pseudo population data set based on user-defined causal inference
+#' approach. The function uses an adaptive approach to satisfies covariate
+#' balance requirements. The function terminates either by satisfying covariate
+#' balance or completing the requested number of iteration, whichever comes
+#' first.
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
@@ -22,15 +24,15 @@
 #' unary function. You can pass name of customized function in the quotes.
 #' Available transformers:
 #'   - pow2: to the power of 2
-#'   - pow3: to the power of 3'
+#'   - pow3: to the power of 3
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
 #' @param trim_quantiles A numerical vector of two. Represents the trim quantile
-#' level. Both number should be in the range of \[0,1] and in increasing order
+#' level. Both numbers should be in the range of \[0,1] and in increasing order
 #' (default: c(0.01,0.99)).
-#' @param optimized_compile If TRUE, uses counts to keep track of number of replicated
-#' pseudo population.
+#' @param optimized_compile If TRUE, uses counts to keep track of number of
+#' replicated pseudo population.
 #' @param save_output If TRUE, output results will be stored at the save.path.
 #'  Default is FALSE.
 #' @param save_path location for storing the final results, format of the saved
@@ -77,45 +79,45 @@
 #'
 #' @export
 #' @examples
-#' m_d <- gen_syn_data(sample_size = 100)
-#' pseuoo_pop <- gen_pseudo_pop(m_d$Y,
-#'                              m_d$treat,
-#'                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                              ci_appr = "matching",
-#'                              pred_model = "sl",
-#'                              gps_model = "parametric",
-#'                              bin_seq = NULL,
-#'                              trim_quantiles = c(0.01,0.99),
-#'                              optimized_compile = FALSE,
-#'                              use_cov_transform = FALSE,
-#'                              transformers = list(),
-#'                              sl_lib = c("m_xgboost"),
-#'                              params = list(xgb_nrounds=c(10,20,30),
-#'                               xgb_eta=c(0.1,0.2,0.3)),
-#'                              nthread = 1,
-#'                              covar_bl_method = "absolute",
-#'                              covar_bl_trs = 0.1,
-#'                              max_attempt = 1,
-#'                              matching_fun = "matching_l1",
-#'                              delta_n = 1,
-#'                              scale = 0.5)
+#' m_d <- generate_syn_data(sample_size = 100)
+#' pseuoo_pop <- generate_pseudo_pop(m_d$Y,
+#'                                   m_d$treat,
+#'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                                   ci_appr = "matching",
+#'                                   pred_model = "sl",
+#'                                   gps_model = "parametric",
+#'                                   bin_seq = NULL,
+#'                                   trim_quantiles = c(0.01,0.99),
+#'                                   optimized_compile = FALSE,
+#'                                   use_cov_transform = FALSE,
+#'                                   transformers = list(),
+#'                                   sl_lib = c("m_xgboost"),
+#'                                   params = list(xgb_nrounds=c(10,20,30),
+#'                                                 xgb_eta=c(0.1,0.2,0.3)),
+#'                                   nthread = 1,
+#'                                   covar_bl_method = "absolute",
+#'                                   covar_bl_trs = 0.1,
+#'                                   max_attempt = 1,
+#'                                   matching_fun = "matching_l1",
+#'                                   delta_n = 1,
+#'                                   scale = 0.5)
 #'
-gen_pseudo_pop <- function(Y,
-                           w,
-                           c,
-                           ci_appr,
-                           pred_model,
-                           gps_model = "parametric",
-                           use_cov_transform = FALSE,
-                           transformers = list("pow2","pow3"),
-                           bin_seq = NULL,
-                           trim_quantiles = c(0.01,0.99),
-                           optimized_compile = FALSE,
-                           save_output = FALSE,
-                           save_path = NULL,
-                           params = list(),
-                           nthread = 1,
-                           ...){
+generate_pseudo_pop <- function(Y,
+                                w,
+                                c,
+                                ci_appr,
+                                pred_model,
+                                gps_model = "parametric",
+                                use_cov_transform = FALSE,
+                                transformers = list("pow2","pow3"),
+                                bin_seq = NULL,
+                                trim_quantiles = c(0.01,0.99),
+                                optimized_compile = FALSE,
+                                save_output = FALSE,
+                                save_path = NULL,
+                                params = list(),
+                                nthread = 1,
+                                ...){
 
   # Passing packaging check() ------------------------------
   max_attempt <- NULL
@@ -153,15 +155,11 @@ gen_pseudo_pop <- function(Y,
   # The fifth column is reserved for row_index
   # TODO: find a better place to the following code.
 
-  if (ci_appr=="matching"){
-    tmp_data <- cbind(Y,w,w,w,w,c)
-  } else if (ci_appr=="weighting"){
-    tmp_data <- cbind(Y,w,w,w,w,w*0+1,c)
-  }
-  q1 <- stats::quantile(tmp_data$w,trim_quantiles[1])
-  q2 <- stats::quantile(tmp_data$w,trim_quantiles[2])
-  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
-  tmp_data <- data.table(tmp_data)
+  q1 <- stats::quantile(w,trim_quantiles[1])
+  q2 <- stats::quantile(w,trim_quantiles[2])
+  tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
+
+
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
                                            optimized_compile, ...)
   tmp_data <- NULL
@@ -173,6 +171,7 @@ gen_pseudo_pop <- function(Y,
   # allowed iteration.
 
   if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
+  #internal_use = TRUE
 
   covariate_cols <- as.list(colnames(c))
 
@@ -282,9 +281,9 @@ gen_pseudo_pop <- function(Y,
         if (value_found){break}
       }
 
-
       if (!value_found){
-        warning("All possible combination has been tried. Try using more transformers.")
+        warning(paste("All possible combination of transformers has been tried.",
+                      "Try using more transformers.", sep=" "))
       } else {
 
       # add operand into the transformed_vals
@@ -337,10 +336,11 @@ gen_pseudo_pop <- function(Y,
   result$fcall <- fcall
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
+  result$ci_appr <- ci_appr
 
   end_time_gpp <- proc.time()
 
-  logger::log_debug("Wall clock time to run gen_pseudo_pop:",
+  logger::log_debug("Wall clock time to run generate_pseudo_pop:",
                     " {(end_time_gpp -   st_time_gpp)[[3]]} seconds.")
   logger::log_debug("Covariate balance condition has been met (TRUE/FALSE):",
                     " {adjusted_corr_obj$pass}, (iteration:",

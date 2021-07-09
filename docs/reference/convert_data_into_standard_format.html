@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf • CausalGPS</title>
+<title>Put original data into package standard data — convert_data_into_standard_format • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,10 @@
 
 
 
-<meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
-<meta property="og:description" content="Estimates the smoothed exposure-response function using a generalized
-additive model with splines." />
+<meta property="og:title" content="Put original data into package standard data — convert_data_into_standard_format" />
+<meta property="og:description" content="This is a temporal function to convert original data into a package standard
+data. This function will be removed after addressing issue #67:
+&quot;convert accessing data from column index to column name #67&quot;" />
 
 
 
@@ -164,42 +165,43 @@ additive model with splines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate semi exposure-response function (semi-ERF).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_semi_erf.R'><code>R/estimate_semi_erf.R</code></a></small>
-    <div class="hidden name"><code>estimate_semi_erf.Rd</code></div>
+    <h1>Put original data into package standard data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>convert_data_into_standard_format.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimates the smoothed exposure-response function using a generalized
-additive model with splines.</p>
+    <p>This is a temporal function to convert original data into a package standard
+data. This function will be removed after addressing issue #67:
+"convert accessing data from column index to column name #67"</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>convert_data_into_standard_format</span><span class='op'>(</span><span class='va'>Y</span>, <span class='va'>w</span>, <span class='va'>c</span>, <span class='va'>q1</span>, <span class='va'>q2</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>a vector of outcome variable in matched set.</p></td>
+      <th>Y</th>
+      <td><p>Output vector</p></td>
     </tr>
     <tr>
-      <th>family</th>
-      <td><p>a description of the error distribution (see ?gam).</p></td>
+      <th>w</th>
+      <td><p>Treatment or exposure vector</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>dataset that formula is build upon.</p></td>
+      <th>c</th>
+      <td><p>Covariate matrix</p></td>
     </tr>
     <tr>
       <th>ci_appr</th>
-      <td><p>causal inference approach (matching or weighting).</p></td>
+      <td><p>Causal Inference approach</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns an object of class gam</p>
+    <p>Original data with place holder columns.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

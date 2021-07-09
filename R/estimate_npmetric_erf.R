@@ -1,9 +1,9 @@
 #' @title
-#' Estimate smoothed exposure-response function (ERF).
+#' Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.
 #'
 #' @description
-#' Estimates the smoothed exposure-response function using a kernel smoothing
-#' approach. We use a data-driven bandwidth selection.
+#' Estimate smoothed exposure-response function (ERF) for matched and weighted
+#' data set using non-parametric models.
 #'
 #' @param matched_Y a vector of outcome variable in the matched set.
 #' @param matched_w a vector of continuous exposure variable in the matched set.
@@ -12,6 +12,9 @@
 #' @param w_vals a vector of values that you want to calculate the values of
 #'  the ERF at.
 #' @param nthread number of available cores.
+#'
+#' @details
+#' Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
 #'
 #' @return
 #' The function returns a gpsm_erf object. The object includes the following
@@ -29,36 +32,35 @@
 #'
 #' @examples
 #'
-#' m_d <- gen_syn_data(sample_size = 100)
-#' pseudo_pop <- gen_pseudo_pop(m_d$Y,
-#'                              m_d$treat,
-#'                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                              ci_appr = "matching",
-#'                              pred_model = "sl",
-#'                              sl_lib = c("m_xgboost"),
-#'                              params = list(xgb_nrounds=c(10,20,30),
-#'                               xgb_eta=c(0.1,0.2,0.3)),
-#'                              nthread = 1,
-#'                              covar_bl_method = "absolute",
-#'                              covar_bl_trs = 0.1,
-#'                              max_attempt = 1,
-#'                              matching_fun = "matching_l1",
-#'                              delta_n = 1,
-#'                              scale = 0.5)
+#' m_d <- generate_syn_data(sample_size = 100)
+#' pseudo_pop <- generate_pseudo_pop(m_d$Y,
+#'                                   m_d$treat,
+#'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                                   ci_appr = "matching",
+#'                                   pred_model = "sl",
+#'                                   sl_lib = c("m_xgboost"),
+#'                                   params = list(xgb_nrounds=c(10,20,30),
+#'                                    xgb_eta=c(0.1,0.2,0.3)),
+#'                                   nthread = 1,
+#'                                   covar_bl_method = "absolute",
+#'                                   covar_bl_trs = 0.1,
+#'                                   max_attempt = 1,
+#'                                   matching_fun = "matching_l1",
+#'                                   delta_n = 1,
+#'                                   scale = 0.5)
 #'
-#' erf_obj <- estimate_erf(pseudo_pop$pseudo_pop$Y,
-#'                         pseudo_pop$pseudo_pop$w,
-#'                         bw_seq=seq(0.2,2,0.2),
-#'                         w_vals = seq(2,20,0.5),
-#'                         nthread = 1)
+#' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
+#'                                  pseudo_pop$pseudo_pop$w,
+#'                                  bw_seq=seq(0.2,2,0.2),
+#'                                  w_vals = seq(2,20,0.5),
+#'                                  nthread = 1)
 #'
-#'
-estimate_erf<-function(matched_Y,
-                       matched_w,
-                       matched_counter = NULL,
-                       bw_seq=seq(0.2,2,0.2),
-                       w_vals,
-                       nthread){
+estimate_npmetric_erf<-function(matched_Y,
+                                matched_w,
+                                matched_counter = NULL,
+                                bw_seq=seq(0.2,2,0.2),
+                                w_vals,
+                                nthread){
 
   # function call
   fcall <- match.call()
@@ -89,13 +91,13 @@ estimate_erf<-function(matched_Y,
                                      matched_Y = matched_Y,
                                      matched_w = matched_w,
                                      w_vals = w_vals)
+
   parallel::stopCluster(cl)
 
   risk_val <- do.call(rbind, risk_val_1)[,1]
 
-
   h_opt <- bw_seq[which.min(risk_val)]
-  erf <- approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+  erf <- stats::approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
 
   result <- list()
   class(result) <- "gpsm_erf"

@@ -37,3 +37,4 @@ Returns data.table of matched set.
 \description{
 Generates pseudo population based on matching casual inference method.
 }
+\keyword{internal}
