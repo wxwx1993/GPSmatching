@@ -10,6 +10,7 @@
 
 ### Changed
 
+* estimate_gps.Rmd
 * estimate_semi_erf -> estimate_semipmetric_erf
 * estimate_erf -> estimate_npmetric_erf
 * estimate_hr -> estimate_pmetric_erf
