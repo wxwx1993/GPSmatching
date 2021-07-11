@@ -39,8 +39,8 @@
 #' file will be detected by the file name extension.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
-#' @param nthread An integer value that represents then number threads to use by
-#'  internal packages.
+#' @param nthread An integer value that represents the number of threads to be
+#' used by internal packages.
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters

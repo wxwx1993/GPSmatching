@@ -12,6 +12,7 @@ reference:
   - title: Generate pseudo population
     contents:
     - generate_pseudo_pop
+    - compile_pseudo_pop
     - check_covar_balance
   - title: Outcome models
     contents:

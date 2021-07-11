@@ -30,9 +30,17 @@ check_args <- function(pred_model, ci_appr,
 
   # ------------------------------------------------------
 
-  required_args <- NULL
+  required_args <- max_attempt <-  NULL
+
+  dot_args <- list(...)
+  arg_names <- names(dot_args)
+
+  for (i in arg_names){
+    assign(i,unlist(dot_args[i],use.names = FALSE))
+  }
 
   check_args_estimate_gps(pred_model, gps_model, ...)
+  check_args_generate_pseudo_pop(max_attempt = max_attempt)
   check_args_compile_pseudo_pop(ci_appr, use_cov_transform,
                                 transformers, trim_quantiles,
                                 optimized_compile, ...)
@@ -93,6 +101,17 @@ check_args_estimate_gps <- function(pred_model, gps_model, ...){
   invisible(TRUE)
 }
 
+check_args_generate_pseudo_pop <- function(max_attempt){
+
+  if (!is.numeric(max_attempt)){
+    stop(paste(max_attempt, " is not acceptible for max_attempt. Should be a
+                 numeric value."))
+  }
+
+  invisible(TRUE)
+}
+
+
 
 #' @title
 #' Check compile_pseudo_pop function arguments
@@ -146,7 +165,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
   # checkpoint 2 ------------------------------------------
   if (ci_appr == 'matching'){
     required_args <- c(required_args, 'covar_bl_method', 'covar_bl_trs',
-                       'max_attempt', 'matching_fun', 'delta_n', 'scale')
+                       'matching_fun', 'delta_n', 'scale')
   }
 
   # checkpoint 3 ------------------------------------------
@@ -182,10 +201,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
                  scale))
     }
 
-    if (!is.numeric(max_attempt)){
-      stop(paste(max_attempt, " is not acceptible for max_attempt. Should be a
-                 numeric value."))
-    }
+
   }
   invisible(TRUE)
 }
