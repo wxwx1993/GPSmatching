@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_covar_balance.R
 \name{check_covar_balance}
 \alias{check_covar_balance}
-\title{Check covariate balance}
+\title{Check Covariate Balance}
 \usage{
 check_covar_balance(pseudo_pop, ci_appr, nthread = 1, optimized_compile, ...)
 }

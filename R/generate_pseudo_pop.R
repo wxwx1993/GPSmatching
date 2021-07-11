@@ -1,5 +1,5 @@
 #' @title
-#' Generate pseudo population data set
+#' Generate Pseudo Population
 #'
 #' @description
 #' Generates pseudo population data set based on user-defined causal inference

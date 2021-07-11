@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_pseudo_pop.R
 \name{generate_pseudo_pop}
 \alias{generate_pseudo_pop}
-\title{Generate pseudo population data set}
+\title{Generate Pseudo Population}
 \usage{
 generate_pseudo_pop(
   Y,

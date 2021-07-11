@@ -1,5 +1,5 @@
 #' @title
-#' Check covariate balance
+#' Check Covariate Balance
 #'
 #' @description
 #' Checks the covariate balance of original population or pseudo population.

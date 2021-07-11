@@ -1,5 +1,5 @@
 #' @title
-#' Set logger settings
+#' Set Logger Settings
 #'
 #' @description
 #' Updates logger settings, including log level and location of the file.

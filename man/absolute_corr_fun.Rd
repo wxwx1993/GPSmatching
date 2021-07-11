@@ -2,7 +2,7 @@
 % Please edit documentation in R/absolute_corr_fun.R
 \name{absolute_corr_fun}
 \alias{absolute_corr_fun}
-\title{Check covariate balance}
+\title{Check Covariate Balance Using Absolute Approach}
 \usage{
 absolute_corr_fun(w, c)
 }
