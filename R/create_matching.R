@@ -13,14 +13,16 @@
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param nthread Number of available cores.
+#' @param optimized_compile Option to activate optimized compilation.
 #' @param ...  Additional arguments passed to the function.
 #'
 #' @return
 #' Returns data.table of matched set.
-#' @export
+#'
+#' @keywords internal
 #'
 create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
-                            nthread = 1, ...){
+                            nthread = 1, optimized_compile, ...){
 
   # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
@@ -64,8 +66,11 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                                 outfile="CausalGPS.log")
 
 
+    parallel::clusterEvalQ(cl, {library("CausalGPS")})
     p_c_t_e <- proc.time()
-    logger::log_debug("Time taken to create cluster with {nthread}: {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
+
+    logger::log_debug("Wall clock time to create cluster with ",
+                      "{nthread} core(s): {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
     parallel::clusterExport(cl=cl,
                           varlist = c("bin_num", "matching_fun", "dataset",
                                       "gps_mx", "w_mx", "delta_n", "scale",
@@ -85,14 +90,30 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                                         gps_model = gps_model,
                                         delta_n = delta_n,
                                         scale = scale,
-                                        nthread = nthread)
+                                        nthread = nthread,
+                                        optimized_compile = optimized_compile)
     parallel::stopCluster(cl)
-
-  logger::log_debug("Started generating matched set ...")
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
                     " {(e_t_m - st_t_m)[[3]]} seconds).")
 
-  return(data.table(do.call(rbind,matched_set)))
+  if (!optimized_compile){
+    return(data.table(do.call(rbind,matched_set)))
+  } else {
+
+    cp_original_data <- dataset[[1]]
+    bind_matched_set = do.call(rbind,matched_set)
+    freq_table = as.data.frame(table(bind_matched_set))
+
+    index_of_data <- as.numeric(as.character(freq_table[1][,1]))
+    added_count <- as.numeric(as.character(freq_table[2][,1]))
+
+    for (i in seq(1,nrow(freq_table))){
+      (cp_original_data[index_of_data[i],"counter"] <-
+          cp_original_data[index_of_data[i],"counter"] + added_count[i])
+    }
+
+    return(data.table(cp_original_data))
+  }
 }

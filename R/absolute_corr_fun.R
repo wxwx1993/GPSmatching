@@ -1,59 +1,58 @@
 #' @title
-#' Check covariate balance
+#' Check Covariate Balance Using Absolute Approach
 #'
 #' @description
 #' Checks covariate balance based on absolute correlations for given data sets.
 #'
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data frame or matrix of observed covariates variable.
-#' @param  nthread Number of available threads to use.
+#' @param c A data table of observed covariates variable.
 #' @return
-#' The function returns a list saved the measure related to covariate balance
-#' \code{absolute_corr}: the absolute correlations for each pre-exposure
+#' The function returns a list including:
+#' - \code{absolute_corr}: the absolute correlations for each pre-exposure
 #'  covairates;
-#' \code{mean_absolute_corr}: the average absolute correlations for all
+#' - \code{mean_absolute_corr}: the average absolute correlations for all
 #'  pre-exposure covairates.
-#' @importFrom stats cor
 #'
-#' @keywords internal
+#' @export
+#' @examples
+#' set.seed(291)
+#' n <- 100
+#' mydata <- generate_syn_data(sample_size=100)
+#' year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
+#' region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+#' mydata$year <- as.factor(year)
+#' mydata$region <- as.factor(region)
+#' mydata$cf5 <- as.factor(mydata$cf5)
+#' data.table::setDT(mydata)
+#' cor_val <- absolute_corr_fun(mydata[,2], mydata[, 3:length(mydata)])
+#' print(cor_val$mean_absolute_corr)
+#'
+absolute_corr_fun <- function(w, c){
 
-absolute_corr_fun <- function(w,
-                              c,
-                              nthread){
+  if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
+  if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
 
-  # w type should be numeric (polyserial requirments)
-  if (!is.numeric(w)) {
-     w <- unlist(w)
-     if (!is.numeric(w)) {
-       stop('w type should be numeric.')
-    }
-  }
-
-  # convert c to datatable
-  data.table::setDT(c)
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 
-  # detect factorial columns
+  # detect factor columns
   col_f <- colnames(c)[unlist(lapply(c, is.factor))]
 
   absolute_corr_n <- absolute_corr_f <- NULL
 
-  platform_os <- .Platform$OS.type
-
   if (length(col_n) > 0){
       absolute_corr_n<- lapply(col_n,function(i){
-        abs(cor(w,c[[i]],method = c("spearman")))})
+        abs(stats::cor(w,c[[i]],method = c("spearman")))})
   }
 
   if (length(col_f) > 0) {
+      w_numeric <- as.list(w[,1])[[colnames(w[,1])[1]]]
       absolute_corr_f<- lapply(col_f,function(i){
-        abs(polycor::polyserial(w,c[[i]]))})
+        abs(polycor::polyserial(w_numeric,c[[i]]))})
   }
 
   absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
-
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))
 }

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Collabration</li>
@@ -125,8 +128,48 @@
 
     
     
+<div id="how-to-define-a-new-transformer" class="section level3">
+<h3 class="hasAnchor">
+<a href="#how-to-define-a-new-transformer" class="anchor"></a>1) How to define a new transformer?</h3>
+<p>Transformers are unary functions that are applied on the covariates. Here is an example of “to the power of 5”.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fasrc/CausalGPS">CausalGPS</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">pow5</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">^</span><span class="fl">5</span><span class="op">}</span></code></pre></div>
+<p>Which you can pass it into the transformers list as <code>"pow5"</code>.</p>
+</div>
+<div id="is-the-order-of-transformers-important" class="section level3">
+<h3 class="hasAnchor">
+<a href="#is-the-order-of-transformers-important" class="anchor"></a>2) Is the order of transformers important?</h3>
+<p>The <code>gen_pseudo_pop</code> function tries transformers if the covariate balance test has not been met in the previous attempt. The covariate with the worst balance value will be chosen to apply a transformer. The first transformer from the list will be selected for this purpose. If the transformer has been used for this specific covariate, the next value will be selected.</p>
+</div>
+<div id="how-change-the-logger-level" class="section level3">
+<h3 class="hasAnchor">
+<a href="#how-change-the-logger-level" class="anchor"></a>3) How change the logger level?</h3>
+<p>You can use <code>set_logger</code> function and set logger_level to one of “TRACE”, “DEBUG”, “INFO”, “SUCCES”, “WARN”, “ERROR”, or“FATAL”. In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue <a href="https://github.com/fasrc/CausalGPS/issues">here</a>.</p>
+</div>
+<div id="is-there-any-trade-off-between-number-of-cpu-cores-nthread-and-memory-usage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#is-there-any-trade-off-between-number-of-cpu-cores-nthread-and-memory-usage" class="anchor"></a>4) Is there any trade-off between number of CPU cores (nthread) and memory usage?</h3>
+<p>We are using a spawning mechanism in multicore processing. Each worker processor gets a copy of the required data and libraries. In case of limited available memory and a large dataset, you can reduce the number of CPU cores (nthread) to fit the processing into your system. Following this recommendation, the processing time will increase; however, the memory usage will decrease.</p>
+</div>
+<div id="i-am-using-macos-however-i-cannot-see-any-performance-increase-with-increasing-number-of-threads-nthread-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#i-am-using-macos-however-i-cannot-see-any-performance-increase-with-increasing-number-of-threads-nthread-" class="anchor"></a>5) I am using macOS, however, I cannot see any performance increase with increasing number of threads (nthread).</h3>
+<p>Many internal libraries (e.g., <code>XGBoost</code>) are dependent on OpenMP library for parallel computation. Please make sure that you have installed OpenMP library and configured it correctly. Please see the following links for more details:</p>
+<ul>
+<li>
+<a href="https://github.com/Rdatatable/data.table/wiki/Installation">Installing data.table on macOS</a><br>
+</li>
+<li><a href="https://xgboost.readthedocs.io/en/latest/install.html#r">Installing XGBoost on macOS</a></li>
+</ul>
+</div>
+<div id="i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#i-am-running-the-package-on-hpc-however-i-think-the-package-is-using-only-one-core-" class="anchor"></a>6) I am running the package on HPC; however, I think the package is using only one core.</h3>
+<p>In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load intel/19.0.5-fasrc01</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK</span></span></code></pre></div>
+<p>Please read more <a href="https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP">here</a>.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

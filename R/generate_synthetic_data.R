@@ -1,13 +1,13 @@
 #' @title
-#' Generate synthetic data for CausalGPS package
+#' Generate Synthetic Data for CausalGPS Package
 #'
 #' @description
-#' Generates synthetic dataset
+#' Generates synthetic data set based on different GPS models and covariates.
 #'
 #' @param sample_size Number of data samples.
 #' @param seed The seed of R's random number generator.
 #' @param outcome_sd Standard deviation used to generate the outcome in the
-#' synthetic dataset.
+#' synthetic data set.
 #' @param gps_spec A numerical value (1-7) that indicates the GPS model
 #' used to generate synthetic data. See the code for more details.
 
@@ -17,17 +17,16 @@
 #' @return
 #' \code{synthetic_data}: The function returns a data.frame saved the
 #'  constructed synthetic data.
+#'
 #' @export
 #'
-#' @importFrom stats approx density  rnorm rt  runif
-#'
 #' @examples
-#' s_data <- gen_syn_data(sample_size=100, seed = 403,
+#' s_data <- generate_syn_data(sample_size=100, seed = 403,
 #'                                   outcome_sd = 10, gps_spec = 1,
 #'                                   cova_spec = 1)
 #'
-gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
-                       gps_spec = 1, cova_spec = 1) {
+generate_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
+                              gps_spec = 1, cova_spec = 1) {
 
   if (sample_size < 0 || !is.numeric(sample_size)){
     stop("'sample_size' should be a positive ineteger numer.")
@@ -35,8 +34,6 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
 
   #TODO: Check other input arguments.
 
-  #stop()
-  #options(digits=4) # only print 4 sig digits
   set.seed(seed)
   size <- sample_size
 
@@ -47,18 +44,18 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
                        ncol=4))
 
   cf5 <- sample(c((-2):2), size, replace = TRUE)
-  cf6 <- runif(size, min=-3, max=3)
+  cf6 <- stats::runif(size, min=-3, max=3)
 
   if (gps_spec == 1) {
 
     treat <- ((- 0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ ,2] - 0.1 * cf[ ,3]
                + 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 9
-               + 17  + rnorm(size,sd=5))
+               + 17  + stats::rnorm(size,sd=5))
 
   } else if (gps_spec == 2) {
 
     treat <- ((- 0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ ,2] - 0.1 * cf[ ,3]
-              + 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + rt(size,2))
+              + 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + stats::rt(size,2))
 
     treat[which(treat < (-5))] <- (-5)
     treat[which(treat > (25))] <- (25)
@@ -67,29 +64,29 @@ gen_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
 
     treat <- ((- 0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2]- 0.1 *cf[ ,3] + 0.2 * cf [ , 4]
                + 0.1 * cf5 + 0.1 * cf6) * 9
-               + 1.5 * cf[ , 3] ^ 2 + rnorm(size, mean = 0, 5) + 15)
+               + 1.5 * cf[ , 3] ^ 2 + stats::rnorm(size, mean = 0, 5) + 15)
 
   } else if (gps_spec == 4) {
 
     treat <- (49 * exp((-0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))
             / (1 + exp((-0.8 + 0.1 * cf[,1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
-            + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))) - 6 + rnorm(size, sd=5))
+            + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))) - 6 + stats::rnorm(size, sd=5))
 
   } else if (gps_spec == 5) {
 
     treat <- (42 / (1 + exp((-0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2]- 0.1 * cf[ , 3]
-           + 0.2 * cf[,4] + 0.1 * cf5 + 0.1 * cf6))) - 18 + rnorm(size,sd=5))
+           + 0.2 * cf[,4] + 0.1 * cf5 + 0.1 * cf6))) - 18 + stats::rnorm(size,sd=5))
 
   } else if (gps_spec == 6) {
 
     treat <- (log(abs(-0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
-             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6)) * 7 + 13 + rnorm(size,sd=4))
+             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6)) * 7 + 13 + stats::rnorm(size,sd=4))
 
   } else if (gps_spec == 7) {
 
     treat <- ((-0.8 + 0.1 * cf[,1] + 0.1 * cf[,2] - 0.1 * cf[,3] + 0.2 * cf[,4]
-             + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + rt(size,2)) #+ rcauchy(size)
+             + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + stats::rt(size,2)) #+ rcauchy(size)
   } else {
 
     stop(paste("gps_spec: ", gps_spec, ", is not a valid value."))

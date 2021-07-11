@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check covariate balance — absolute_corr_fun • CausalGPS</title>
+<title>Check Covariate Balance Using Absolute Approach — absolute_corr_fun • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,7 @@
 
 
 
-<meta property="og:title" content="Check covariate balance — absolute_corr_fun" />
+<meta property="og:title" content="Check Covariate Balance Using Absolute Approach — absolute_corr_fun" />
 <meta property="og:description" content="Checks covariate balance based on absolute correlations for given data sets." />
 
 
@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
@@ -160,7 +163,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check covariate balance</h1>
+    <h1>Check Covariate Balance Using Absolute Approach</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/absolute_corr_fun.R'><code>R/absolute_corr_fun.R</code></a></small>
     <div class="hidden name"><code>absolute_corr_fun.Rd</code></div>
     </div>
@@ -169,7 +172,7 @@
     <p>Checks covariate balance based on absolute correlations for given data sets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>absolute_corr_fun</span><span class='op'>(</span><span class='va'>w</span>, <span class='va'>c</span>, <span class='va'>nthread</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>absolute_corr_fun</span><span class='op'>(</span><span class='va'>w</span>, <span class='va'>c</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,22 +183,34 @@
     </tr>
     <tr>
       <th>c</th>
-      <td><p>A data frame or matrix of observed covariates variable.</p></td>
-    </tr>
-    <tr>
-      <th>nthread</th>
-      <td><p>Number of available threads to use.</p></td>
+      <td><p>A data table of observed covariates variable.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns a list saved the measure related to covariate balance
-<code>absolute_corr</code>: the absolute correlations for each pre-exposure
-covairates;
-<code>mean_absolute_corr</code>: the average absolute correlations for all
-pre-exposure covairates.</p>
+    <p>The function returns a list including:</p><ul>
+<li><p><code>absolute_corr</code>: the absolute correlations for each pre-exposure
+covairates;</p></li>
+<li><p><code>mean_absolute_corr</code>: the average absolute correlations for all
+pre-exposure covairates.</p></li>
+</ul>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>291</span><span class='op'>)</span>
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
+<span class='va'>mydata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_syn_data.html'>generate_syn_data</a></span><span class='op'>(</span>sample_size<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2001"</span>,<span class='st'>"2002"</span>,<span class='st'>"2003"</span>,<span class='st'>"2004"</span>,<span class='st'>"2005"</span><span class='op'>)</span>,size <span class='op'>=</span> <span class='va'>n</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>region</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"North"</span>, <span class='st'>"South"</span>, <span class='st'>"East"</span>, <span class='st'>"West"</span><span class='op'>)</span>,size <span class='op'>=</span> <span class='va'>n</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>region</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>region</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>cf5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>$</span><span class='va'>cf5</span><span class='op'>)</span>
+<span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+<span class='va'>cor_val</span> <span class='op'>&lt;-</span> <span class='fu'>absolute_corr_fun</span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>, <span class='va'>mydata</span><span class='op'>[</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>cor_val</span><span class='op'>$</span><span class='va'>mean_absolute_corr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.2021844</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

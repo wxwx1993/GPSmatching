@@ -2,14 +2,13 @@
 % Please edit documentation in R/estimate_gps.R
 \name{estimate_gps}
 \alias{estimate_gps}
-\title{Estimate GPS values}
+\title{Estimate GPS Values}
 \usage{
 estimate_gps(
   Y,
   w,
   c,
   pred_model,
-  running_appr,
   gps_model = "parametric",
   internal_use = TRUE,
   params = list(),
@@ -22,11 +21,9 @@ estimate_gps(
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A matrix or dataframe of observed covariates variable.}
+\item{c}{A data frame of observed covariates variable.}
 
 \item{pred_model}{The selected prediction model.}
-
-\item{running_appr}{The running approach.}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
@@ -45,7 +42,8 @@ internal packages.}
 \value{
 The function returns a list of 6 objects according to the following order:
 \itemize{
-\item Original data set + GPS values (Y, w, GPS, c)
+\item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
+row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -56,16 +54,16 @@ be returned.
 }
 }
 \description{
-Estimates GPS value for each observation.
+Estimates GPS value for each observation using parametric or non-parametric
+approaches.
 }
 \examples{
-m_d <- gen_syn_data(sample_size = 100)
+m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d$Y,
                               m_d$treat,
                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                               pred_model = "sl",
                               gps_model = "parametric",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Collabration</li>
@@ -125,8 +128,8 @@
 
     
     
-<p>The propensity score (PS) is the conditional probability of assignment to a particular treatment given a vector of observed covariates <span class="citation">(Rosenbaum and Rubin 1983)</span>. <span class="citation">Hirano and Imbens (2004)</span> extended the idea to studies with continuous treatment (or exposure) and labeled it as the generalized propensity score (GPS). In this package, we use a non-parametric model to estimate GPS values <span class="citation">(Kennedy et al. 2017)</span>. The prediction models are developed using the SuperLearner Package <span class="citation">(Van der Laan, Polley, and Hubbard 2007)</span>. For more details on the problem framework and assumptions, please see <span class="citation">Wu et al. (2020)</span>.</p>
-<p>[TBD: Data flow and mathematical equations]</p>
+<p>The propensity score (PS) is the conditional probability of assignment to a particular treatment given a vector of observed covariates <span class="citation">(Rosenbaum and Rubin 1983)</span>. <span class="citation">Hirano and Imbens (2004)</span> extended the idea to studies with continuous treatment (or exposure) and labeled it as the generalized propensity score (GPS), which is a probability density function. In this package, we use either a parametric model (a standard linear regression model) or a non-parametric model (a flexible machine learning model) to train the GPS model as a density estimation procedure <span class="citation">(Kennedy et al. 2017)</span>. After the model training, we can estimate GPS values based on the model prediction. The machine learning models are developed using the SuperLearner Package <span class="citation">(Van der Laan, Polley, and Hubbard 2007)</span>. For more details on the problem framework and assumptions, please see <span class="citation">Wu et al. (2020)</span>.</p>
+<!-- [TBD: Data flow and mathematical equations] -->
 <p>Whether the prediction models’ performance should be considered the primary parameter in the training of the prediction model is an open research question. In this package, the users have complete control over the hyperparameters, which can fine-tune the prediction models to achieve different performance levels.</p>
 <div id="available-superlearner-libraries" class="section level2">
 <h2 class="hasAnchor">

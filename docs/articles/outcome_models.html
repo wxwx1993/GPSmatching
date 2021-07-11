@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Collabration</li>
@@ -125,7 +128,11 @@
 
     
     
-<p><em>TBD</em></p>
+<p>After the pseudo population dataset was generated, we apply outcome models on the pseudo population as-if the datset is from a randomized experiment.</p>
+<p>We propose three types of outcome models using parametric, semi-parametric and non-parametric approaches, respectively.</p>
+<p><strong><code>estimate_pmetric_erf</code></strong> estimates the hazard ratios using a parametric regression model. By default, call <strong><code>gnm</code></strong> library to implement generalized nonlinear models.</p>
+<p><strong><code>estimate_semipmetric_erf</code></strong> estimates the smoothed exposure-response function using a generalized additive model with splines. By default, call <strong><code>gam</code></strong> library to implement generalized additive models.</p>
+<p><strong><code>estimate_npmetric_erf</code></strong> estimates the smoothed exposure-response function using a kernel smoothing approach. By default, call <strong><code>KernSmooth</code></strong> library to implement local polynomial fitting with a kernel weight. We use a data-driven bandwidth selection.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Collabration</li>
@@ -141,9 +144,9 @@
 <a href="#installing-the-package" class="anchor"></a>Installing the Package</h3>
 <p>Use <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github</a></code> to install the package. If you do not specify the <code>ref</code>, it will install the master (or main) branch. The <code>master</code> branch hosts the latest released code. The latest updates are committed to the <code>develop</code> branch. Read <a href="contribution.Rmd">Git Branching Model</a> for more details.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="st">"package:CausalGPS"</span>, unload <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># if already you have the package, detach and unload it, to have a new install. </span>
-<span class="fu">install_githab</span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fasrc/CausalGPS">CausalGPS</a></span><span class="op">)</span></code></pre></div>
 <p>The process should run smoothly. Try <code><a href="../reference/CausalGPS-package.html">?CausalGPS</a></code>. It should open the package description page under the help tab (assuming you are using RStudio).</p>
 </div>
@@ -197,7 +200,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
 
-<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span>
 <span class="co">#'data.frame':  10000 obs. of  8 variables:</span>
 <span class="co"># $ Y    : num  -17 3.66 -45.88 -12.12 2.75 ...</span>
@@ -215,12 +218,11 @@
 <p>In the following example, first, we generate 10000 synthetic data samples, then we feed them into <code>estimate_gps</code> function to estimate their GPS values. Please note that the Y variable is not used inside the code, and it is only provided to cbind with the generated GPS values. You can read more about different arguments in the documentation (<code><a href="../reference/estimate_gps.html">?estimate_gps</a></code>). In summary, - We want to run a code using SuperLearner (<code>sl</code>) prediction model. Inside the SuperLearner package, we want to use the XGBoost package. As you know, we internally generate a customized wrapper for the XGBoost package; thus, the correct way to activate that is by passing <code>m_xgboost</code>, which stands for <em>modified xgboost</em>. - We requested for one thread (<code>nthread = 1</code>); you can use as much as you want; the package will use the available one and will ignore the rest of them. XGBoost uses OpenMP backend to use all cores. Sometimes it becomes a really big challenge on Mac systems. So if you are using Mac and do not see any performance improvement, be aware of that. - In <code>params</code>, we passed the list of parameters; the function will choose one from each list at random and will generate a customize wrapper based on them. If you want to use a specific value, just give a list one number (e.g., xgb_max_depth = c(3)). All parameters that start with <code>xgb_</code> will only change XGBoost hyperparameters.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
-<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 <span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
                               <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
                               <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,
                               pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                              running_appr <span class="op">=</span> <span class="st">"base"</span>,
                               internal_use <span class="op">=</span> <span class="cn">FALSE</span>,
                               params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
                                        xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span>,<span class="fl">50</span>,<span class="fl">60</span><span class="op">)</span><span class="op">)</span>,
@@ -230,7 +232,7 @@
 <p>Now, let’s add some categorical data. Let’s say our data belongs to 5 different years (2000 observations per year), and each year we have data from 4 different regions, including <em>North</em>, <em>South</em>, <em>East</em>, and <em>West</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
-<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 
 <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001"</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>,
           <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2002"</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>,
@@ -250,7 +252,6 @@
                               <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
                               <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>, <span class="st">"year"</span>, <span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
                               pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                              running_appr <span class="op">=</span> <span class="st">"base"</span>,
                               internal_use <span class="op">=</span> <span class="cn">FALSE</span>,
                               params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
                                        xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span>,<span class="fl">50</span>,<span class="fl">60</span><span class="op">)</span><span class="op">)</span>,
@@ -261,7 +262,7 @@
 <div id="generating-pseudo-population" class="section level3">
 <h3 class="hasAnchor">
 <a href="#generating-pseudo-population" class="anchor"></a>Generating Pseudo Population</h3>
-<p>Generating pseudo population (<code><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop()</a></code>)is one of the important parts of the package. It internally uses <code><a href="../reference/estimate_gps.html">estimate_gps()</a></code> package. An acceptable pseudo population should pass the covariate balance test. Users choose which test and what threshold, and how many attempts. If the covariate balance test is met, the function stops trying and returns the generated population. However, if it cannot pass the test, it still returns what is generated with a message to the user indicating the population did not pass the test. At each iteration, we change the hyperparameters to modify GPS values (to better or worse) to pass the covariate balance test. After estimating the GPS values, we need to compile the population. There are three major approaches to compile pseudo population, including:</p>
+<p>Generating pseudo population (<code>gen_pseudo_pop()</code>)is one of the important parts of the package. It internally uses <code><a href="../reference/estimate_gps.html">estimate_gps()</a></code> package. An acceptable pseudo population should pass the covariate balance test. Users choose which test and what threshold, and how many attempts. If the covariate balance test is met, the function stops trying and returns the generated population. However, if it cannot pass the test, it still returns what is generated with a message to the user indicating the population did not pass the test. At each iteration, we change the hyperparameters to modify GPS values (to better or worse) to pass the covariate balance test. After estimating the GPS values, we need to compile the population. There are three major approaches to compile pseudo population, including:</p>
 <ul>
 <li>Matching</li>
 <li>Adjusting (not implemented)</li>
@@ -270,26 +271,25 @@
 <p>Among different methods for testing covariate balance test, only <code>absolute</code> approach is implemented.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
-<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
-<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
-                             <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
-                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,
-                             ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
-                             running_appr <span class="op">=</span> <span class="st">"base"</span>,
-                             pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
-                             params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
-                             xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
-                             nthread <span class="op">=</span> <span class="fl">1</span>,
-                             covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
-                             covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
-                             max_attempt <span class="op">=</span> <span class="fl">1</span>,
-                             matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
-                             delta_n <span class="op">=</span> <span class="fl">1</span>,
-                             scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
+                                  <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
+                                  <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,
+                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
+                                  pred_model <span class="op">=</span> <span class="st">"sl"</span>,
+                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
+                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
+                                  xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
+                                  nthread <span class="op">=</span> <span class="fl">1</span>,
+                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
+                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
+                                  max_attempt <span class="op">=</span> <span class="fl">1</span>,
+                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
+                                  delta_n <span class="op">=</span> <span class="fl">1</span>,
+                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p>The second causal inference approach is <code>weighting</code>. Here is an example to generate pseudo population using <code>weighting</code> approach.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<code class="sourceCode R"><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
 
 <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001"</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>,
           <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2002"</span><span class="op">)</span>, each<span class="op">=</span><span class="fl">2000</span><span class="op">)</span>,
@@ -305,49 +305,47 @@
 <span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>
 <span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>
 
-<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
-                             <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
-                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
-                             ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,
-                             running_appr <span class="op">=</span> <span class="st">"base"</span>,
-                             pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
-                             params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
-                              xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
-                             nthread <span class="op">=</span> <span class="fl">1</span>,
-                             covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
-                             covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
-                             max_attempt <span class="op">=</span> <span class="fl">1</span>
-                             <span class="op">)</span></code></pre></div>
+<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
+                                  <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
+                                  <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
+                                  ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,
+                                  pred_model <span class="op">=</span> <span class="st">"sl"</span>,
+                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
+                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
+                                   xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
+                                  nthread <span class="op">=</span> <span class="fl">1</span>,
+                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
+                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
+                                  max_attempt <span class="op">=</span> <span class="fl">1</span>
+                                  <span class="op">)</span></code></pre></div>
 </div>
 <div id="further-processing" class="section level3">
 <h3 class="hasAnchor">
 <a href="#further-processing" class="anchor"></a>Further Processing</h3>
 <p>After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (<code>estimate_erf</code>) is implemented.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span>
-<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_syn_data.html">gen_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
-<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gen_pseudo_pop.html">gen_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
-                            <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
-                            <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,
-                            ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
-                            running_appr <span class="op">=</span> <span class="st">"base"</span>,
-                            pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                            sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
-                            params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
-                             xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
-                            nthread <span class="op">=</span> <span class="fl">1</span>,
-                            covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
-                            covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
-                            max_attempt <span class="op">=</span> <span class="fl">1</span>,
-                            matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
-                            delta_n <span class="op">=</span> <span class="fl">1</span>,
-                            scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># library("CausalGPS")</span>
+<span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> 
+<span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
+                                  <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
+                                  <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,
+                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
+                                  pred_model <span class="op">=</span> <span class="st">"sl"</span>,
+                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
+                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,
+                                   xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
+                                  nthread <span class="op">=</span> <span class="fl">1</span>,
+                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
+                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
+                                  max_attempt <span class="op">=</span> <span class="fl">1</span>,
+                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
+                                  delta_n <span class="op">=</span> <span class="fl">1</span>,
+                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
 
-<span class="va">erf_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_erf.html">estimate_erf</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">Y</span>,
-                        <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">w</span>,
-                        bw_seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">2</span>,<span class="fl">0.2</span><span class="op">)</span>,
-                        w_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">20</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">erf_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_npmetric_erf.html">estimate_npmetric_erf</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">Y</span>,
+                                 <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">w</span>,
+                                 bw_seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">2</span>,<span class="fl">0.2</span><span class="op">)</span>,
+                                 w_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">20</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="steps-for-using-precomputed-data-during-the-test" class="section level2">

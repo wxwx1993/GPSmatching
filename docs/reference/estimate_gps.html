@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate GPS values — estimate_gps • CausalGPS</title>
+<title>Estimate GPS Values — estimate_gps • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,9 @@
 
 
 
-<meta property="og:title" content="Estimate GPS values — estimate_gps" />
-<meta property="og:description" content="Estimates GPS value for each observation." />
+<meta property="og:title" content="Estimate GPS Values — estimate_gps" />
+<meta property="og:description" content="Estimates GPS value for each observation using parametric or non-parametric
+approaches." />
 
 
 
@@ -78,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -116,6 +117,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
@@ -160,13 +164,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate GPS values</h1>
+    <h1>Estimate GPS Values</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_gps.R'><code>R/estimate_gps.R</code></a></small>
     <div class="hidden name"><code>estimate_gps.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimates GPS value for each observation.</p>
+    <p>Estimates GPS value for each observation using parametric or non-parametric
+approaches.</p>
     </div>
 
     <pre class="usage"><span class='fu'>estimate_gps</span><span class='op'>(</span>
@@ -174,7 +179,6 @@
   <span class='va'>w</span>,
   <span class='va'>c</span>,
   <span class='va'>pred_model</span>,
-  <span class='va'>running_appr</span>,
   gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
   internal_use <span class='op'>=</span> <span class='cn'>TRUE</span>,
   params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -195,15 +199,11 @@
     </tr>
     <tr>
       <th>c</th>
-      <td><p>A matrix or dataframe of observed covariates variable.</p></td>
+      <td><p>A data frame of observed covariates variable.</p></td>
     </tr>
     <tr>
       <th>pred_model</th>
       <td><p>The selected prediction model.</p></td>
-    </tr>
-    <tr>
-      <th>running_appr</th>
-      <td><p>The running approach.</p></td>
     </tr>
     <tr>
       <th>gps_model</th>
@@ -234,7 +234,8 @@ internal packages.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns a list of 6 objects according to the following order:</p><ul>
-<li><p>Original data set + GPS values (Y, w, GPS, c)</p></li>
+<li><p>Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
+row_index, c)</p></li>
 <li><p>e_gps_pred</p></li>
 <li><p>e_gps_std_pred</p></li>
 <li><p>w_resid</p></li>
@@ -246,13 +247,12 @@ be returned.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>m_d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gen_syn_data.html'>gen_syn_data</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>m_d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_syn_data.html'>generate_syn_data</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
 <span class='va'>data_with_gps</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_gps</span><span class='op'>(</span><span class='va'>m_d</span><span class='op'>$</span><span class='va'>Y</span>,
                               <span class='va'>m_d</span><span class='op'>$</span><span class='va'>treat</span>,
                               <span class='va'>m_d</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cf1"</span>,<span class='st'>"cf2"</span>,<span class='st'>"cf3"</span>,<span class='st'>"cf4"</span>,<span class='st'>"cf5"</span>,<span class='st'>"cf6"</span><span class='op'>)</span><span class='op'>]</span>,
                               pred_model <span class='op'>=</span> <span class='st'>"sl"</span>,
                               gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
-                              running_appr <span class='op'>=</span> <span class='st'>"base"</span>,
                               internal_use <span class='op'>=</span> <span class='cn'>FALSE</span>,
                               params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>xgb_max_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>,
                                        xgb_nrounds<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>40</span>,<span class='fl'>50</span>,<span class='fl'>60</span><span class='op'>)</span><span class='op'>)</span>,

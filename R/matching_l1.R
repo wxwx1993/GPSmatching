@@ -1,26 +1,34 @@
 #' @title
-#' Match dataset
+#' Match observations
 #'
 #' @description
 #' Matching function using L1 distance on single exposure level w
 #'
-#' @param dataset a completed observational data frame or matrix containing (Y, w, c).
-#' @param e_gps_pred a vector of predicted gps values obtained by Machine learning methods.
-#' @param e_gps_std_pred a vector of predicted std of gps obtained by Machine learning methods.
+#' @param dataset a completed observational data frame or matrix containing
+#'  (Y, w, gps, couner, row_index, c).
+#' @param e_gps_pred a vector of predicted gps values obtained by Machine
+#' learning methods.
+#' @param e_gps_std_pred a vector of predicted std of gps obtained by
+#'  Machine learning methods.
 #' @param w the targeted single exposure levels.
 #' @param w_resid the standardized residuals for w.
 #' @param w_mx a vector with length 2, includes min(w), max(w).
 #' @param gps_mx a vector with length 2, includes min(gps), max(gps)
-#' @param scale a specified scale parameter to control the relative weight that is attributed to
-#' the distance measures of the exposure versus the GPS estimates (Default is 0.5).
+#' @param scale a specified scale parameter to control the relative weight
+#' that is attributed to
+#' the distance measures of the exposure versus the GPS estimates
+#'  (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @param nthread Number of available cores.
+#' @param optimized_compile An option to activate optimized compilation.
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @return
-#' \code{dp}: The function returns a data.table saved the matched points on by single exposure
+#' \code{dp}: The function returns a data.table saved the matched points on
+#'  by single exposure
 #' level w by the proposed GPS matching approaches.
-#' @export
+#'
+#' @keywords internal
 #'
 matching_l1 <- function(w,
                         dataset,
@@ -32,7 +40,8 @@ matching_l1 <- function(w,
                         gps_model = "parametric",
                         delta_n=1,
                         scale=0.5,
-                        nthread=1)
+                        nthread=1,
+                        optimized_compile)
 {
 
   if (length(w)!=1){
@@ -80,8 +89,8 @@ matching_l1 <- function(w,
                              std_w,
                              scale)
 
-
   dp <- dataset_subset[wm,]
+
   dp["std_w"] <- NULL
   dp["std_gps"] <- NULL
 
@@ -89,5 +98,9 @@ matching_l1 <- function(w,
   logger::log_debug("Finished matching on single w value (w = {w}), ",
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
-  return(dp)
+  if (!optimized_compile){
+    return(dp)
+  } else {
+    return(dp["row_index"])
+  }
 }

@@ -46,7 +46,8 @@
 
 
 <meta property="og:title" content="Estimate semi exposure-response function (semi-ERF). — estimate_semi_erf" />
-<meta property="og:description" content="TODO" />
+<meta property="og:description" content="Estimates the smoothed exposure-response function using a generalized
+additive model with splines." />
 
 
 
@@ -117,6 +118,9 @@
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
     </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
     <li>
@@ -166,10 +170,11 @@
     </div>
 
     <div class="ref-description">
-    <p>TODO</p>
+    <p>Estimates the smoothed exposure-response function using a generalized
+additive model with splines.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>estimate_semi_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,17 +185,21 @@
     </tr>
     <tr>
       <th>family</th>
-      <td><p>a description of the error distribution (see ?gam)</p></td>
+      <td><p>a description of the error distribution (see ?gam).</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>dataset that formula is build upon</p></td>
+      <td><p>dataset that formula is build upon.</p></td>
+    </tr>
+    <tr>
+      <th>ci_appr</th>
+      <td><p>causal inference approach (matching or weighting).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns an object of class Gam</p>
+    <p>returns an object of class gam</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

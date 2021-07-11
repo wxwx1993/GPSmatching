@@ -14,4 +14,43 @@ knitr::opts_chunk$set(
 )
 ```
 
-*TBD*
+We provide **`gen_syn_data`** to generate synthetic data for CausalGPS package
+
+## Usage
+
+Input parameters:
+
+**`sample_size`** Number of data samples
+
+**`seed`** The seed of R's random number generator
+
+**`outcome_sd`** Standard deviation used to generate the outcome
+
+**`gps_spec`** A numerical value (1-7) that indicates the GPS model used to generate synthetic data. See the following section for more details.
+
+**`cova_spec`** A numerical value (1-2) to modify the covariates. See the code for more details.
+
+## Technical Details for Data Generating Process
+We generate six confounders $(C_1,C_2,...,C_6)$, which include a combination of continuous and categorical variables,
+\begin{align*}
+    C_1,\ldots,C_4 \sim N(0,\boldsymbol{I}_4), C_5 \sim U\{-2,2\}, C_6 \sim U(-3,3),
+\end{align*}
+and generate $W$ using six specifications of the generalized propensity score model,
+
+1)  $W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} +17  + N(0,5)$
+
+2)  $W = 15\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 22 + T(2)$
+
+3)  $W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 3/2 C_3^2 + 15 + N(0,5)$
+
+4)  $W = \frac{49 \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} -6 + N(0,5)$
+
+5)  $W = \frac{42}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} - 18 + N(0,5)$
+
+6)  $W = 7 \text{log} ( \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\}) + 13 + N(0,4)$
+
+We generate $Y$ from an outcome model which is assumed to be a cubical function of $W$ with additive terms for the confounders and interactions between $W$ and confounders $\mathbf{C}$,
+
+$$Y | W, \mathbf{C} \sim N\{\mu(W, \mathbf{C}),\text{sd}^2\}$$
+
+$$\mu(W, \mathbf{C}) = -10 - (2, 2, 3, -1,2,2)\mathbf{C}  - W(0.1 - 0.1C_1 + 0.1C_4 + 0.1C_5 + 0.1C_3^2)  + 0.13^2W^3$$

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compile pseudo population — compile_pseudo_pop • CausalGPS</title>
+<title>Compile Pseudo Population — compile_pseudo_pop • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Compile pseudo population — compile_pseudo_pop" />
-<meta property="og:description" content="Copiles pseudo population based on the original population and estimated GPS
+<meta property="og:title" content="Compile Pseudo Population — compile_pseudo_pop" />
+<meta property="og:description" content="Compiles pseudo population based on the original population and estimated GPS
 value." />
 
 
@@ -79,7 +79,7 @@ value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -117,6 +117,9 @@ value." />
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
@@ -161,13 +164,13 @@ value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compile pseudo population</h1>
+    <h1>Compile Pseudo Population</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/compile_pseudo_pop.R'><code>R/compile_pseudo_pop.R</code></a></small>
     <div class="hidden name"><code>compile_pseudo_pop.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Copiles pseudo population based on the original population and estimated GPS
+    <p>Compiles pseudo population based on the original population and estimated GPS
 value.</p>
     </div>
 
@@ -178,6 +181,7 @@ value.</p>
   bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
   nthread <span class='op'>=</span> <span class='fl'>1</span>,
   <span class='va'>trim_quantiles</span>,
+  <span class='va'>optimized_compile</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -187,7 +191,7 @@ value.</p>
     <tr>
       <th>dataset</th>
       <td><p>List of size 6 including the following:</p><ul>
-<li><p>Original data set + GPS values (Y, w, GPS, c)</p></li>
+<li><p>Original data set + GPS values (Y, w, GPS, counter, row_index, c)</p></li>
 <li><p>e_gps_pred</p></li>
 <li><p>e_gps_std_pred</p></li>
 <li><p>w_resid</p></li>
@@ -200,6 +204,33 @@ value.</p>
       <td><p>Causal inference approach.</p></td>
     </tr>
     <tr>
+      <th>gps_model</th>
+      <td><p>Model type which is used for estimating GPS value, including
+parametric and non-parametric.</p></td>
+    </tr>
+    <tr>
+      <th>bin_seq</th>
+      <td><p>Sequence of w (treatment) to generate pseudo population. If
+NULL is passed the default value will be used, which is
+<code><a href='https://rdrr.io/r/base/seq.html'>seq(min(w)+delta_n/2,max(w), by=delta_n)</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>nthread</th>
+      <td><p>An integer value that represents the number of threads to be
+used by internal packages.</p></td>
+    </tr>
+    <tr>
+      <th>trim_quantiles</th>
+      <td><p>A numerical vector of two. Represents the trim quantile
+level. Both numbers should be in the range of [0,1] and in increasing order
+(default: c(0.01,0.99)).</p></td>
+    </tr>
+    <tr>
+      <th>optimized_compile</th>
+      <td><p>If TRUE, uses counts to keep track of number of
+replicated pseudo population.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional parameters.</p></td>
     </tr>
@@ -208,8 +239,42 @@ value.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>compile_pseudo_pop</code> returns the pseudo population data that is compiled based
-on selected causal inference approach.</p>
+on the selected causal inference approach.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
+    <p>The input data set should be output of estimate_gps function with
+internal_use flag activated.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='va'>m_d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_syn_data.html'>generate_syn_data</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>data_with_gps</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_gps.html'>estimate_gps</a></span><span class='op'>(</span><span class='va'>m_d</span><span class='op'>$</span><span class='va'>Y</span>,
+                              <span class='va'>m_d</span><span class='op'>$</span><span class='va'>treat</span>,
+                              <span class='va'>m_d</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cf1"</span>,<span class='st'>"cf2"</span>,<span class='st'>"cf3"</span>,<span class='st'>"cf4"</span>,<span class='st'>"cf5"</span>,<span class='st'>"cf6"</span><span class='op'>)</span><span class='op'>]</span>,
+                              pred_model <span class='op'>=</span> <span class='st'>"sl"</span>,
+                              gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
+                              internal_use <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                              params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>xgb_max_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>,
+                                       xgb_nrounds<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>40</span>,<span class='fl'>50</span>,<span class='fl'>60</span><span class='op'>)</span><span class='op'>)</span>,
+                              nthread <span class='op'>=</span> <span class='fl'>1</span>,
+                              sl_lib <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"m_xgboost"</span><span class='op'>)</span>
+                             <span class='op'>)</span>
+
+
+<span class='va'>pd</span> <span class='op'>&lt;-</span> <span class='fu'>compile_pseudo_pop</span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>data_with_gps</span>,
+                         ci_appr <span class='op'>=</span> <span class='st'>"matching"</span>,
+                         gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
+                         bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
+                         nthread <span class='op'>=</span> <span class='fl'>1</span>,
+                         trim_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span><span class='op'>)</span>,
+                         optimized_compile<span class='op'>=</span><span class='cn'>TRUE</span>,
+                         matching_fun <span class='op'>=</span> <span class='st'>"matching_l1"</span>,
+                         covar_bl_method <span class='op'>=</span> <span class='st'>'absolute'</span>,
+                         covar_bl_trs <span class='op'>=</span> <span class='fl'>0.1</span>,
+                         delta_n <span class='op'>=</span> <span class='fl'>0.5</span>,
+                         scale <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

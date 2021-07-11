@@ -1,22 +1,67 @@
-## CausalGPS 0.2.3 (2021-05-12)
+
+## CausalGPS (devloping version)
 
 ### Added
+
 ### Changed
+
+### Fixed
+
+### Removed
+
+## CausalGPS 0.2.4 (2021-07-11)
+
+### Added
+
+* OpenMP for Rcpp code
+* optimized_compile
+* log_system_info()
+* Frequently asked questions
+* logo 
+
+### Changed
+
+* estimate_gps.Rmd
+* estimate_semi_erf -> estimate_semipmetric_erf
+* estimate_erf -> estimate_npmetric_erf
+* estimate_hr -> estimate_pmetric_erf
+* gen_pseudo_pop -> generate_pseudo_pop
+* gen_syn_data -> generate_syn_data
+* estimate_erf accepts counter as an input
+* estimate_erf can use multiple cores
+* generating_pseudo_population.Rmd
+* estimate_erf function description
+* estimate_hr function description
+* estimate_semi_erf function description
+* compute_risk function description and return value
+* outcome_models.Rmd
+* generate_synthetic_data.Rmd
+
+
+### Fixed
+
+* RCpp parLapply worker processors arguments
+
+### Removed
+
+* running_appr
+
+
+## CausalGPS 0.2.3 (2021-05-12)
+
 ### Fixed
 
 *  Fixed documentations
 
-### Removed
-
-
-
 ## CausalGPS 0.2.2 (2021-05-12)
 
 ### Added
+
 * estimate_semi_erf
 * estimate_hr
 
 ### Changed
+
 * Package name: GPSmatching --> CausalGPS 
 
 ### Fixed

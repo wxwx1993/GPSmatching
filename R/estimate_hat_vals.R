@@ -14,5 +14,5 @@
 #' @keywords internal
 #'
 estimate_hat_vals <- function(bw,matched_w,w_vals){
-  approx(w_vals,w_fun(bw,matched_w,w_vals),xout=matched_w,rule=2)$y
+  stats::approx(w_vals,w_fun(bw,matched_w,w_vals),xout=matched_w,rule=2)$y
 }

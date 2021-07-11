@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
@@ -174,6 +177,7 @@
   bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
   gps_model <span class='op'>=</span> <span class='st'>"parametric"</span>,
   nthread <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>optimized_compile</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -200,6 +204,10 @@ parametric (default) and non-parametric.</p></td>
     <tr>
       <th>nthread</th>
       <td><p>Number of available cores.</p></td>
+    </tr>
+    <tr>
+      <th>optimized_compile</th>
+      <td><p>Option to activate optimized compilation.</p></td>
     </tr>
     <tr>
       <th>...</th>

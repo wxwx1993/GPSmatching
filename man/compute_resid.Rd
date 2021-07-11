@@ -7,14 +7,14 @@
 compute_resid(a, b, c)
 }
 \arguments{
-\item{a}{description}
+\item{a}{A vector}
 
-\item{b}{description}
+\item{b}{A vector}
 
-\item{c}{description}
+\item{c}{A vector}
 }
 \value{
-return value (TODO)
+returns a residual values.
 }
 \description{
 Function to compute residual

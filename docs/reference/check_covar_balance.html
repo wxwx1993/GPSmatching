@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check covariate balance — check_covar_balance • CausalGPS</title>
+<title>Check Covariate Balance — check_covar_balance • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Check covariate balance — check_covar_balance" />
-<meta property="og:description" content="Checks the covariate balance of" />
+<meta property="og:title" content="Check Covariate Balance — check_covar_balance" />
+<meta property="og:description" content="Checks the covariate balance of original population or pseudo population." />
 
 
 
@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/generate_synthetic_data.html">Generate Synthetic Data</a>
+    </li>
+    <li>
+      <a href="../articles/faq.html">Frequently Asked Questions</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Collabration</li>
@@ -160,16 +163,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check covariate balance</h1>
+    <h1>Check Covariate Balance</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/check_covar_balance.R'><code>R/check_covar_balance.R</code></a></small>
     <div class="hidden name"><code>check_covar_balance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checks the covariate balance of</p>
+    <p>Checks the covariate balance of original population or pseudo population.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span>, <span class='va'>ci_appr</span>, nthread <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span>, <span class='va'>ci_appr</span>, nthread <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>optimized_compile</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,6 +195,10 @@
       <td><p>The number of available threads.</p></td>
     </tr>
     <tr>
+      <th>optimized_compile</th>
+      <td><p>If TRUE, use optimized compile approach.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments passed to different models.</p></td>
     </tr>
@@ -199,9 +206,62 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns True if the pseudo population meet the covariate balance test
-requirements.</p>
+    <p>output object:</p><ul>
+<li><p>corr_results</p><ul>
+<li><p>absolute_corr</p></li>
+<li><p>mean_absolute_corr</p></li>
+</ul></li>
+<li><p>pass (TRUE,FALSE)</p></li>
+</ul>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Additional parameters</h3>
+
+<ul>
+<li><p>For ci_appr == matching:</p><ul>
+<li><p>covar_bl_method</p></li>
+<li><p>covar_bl_trs</p></li>
+</ul></li>
+</ul>
+
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>422</span><span class='op'>)</span>
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
+<span class='va'>mydata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_syn_data.html'>generate_syn_data</a></span><span class='op'>(</span>sample_size<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2001"</span>,<span class='st'>"2002"</span>,<span class='st'>"2003"</span>,<span class='st'>"2004"</span>,<span class='st'>"2005"</span><span class='op'>)</span>,size <span class='op'>=</span> <span class='va'>n</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>region</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"North"</span>, <span class='st'>"South"</span>, <span class='st'>"East"</span>, <span class='st'>"West"</span><span class='op'>)</span>,size <span class='op'>=</span> <span class='va'>n</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>region</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>region</span><span class='op'>)</span>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>cf5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>$</span><span class='va'>cf5</span><span class='op'>)</span>
+
+<span class='va'>pseudo_pop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_pseudo_pop.html'>generate_pseudo_pop</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>$</span><span class='va'>Y</span>,
+                                 <span class='va'>mydata</span><span class='op'>$</span><span class='va'>treat</span>,
+                                 <span class='va'>mydata</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cf1"</span>,<span class='st'>"cf2"</span>,<span class='st'>"cf3"</span>,<span class='st'>"cf4"</span>,<span class='st'>"cf5"</span>,<span class='st'>"cf6"</span>,<span class='st'>"year"</span>,<span class='st'>"region"</span><span class='op'>)</span><span class='op'>]</span>,
+                                 ci_appr <span class='op'>=</span> <span class='st'>"matching"</span>,
+                                 pred_model <span class='op'>=</span> <span class='st'>"sl"</span>,
+                                 gps_model <span class='op'>=</span> <span class='st'>"non-parametric"</span>,
+                                 trim_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>,<span class='fl'>0.99</span><span class='op'>)</span>,
+                                 optimized_compile <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                                 sl_lib <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"m_xgboost"</span><span class='op'>)</span>,
+                                 covar_bl_method <span class='op'>=</span> <span class='st'>"absolute"</span>,
+                                 covar_bl_trs <span class='op'>=</span> <span class='fl'>0.1</span>,
+                                 max_attempt <span class='op'>=</span> <span class='fl'>1</span>,
+                                 matching_fun <span class='op'>=</span> <span class='st'>"matching_l1"</span>,
+                                 delta_n <span class='op'>=</span> <span class='fl'>1</span>,
+                                 scale <span class='op'>=</span> <span class='fl'>0.5</span>,
+                                 nthread <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.159861813047389 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.147398290957418 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.147398290957418 | Covariate balance threshold:  0.1</span></div><div class='input'>
+<span class='va'>adjusted_corr_obj</span> <span class='op'>&lt;-</span> <span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span>,
+                                        ci_appr<span class='op'>=</span><span class='st'>"matching"</span>,
+                                        nthread<span class='op'>=</span><span class='fl'>1</span>,
+                                        covar_bl_method <span class='op'>=</span> <span class='st'>"absolute"</span>,
+                                        covar_bl_trs <span class='op'>=</span> <span class='fl'>0.1</span>,
+                                        optimized_compile<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.175732525727712 | Covariate balance threshold:  0.1</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

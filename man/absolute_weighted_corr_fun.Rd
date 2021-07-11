@@ -2,16 +2,16 @@
 % Please edit documentation in R/absolute_weighted_corr_fun.R
 \name{absolute_weighted_corr_fun}
 \alias{absolute_weighted_corr_fun}
-\title{Check covariate balance (weighted correlation)}
+\title{Check  Weighted Covariate Balance Using Absolute Approach}
 \usage{
-absolute_weighted_corr_fun(w, ipw, c)
+absolute_weighted_corr_fun(w, vw, c)
 }
 \arguments{
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{ipw}{A vector of weights.}
+\item{vw}{A vector of weights.}
 
-\item{c}{A data frame or matrix of observed covariates variable.}
+\item{c}{A data.table of observed covariates variable.}
 }
 \value{
 The function returns a list saved the measure related to covariate balance
@@ -24,4 +24,19 @@ pre-exposure covairates.
 Checks covariate balance based on absolute weighted correlations for
 given data sets.
 }
-\keyword{internal}
+\examples{
+set.seed(639)
+n <- 100
+mydata <- generate_syn_data(sample_size=100)
+year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
+region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+mydata$year <- as.factor(year)
+mydata$region <- as.factor(region)
+mydata$cf5 <- as.factor(mydata$cf5)
+data.table::setDT(mydata)
+cor_val <- absolute_weighted_corr_fun(mydata[,2],
+                                      data.table::data.table(runif(n)),
+                                      mydata[, 3:length(mydata)])
+print(cor_val$mean_absolute_corr)
+
+}

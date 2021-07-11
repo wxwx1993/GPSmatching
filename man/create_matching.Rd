@@ -9,6 +9,7 @@ create_matching(
   bin_seq = NULL,
   gps_model = "parametric",
   nthread = 1,
+  optimized_compile,
   ...
 )
 }
@@ -26,6 +27,8 @@ parametric (default) and non-parametric.}
 
 \item{nthread}{Number of available cores.}
 
+\item{optimized_compile}{Option to activate optimized compilation.}
+
 \item{...}{Additional arguments passed to the function.}
 }
 \value{
@@ -34,3 +37,4 @@ Returns data.table of matched set.
 \description{
 Generates pseudo population based on matching casual inference method.
 }
+\keyword{internal}

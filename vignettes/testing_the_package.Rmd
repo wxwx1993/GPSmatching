@@ -33,9 +33,9 @@ Use `devtools::install_github` to install the package. If you do not specify the
 
 
 ```r
-require(devtools)
+library(devtools)
 try(detach("package:CausalGPS", unload = TRUE), silent = TRUE) # if already you have the package, detach and unload it, to have a new install. 
-install_githab("fasrc/CausalGPS", ref="develop")
+install_github("fasrc/CausalGPS", ref="develop")
 library(CausalGPS)
 ```
 
@@ -81,7 +81,7 @@ The package can generate synthetic data that can be used to test different featu
 ```r
 library("CausalGPS")
 
-mydata <- gen_syn_data(sample_size = 10000) 
+mydata <- generate_syn_data(sample_size = 10000) 
 str(mydata)
 #'data.frame':  10000 obs. of  8 variables:
 # $ Y    : num  -17 3.66 -45.88 -12.12 2.75 ...
@@ -103,12 +103,11 @@ In the following example, first, we generate 10000 synthetic data samples, then 
 
 ```r
 library("CausalGPS")
-mydata <- gen_syn_data(sample_size = 10000) 
+mydata <- generate_syn_data(sample_size = 10000) 
 data_with_gps <- estimate_gps(mydata$Y,
                               mydata$treat,
                               mydata[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                               pred_model = "sl",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -121,7 +120,7 @@ Now, let's add some categorical data. Let's say our data belongs to 5 different 
 
 ```r
 library("CausalGPS")
-mydata <- gen_syn_data(sample_size = 10000) 
+mydata <- generate_syn_data(sample_size = 10000) 
 
 year <- c(rep(c("2001"), each=2000),
           rep(c("2002"), each=2000),
@@ -141,7 +140,6 @@ data_with_gps <- estimate_gps(mydata$Y,
                               mydata$treat,
                               mydata[c("cf1","cf2","cf3","cf4","cf5","cf6", "year", "region")],
                               pred_model = "sl",
-                              running_appr = "base",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -164,29 +162,28 @@ Among different methods for testing covariate balance test, only `absolute` appr
 
 ```r
 library("CausalGPS")
-mydata <- gen_syn_data(sample_size = 10000) 
-pseudo_pop <- gen_pseudo_pop(mydata$Y,
-                             mydata$treat,
-                             mydata[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                             ci_appr = "matching",
-                             running_appr = "base",
-                             pred_model = "sl",
-                             sl_lib = c("m_xgboost"),
-                             params = list(xgb_nrounds=c(10,20,30),
-                             xgb_eta=c(0.1,0.2,0.3)),
-                             nthread = 1,
-                             covar_bl_method = "absolute",
-                             covar_bl_trs = 0.1,
-                             max_attempt = 1,
-                             matching_fun = "matching_l1",
-                             delta_n = 1,
-                             scale = 0.5)
+mydata <- generate_syn_data(sample_size = 10000) 
+pseudo_pop <- generate_pseudo_pop(mydata$Y,
+                                  mydata$treat,
+                                  mydata[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                                  ci_appr = "matching",
+                                  pred_model = "sl",
+                                  sl_lib = c("m_xgboost"),
+                                  params = list(xgb_nrounds=c(10,20,30),
+                                  xgb_eta=c(0.1,0.2,0.3)),
+                                  nthread = 1,
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  max_attempt = 1,
+                                  matching_fun = "matching_l1",
+                                  delta_n = 1,
+                                  scale = 0.5)
 ```
 
 The second causal inference approach is `weighting`. Here is an example to generate pseudo population using `weighting` approach.
 
 ```r
-mydata <- gen_syn_data(sample_size = 10000) 
+mydata <- generate_syn_data(sample_size = 10000) 
 
 year <- c(rep(c("2001"), each=2000),
           rep(c("2002"), each=2000),
@@ -202,20 +199,19 @@ region <- rep(c(rep("North",each=500),
 mydata$year <- as.factor(year)
 mydata$region <- as.factor(region)
 
-pseudo_pop <- gen_pseudo_pop(mydata$Y,
-                             mydata$treat,
-                             mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
-                             ci_appr = "weighting",
-                             running_appr = "base",
-                             pred_model = "sl",
-                             sl_lib = c("m_xgboost"),
-                             params = list(xgb_nrounds=c(10,20,30),
-                              xgb_eta=c(0.1,0.2,0.3)),
-                             nthread = 1,
-                             covar_bl_method = "absolute",
-                             covar_bl_trs = 0.1,
-                             max_attempt = 1
-                             )
+pseudo_pop <- generate_pseudo_pop(mydata$Y,
+                                  mydata$treat,
+                                  mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                                  ci_appr = "weighting",
+                                  pred_model = "sl",
+                                  sl_lib = c("m_xgboost"),
+                                  params = list(xgb_nrounds=c(10,20,30),
+                                   xgb_eta=c(0.1,0.2,0.3)),
+                                  nthread = 1,
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  max_attempt = 1
+                                  )
 ```
 
 ### Further Processing
@@ -223,29 +219,28 @@ pseudo_pop <- gen_pseudo_pop(mydata$Y,
 After generating a pseudo population, we can process the data for different purposes. So far, estimating exposure rate function (`estimate_erf`) is implemented. 
 
 ```r
-library("CausalGPS")
-mydata <- gen_syn_data(sample_size = 10000) 
-pseudo_pop <- gen_pseudo_pop(mydata$Y,
-                            mydata$treat,
-                            mydata[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                            ci_appr = "matching",
-                            running_appr = "base",
-                            pred_model = "sl",
-                            sl_lib = c("m_xgboost"),
-                            params = list(xgb_nrounds=c(10,20,30),
-                             xgb_eta=c(0.1,0.2,0.3)),
-                            nthread = 1,
-                            covar_bl_method = "absolute",
-                            covar_bl_trs = 0.1,
-                            max_attempt = 1,
-                            matching_fun = "matching_l1",
-                            delta_n = 1,
-                            scale = 0.5)
+# library("CausalGPS")
+mydata <- generate_syn_data(sample_size = 10000) 
+pseudo_pop <- generate_pseudo_pop(mydata$Y,
+                                  mydata$treat,
+                                  mydata[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                                  ci_appr = "matching",
+                                  pred_model = "sl",
+                                  sl_lib = c("m_xgboost"),
+                                  params = list(xgb_nrounds=c(10,20,30),
+                                   xgb_eta=c(0.1,0.2,0.3)),
+                                  nthread = 1,
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  max_attempt = 1,
+                                  matching_fun = "matching_l1",
+                                  delta_n = 1,
+                                  scale = 0.5)
 
-erf_val <- estimate_erf(pseudo_pop$Y,
-                        pseudo_pop$w,
-                        bw_seq=seq(0.2,2,0.2),
-                        w_vals = seq(2,20,0.5))
+erf_val <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
+                                 pseudo_pop$pseudo_pop$w,
+                                 bw_seq=seq(0.2,2,0.2),
+                                 w_vals = seq(2,20,0.5))
 
 ```
 

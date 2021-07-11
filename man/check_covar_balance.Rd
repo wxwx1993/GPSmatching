@@ -2,9 +2,9 @@
 % Please edit documentation in R/check_covar_balance.R
 \name{check_covar_balance}
 \alias{check_covar_balance}
-\title{Check covariate balance}
+\title{Check Covariate Balance}
 \usage{
-check_covar_balance(pseudo_pop, ci_appr, nthread = 1, ...)
+check_covar_balance(pseudo_pop, ci_appr, nthread = 1, optimized_compile, ...)
 }
 \arguments{
 \item{pseudo_pop}{The generated pseudo population. In the following format:
@@ -19,13 +19,66 @@ check_covar_balance(pseudo_pop, ci_appr, nthread = 1, ...)
 
 \item{nthread}{The number of available threads.}
 
+\item{optimized_compile}{If TRUE, use optimized compile approach.}
+
 \item{...}{Additional arguments passed to different models.}
 }
 \value{
-Returns True if the pseudo population meet the covariate balance test
-requirements.
+output object:
+\itemize{
+\item corr_results
+\itemize{
+\item absolute_corr
+\item mean_absolute_corr
+}
+\item pass (TRUE,FALSE)
+}
 }
 \description{
-Checks the covariate balance of
+Checks the covariate balance of original population or pseudo population.
 }
-\keyword{internal}
+\details{
+\subsection{Additional parameters}{
+\itemize{
+\item For ci_appr == matching:
+\itemize{
+\item covar_bl_method
+\item covar_bl_trs
+}
+}
+}
+}
+\examples{
+set.seed(422)
+n <- 100
+mydata <- generate_syn_data(sample_size=100)
+year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
+region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+mydata$year <- as.factor(year)
+mydata$region <- as.factor(region)
+mydata$cf5 <- as.factor(mydata$cf5)
+
+pseudo_pop <- generate_pseudo_pop(mydata$Y,
+                                 mydata$treat,
+                                 mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                                 ci_appr = "matching",
+                                 pred_model = "sl",
+                                 gps_model = "non-parametric",
+                                 trim_quantiles = c(0.01,0.99),
+                                 optimized_compile = TRUE,
+                                 sl_lib = c("m_xgboost"),
+                                 covar_bl_method = "absolute",
+                                 covar_bl_trs = 0.1,
+                                 max_attempt = 1,
+                                 matching_fun = "matching_l1",
+                                 delta_n = 1,
+                                 scale = 0.5,
+                                 nthread = 1)
+
+adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
+                                        ci_appr="matching",
+                                        nthread=1,
+                                        covar_bl_method = "absolute",
+                                        covar_bl_trs = 0.1,
+                                        optimized_compile=FALSE)
+}
