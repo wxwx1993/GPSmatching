@@ -73,8 +73,8 @@ file will be detected by the file name extension.}
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
 
-\item{nthread}{An integer value that represents then number threads to use by
-internal packages.}
+\item{nthread}{An integer value that represents the number of threads to be
+used by internal packages.}
 
 \item{...}{Additional arguments passed to different models.}
 }
