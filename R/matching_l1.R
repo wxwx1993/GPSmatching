@@ -5,7 +5,7 @@
 #' Matching function using L1 distance on single exposure level w
 #'
 #' @param dataset a completed observational data frame or matrix containing
-#'  (Y, w, gps, couner, row_index, c).
+#'  (Y, w, gps, counter, row_index, c).
 #' @param e_gps_pred a vector of predicted gps values obtained by Machine
 #' learning methods.
 #' @param e_gps_std_pred a vector of predicted std of gps obtained by

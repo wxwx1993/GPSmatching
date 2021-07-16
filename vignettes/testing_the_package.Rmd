@@ -44,7 +44,7 @@ The process should run smoothly. Try `?CausalGPS`. It should open the package de
 
 ### Cloning the Package
 
-Go to the package [Github reposirory](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
+Go to the package [Github repository](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
 
 <p float="center">
   <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600">

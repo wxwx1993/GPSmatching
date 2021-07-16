@@ -15,7 +15,7 @@
 #'  - counter
 #'  - row_index
 #'  - ipw
-#'  - covaraites
+#'  - covariates
 #'
 #' @keywords internal
 #'

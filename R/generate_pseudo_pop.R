@@ -57,7 +57,7 @@
 #'   - *max_attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [create_matching()] for more details about the parameters and default
 #'   values.
-#' - if ci.appr = 'weightig':
+#' - if ci.appr = 'weighting':
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
@@ -360,7 +360,7 @@ pow3 <- function(x) {x^3}
 #'
 #' @param c_name column (attribute) name.
 #' @param c_val column value
-#' @param transformer transformer funciton.
+#' @param transformer transformer function.
 #'
 #' @keywords internal
 #'

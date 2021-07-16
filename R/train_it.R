@@ -1,4 +1,8 @@
-#' Funtction to develop prediction model based on user's preferences.
+#' @title 
+#' Generate Prediction Model
+#' 
+#' @description 
+#' Function to develop prediction model based on user's preferences.
 #'
 #' @param target A vector of target data.
 #' @param input A vector, matrix, or dataframe of input data.

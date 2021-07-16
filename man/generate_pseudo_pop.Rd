@@ -123,7 +123,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item See \code{\link[=create_matching]{create_matching()}} for more details about the parameters and default
 values.
 }
-\item if ci.appr = 'weightig':
+\item if ci.appr = 'weighting':
 \itemize{
 \item \emph{covar_bl_method}: Covariate balance method.
 \item \emph{covar_bl_trs}: Covariate balance threshold
