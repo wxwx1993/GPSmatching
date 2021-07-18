@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // compute_closest_wgps_helper
 IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, double sc);
 RcppExport SEXP _CausalGPS_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP) {

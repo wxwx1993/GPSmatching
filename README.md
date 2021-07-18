@@ -41,7 +41,7 @@ Input parameters:
 `covar_bl_method`: specified covariate balance method  
 `covar_bl_trs`: specified covariate balance threshold  
 `max_attempt`: maximum number of attempt to satisfy covariate balance 
-`use_cov_transform`: If `TRUE`, uses internal transformers to achehive covariate balance.
+`use_cov_transform`: If `TRUE`, uses internal transformers to achieve covariate balance.
 `transformers`: List of transformers (default: list("pow2","pow3")). Users can define a unary function and pass as transformer to the list.
 `trim_quantiles`: a vector of two indicating upper and lower trimming quantiles (default: c(0.01, 0.99)). 
 

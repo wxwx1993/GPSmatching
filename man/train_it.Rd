@@ -2,7 +2,7 @@
 % Please edit documentation in R/train_it.R
 \name{train_it}
 \alias{train_it}
-\title{Funtction to develop prediction model based on user's preferences.}
+\title{Generate Prediction Model}
 \usage{
 train_it(target, input, pred_model, sl_lib_internal = NULL, ...)
 }
@@ -28,6 +28,6 @@ train_it(target, input, pred_model, sl_lib_internal = NULL, ...)
 prediction model
 }
 \description{
-Funtction to develop prediction model based on user's preferences.
+Function to develop prediction model based on user's preferences.
 }
 \keyword{internal}

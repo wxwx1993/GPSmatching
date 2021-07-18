@@ -1,5 +1,5 @@
 
-## CausalGPS (devloping version)
+## CausalGPS (developing version)
 
 ### Added
 
@@ -40,7 +40,7 @@
 
 ### Fixed
 
-* RCpp parLapply worker processors arguments
+* Rcpp parLapply worker processors arguments
 
 ### Removed
 
@@ -85,7 +85,7 @@
 *  create_weighting.R
 *  Steps for adding test data into 'sysdata.rda'.
 *  `weighting` option as causal inference approach.  
-*  absoulte_weighted_corr_fun.R
+*  absolute_weighted_corr_fun.R
 *  Testing and running example guidelines for developers
 *  Customized wrapper for xgboost package.
 *  `param` as an argument to accept hyperparameters from users.
@@ -97,8 +97,8 @@
 * mclapply --> parLapply
 * estimate_erf output returns S3 object.
 * test-Covariate_balance.R --> test-absolute_corr_fun.R
-* covarate_balance.R --> absolute_corr_fun.R
-* User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediciton purposes.
+* covariate_balance.R --> absolute_corr_fun.R
+* User needs to pass `m_xgboost` instead of `SL.xgboost` to  use XGBoost package for prediction purposes.
 
 ### Fixed
 

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/CausalGPS/issues). In the following, there steps to generate synthetic data and conduct some testing. 
 
-In order to test the package, you need to have the code on your system. There are two options:
+In order to test the package, you need to have the code on your system (R (>= 3.5.0)). There are two options:
 
 - Installing the package
 - Cloning the package
@@ -31,7 +31,6 @@ If you are running the code on a cluster and trying to carry out some test on sc
 
 Use `devtools::install_github` to install the package. If you do not specify the `ref`, it will install the master (or main) branch. The `master` branch hosts the latest released code. The latest updates are committed to the `develop` branch. Read [Git Branching Model](contribution.Rmd) for more details. 
 
-
 ```r
 library(devtools)
 try(detach("package:CausalGPS", unload = TRUE), silent = TRUE) # if already you have the package, detach and unload it, to have a new install. 
@@ -41,10 +40,9 @@ library(CausalGPS)
 
 The process should run smoothly. Try `?CausalGPS`. It should open the package description page under the help tab (assuming you are using RStudio).
 
-
 ### Cloning the Package
 
-Go to the package [Github reposirory](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
+Go to the package [Github repository](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
 
 <p float="center">
   <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600">
@@ -255,7 +253,7 @@ The package is being tested on different data samples, some of them are generate
 ```S
 # in terminal
 cp  R/sysdata.rda R/sysdata_backup.rda
-``` 
+```
 
 - Step 3: Clean Global environment 
 
@@ -272,14 +270,15 @@ list_names <- ls()
 - Step 5: Generate your data (mydata) and make sure to add steps to reproduce that data as a comment in your test file.
 - Step 6: Add new data name to `list_names`. Please note the quotes. You do not need to add data, just the name.
 
-```r
+```r 
 list_names <- c(list_names, "mydata") 
-``` 
+```
+
 - Step 7: Save the data.
 
 ```r
-save(list=list_names, file="R/sysdata.rda"
-``` 
+save(list=list_names, file="R/sysdata.rda")
+```
 
 - Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
 - Step 9: After successful `check()/pass()` remove the backup file. 

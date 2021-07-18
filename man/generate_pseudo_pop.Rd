@@ -16,8 +16,6 @@ generate_pseudo_pop(
   bin_seq = NULL,
   trim_quantiles = c(0.01, 0.99),
   optimized_compile = FALSE,
-  save_output = FALSE,
-  save_path = NULL,
   params = list(),
   nthread = 1,
   ...
@@ -37,7 +35,7 @@ generate_pseudo_pop(
 \item "adjusting": Adjusting by GPS
 }}
 
-\item{pred_model}{a prediction model}
+\item{pred_model}{a prediction model (use "sl" for SuperLearner)}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
@@ -63,12 +61,6 @@ level. Both numbers should be in the range of [0,1] and in increasing order
 
 \item{optimized_compile}{If TRUE, uses counts to keep track of number of
 replicated pseudo population.}
-
-\item{save_output}{If TRUE, output results will be stored at the save.path.
-Default is FALSE.}
-
-\item{save_path}{location for storing the final results, format of the saved
-file will be detected by the file name extension.}
 
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
@@ -123,7 +115,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item See \code{\link[=create_matching]{create_matching()}} for more details about the parameters and default
 values.
 }
-\item if ci.appr = 'weightig':
+\item if ci.appr = 'weighting':
 \itemize{
 \item \emph{covar_bl_method}: Covariate balance method.
 \item \emph{covar_bl_trs}: Covariate balance threshold

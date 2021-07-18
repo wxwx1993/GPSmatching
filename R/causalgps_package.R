@@ -25,6 +25,7 @@
 #' @import gam
 #' @import KernSmooth
 #' @import polycor
+#' @import wCorr
 #' @importFrom Rcpp sourceCpp
 #' @useDynLib CausalGPS, .registration = TRUE
 #'
@@ -33,7 +34,7 @@
 #'  Matching on generalized propensity scores with continuous exposures.
 #'  arXiv preprint arXiv:1812.06575.
 #'
-#' Kennedy, E.H., Ma, Z., McHugh, M.D. and Small, D.S., 2017. Non‐parametric
+#' Kennedy, E.H., Ma, Z., McHugh, M.D. and Small, D.S., 2017. Non-parametric
 #'  methods for doubly robust estimation of continuous treatment effects.
 #'  Journal of the Royal Statistical Society: Series B (Statistical Methodology),
 #'  79(4), pp.1229-1245.
