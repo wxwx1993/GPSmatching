@@ -28,15 +28,20 @@ library("CausalGPS")
 Input parameters:
 
 
-**`Y`**  a vector of observed outcome  
-**`w`**  a vector of observed continues exposure    
-**`c`**  data frame or matrix of observed baseline covariates    
+**`Y`**  a vector of observed outcome.  
+**`w`**  a vector of observed continues exposure.    
+**`c`**  data frame or matrix of observed baseline covariates.    
 **`ci_appr`** The causal inference approach. Options are "matching", "weighting", and "adjusting".  
+**`pred_model`** a prediction model (use "sl" for SuperLearner).
 **`gps_model`** Model type which is used for estimating GPS value, including "parametric" (default) and "non-parametric".  
 **`use_cov_transform`** If TRUE, the function uses transformer to meet the covariate balance.  
-**`transformers`** Is a list of transformers. Each transformer should be a unary function. Available transformers are "pow2" and "pow3".   
-**`matching_fun`**  specified matching function    
-**`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
+**`transformers`** Is a list of transformers. Each transformer should be a unary function. Available transformers are "pow2" and "pow3".
+**`bin_seq`** Sequence of w (treatment) to generate pseudo population. If `NULL` is passed the default value will be used, which is  `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
+**`matching_fun`**  specified matching function.
+**`trim_quantiles`** A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order(default: c(0.01,0.99)).
+**`optimized_compile`** If TRUE, uses counts to keep track of number of replicated pseudo population.
+**`params`** Includes list of params that is used internally. Unrelated parameters will be ignored.
+**`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates.  
 **`delta_n`**  specified caliper parameter on the exposure  
 **`sl_lib`**  a set of machine learning methods used for estimating GPS  
 **`ci_appr`**  causal inference approach   

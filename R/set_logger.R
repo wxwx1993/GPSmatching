@@ -53,6 +53,22 @@ set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
   }
 }
 
+#' @title
+#' Get Logger Settings
+#'
+#' @description
+#' Returns current logger settings.
+#'
+#' @return
+#' Returns a list that includes **logger_file_path** and **logger_level**.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' set_logger("mylogger.log", "INFO")
+#' log_meta <- get_logger()
+#'
 get_logger <- function(){
 
   return(list(logger_file_path = get_options("logger_file_path"),
