@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
     
     
 <p>Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a <a href="https://github.com/fasrc/CausalGPS/issues">new issue</a>. In the following, there steps to generate synthetic data and conduct some testing.</p>
-<p>In order to test the package, you need to have the code on your system. There are two options:</p>
+<p>In order to test the package, you need to have the code on your system (R (&gt;= 3.5.0)). There are two options:</p>
 <ul>
 <li>Installing the package</li>
 <li>Cloning the package</li>
@@ -378,7 +378,8 @@
 <ul>
 <li>Step 7: Save the data.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list=</span>list_names, <span class="at">file=</span><span class="st">"R/sysdata.rda"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span>list<span class="op">=</span><span class="va">list_names</span>, file<span class="op">=</span><span class="st">"R/sysdata.rda"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Step 8: Run <code>check()/test()</code> to make sure that it passes all tests. If it does not pass all tests, address the problem.</li>
 <li>Step 9: After successful <code>check()/pass()</code> remove the backup file.</li>
