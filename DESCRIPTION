@@ -19,7 +19,7 @@ Description: An R package for implementing matching on generalized propensity
     continuous exposures, and introduce a new framework for GPS caliper matching.
     Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 
     2018. Matching on generalized propensity scores with continuous exposures. 
-    arXiv pre-print <arXiv:1812.06575>.
+    arXiv preprint <arXiv:1812.06575>.
 License: GPL-3
 Language: en-US
 URL: https://github.com/fasrc/CausalGPS
