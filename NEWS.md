@@ -1,11 +1,15 @@
 
-## CausalGPS (developing version)
+## CausalGPS 0.2.5 (2021-07-09)
 
 ### Added
 
 ### Changed
 
+* User needs to activate the logger
+
 ### Fixed
+
+* CRAN package URLs are in canonical forms.
 
 ### Removed
 

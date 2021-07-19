@@ -7,10 +7,9 @@ Thank you so much for taking the time and reviewing the CausalGPS 0.2.5 package.
 * Fixed the arXiv paper URL (http -> https)
  http://arxiv.org/abs/1812.06575 --> https://arxiv.org/abs/1812.06575/
 
-* Converted invalid CRAN urls into canonical form:
+* Converted invalid CRAN URLs into canonical form:
 https://cran.r-project.org/web/packages/ranger/index.html --> https://cran.r-project.org/package=ranger
-https://cran.r-project.org/web/packages/logger/index.html -->
-https://cran.r-project.org/package=logger
+https://cran.r-project.org/web/packages/logger/index.html --> https://cran.r-project.org/package=logger
 
 * Fixed "permanently moved" issue with Github actions badge.
 
