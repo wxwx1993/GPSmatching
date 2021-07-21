@@ -29,7 +29,7 @@ If you are running the code on a cluster and trying to carry out some test on sc
 
 ### Installing the Package
 
-Use `devtools::install_github` to install the package. If you do not specify the `ref`, it will install the master (or main) branch. The `master` branch hosts the latest released code. The latest updates are committed to the `develop` branch. Read [Git Branching Model](contribution.Rmd) for more details. 
+Use `devtools::install_github` to install the package. If you do not specify the `ref`, it will install the master (or main) branch. The `master` branch hosts the latest released code. The latest updates are committed to the `develop` branch. For more details please refer *Git Branching Model* in the Developers Guide section. 
 
 ```r
 library(devtools)
@@ -52,7 +52,7 @@ After cloning the code, open one of the files using RStudio, then change the pro
 
 ### Forking the package
 
-Forking is explained in the [Contribution](contribution.md) page.
+Forking is explained in the *Contribution* page.
 
 ## Package development, test, check cycle
 

@@ -1,4 +1,16 @@
-## Resubmission
+## Resubmission (July 20, 2021 - Current)
+
+Thank you so much for taking the time and reviewing the CausalGPS 0.2.5 package. I fixed all problems with URLs.
+
+* Fixed arXive paper URL
+https://arxiv.org/abs/1812.06575/ --> https://arxiv.org/abs/1812.06575
+
+* Removed *inst* folder contents
+
+Please let me know if I need to take any further action. 
+
+
+## Resubmission (July 19, 2021)
 
 Thank you so much for taking the time and reviewing the CausalGPS 0.2.5 package. I went through your comments and fixed the problems; here is the list of changes:
 
