@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_pseudo_pop.R
 \name{generate_pseudo_pop}
 \alias{generate_pseudo_pop}
-\title{Generate pseudo population data set}
+\title{Generate Pseudo Population}
 \usage{
 generate_pseudo_pop(
   Y,
@@ -73,8 +73,8 @@ file will be detected by the file name extension.}
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
 
-\item{nthread}{An integer value that represents then number threads to use by
-internal packages.}
+\item{nthread}{An integer value that represents the number of threads to be
+used by internal packages.}
 
 \item{...}{Additional arguments passed to different models.}
 }

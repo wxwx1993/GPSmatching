@@ -12,7 +12,10 @@ reference:
   - title: Generate pseudo population
     contents:
     - generate_pseudo_pop
+    - compile_pseudo_pop
     - check_covar_balance
+    - absolute_corr_fun
+    - absolute_weighted_corr_fun
   - title: Outcome models
     contents:
     - estimate_npmetric_erf

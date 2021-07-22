@@ -1,5 +1,5 @@
 #' @title
-#' Check covariate balance (weighted correlation)
+#' Check  Weighted Covariate Balance Using Absolute Approach
 #'
 #' @description
 #' Checks covariate balance based on absolute weighted correlations for

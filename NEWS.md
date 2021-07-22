@@ -1,4 +1,15 @@
+
 ## CausalGPS (devloping version)
+
+### Added
+
+### Changed
+
+### Fixed
+
+### Removed
+
+## CausalGPS 0.2.4 (2021-07-11)
 
 ### Added
 

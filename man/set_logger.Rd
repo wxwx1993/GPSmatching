@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_logger.R
 \name{set_logger}
 \alias{set_logger}
-\title{Set logger settings}
+\title{Set Logger Settings}
 \usage{
 set_logger(logger_file_path = NULL, logger_level = NULL)
 }

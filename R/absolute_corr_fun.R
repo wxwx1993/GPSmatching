@@ -1,5 +1,5 @@
 #' @title
-#' Check covariate balance
+#' Check Covariate Balance Using Absolute Approach
 #'
 #' @description
 #' Checks covariate balance based on absolute correlations for given data sets.

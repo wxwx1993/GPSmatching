@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_gps.R
 \name{estimate_gps}
 \alias{estimate_gps}
-\title{Estimate GPS values}
+\title{Estimate GPS Values}
 \usage{
 estimate_gps(
   Y,

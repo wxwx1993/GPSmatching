@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check covariate balance — check_covar_balance • CausalGPS</title>
+<title>Check Covariate Balance — check_covar_balance • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,7 @@
 
 
 
-<meta property="og:title" content="Check covariate balance — check_covar_balance" />
+<meta property="og:title" content="Check Covariate Balance — check_covar_balance" />
 <meta property="og:description" content="Checks the covariate balance of original population or pseudo population." />
 
 
@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -140,7 +140,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check covariate balance</h1>
+    <h1>Check Covariate Balance</h1>
     <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/check_covar_balance.R'><code>R/check_covar_balance.R</code></a></small>
     <div class="hidden name"><code>check_covar_balance.Rd</code></div>
     </div>
@@ -254,7 +254,7 @@
                                  delta_n <span class='op'>=</span> <span class='fl'>1</span>,
                                  scale <span class='op'>=</span> <span class='fl'>0.5</span>,
                                  nthread <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.159861813047389 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.13844037391168 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.13844037391168 | Covariate balance threshold:  0.1</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.159861813047389 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nnls</span></div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.147398290957418 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.147398290957418 | Covariate balance threshold:  0.1</span></div><div class='input'>
 <span class='va'>adjusted_corr_obj</span> <span class='op'>&lt;-</span> <span class='fu'>check_covar_balance</span><span class='op'>(</span><span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span>,
                                         ci_appr<span class='op'>=</span><span class='st'>"matching"</span>,
                                         nthread<span class='op'>=</span><span class='fl'>1</span>,

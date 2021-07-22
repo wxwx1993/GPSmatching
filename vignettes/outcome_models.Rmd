@@ -18,8 +18,8 @@ After the pseudo population dataset was generated, we apply outcome models on th
 
 We propose three types of outcome models using parametric, semi-parametric and non-parametric approaches, respectively.
 
-**`estimate_hr`** estimates the hazard ratios using a parametric regression model. By default, call **`gnm`** library to implement generalized nonlinear models.
+**`estimate_pmetric_erf`** estimates the hazard ratios using a parametric regression model. By default, call **`gnm`** library to implement generalized nonlinear models.
 
-**`estimate_semi_erf`** estimates the smoothed exposure-response function using a generalized additive model with splines. By default, call **`gam`** library to implement generalized additive models.
+**`estimate_semipmetric_erf`** estimates the smoothed exposure-response function using a generalized additive model with splines. By default, call **`gam`** library to implement generalized additive models.
 
-**`estimate_erf`** estimates the smoothed exposure-response function using a kernel smoothing approach. By default, call **`KernSmooth`** library to implement local polynomial fitting with a kernel weight. We use a data-driven bandwidth selection. 
+**`estimate_npmetric_erf`** estimates the smoothed exposure-response function using a kernel smoothing approach. By default, call **`KernSmooth`** library to implement local polynomial fitting with a kernel weight. We use a data-driven bandwidth selection. 

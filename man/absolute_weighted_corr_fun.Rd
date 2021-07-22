@@ -2,7 +2,7 @@
 % Please edit documentation in R/absolute_weighted_corr_fun.R
 \name{absolute_weighted_corr_fun}
 \alias{absolute_weighted_corr_fun}
-\title{Check covariate balance (weighted correlation)}
+\title{Check  Weighted Covariate Balance Using Absolute Approach}
 \usage{
 absolute_weighted_corr_fun(w, vw, c)
 }

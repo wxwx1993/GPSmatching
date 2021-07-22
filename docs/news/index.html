@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -139,7 +139,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -166,12 +166,62 @@
       <small>Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="causalgps-023-2021-05-12" class="section level2">
+    <div id="causalgps-024-2021-07-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#causalgps-023-2021-05-12" class="anchor"></a>CausalGPS 0.2.3 (2021-05-12)</h2>
+<a href="#causalgps-024-2021-07-11" class="anchor"></a>CausalGPS 0.2.4 (2021-07-11)</h2>
+<div id="added-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#added-1" class="anchor"></a>Added</h3>
+<ul>
+<li>OpenMP for Rcpp code</li>
+<li>optimized_compile</li>
+<li>log_system_info()</li>
+<li>Frequently asked questions</li>
+<li>logo</li>
+</ul>
+</div>
+<div id="changed-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changed-1" class="anchor"></a>Changed</h3>
+<ul>
+<li>estimate_gps.Rmd</li>
+<li>estimate_semi_erf -&gt; estimate_semipmetric_erf</li>
+<li>estimate_erf -&gt; estimate_npmetric_erf</li>
+<li>estimate_hr -&gt; estimate_pmetric_erf</li>
+<li>gen_pseudo_pop -&gt; generate_pseudo_pop</li>
+<li>gen_syn_data -&gt; generate_syn_data</li>
+<li>estimate_erf accepts counter as an input</li>
+<li>estimate_erf can use multiple cores</li>
+<li>generating_pseudo_population.Rmd</li>
+<li>estimate_erf function description</li>
+<li>estimate_hr function description</li>
+<li>estimate_semi_erf function description</li>
+<li>compute_risk function description and return value</li>
+<li>outcome_models.Rmd</li>
+<li>generate_synthetic_data.Rmd</li>
+</ul>
+</div>
 <div id="fixed-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fixed-1" class="anchor"></a>Fixed</h3>
+<ul>
+<li>RCpp parLapply worker processors arguments</li>
+</ul>
+</div>
+<div id="removed-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#removed-1" class="anchor"></a>Removed</h3>
+<ul>
+<li>running_appr</li>
+</ul>
+</div>
+</div>
+    <div id="causalgps-023-2021-05-12" class="section level2">
+<h2 class="hasAnchor">
+<a href="#causalgps-023-2021-05-12" class="anchor"></a>CausalGPS 0.2.3 (2021-05-12)</h2>
+<div id="fixed-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fixed-2" class="anchor"></a>Fixed</h3>
 <ul>
 <li>Fixed documentations</li>
 </ul>
@@ -180,36 +230,36 @@
     <div id="causalgps-022-2021-05-12" class="section level2">
 <h2 class="hasAnchor">
 <a href="#causalgps-022-2021-05-12" class="anchor"></a>CausalGPS 0.2.2 (2021-05-12)</h2>
-<div id="added-1" class="section level3">
+<div id="added-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#added-1" class="anchor"></a>Added</h3>
+<a href="#added-2" class="anchor"></a>Added</h3>
 <ul>
 <li>estimate_semi_erf</li>
 <li>estimate_hr</li>
 </ul>
 </div>
-<div id="changed-1" class="section level3">
+<div id="changed-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changed-1" class="anchor"></a>Changed</h3>
+<a href="#changed-2" class="anchor"></a>Changed</h3>
 <ul>
 <li>Package name: GPSmatching –&gt; CausalGPS</li>
 </ul>
 </div>
-<div id="fixed-2" class="section level3">
+<div id="fixed-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fixed-2" class="anchor"></a>Fixed</h3>
+<a href="#fixed-3" class="anchor"></a>Fixed</h3>
 </div>
-<div id="removed-1" class="section level3">
+<div id="removed-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#removed-1" class="anchor"></a>Removed</h3>
+<a href="#removed-2" class="anchor"></a>Removed</h3>
 </div>
 </div>
     <div id="gpsmatching-021-2021-04-23" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gpsmatching-021-2021-04-23" class="anchor"></a>GPSmatching 0.2.1 (2021-04-23)</h2>
-<div id="added-2" class="section level3">
+<div id="added-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#added-2" class="anchor"></a>Added</h3>
+<a href="#added-3" class="anchor"></a>Added</h3>
 <ul>
 <li>User defined bin sequence in compiling speudo population</li>
 <li>Non-parametric option for estimating gps</li>
@@ -234,9 +284,9 @@
 <code>param</code> as an argument to accept hyperparameters from users.</li>
 </ul>
 </div>
-<div id="changed-2" class="section level3">
+<div id="changed-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changed-2" class="anchor"></a>Changed</h3>
+<a href="#changed-3" class="anchor"></a>Changed</h3>
 <ul>
 <li>R dependency 2.7 –&gt; 3.5</li>
 <li>mclapply –&gt; parLapply</li>
@@ -246,24 +296,24 @@
 <li>User needs to pass <code>m_xgboost</code> instead of <code>SL.xgboost</code> to use XGBoost package for prediciton purposes.</li>
 </ul>
 </div>
-<div id="fixed-3" class="section level3">
+<div id="fixed-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fixed-3" class="anchor"></a>Fixed</h3>
+<a href="#fixed-4" class="anchor"></a>Fixed</h3>
 <ul>
 <li>mclapply memory issue (compute_closest_wgps.R).</li>
 </ul>
 </div>
-<div id="removed-2" class="section level3">
+<div id="removed-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#removed-2" class="anchor"></a>Removed</h3>
+<a href="#removed-3" class="anchor"></a>Removed</h3>
 </div>
 </div>
     <div id="gpsmatching-020-2021-03-01" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gpsmatching-020-2021-03-01" class="anchor"></a>GPSmatching 0.2.0 (2021-03-01)</h2>
-<div id="added-3" class="section level3">
+<div id="added-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#added-3" class="anchor"></a>Added</h3>
+<a href="#added-4" class="anchor"></a>Added</h3>
 <ul>
 <li>Covariate balance check for categorical data.</li>
 <li>Contribution guidelines</li>
@@ -283,9 +333,9 @@
 <li>create_matching function to generate pseudo population based on matching approach.</li>
 </ul>
 </div>
-<div id="changed-3" class="section level3">
+<div id="changed-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changed-3" class="anchor"></a>Changed</h3>
+<a href="#changed-4" class="anchor"></a>Changed</h3>
 <ul>
 <li>create_matching only generates matched dataset.</li>
 <li>Covariate_balance.R –&gt; covariate_balance.R</li>
@@ -298,16 +348,16 @@
 <li>GPSmatching_smooth.R –&gt; gpsmatching_smooth.R</li>
 </ul>
 </div>
-<div id="fixed-4" class="section level3">
+<div id="fixed-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fixed-4" class="anchor"></a>Fixed</h3>
+<a href="#fixed-5" class="anchor"></a>Fixed</h3>
 <ul>
 <li>None</li>
 </ul>
 </div>
-<div id="removed-3" class="section level3">
+<div id="removed-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#removed-3" class="anchor"></a>Removed</h3>
+<a href="#removed-4" class="anchor"></a>Removed</h3>
 <ul>
 <li>GPSmatching.R functions are separated into smaller functions, and the file is removed.</li>
 </ul>

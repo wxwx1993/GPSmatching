@@ -1,5 +1,5 @@
 #' @title
-#' Generate synthetic data for CausalGPS package
+#' Generate Synthetic Data for CausalGPS Package
 #'
 #' @description
 #' Generates synthetic data set based on different GPS models and covariates.

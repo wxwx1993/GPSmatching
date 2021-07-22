@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,8 +115,7 @@
 
       
 
-      </header><script src="CausalGPS_files/header-attrs-2.5/header-attrs.js"></script><link href="CausalGPS_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="CausalGPS_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="CausalGPS_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>CausalGPS</h1>
@@ -146,22 +145,35 @@
 <li>Generating Pseudo Population</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu">gen_pseudo_pop</span><span class="op">(</span><span class="va">Y</span>,
-                             <span class="va">w</span>,
-                             <span class="va">c</span>,
+<code class="sourceCode R"> <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">422</span><span class="op">)</span>
+ <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
+ <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="va">n</span><span class="op">)</span>
+ <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001"</span>,<span class="st">"2002"</span>,<span class="st">"2003"</span>,<span class="st">"2004"</span>,<span class="st">"2005"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+ <span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span><span class="op">)</span>
+                             
+ <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
+                             <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
+                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
                              ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
                              pred_model <span class="op">=</span> <span class="st">"sl"</span>,
-                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span>,<span class="st">"SL.earth"</span>,<span class="st">"SL.gam"</span>,
-                                        <span class="st">"SL.ranger"</span><span class="op">)</span>,
-                             params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">200</span>,<span class="fl">300</span><span class="op">)</span>,
-                                           xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,
-                             nthread <span class="op">=</span> <span class="fl">1</span>,
+                             gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,
+                             use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,
+                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, <span class="st">"scale"</span><span class="op">)</span>,
+                             trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,
+                             optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,
+                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                              covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                              covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
-                             max_attempt <span class="op">=</span> <span class="fl">1</span>,
+                             max_attempt <span class="op">=</span> <span class="fl">4</span>,
                              matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
                              delta_n <span class="op">=</span> <span class="fl">1</span>,
-                             scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+                             scale <span class="op">=</span> <span class="fl">0.5</span>,
+                             nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>                            
+                             
+ <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">)</span></code></pre></div>
 <p><strong><code>matching_l1</code></strong> is Manhattan distance matching approach. For prediciton model we use <a href="https://github.com/ecpolley/SuperLearner">SuperLearner</a> package. User need to pass <strong><code>sl</code></strong> as <strong><code>pred_model</code></strong> to use SuperLearner package. SuperLearner supports different machine learning methods and packages. <strong><code>params</code></strong> is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list. The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in <strong><code>sl_lib</code></strong>, the prefixes that should be used for their hyperparameters in the <strong><code>params</code></strong> list, and available hyperparameters.</p>
 <table class="table">
 <thead><tr class="header">
@@ -206,19 +218,19 @@
 <li>Estimating Exposure Rate Function</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">erf</span> <span class="op">&lt;-</span> <span class="fu">estimate_erf</span><span class="op">(</span><span class="va">Y</span>,
-                    <span class="va">w</span>,
-                    <span class="va">bw_seq</span>,
-                    <span class="va">w_vals</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">erf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_npmetric_erf.html">estimate_npmetric_erf</a></span><span class="op">(</span><span class="va">Y</span>,
+                             <span class="va">w</span>,
+                             <span class="va">bw_seq</span>,
+                             <span class="va">w_vals</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Generating Synthetic Data</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">syn_data</span> <span class="op">&lt;-</span> <span class="fu">gen_syn_data</span><span class="op">(</span>sample_size<span class="op">=</span><span class="fl">1000</span>,
-                         seed <span class="op">=</span> <span class="fl">403</span>,
-                         outcome_sd <span class="op">=</span> <span class="fl">10</span>,
-                         gps_spec <span class="op">=</span> <span class="fl">1</span>,
-                         cova_spec <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">syn_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="fl">1000</span>,
+                              seed <span class="op">=</span> <span class="fl">403</span>,
+                              outcome_sd <span class="op">=</span> <span class="fl">10</span>,
+                              gps_spec <span class="op">=</span> <span class="fl">1</span>,
+                              cova_spec <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Logging</li>
 </ul>

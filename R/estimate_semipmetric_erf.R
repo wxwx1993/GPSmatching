@@ -1,5 +1,5 @@
 #' @title
-#' Estimate semi exposure-response function (semi-ERF).
+#' Estimate Semi-exposure-response Function (semi-ERF).
 #'
 #' @description
 #' Estimates the smoothed exposure-response function using a generalized

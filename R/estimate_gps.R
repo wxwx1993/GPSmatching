@@ -1,5 +1,5 @@
 #' @title
-#' Estimate GPS values
+#' Estimate GPS Values
 #'
 #' @description
 #' Estimates GPS value for each observation using parametric or non-parametric
