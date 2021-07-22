@@ -59,6 +59,9 @@ autoplot.gpsm_erf <- function(object, ...){
 #' @param x  A gpsm_erf object.
 #' @param ... Additional arguments passed to customize the plot.
 #'
+#' @return
+#' Returns a ggplot2 object, invisibly. This function is called for side effects.
+#'
 #' @export
 #'
 plot.gpsm_erf <- function(x, ...){
@@ -155,6 +158,9 @@ autoplot.gpsm_pspop <- function(object, ...){
 #'
 #' @param x  A gpsm_erf object.
 #' @param ... Additional arguments passed to customize the plot.
+#'
+#' @return
+#' Returns a ggplot2 object, invisibly. This function is called for side effects.
 #'
 #' @export
 #'

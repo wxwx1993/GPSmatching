@@ -17,6 +17,9 @@
 #'
 #' @export
 #'
+#' @return
+#' No return value. This function is called for side effects.
+#'
 #' @examples
 #'
 #' set_logger("Debug")
@@ -58,6 +61,7 @@ set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
 #'
 #' @description
 #' Returns current logger settings.
+#'
 #'
 #' @return
 #' Returns a list that includes **logger_file_path** and **logger_level**.

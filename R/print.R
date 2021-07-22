@@ -5,7 +5,8 @@
 #' @param ... Additional arguments passed to customize the results.
 #'
 #' @return
-#' NULL
+#' No return value. This function is called for side effects.
+#'
 #' @export
 #'
 print.gpsm_erf <- function(x, ...){
@@ -67,7 +68,8 @@ summary.gpsm_erf <- function(object, ...){
 #' @param ... Additional arguments passed to customize the results.
 #'
 #' @return
-#' NULL
+#' No return value. This function is called for side effects.
+#'
 #' @export
 #'
 print.gpsm_pspop <- function(x, ...){

@@ -13,6 +13,11 @@
 #'
 #' @keywords internal
 #'
+#' @return
+#' Returns A Boolean value. TRUE if the modified library for the given library is
+#' implemented; otherwise, it returns FALSE. This function is called for side
+#' effects.
+#'
 gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   # ------------------------------------------------------

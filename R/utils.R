@@ -5,7 +5,7 @@
 #' Logs system related information into the log file.
 #'
 #' @return
-#' NULL
+#' No return value. This function is called for side effects.
 #'
 #'@keywords internal
 log_system_info <- function(){

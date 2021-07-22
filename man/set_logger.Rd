@@ -21,6 +21,9 @@ set_logger(logger_file_path = "CausalGPS.log", logger_level = "INFO")
 \item FATAL
 }}
 }
+\value{
+No return value. This function is called for side effects.
+}
 \description{
 Updates logger settings, including log level and location of the file.
 }
