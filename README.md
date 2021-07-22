@@ -48,27 +48,27 @@ Input parameters:
 - Generating Pseudo Population
 
 ```r
-pseudo_pop <- gen_pseudo_pop(Y,
-                             w,
-                             c,
-                             ci_appr = "matching",
-                             pred_model = "sl",
-                             gps_model = "parametric",
-                             use_cov_transform = TRUE,
-                             transformers = list("pow2", "pow3"),
-                             sl_lib = c("m_xgboost","SL.earth","SL.gam",
-                                        "SL.ranger"),
-                             params = list(xgb_nrounds=c(10,20,30),
-                                           xgb_eta=c(0.1,0.2,0.3)),
-                             nthread = 1,
-                             covar_bl_method = "absolute",
-                             covar_bl_trs = 0.1,
-                             trim_quantiles = c(0.01,0.99),
-                             max_attempt = 1,
-                             matching_fun = "matching_l1",
-                             delta_n = 1,
-                             scale = 0.5)
-
+pseudo_pop <- generate_pseudo_pop(Y,
+                                  w,
+                                  c,
+                                  ci_appr = "matching",
+                                  pred_model = "sl",
+                                  gps_model = "parametric",
+                                  use_cov_transform = TRUE,
+                                  transformers = list("pow2", "pow3"),
+                                  sl_lib = c("m_xgboost","SL.earth","SL.gam",
+                                             "SL.ranger"),
+                                  params = list(xgb_nrounds=c(10,20,30),
+                                                xgb_eta=c(0.1,0.2,0.3)),
+                                  nthread = 1,
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  trim_quantiles = c(0.01,0.99),
+                                  optimized_compile = TRUE,
+                                  max_attempt = 5,
+                                  matching_fun = "matching_l1",
+                                  delta_n = 0.5,
+                                  scale = 1.0)
 ```
 `matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
 
