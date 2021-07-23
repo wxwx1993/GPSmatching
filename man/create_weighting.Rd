@@ -20,7 +20,7 @@ Returns a data table which includes the following columns:
 \item counter
 \item row_index
 \item ipw
-\item covaraites
+\item covariates
 }
 }
 \description{

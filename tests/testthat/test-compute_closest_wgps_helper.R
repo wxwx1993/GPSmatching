@@ -1,5 +1,6 @@
 test_that("compute_closest_wgps_helper works as expected.", {
 
+  set.seed(2897)
   a <- c(0.5,3,10,0.7)
   b <- c(1,2,16,0.5)
   c_m_d <- c(0.1,0.1,0.1,0.1)

@@ -82,7 +82,7 @@ first." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -192,8 +192,6 @@ first.</p>
   bin_seq <span class='op'>=</span> <span class='cn'>NULL</span>,
   trim_quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.99</span><span class='op'>)</span>,
   optimized_compile <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  save_output <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  save_path <span class='op'>=</span> <span class='cn'>NULL</span>,
   params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   nthread <span class='op'>=</span> <span class='fl'>1</span>,
   <span class='va'>...</span>
@@ -224,7 +222,7 @@ first.</p>
     </tr>
     <tr>
       <th>pred_model</th>
-      <td><p>a prediction model</p></td>
+      <td><p>a prediction model (use "sl" for SuperLearner)</p></td>
     </tr>
     <tr>
       <th>gps_model</th>
@@ -261,16 +259,6 @@ level. Both numbers should be in the range of [0,1] and in increasing order
       <th>optimized_compile</th>
       <td><p>If TRUE, uses counts to keep track of number of
 replicated pseudo population.</p></td>
-    </tr>
-    <tr>
-      <th>save_output</th>
-      <td><p>If TRUE, output results will be stored at the save.path.
-Default is FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>save_path</th>
-      <td><p>location for storing the final results, format of the saved
-file will be detected by the file name extension.</p></td>
     </tr>
     <tr>
       <th>params</th>
@@ -326,7 +314,7 @@ is attributed to the distance measures of the exposure versus the GPS.</p></li>
 <li><p>See <code><a href='create_matching.html'>create_matching()</a></code> for more details about the parameters and default
 values.</p></li>
 </ul></li>
-<li><p>if ci.appr = 'weightig':</p><ul>
+<li><p>if ci.appr = 'weighting':</p><ul>
 <li><p><em>covar_bl_method</em>: Covariate balance method.</p></li>
 <li><p><em>covar_bl_trs</em>: Covariate balance threshold</p></li>
 <li><p><em>max_attempt</em>: Maximum number of attempt to satisfy covariate balance.</p></li>

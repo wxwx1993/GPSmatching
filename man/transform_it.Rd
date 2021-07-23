@@ -11,7 +11,7 @@ transform_it(c_name, c_val, transformer)
 
 \item{c_val}{column value}
 
-\item{transformer}{transformer funciton.}
+\item{transformer}{transformer function.}
 }
 \value{
 Returns transformed data.frame.

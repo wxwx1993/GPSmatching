@@ -15,6 +15,11 @@ relevant parameters will be extracted, others will be ignored.}
 \item{nthread}{Number of threads available to be used by external libraries
 (in case they can use it).}
 }
+\value{
+Returns A Boolean value. TRUE if the modified library for the given library is
+implemented; otherwise, it returns FALSE. This function is called for side
+effects.
+}
 \description{
 The function generates customized wrapper in order to have access to the
 external libraries hyperparameters.

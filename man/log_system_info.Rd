@@ -6,6 +6,12 @@
 \usage{
 log_system_info()
 }
+\arguments{
+None
+}
+\value{
+No return value. This function is called for side effects.
+}
 \description{
 Logs system related information into the log file.
 }

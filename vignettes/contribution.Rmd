@@ -74,7 +74,7 @@ Please report potential bugs by creating a [new issue](https://github.com/fasrc/
 
 ## Style Guide
 
-In this project, we follow the [tidyverse style guide](https://style.tidyverse.org/). 
+In this project, we follow the [tidyverse style guide](https://style.tidyverse.org). 
 
 ### Summary
 
@@ -160,8 +160,7 @@ if(x > 2){
 
 ## Notes on SuperLearner
 
-In this package we create a customized wrapper for the SuperLearner internal libraries. Please read the following page for more details.
-- [Creating Customized Wrappers for the SuperLearner Package](notes_on_superlearner.md)
+In this package we create a customized wrapper for the SuperLearner internal libraries. Please read Notes on SL Wrappers for more details.
 
 ## Logger
 

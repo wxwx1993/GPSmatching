@@ -1,5 +1,6 @@
 test_that("compute_closest_wgps works fine.", {
 
+  set.seed(187)
   a <- 1:10
   b <- 1:5
   c <- (1:10)*0.1

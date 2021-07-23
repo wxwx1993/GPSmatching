@@ -25,6 +25,7 @@ reference:
     contents:
     - generate_syn_data
     - set_logger
+    - get_logger
 
 articles:
   - title: Introduction

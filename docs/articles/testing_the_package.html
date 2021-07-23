@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
     
     
 <p>Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a <a href="https://github.com/fasrc/CausalGPS/issues">new issue</a>. In the following, there steps to generate synthetic data and conduct some testing.</p>
-<p>In order to test the package, you need to have the code on your system. There are two options:</p>
+<p>In order to test the package, you need to have the code on your system (R (&gt;= 3.5.0)). There are two options:</p>
 <ul>
 <li>Installing the package</li>
 <li>Cloning the package</li>
@@ -142,7 +142,7 @@
 <div id="installing-the-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installing-the-package" class="anchor"></a>Installing the Package</h3>
-<p>Use <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github</a></code> to install the package. If you do not specify the <code>ref</code>, it will install the master (or main) branch. The <code>master</code> branch hosts the latest released code. The latest updates are committed to the <code>develop</code> branch. Read <a href="contribution.Rmd">Git Branching Model</a> for more details.</p>
+<p>Use <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github</a></code> to install the package. If you do not specify the <code>ref</code>, it will install the master (or main) branch. The <code>master</code> branch hosts the latest released code. The latest updates are committed to the <code>develop</code> branch. For more details please refer <em>Git Branching Model</em> in the Developers Guide section.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="st">"package:CausalGPS"</span>, unload <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># if already you have the package, detach and unload it, to have a new install. </span>
@@ -153,7 +153,7 @@
 <div id="cloning-the-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cloning-the-package" class="anchor"></a>Cloning the Package</h3>
-<p>Go to the package <a href="https://github.com/fasrc/CausalGPS">Github reposirory</a>, at the top left (A), choose the branch that you want to clone, then click on the <code>Code</code> button (B), then choose <code>Download ZIP</code>. The following figure shows the buttons’ location.</p>
+<p>Go to the package <a href="https://github.com/fasrc/CausalGPS">Github repository</a>, at the top left (A), choose the branch that you want to clone, then click on the <code>Code</code> button (B), then choose <code>Download ZIP</code>. The following figure shows the buttons’ location.</p>
 <p float="center">
 <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600"></p>
 <p>After cloning the code, open one of the files using RStudio, then change the project directory to the project directory (<code>Session &gt; Set Working Directory &gt; To Project Directory</code>).</p>
@@ -161,7 +161,7 @@
 <div id="forking-the-package" class="section level3">
 <h3 class="hasAnchor">
 <a href="#forking-the-package" class="anchor"></a>Forking the package</h3>
-<p>Forking is explained in the <a href="contribution.html">Contribution</a> page.</p>
+<p>Forking is explained in the <em>Contribution</em> page.</p>
 </div>
 </div>
 <div id="package-development-test-check-cycle" class="section level2">
@@ -378,7 +378,8 @@
 <ul>
 <li>Step 7: Save the data.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list=</span>list_names, <span class="at">file=</span><span class="st">"R/sysdata.rda"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span>list<span class="op">=</span><span class="va">list_names</span>, file<span class="op">=</span><span class="st">"R/sysdata.rda"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Step 8: Run <code>check()/test()</code> to make sure that it passes all tests. If it does not pass all tests, address the problem.</li>
 <li>Step 9: After successful <code>check()/pass()</code> remove the backup file.</li>
