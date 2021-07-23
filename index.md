@@ -2,7 +2,10 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions)
+[![](http://www.r-pkg.org/badges/version-last-release/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
 <!-- badges: end -->
+
 
 
 ## Summary
