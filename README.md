@@ -4,9 +4,7 @@
 | Resource    |  Github Actions      |
 | ----------  | -------------------- |
 | Platforms   | Windows, macOS, Linux|
-| R CMD check | [![R build status](https://github.com/FASRC/GPSmatching/workflows/R-CMD-check/badge.svg)](https://github.com/FASRC/GPSmatching/actions) |
-
-
+| R CMD check | [![R build status](https://github.com/FASRC/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions) |
 
 
 Matching on generalized propensity scores with continuous exposures
@@ -41,7 +39,7 @@ Input parameters:
 `covar_bl_method`: specified covariate balance method  
 `covar_bl_trs`: specified covariate balance threshold  
 `max_attempt`: maximum number of attempt to satisfy covariate balance 
-`use_cov_transform`: If `TRUE`, uses internal transformers to achehive covariate balance.
+`use_cov_transform`: If `TRUE`, uses internal transformers to achieve covariate balance.
 `transformers`: List of transformers (default: list("pow2","pow3")). Users can define a unary function and pass as transformer to the list.
 `trim_quantiles`: a vector of two indicating upper and lower trimming quantiles (default: c(0.01, 0.99)). 
 
@@ -64,18 +62,18 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   trim_quantiles = c(0.01,0.99),
-                                  optimized_compile = TRUE,
-                                  max_attempt = 5,
+                                  max_attempt = 1,
                                   matching_fun = "matching_l1",
-                                  delta_n = 0.5,
-                                  scale = 1.0)
+                                  delta_n = 1,
+                                  scale = 0.5)
+
 ```
 `matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
 
 | Package name | `sl_lib` name | prefix| available hyperparameters |
 |:------------:|:-------------:|:-----:|:-------------------------:|
 | [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
-| [ranger](https://cran.r-project.org/web/packages/ranger/index.html) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
+| [ranger](https://cran.r-project.org/package=ranger) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
 
 `nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
 
@@ -110,17 +108,17 @@ erf <- estimate_erf(Y,
 - Generating Synthetic Data
 
 ```r
-syn_data <- gen_syn_data(sample_size=1000,
-                         seed = 403,
-                         outcome_sd = 10,
-                         gps_spec = 1,
-                         cova_spec = 1)
+syn_data <- generate_syn_data(sample_size=1000,
+                              seed = 403,
+                              outcome_sd = 10,
+                              gps_spec = 1,
+                              cova_spec = 1)
 
 ```
 
 ## Contribution
 
-For more information about reporting bugs and contribution, please read the [Contribution Page](inst/misc/developer_manual.md).
+For more information about reporting bugs and contribution, please read the contribution page from the package web page. 
 
 
 ## References
