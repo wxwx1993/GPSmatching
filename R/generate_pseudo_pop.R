@@ -15,7 +15,7 @@
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
 #'   - "adjusting": Adjusting by GPS
-#' @param pred_model a prediction model
+#' @param pred_model a prediction model (use "sl" for SuperLearner)
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
@@ -33,10 +33,6 @@
 #' (default: c(0.01,0.99)).
 #' @param optimized_compile If TRUE, uses counts to keep track of number of
 #' replicated pseudo population.
-#' @param save_output If TRUE, output results will be stored at the save.path.
-#'  Default is FALSE.
-#' @param save_path location for storing the final results, format of the saved
-#' file will be detected by the file name extension.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
 #' @param nthread An integer value that represents the number of threads to be
@@ -57,7 +53,7 @@
 #'   - *max_attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [create_matching()] for more details about the parameters and default
 #'   values.
-#' - if ci.appr = 'weightig':
+#' - if ci.appr = 'weighting':
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
@@ -113,8 +109,6 @@ generate_pseudo_pop <- function(Y,
                                 bin_seq = NULL,
                                 trim_quantiles = c(0.01,0.99),
                                 optimized_compile = FALSE,
-                                save_output = FALSE,
-                                save_path = NULL,
                                 params = list(),
                                 nthread = 1,
                                 ...){
@@ -309,17 +303,6 @@ generate_pseudo_pop <- function(Y,
   message(paste("Best Mean absolute correlation: ", best_ach_covar_balance,
                 "| Covariate balance threshold: ", covar_bl_trs))
 
-  ## Store output ---------------------------------
-
-  if (save_output){
-    if (!missing(save_path)){
-      #TODO: Implement a function to write the output into disk or database.
-      message('Saving data on disk is not implemented.')
-    } else {
-      warning('The output for storing data is not provided. This command is
-              ignored.')
-    }
-  }
   result <- list()
   class(result) <- "gpsm_pspop"
 
@@ -360,7 +343,7 @@ pow3 <- function(x) {x^3}
 #'
 #' @param c_name column (attribute) name.
 #' @param c_val column value
-#' @param transformer transformer funciton.
+#' @param transformer transformer function.
 #'
 #' @keywords internal
 #'

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-After the pseudo population dataset was generated, we apply outcome models on the pseudo population as-if the datset is from a randomized experiment.
+After the pseudo population dataset was generated, we apply outcome models on the pseudo population as-if the dataset is from a randomized experiment.
 
 We propose three types of outcome models using parametric, semi-parametric and non-parametric approaches, respectively.
 

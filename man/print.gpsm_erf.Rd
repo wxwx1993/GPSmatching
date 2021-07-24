@@ -11,6 +11,9 @@
 
 \item{...}{Additional arguments passed to customize the results.}
 }
+\value{
+No return value. This function is called for side effects.
+}
 \description{
 Extend print function for gpsm_erf object
 }

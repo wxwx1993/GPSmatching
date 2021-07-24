@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate Semi-exposure-response Function (semi-ERF). — estimate_semipmetric_erf • CausalGPS</title>
+<title>Get Logger Settings — get_logger • CausalGPS</title>
 
 
 <!-- jquery -->
@@ -45,9 +45,8 @@
 
 
 
-<meta property="og:title" content="Estimate Semi-exposure-response Function (semi-ERF). — estimate_semipmetric_erf" />
-<meta property="og:description" content="Estimates the smoothed exposure-response function using a generalized
-additive model with splines." />
+<meta property="og:title" content="Get Logger Settings — get_logger" />
+<meta property="og:description" content="Returns current logger settings." />
 
 
 
@@ -164,69 +163,26 @@ additive model with splines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate Semi-exposure-response Function (semi-ERF).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/estimate_semipmetric_erf.R'><code>R/estimate_semipmetric_erf.R</code></a></small>
-    <div class="hidden name"><code>estimate_semipmetric_erf.Rd</code></div>
+    <h1>Get Logger Settings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/fasrc/CausalGPS/blob/master/R/set_logger.R'><code>R/set_logger.R</code></a></small>
+    <div class="hidden name"><code>get_logger.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimates the smoothed exposure-response function using a generalized
-additive model with splines.</p>
+    <p>Returns current logger settings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_semipmetric_erf</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>family</span>, <span class='va'>data</span>, <span class='va'>ci_appr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_logger</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>formula</th>
-      <td><p>a vector of outcome variable in matched set.</p></td>
-    </tr>
-    <tr>
-      <th>family</th>
-      <td><p>a description of the error distribution (see ?gam).</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>dataset that formula is build upon.</p></td>
-    </tr>
-    <tr>
-      <th>ci_appr</th>
-      <td><p>causal inference approach (matching or weighting).</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>returns an object of class gam</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This approach uses Generalized Additive Model (gam) using mgcv package.</p>
+    <p>Returns a list that includes <strong>logger_file_path</strong> and <strong>logger_level</strong>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>m_d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_syn_data.html'>generate_syn_data</a></span><span class='op'>(</span>sample_size <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-<span class='va'>pseudo_pop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generate_pseudo_pop.html'>generate_pseudo_pop</a></span><span class='op'>(</span><span class='va'>m_d</span><span class='op'>$</span><span class='va'>Y</span>,
-                                  <span class='va'>m_d</span><span class='op'>$</span><span class='va'>treat</span>,
-                                  <span class='va'>m_d</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cf1"</span>,<span class='st'>"cf2"</span>,<span class='st'>"cf3"</span>,<span class='st'>"cf4"</span>,<span class='st'>"cf5"</span>,<span class='st'>"cf6"</span><span class='op'>)</span><span class='op'>]</span>,
-                                  ci_appr <span class='op'>=</span> <span class='st'>"matching"</span>,
-                                  pred_model <span class='op'>=</span> <span class='st'>"sl"</span>,
-                                  sl_lib <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"m_xgboost"</span><span class='op'>)</span>,
-                                  params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>xgb_nrounds<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>30</span><span class='op'>)</span>,
-                                   xgb_eta<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,<span class='fl'>0.2</span>,<span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>,
-                                  nthread <span class='op'>=</span> <span class='fl'>1</span>,
-                                  covar_bl_method <span class='op'>=</span> <span class='st'>"absolute"</span>,
-                                  covar_bl_trs <span class='op'>=</span> <span class='fl'>0.1</span>,
-                                  max_attempt <span class='op'>=</span> <span class='fl'>1</span>,
-                                  matching_fun <span class='op'>=</span> <span class='st'>"matching_l1"</span>,
-                                  delta_n <span class='op'>=</span> <span class='fl'>1</span>,
-                                  scale <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.211848109584963 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='output co'>#&gt; <span class='message'>Covariate balance condition has not been met.</span></div><div class='output co'>#&gt; <span class='message'>Best Mean absolute correlation:  0.160957598771937 | Covariate balance threshold:  0.1</span></div><div class='input'>
-<span class='va'>outcome_m</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_semipmetric_erf</span> <span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>Y</span> <span class='op'>~</span> <span class='va'>w</span>,
-                                       family <span class='op'>=</span> <span class='va'>gaussian</span>,
-                                       data <span class='op'>=</span> <span class='va'>pseudo_pop</span><span class='op'>$</span><span class='va'>pseudo_pop</span>,
-                                       ci_appr <span class='op'>=</span> <span class='st'>"matching"</span><span class='op'>)</span>
-
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='set_logger.html'>set_logger</a></span><span class='op'>(</span><span class='st'>"mylogger.log"</span>, <span class='st'>"INFO"</span><span class='op'>)</span>
+<span class='va'>log_meta</span> <span class='op'>&lt;-</span> <span class='fu'>get_logger</span><span class='op'>(</span><span class='op'>)</span>
 
 </div></pre>
   </div>

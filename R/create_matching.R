@@ -54,16 +54,17 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   }
 
-  logger::log_debug(used_bin, "bin seq is used. Min: {min(bin_num)} ",
-                      "Max: {max(bin_num)}, count: {length(bin_num)}.")
+    logger::log_debug(used_bin, "bin seq is used. Min: {min(bin_num)} ",
+                        "Max: {max(bin_num)}, count: {length(bin_num)}.")
 
-  logger::log_debug("Started generating matched set ...")
-  st_t_m <- proc.time()
+    logger::log_debug("Started generating matched set ...")
+    st_t_m <- proc.time()
 
+    lfp <- get_options("logger_file_path")
 
     p_c_t_s <- proc.time()
     cl <- parallel::makeCluster(nthread, type="PSOCK",
-                                outfile="CausalGPS.log")
+                                outfile= lfp)
 
 
     parallel::clusterEvalQ(cl, {library("CausalGPS")})

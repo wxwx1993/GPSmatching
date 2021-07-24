@@ -11,6 +11,9 @@
 
 \item{...}{Additional arguments passed to customize the plot.}
 }
+\value{
+Returns a ggplot2 object, invisibly. This function is called for side effects.
+}
 \description{
 A wrapper function to extend generic plot functions for gpsm_erf class.
 }

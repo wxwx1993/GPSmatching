@@ -23,7 +23,7 @@ matching_l1(
 \item{w}{the targeted single exposure levels.}
 
 \item{dataset}{a completed observational data frame or matrix containing
-(Y, w, gps, couner, row_index, c).}
+(Y, w, gps, counter, row_index, c).}
 
 \item{e_gps_pred}{a vector of predicted gps values obtained by Machine
 learning methods.}

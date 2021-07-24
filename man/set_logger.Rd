@@ -4,21 +4,25 @@
 \alias{set_logger}
 \title{Set Logger Settings}
 \usage{
-set_logger(logger_file_path = NULL, logger_level = NULL)
+set_logger(logger_file_path = "CausalGPS.log", logger_level = "INFO")
 }
 \arguments{
-\item{logger_file_path}{A path (including file name) to log the messages.}
+\item{logger_file_path}{A path (including file name) to log the messages.
+(Default: CausalGPS.log)}
 
 \item{logger_level}{The log level. Available levels include:
 \itemize{
 \item TRACE
 \item DEBUG
-\item INFO
+\item INFO (Default)
 \item SUCESS
 \item WARN
 \item ERROR
 \item FATAL
 }}
+}
+\value{
+No return value. This function is called for side effects.
 }
 \description{
 Updates logger settings, including log level and location of the file.

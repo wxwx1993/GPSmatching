@@ -5,7 +5,7 @@
 #' Logs system related information into the log file.
 #'
 #' @return
-#' NULL
+#' No return value. This function is called for side effects.
 #'
 #'@keywords internal
 log_system_info <- function(){
@@ -58,4 +58,19 @@ convert_data_into_standard_format <- function(Y, w, c, q1, q2, ci_appr){
   logger::log_debug("99% qauntile for trim: {q2}")
 
   return(tmp_data)
+}
+
+# Keeping logger options
+my_options <- new.env(parent = emptyenv())
+
+get_options <- function(k, v){
+  my_options[[k]]
+}
+
+set_options <- function(k, v){
+  my_options[[k]] <- v
+}
+
+list_options <- function(){
+  names(my_options)
 }
