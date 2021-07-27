@@ -40,7 +40,6 @@ Imports:
     ggplot2,
     rlang,
     logger,
-    glue,
     Rcpp,
     gnm,
     tidyr
