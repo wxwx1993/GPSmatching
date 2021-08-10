@@ -1,5 +1,17 @@
 
-## CausalGPS 0.2.5 (2021-07-09)
+## CausalGPS 0.2.6 (2021-08-09)
+
+### Added
+
+### Changed
+
+### Fixed
+
+* Fixed openmp option on macOS checks. 
+
+### Removed
+
+## CausalGPS 0.2.5 (2021-07-23)
 
 ### Added
 
