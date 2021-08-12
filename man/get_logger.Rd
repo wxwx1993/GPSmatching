@@ -6,9 +6,6 @@
 \usage{
 get_logger()
 }
-\arguments{
-None
-}
 \value{
 Returns a list that includes \strong{logger_file_path} and \strong{logger_level}.
 }

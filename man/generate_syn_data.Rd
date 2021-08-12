@@ -6,7 +6,6 @@
 \usage{
 generate_syn_data(
   sample_size = 1000,
-  seed = 300,
   outcome_sd = 10,
   gps_spec = 1,
   cova_spec = 1
@@ -14,8 +13,6 @@ generate_syn_data(
 }
 \arguments{
 \item{sample_size}{Number of data samples.}
-
-\item{seed}{The seed of R's random number generator.}
 
 \item{outcome_sd}{Standard deviation used to generate the outcome in the
 synthetic data set.}
@@ -34,7 +31,9 @@ constructed synthetic data.
 Generates synthetic data set based on different GPS models and covariates.
 }
 \examples{
-s_data <- generate_syn_data(sample_size=100, seed = 403,
+
+set.seed(298)
+s_data <- generate_syn_data(sample_size=100,
                                   outcome_sd = 10, gps_spec = 1,
                                   cova_spec = 1)
 
