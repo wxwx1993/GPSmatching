@@ -111,7 +111,7 @@ estimate_gps <- function(Y,
 
   w_mx <- compute_min_max(w)
   gps_mx <- compute_min_max(gps)
-  counter <- (w*0)+1 # initialize counter.
+  counter <- (w*0)+0 # initialize counter.
   row_index <- seq(1,length(w),1) # initialize row index.
   dataset <- cbind(Y,w,gps,counter, row_index, c)
 
