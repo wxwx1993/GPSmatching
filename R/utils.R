@@ -53,11 +53,9 @@ convert_data_into_standard_format <- function(Y, w, c, q1, q2, ci_appr){
     tmp_data <- cbind(Y,w_4,w*0+1,c)
   }
 
-  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],  w < q2  & w > q1)
+  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
+                     w <= q2  & w >= q1)
   tmp_data <- data.table(tmp_data)
-
-  logger::log_debug("1% qauntile for trim: {q1}")
-  logger::log_debug("99% qauntile for trim: {q2}")
 
   return(tmp_data)
 }

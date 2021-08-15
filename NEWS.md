@@ -5,6 +5,7 @@
 ### Changed
 
 * Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function. 
+* Changed trim condition from > and < into >= and <=.
 
 ### Fixed
 
