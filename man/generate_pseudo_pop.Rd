@@ -84,6 +84,7 @@ object includes the following objects:
 \item pseudo_pop
 \item adjusted_corr_results
 \item original_corr_results
+\item optimized_compile (True or False)
 }
 }
 \description{

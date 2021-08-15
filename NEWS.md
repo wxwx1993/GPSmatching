@@ -1,6 +1,7 @@
 ## CausalGPS (developing version)
 
 ### Added
+* added the status of optimized compile to generate_psuedo_pop function output.
 
 ### Changed
 

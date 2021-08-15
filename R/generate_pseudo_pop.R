@@ -72,6 +72,7 @@
 #' - pseudo_pop
 #' - adjusted_corr_results
 #' - original_corr_results
+#' - optimized_compile (True or False)
 #'
 #' @export
 #' @examples
@@ -321,6 +322,7 @@ generate_pseudo_pop <- function(Y,
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
+  result$optimized_compile <- optimized_compile
 
   end_time_gpp <- proc.time()
 
