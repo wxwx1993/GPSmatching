@@ -154,7 +154,7 @@ generate_pseudo_pop <- function(Y,
   q2 <- stats::quantile(w,trim_quantiles[2])
 
   logger::log_debug("{trim_quantiles[1]*100}% qauntile for trim: {q1}")
-  logger::log_debug("{trim_qauntiles[2]*100}% for trim: {q2}")
+  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
   tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
 
