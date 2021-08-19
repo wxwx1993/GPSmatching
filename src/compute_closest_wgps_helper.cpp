@@ -30,7 +30,6 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
   int size_a = a.size();
   int size_b = b.size();
 
-  //NumericVector tmp(size_a);
   IntegerVector out(size_b);
 
   #if defined(_OPENMP)
@@ -39,10 +38,12 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
     #pragma omp parallel for
   #endif
   for(int i = 0; i < size_b; ++i) {
+
     double tmp_val = 0;
     int min_index = 0;
     double min_val = 0;
     double subtract_val = 0;
+
     for(int j=0; j < size_a; ++j) {
 
       subtract_val = (b[i]-a[j])*sc;
