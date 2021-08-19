@@ -1,5 +1,4 @@
 #include <Rcpp.h>
-//#include <omp.h>
 using namespace Rcpp;
 
 #ifdef _OPENMP
