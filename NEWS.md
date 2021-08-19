@@ -12,6 +12,7 @@
 
 * Initial covariate balance for weighted approach. The counter column was not preallocated correctly.
 * Counter value for compiling. The initial value was set to one, which, however, zero is the correct one. 
+* Private variable issue with OpenMP.
 
 ### Removed
 
