@@ -22,11 +22,17 @@ test_that("Arguments provided for Generated synthetic data
 
 
 test_that(("Generated synthetic data is as expected."),{
+  set.seed(13221)
+  data_1 <- generate_syn_data(sample_size = 200, outcome_sd = 20)
 
-  data_1 <- generate_syn_data(sample_size = 200, seed=13221, outcome_sd = 20)
-  data_2 <- generate_syn_data(sample_size = 1000, seed=734, gps_spec = 2)
-  data_3 <- generate_syn_data(sample_size = 1250, seed=986, outcome_sd = 8)
-  data_4 <- generate_syn_data(sample_size = 111, seed=1021, gps_spec = 7)
+  set.seed(734)
+  data_2 <- generate_syn_data(sample_size = 1000, gps_spec = 2)
+
+  set.seed(986)
+  data_3 <- generate_syn_data(sample_size = 1250, outcome_sd = 8)
+
+  set.seed(1021)
+  data_4 <- generate_syn_data(sample_size = 111, gps_spec = 7)
 
   expect_equal(data_1$cf1[10] , -0.4354315, tolerance = 0.0001)
   expect_equal(data_1$cf5[79] , 0, tolerance = 0.0001)

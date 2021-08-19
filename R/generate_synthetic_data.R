@@ -5,7 +5,6 @@
 #' Generates synthetic data set based on different GPS models and covariates.
 #'
 #' @param sample_size Number of data samples.
-#' @param seed The seed of R's random number generator.
 #' @param outcome_sd Standard deviation used to generate the outcome in the
 #' synthetic data set.
 #' @param gps_spec A numerical value (1-7) that indicates the GPS model
@@ -21,11 +20,13 @@
 #' @export
 #'
 #' @examples
-#' s_data <- generate_syn_data(sample_size=100, seed = 403,
+#'
+#' set.seed(298)
+#' s_data <- generate_syn_data(sample_size=100,
 #'                                   outcome_sd = 10, gps_spec = 1,
 #'                                   cova_spec = 1)
 #'
-generate_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
+generate_syn_data <- function(sample_size=1000, outcome_sd = 10,
                               gps_spec = 1, cova_spec = 1) {
 
   if (sample_size < 0 || !is.numeric(sample_size)){
@@ -34,7 +35,6 @@ generate_syn_data <- function(sample_size=1000, seed = 300, outcome_sd = 10,
 
   #TODO: Check other input arguments.
 
-  set.seed(seed)
   size <- sample_size
 
   #pre-treatment variables (confounders)

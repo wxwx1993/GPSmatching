@@ -1,5 +1,35 @@
+## CausalGPS (developing version)
 
-## CausalGPS 0.2.5 (2021-07-09)
+### Added
+* added the status of optimized compile to generate_psuedo_pop function output.
+
+### Changed
+
+* Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function. 
+* Changed trim condition from > and < into >= and <=.
+
+### Fixed
+
+* Initial covariate balance for weighted approach. The counter column was not preallocated correctly.
+* Counter value for compiling. The initial value was set to one, which, however, zero is the correct one. 
+* Private variable issue with OpenMP.
+
+### Removed
+
+
+## CausalGPS 0.2.6 (2021-08-09)
+
+### Added
+
+### Changed
+
+### Fixed
+
+* Fixed openmp option on macOS checks. 
+
+### Removed
+
+## CausalGPS 0.2.5 (2021-07-23)
 
 ### Added
 

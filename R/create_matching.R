@@ -67,6 +67,9 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                                 outfile= lfp)
 
 
+    # seed_val <- .Random.seed
+    # parallel::clusterSetRNGStream(cl = cl, iseed = seed_val)
+
     parallel::clusterEvalQ(cl, {library("CausalGPS")})
     p_c_t_e <- proc.time()
 
