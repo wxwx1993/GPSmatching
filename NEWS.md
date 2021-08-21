@@ -5,33 +5,20 @@
 
 ### Changed
 
+* Vignette file names.
+* The trim condition from > and < into >= and <=.
 * Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function. 
-* Changed trim condition from > and < into >= and <=.
 
 ### Fixed
 
 * Initial covariate balance for weighted approach. The counter column was not preallocated correctly.
 * Counter value for compiling. The initial value was set to one, which, however, zero is the correct one. 
 * Private variable issue with OpenMP.
-
-### Removed
-
-
-## CausalGPS 0.2.6 (2021-08-09)
-
-### Added
-
-### Changed
-
-### Fixed
-
 * Fixed openmp option on macOS checks. 
 
 ### Removed
 
 ## CausalGPS 0.2.5 (2021-07-23)
-
-### Added
 
 ### Changed
 
@@ -40,8 +27,6 @@
 ### Fixed
 
 * CRAN package URLs are in canonical forms.
-
-### Removed
 
 ## CausalGPS 0.2.4 (2021-07-11)
 
@@ -98,10 +83,6 @@
 
 * Package name: GPSmatching --> CausalGPS 
 
-### Fixed
-### Removed
-
-
 ## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added
@@ -138,8 +119,6 @@
 
 * mclapply memory issue (compute_closest_wgps.R).
 
-### Removed
-
 
 ## GPSmatching 0.2.0 (2021-03-01)
 
@@ -173,10 +152,6 @@
 * kernel_fun --> generate_kernel
 * GPSmatching-package.R --> gpsmatching_package.R
 * GPSmatching_smooth.R --> gpsmatching_smooth.R
-
-### Fixed
-
-* None
 
 ### Removed
 

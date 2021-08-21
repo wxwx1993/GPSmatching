@@ -3,13 +3,13 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   CausalGPS: CausalGPS.html
-  contribution: contribution.html
-  estimating_gps: estimating_gps.html
-  faq: faq.html
-  generate_synthetic_data: generate_synthetic_data.html
-  generating_pseudo_population: generating_pseudo_population.html
-  notes_on_sl_wrapper: notes_on_sl_wrapper.html
-  outcome_models: outcome_models.html
-  testing_the_package: testing_the_package.html
-last_built: 2021-08-10T04:37Z
+  Developers-Guide: Developers-Guide.html
+  Estimating-GPS: Estimating-GPS.html
+  FAQ: FAQ.html
+  Generating-Pseudo-Population: Generating-Pseudo-Population.html
+  Generating-Synthetic-Data: Generating-Synthetic-Data.html
+  Notes-on-SL_Wrapper: Notes-on-SL_Wrapper.html
+  Outcome-Models: Outcome-Models.html
+  Testing-the-Package: Testing-the-Package.html
+last_built: 2021-08-21T17:00Z
 
