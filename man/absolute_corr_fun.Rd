@@ -15,7 +15,7 @@ absolute_corr_fun(w, c)
 The function returns a list including:
 \itemize{
 \item \code{absolute_corr}: the absolute correlations for each pre-exposure
-covairates;
+covariates;
 \item \code{mean_absolute_corr}: the average absolute correlations for all
 pre-exposure covairates.
 }

@@ -14,7 +14,7 @@
 * Initial covariate balance for weighted approach. The counter column was not preallocated correctly.
 * Counter value for compiling. The initial value was set to one, which, however, zero is the correct one. 
 * Private variable issue with OpenMP.
-* Fixed openmp option on macOS checks. 
+* Fixed OpenMP option on macOS checks. 
 
 ### Removed
 
@@ -87,17 +87,17 @@
 
 ### Added
 
-*  User defined bin sequence in compiling speudo population
-*  Non-parametric option for estimating gps
+*  User defined bin sequence in compiling speudo population.
+*  Non-parametric option for estimating GPS.
 *  Adaptive approach to transform features in training sessions.
-*  Cpp code for computing pair of w and gps.
+*  Cpp code for computing pair of w and GPS.
 *  `set_logger` function.
 *  Customized wrapper for ranger package.
-*  Extended plot function for gen_pseudo_pop object (plot.R)
-*  Extended plot function for estimate_erf object (plot.R)
-*  Extended print function for estimate_erf object (print.R)
-*  test-estimate_erf.R
-*  create_weighting.R
+*  Extended plot function for gen_pseudo_pop object (plot.R).
+*  Extended plot function for estimate_erf object (plot.R).
+*  Extended print function for estimate_erf object (print.R).
+*  test-estimate_erf.R.
+*  create_weighting.R.
 *  Steps for adding test data into 'sysdata.rda'.
 *  `weighting` option as causal inference approach.  
 *  absolute_weighted_corr_fun.R
@@ -133,7 +133,7 @@
 * Function to impute NA values based on density and unittest
 * Function to separate prediction model training (train_it)
 * Function to separate min and max value estimation and unittest
-* Function to find the closest data based on gps and w
+* Function to find the closest data based on GPS and w
 * Wrapper function to generate pseudo population and test it for covariate balance (gen_pseudo_pop)
 * Function to estimate only GPS value (estimate_gps)
 * Helper function to take the input data + GPS values and return pseudo population based on selected causal inference approach. The output of this function may or may not satisfy the covariate balance test. (compile_pseudo_pop)

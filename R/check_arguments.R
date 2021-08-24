@@ -211,7 +211,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
 #' Check Covariate Balance Transformers Argument
 #'
 #' @description
-#' Checks Covriate Balance Transformers in terms of using them and available
+#' Checks Covariate Balance Transformers in terms of using them and available
 #' transformers.
 #'
 #' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
@@ -235,7 +235,7 @@ check_args_use_cov_transformers <- function(use_cov_transform,
   }
 
   if (!is.list(transformers)){
-    stop(paste("transformers expects a list of transformerns. Curren type: ",
+    stop(paste("transformers expects a list of transformerns. Current type: ",
                typeof(transformers)))
   }
 

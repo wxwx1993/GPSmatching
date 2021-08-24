@@ -16,7 +16,7 @@ transforming.}
 TRUE if passes all tests.
 }
 \description{
-Checks Covriate Balance Transformers in terms of using them and available
+Checks Covariate Balance Transformers in terms of using them and available
 transformers.
 }
 \keyword{internal}
