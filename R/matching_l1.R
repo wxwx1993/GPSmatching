@@ -83,11 +83,14 @@ matching_l1 <- function(w,
                   " radius."))
     return(list())
   }
+
   wm <- compute_closest_wgps(dataset_subset[["std_gps"]],
                              std_p_w,
                              dataset_subset[["std_w"]],
                              std_w,
-                             scale)
+                             scale,
+                             nthread)
+
 
   dp <- dataset_subset[wm,]
 

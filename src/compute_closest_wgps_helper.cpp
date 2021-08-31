@@ -19,7 +19,8 @@ using namespace Rcpp;
 IntegerVector compute_closest_wgps_helper(NumericVector a,
                                           NumericVector b,
                                           NumericVector cd,
-                                          double sc) {
+                                          double sc,
+                                          int nthread) {
 
   // a is the subset of data
   // b is the original data
@@ -33,7 +34,7 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
   IntegerVector out(size_b);
 
   #if defined(_OPENMP)
-    int nthread = omp_get_max_threads();
+    //int nthread = omp_get_max_threads();
     omp_set_num_threads(nthread);
     #pragma omp parallel for
   #endif

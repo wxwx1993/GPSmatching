@@ -2,6 +2,7 @@
 
 ### Added
 * added the status of optimized compile to generate_psuedo_pop function output.
+* compute_closest_wgps accepts the number of user-defined threads.
 
 ### Changed
 
