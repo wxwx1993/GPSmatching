@@ -1,8 +1,7 @@
-Resubmission (August 23, 2021 - current)
+Resubmission (September 3, 2021 - current)
 
 Thank you so much for taking the time and reviewing the CausalGPS 0.2.6 package.
-The original CausalGPS package was accepted on July 23, 2021. However, later on 
-I have received an email regarding some installing problems on macOS and Solaris systems.
+The original CausalGPS package was accepted on July 23, 2021. However, later on I have received an email regarding some installing problems on macOS and Solaris systems.
 
 I fixed all the raised comments. Here is the summary of changes:
 

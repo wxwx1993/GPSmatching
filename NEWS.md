@@ -9,6 +9,7 @@
 * Vignette file names.
 * The trim condition from > and < into >= and <=.
 * Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function. 
+* OpenMP uses user defined number of cores.
 
 ### Fixed
 
