@@ -1,7 +1,26 @@
-
-## CausalGPS 0.2.5 (2021-07-09)
+## CausalGPS 0.2.6 (2021-09-03)
 
 ### Added
+* added the status of optimized compile to generate_psuedo_pop function output.
+* compute_closest_wgps accepts the number of user-defined threads.
+
+### Changed
+
+* Vignette file names.
+* The trim condition from > and < into >= and <=.
+* Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function. 
+* OpenMP uses user defined number of cores.
+
+### Fixed
+
+* Initial covariate balance for weighted approach. The counter column was not preallocated correctly.
+* Counter value for compiling. The initial value was set to one, which, however, zero is the correct one. 
+* Private variable issue with OpenMP.
+* Fixed OpenMP option on macOS checks. 
+
+### Removed
+
+## CausalGPS 0.2.5 (2021-07-23)
 
 ### Changed
 
@@ -10,8 +29,6 @@
 ### Fixed
 
 * CRAN package URLs are in canonical forms.
-
-### Removed
 
 ## CausalGPS 0.2.4 (2021-07-11)
 
@@ -68,25 +85,21 @@
 
 * Package name: GPSmatching --> CausalGPS 
 
-### Fixed
-### Removed
-
-
 ## GPSmatching 0.2.1 (2021-04-23)
 
 ### Added
 
-*  User defined bin sequence in compiling speudo population
-*  Non-parametric option for estimating gps
+*  User defined bin sequence in compiling speudo population.
+*  Non-parametric option for estimating GPS.
 *  Adaptive approach to transform features in training sessions.
-*  Cpp code for computing pair of w and gps.
+*  Cpp code for computing pair of w and GPS.
 *  `set_logger` function.
 *  Customized wrapper for ranger package.
-*  Extended plot function for gen_pseudo_pop object (plot.R)
-*  Extended plot function for estimate_erf object (plot.R)
-*  Extended print function for estimate_erf object (print.R)
-*  test-estimate_erf.R
-*  create_weighting.R
+*  Extended plot function for gen_pseudo_pop object (plot.R).
+*  Extended plot function for estimate_erf object (plot.R).
+*  Extended print function for estimate_erf object (print.R).
+*  test-estimate_erf.R.
+*  create_weighting.R.
 *  Steps for adding test data into 'sysdata.rda'.
 *  `weighting` option as causal inference approach.  
 *  absolute_weighted_corr_fun.R
@@ -108,8 +121,6 @@
 
 * mclapply memory issue (compute_closest_wgps.R).
 
-### Removed
-
 
 ## GPSmatching 0.2.0 (2021-03-01)
 
@@ -124,7 +135,7 @@
 * Function to impute NA values based on density and unittest
 * Function to separate prediction model training (train_it)
 * Function to separate min and max value estimation and unittest
-* Function to find the closest data based on gps and w
+* Function to find the closest data based on GPS and w
 * Wrapper function to generate pseudo population and test it for covariate balance (gen_pseudo_pop)
 * Function to estimate only GPS value (estimate_gps)
 * Helper function to take the input data + GPS values and return pseudo population based on selected causal inference approach. The output of this function may or may not satisfy the covariate balance test. (compile_pseudo_pop)
@@ -143,10 +154,6 @@
 * kernel_fun --> generate_kernel
 * GPSmatching-package.R --> gpsmatching_package.R
 * GPSmatching_smooth.R --> gpsmatching_smooth.R
-
-### Fixed
-
-* None
 
 ### Removed
 

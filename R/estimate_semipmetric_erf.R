@@ -47,6 +47,14 @@ estimate_semipmetric_erf <- function(formula, family, data, ci_appr){
   counter <- ipw <- NULL
 
   if (ci_appr == "matching"){
+
+    # If the approach is not optimized, the counter will be zero, which causes
+    # problem in generating prediction model.
+    if (sum(data$counter) == 0) {
+      data$counter <- data$counter + 1
+      logger::log_debug("Giving equal weight for all samples.")
+    }
+
     suppressWarnings(gam_model <- gam::gam(formula = formula,
                                            family = family,
                                            data = data,

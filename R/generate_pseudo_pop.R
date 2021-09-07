@@ -72,6 +72,7 @@
 #' - pseudo_pop
 #' - adjusted_corr_results
 #' - original_corr_results
+#' - optimized_compile (True or False)
 #'
 #' @export
 #' @examples
@@ -151,15 +152,16 @@ generate_pseudo_pop <- function(Y,
 
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
+
+  logger::log_debug("{trim_quantiles[1]*100}% qauntile for trim: {q1}")
+  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
+
   tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
 
 
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
                                            optimized_compile, ...)
   tmp_data <- NULL
-
-  logger::log_debug("1% qauntile for trim: {q1}")
-  logger::log_debug("99% qauntile for trim: {q2}")
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
@@ -211,7 +213,7 @@ generate_pseudo_pop <- function(Y,
                                      optimized_compile = optimized_compile,...)
     # trim pseudo population
     pseudo_pop <- subset(pseudo_pop[stats::complete.cases(pseudo_pop) ,],
-                         w < q2  & w > q1)
+                         w <= q2  & w >= q1)
     logger::log_debug("Finished compiling pseudo population.")
 
     if (ci_appr == 'adjust'){
@@ -320,6 +322,7 @@ generate_pseudo_pop <- function(Y,
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
+  result$optimized_compile <- optimized_compile
 
   end_time_gpp <- proc.time()
 

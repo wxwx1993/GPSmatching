@@ -9,7 +9,7 @@
 #' @return
 #' The function returns a list including:
 #' - \code{absolute_corr}: the absolute correlations for each pre-exposure
-#'  covairates;
+#'  covariates;
 #' - \code{mean_absolute_corr}: the average absolute correlations for all
 #'  pre-exposure covairates.
 #'

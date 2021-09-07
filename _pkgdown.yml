@@ -30,8 +30,8 @@ reference:
 articles:
   - title: Introduction
     navbar: Introduction
-    contents: [estimating_gps,generating_pseudo_population,outcome_models,generate_synthetic_data,faq]
+    contents: [Estimating-GPS,Generating-Pseudo-Population,Outcome-Models,Generating-Synthetic-Data,FAQ]
 
   - title: Collabration
     navbar: Collabration
-    contents: [contribution, testing_the_package, notes_on_sl_wrapper]
+    contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper]
