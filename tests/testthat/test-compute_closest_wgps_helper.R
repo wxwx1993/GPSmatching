@@ -1,12 +1,11 @@
 test_that("compute_closest_wgps_helper works as expected.", {
 
-
   a <- c(0.5,3,10,0.7)
   b <- c(1,2,16,0.5)
   c_m_d <- c(0.1,0.1,0.1,0.1)
   sc <- 0.5
-  val <- compute_closest_wgps_helper(a,b,c_m_d,sc)
-  print(val)
+  nthread <- 1
+  val <- compute_closest_wgps_helper(a,b,c_m_d,sc,nthread)
   expect_equal(val[1],4)
   expect_equal(val[2],2)
   expect_equal(val[3],3)
@@ -16,8 +15,7 @@ test_that("compute_closest_wgps_helper works as expected.", {
   b <- c(1, 2, 16, 8, 0.5, 3)
   c_m_d <- c(0.1,0.1,0.1,0.1)
   sc <- 0.5
-  val2 <- compute_closest_wgps_helper(a,b,c_m_d,sc)
-  print(val2)
+  val2 <- compute_closest_wgps_helper(a,b,c_m_d,sc,nthread)
   expect_equal(val2[1],4)
   expect_equal(val2[2],2)
   expect_equal(val2[3],3)
@@ -29,8 +27,7 @@ test_that("compute_closest_wgps_helper works as expected.", {
   b <- c(1, 16, 4.2,9,3.05)
   c_m_d <- c(0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1)
   sc <- 0.5
-  val3 <- compute_closest_wgps_helper(a,b,c_m_d,sc)
-  print(val3)
+  val3 <- compute_closest_wgps_helper(a,b,c_m_d,sc,nthread)
   expect_equal(val3[1],1)
   expect_equal(val3[2],6)
   expect_equal(val3[3],7)
@@ -40,7 +37,7 @@ test_that("compute_closest_wgps_helper works as expected.", {
   b <- runif(20)
   c_m_d <- rep(0.1,each=10)
   sc <- 0.5
-  val1 <- compute_closest_wgps_helper(a,b,c_m_d,sc)
+  val1 <- compute_closest_wgps_helper(a,b,c_m_d,sc,nthread)
   expect_equal(val1[1],8)
   expect_equal(val1[5],3)
   expect_equal(val1[10],9)
@@ -52,11 +49,10 @@ test_that("compute_closest_wgps_helper works as expected.", {
   b <- runif(40)
   c_m_d <- rep(0.1,each=10)
   sc <- 0.5
-  val2 <- compute_closest_wgps_helper(a,b,c_m_d,sc)
+  val2 <- compute_closest_wgps_helper(a,b,c_m_d,sc,nthread)
   expect_equal(val2[1],7)
   expect_equal(val2[10],10)
   expect_equal(val2[13],2)
   expect_equal(val2[26],9)
   expect_equal(val2[30],7)
-
 })

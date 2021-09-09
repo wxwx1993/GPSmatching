@@ -10,6 +10,7 @@
 #' @param c  Vector of the second attribute values for subset of data.
 #' @param d  Vector of size one for the second attribute value.
 #' @param sc Scale parameter to give weight for two mentioned measurements.
+#' @param nthread Number of available cores.
 #'
 #' @return
 #' The function returns index of subset data that is closest to the original data
@@ -17,7 +18,7 @@
 #'
 #' @keywords internal
 #'
-compute_closest_wgps <- function(a, b, c, d, sc){
+compute_closest_wgps <- function(a, b, c, d, sc, nthread){
 
   if (!is.numeric(a) ||
       !is.numeric(b) ||
@@ -49,9 +50,8 @@ compute_closest_wgps <- function(a, b, c, d, sc){
     stop('Expecting sc in [0,1] range.')
   }
 
-
    c_minus_d <- abs(c-d)*(1-sc)
-   wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc)
+   wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc, nthread)
 
    return(wm)
 }

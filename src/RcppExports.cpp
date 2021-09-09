@@ -11,8 +11,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // compute_closest_wgps_helper
-IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, double sc);
-RcppExport SEXP _CausalGPS_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP) {
+IntegerVector compute_closest_wgps_helper(NumericVector a, NumericVector b, NumericVector cd, double sc, int nthread);
+RcppExport SEXP _CausalGPS_compute_closest_wgps_helper(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP, SEXP nthreadSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,13 +20,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type cd(cdSEXP);
     Rcpp::traits::input_parameter< double >::type sc(scSEXP);
-    rcpp_result_gen = Rcpp::wrap(compute_closest_wgps_helper(a, b, cd, sc));
+    Rcpp::traits::input_parameter< int >::type nthread(nthreadSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_closest_wgps_helper(a, b, cd, sc, nthread));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_CausalGPS_compute_closest_wgps_helper", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper, 4},
+    {"_CausalGPS_compute_closest_wgps_helper", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper, 5},
     {NULL, NULL, 0}
 };
 
