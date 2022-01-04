@@ -66,6 +66,7 @@ absolute_weighted_corr_fun <- function(w,
   }
 
   absolute_corr <- c(absolute_corr_f, absolute_corr_n)
+  names(absolute_corr) <- c(col_f, col_n)
 
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))

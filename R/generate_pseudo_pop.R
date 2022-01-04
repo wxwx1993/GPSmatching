@@ -158,7 +158,6 @@ generate_pseudo_pop <- function(Y,
 
   tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
 
-
   original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
                                            optimized_compile, ...)
   tmp_data <- NULL

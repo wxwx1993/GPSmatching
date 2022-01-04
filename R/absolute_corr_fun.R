@@ -53,6 +53,7 @@ absolute_corr_fun <- function(w, c){
   }
 
   absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
+  names(absolute_corr) <- c(col_f, col_n)
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))
 }

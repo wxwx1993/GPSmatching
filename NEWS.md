@@ -1,3 +1,9 @@
+## CausalGPS (Current)
+
+### Fixed
+* Naming covariate balance scores.
+
+
 ## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
