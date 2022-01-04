@@ -42,18 +42,23 @@ absolute_corr_fun <- function(w, c){
   absolute_corr_n <- absolute_corr_f <- NULL
 
   if (length(col_n) > 0){
-      absolute_corr_n<- lapply(col_n,function(i){
+      absolute_corr_n <- lapply(col_n,function(i){
         abs(stats::cor(w,c[[i]],method = c("spearman")))})
+      absolute_corr_n <- unlist(absolute_corr_n)
+      names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
       w_numeric <- as.list(w[,1])[[colnames(w[,1])[1]]]
-      absolute_corr_f<- lapply(col_f,function(i){
+      absolute_corr_f <- lapply(col_f,function(i){
         abs(polycor::polyserial(w_numeric,c[[i]]))})
+      absolute_corr_f <- unlist(absolute_corr_f)
+      names(absolute_corr_f) <- col_f
   }
 
-  absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
-  names(absolute_corr) <- c(col_f, col_n)
+  # absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
+  # names(absolute_corr) <- c(col_f, col_n)
+  absolute_corr <- c(absolute_corr_n, absolute_corr_f)
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))
 }

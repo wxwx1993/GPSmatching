@@ -55,6 +55,8 @@ absolute_weighted_corr_fun <- function(w,
                               c[[i]],
                               weights = as.list(vw)[[colnames(vw)[1]]],
                               method = c("spearman")))})
+    absolute_corr_n <- unlist(absolute_corr_n)
+    names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
@@ -63,10 +65,11 @@ absolute_weighted_corr_fun <- function(w,
                               c[[i]],
                               weights = as.list(vw)[[colnames(vw)[1]]],
                               method = c("Polyserial")))})
+    absolute_corr_f <- unlist(absolute_corr_f)
+    names(absolute_corr_f) <- col_f
   }
 
-  absolute_corr <- c(absolute_corr_f, absolute_corr_n)
-  names(absolute_corr) <- c(col_f, col_n)
+  absolute_corr <- c(absolute_corr_n, absolute_corr_f)
 
   return(list(absolute_corr = absolute_corr,
               mean_absolute_corr = mean(absolute_corr)))

@@ -279,6 +279,7 @@ generate_pseudo_pop <- function(Y,
       if (!value_found){
         warning(paste("All possible combination of transformers has been tried.",
                       "Try using more transformers.", sep=" "))
+        break
       } else {
 
       # add operand into the transformed_vals
