@@ -253,7 +253,8 @@ generate_pseudo_pop <- function(Y,
                                       function(x){ x[1] == c_name })))
 
         if (length(el_ind)==0){
-          # wants to choose a transformed column.
+          # wants to choose a transformed column, which indicates that the
+          # the transformation was not helpful. Move to the next worst covariate balance.
           next
         }
 
@@ -266,7 +267,15 @@ generate_pseudo_pop <- function(Y,
                           " Located at index {el_ind}.")
 
         for (operand in transformers){
-          if (!is.element(operand, transformed_vals[[el_ind]])){
+          if(length(transformed_vals[[el_ind]])>1){
+            if (!is.element(operand,
+                            transformed_vals[[el_ind]][2:length(transformed_vals[[el_ind]])])){
+                new_c <- c_name
+                new_op <- operand
+                value_found = TRUE
+                break
+            }
+          } else {
             new_c <- c_name
             new_op <- operand
             value_found = TRUE
@@ -278,8 +287,16 @@ generate_pseudo_pop <- function(Y,
 
       if (!value_found){
         warning(paste("All possible combination of transformers has been tried.",
-                      "Try using more transformers.", sep=" "))
-        break
+                      "Retrying ... .", sep=" "))
+
+        # removed used transformers on covariate balance.
+        transformed_vals <- covariate_cols
+        recent_swap <- NULL
+        if (sum(sort(colnames(c)) != sort(colnames(c_extended)))>0){
+          logger::log_error("At this step, c and c_extended should be the same, doublecheck.")
+          c_extended <- c
+        }
+        next
       } else {
 
       # add operand into the transformed_vals

@@ -110,6 +110,8 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                  ") is not implemented."))
     }
 
+    logger::log_debug(paste("Mean absolute correlation: ",
+                            abs_cor$mean_absolute_corr))
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
