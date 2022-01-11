@@ -8,6 +8,7 @@
 
 ### Added
 * Synthetic data (synthetic_us_2010)
+* Check on not defined covariate balance (absolute_corr_fun, absolute_weighted_corr_fun)
 
 ## CausalGPS 0.2.6 (2021-09-06)
 

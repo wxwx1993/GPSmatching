@@ -243,6 +243,8 @@ generate_pseudo_pop <- function(Y,
 
     if (use_cov_transform){
 
+      logger::log_debug("------------ Started conducting covariate transform ...")
+
       sort_by_covar <- sort(adjusted_corr_obj$corr_results$absolute_corr,
                             decreasing = TRUE)
 
@@ -312,6 +314,7 @@ generate_pseudo_pop <- function(Y,
       logger::log_debug("In the next iteration (if any) feature {c_name}",
                         " will be replaced by {unlist(colnames(t_dataframe))}.")
       }
+      logger::log_debug("------------ Finished conducting covariate transform.")
     }
   }
 

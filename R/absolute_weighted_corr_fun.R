@@ -71,6 +71,17 @@ absolute_weighted_corr_fun <- function(w,
 
   absolute_corr <- c(absolute_corr_n, absolute_corr_f)
 
+  logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
+                           "absolute_corr, collapse = ', ', sep = ' : ')}"))
+
+  if (sum(is.na(absolute_corr)) > 0){
+    warning(paste("The following features generated missing values: ",
+                  names(absolute_corr)[is.na(absolute_corr)],
+                  "\nIn computing mean covariate balance, they will be ignored."))
+  }
+
+  mean_val = mean(absolute_corr, na.rm = TRUE)
+
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean(absolute_corr)))
+              mean_absolute_corr = mean_val))
 }

@@ -56,9 +56,18 @@ absolute_corr_fun <- function(w, c){
       names(absolute_corr_f) <- col_f
   }
 
-  # absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
-  # names(absolute_corr) <- c(col_f, col_n)
   absolute_corr <- c(absolute_corr_n, absolute_corr_f)
+  logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
+                    "absolute_corr, collapse = ', ', sep = ' : ')}"))
+
+  if (sum(is.na(absolute_corr)) > 0){
+    warning(paste("The following features generated missing values: ",
+                  names(absolute_corr)[is.na(absolute_corr)],
+                  "\n In computing mean covariate balance, they will be ignored."))
+  }
+
+  mean_val = mean(absolute_corr, na.rm = TRUE)
+
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean(absolute_corr)))
+              mean_absolute_corr = mean_val))
 }
