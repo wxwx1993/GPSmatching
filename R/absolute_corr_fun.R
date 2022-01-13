@@ -42,17 +42,32 @@ absolute_corr_fun <- function(w, c){
   absolute_corr_n <- absolute_corr_f <- NULL
 
   if (length(col_n) > 0){
-      absolute_corr_n<- lapply(col_n,function(i){
+      absolute_corr_n <- lapply(col_n,function(i){
         abs(stats::cor(w,c[[i]],method = c("spearman")))})
+      absolute_corr_n <- unlist(absolute_corr_n)
+      names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
       w_numeric <- as.list(w[,1])[[colnames(w[,1])[1]]]
-      absolute_corr_f<- lapply(col_f,function(i){
+      absolute_corr_f <- lapply(col_f,function(i){
         abs(polycor::polyserial(w_numeric,c[[i]]))})
+      absolute_corr_f <- unlist(absolute_corr_f)
+      names(absolute_corr_f) <- col_f
   }
 
-  absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
+  absolute_corr <- c(absolute_corr_n, absolute_corr_f)
+  logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
+                    "absolute_corr, collapse = ', ', sep = ' : ')}"))
+
+  if (sum(is.na(absolute_corr)) > 0){
+    warning(paste("The following features generated missing values: ",
+                  names(absolute_corr)[is.na(absolute_corr)],
+                  "\n In computing mean covariate balance, they will be ignored."))
+  }
+
+  mean_val = mean(absolute_corr, na.rm = TRUE)
+
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean(absolute_corr)))
+              mean_absolute_corr = mean_val))
 }

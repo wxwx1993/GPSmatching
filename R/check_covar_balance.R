@@ -93,23 +93,25 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
       if (!optimized_compile){
         abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
                                      pseudo_pop[,6:length(pseudo_pop)])
-        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else if (optimized_compile){
         abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
                                      pseudo_pop[,6:length(pseudo_pop)])
-        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else {
         stop("The code should never get here. There is something wrong with check arguments.")
       }
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 6],
                                             pseudo_pop[, 7:length(pseudo_pop)])
-      names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
+      #names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))
     }
 
+    logger::log_debug(paste("Mean absolute correlation: ",
+                            abs_cor$mean_absolute_corr))
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 

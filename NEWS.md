@@ -1,3 +1,15 @@
+## CausalGPS (Current)
+
+### Fixed
+* Naming covariate balance scores.
+
+### Changed
+* Restarting adaptive approach to keep trying upto maximum attempt.
+
+### Added
+* Synthetic data (synthetic_us_2010)
+* Check on not defined covariate balance (absolute_corr_fun, absolute_weighted_corr_fun)
+
 ## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
