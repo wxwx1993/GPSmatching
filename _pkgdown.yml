@@ -4,9 +4,11 @@ home:
   title: Implementing matching, and weighting on GPS with continuous exposures.
 
 template:
-  params:
-    bootstrap: 5
-    bootswatch: cosmo
+  bootstrap: 5
+  bslib:
+    bg: "#FEFFFF"
+    fg: "#202123"
+    primary: "#306cc9"
 
 reference:
   - title: Estimate GPS values
