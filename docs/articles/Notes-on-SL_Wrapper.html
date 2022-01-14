@@ -11,9 +11,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Notes on SL Wrappers">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Notes on SL Wrappers">
 <meta property="og:description" content="CausalGPS">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -21,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.6.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/CausalGPS.html">Get started</a>
 </li>
@@ -59,7 +53,8 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li class="divider">
-    <li class="dropdown-header">Introduction</li>
+    </li>
+<li class="dropdown-header">Introduction</li>
     <li>
       <a href="../articles/Estimating-GPS.html">Estimating GPS</a>
     </li>
@@ -76,7 +71,8 @@
       <a href="../articles/FAQ.html">Frequently Asked Questions</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Collabration</li>
+    </li>
+<li class="dropdown-header">Collabration</li>
     <li>
       <a href="../articles/Developers-Guide.html">Developers Guide</a>
     </li>
@@ -91,19 +87,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/fasrc/CausalGPS/">
+  <a href="https://github.com/fasrc/CausalGPS/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -112,20 +102,20 @@
 
       
 
-      </header><script src="Notes-on-SL_Wrapper_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Notes on SL Wrappers</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/Notes-on-SL_Wrapper.Rmd"><code>vignettes/Notes-on-SL_Wrapper.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/HEAD/vignettes/Notes-on-SL_Wrapper.Rmd" class="external-link"><code>vignettes/Notes-on-SL_Wrapper.Rmd</code></a></small>
       <div class="hidden name"><code>Notes-on-SL_Wrapper.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <a href="https://github.com/ecpolley/SuperLearner">SuperLearner package</a> is used to develop prediction models. In order to achieve the best performance of the algorithms, it is better to create a customized wrapper for different libraries. This section explains the steps to create a customized library for <a href="https://xgboost.readthedocs.io/en/latest/index.html">XGBoost</a> package. XGBoost supports several <a href="https://xgboost.readthedocs.io/en/latest/parameter.html">hyperparameters</a> to fine-tune the training process. Specifically for this package, there are two options to create a wrapper for XGBoost (or any other supported packages), including: - Making a wrapper for the current wrapper (<a href="https://github.com/ecpolley/SuperLearner/blob/master/R/SL.xgboost.R">SL.xgboost</a>) - Creating a wrapper from scratch. In this note, we explain the first approach that is used in developing this package. The SuperLearner package explicitly supports some of the XGBoost hyperparameters. The following table explains these parameters:</p>
+<p>The <a href="https://github.com/ecpolley/SuperLearner" class="external-link">SuperLearner package</a> is used to develop prediction models. In order to achieve the best performance of the algorithms, it is better to create a customized wrapper for different libraries. This section explains the steps to create a customized library for <a href="https://xgboost.readthedocs.io/en/latest/index.html" class="external-link">XGBoost</a> package. XGBoost supports several <a href="https://xgboost.readthedocs.io/en/latest/parameter.html" class="external-link">hyperparameters</a> to fine-tune the training process. Specifically for this package, there are two options to create a wrapper for XGBoost (or any other supported packages), including: - Making a wrapper for the current wrapper (<a href="https://github.com/ecpolley/SuperLearner/blob/master/R/SL.xgboost.R" class="external-link">SL.xgboost</a>) - Creating a wrapper from scratch. In this note, we explain the first approach that is used in developing this package. The SuperLearner package explicitly supports some of the XGBoost hyperparameters. The following table explains these parameters:</p>
 <table class="table">
 <colgroup>
 <col width="13%">
@@ -179,31 +169,22 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
+  <p></p>
+<p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'API_KEY',
-    indexName: 'INDEX_NAME',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+
+  
+
+  </body>
 </html>
