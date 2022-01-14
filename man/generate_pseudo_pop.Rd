@@ -112,6 +112,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item 'absolute'
 }
 \item \emph{covar_bl_trs}: covariate balance threshold
+\item \emph{covar_bl_trs_type}: covariate balance type (mean, median, maximal)
 \item \emph{max_attempt}: maximum number of attempt to satisfy covariate balance.
 \item See \code{\link[=create_matching]{create_matching()}} for more details about the parameters and default
 values.
@@ -155,6 +156,7 @@ pseuoo_pop <- generate_pseudo_pop(m_d$Y,
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
+                                  covar_bl_trs_type= "mean",
                                   max_attempt = 1,
                                   matching_fun = "matching_l1",
                                   delta_n = 1,

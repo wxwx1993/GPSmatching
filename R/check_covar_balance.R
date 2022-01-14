@@ -50,6 +50,7 @@
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,
+#'                                  covar_bl_trs_type = "mean",
 #'                                  max_attempt = 1,
 #'                                  matching_fun = "matching_l1",
 #'                                  delta_n = 1,
@@ -61,7 +62,9 @@
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
+#'                                         covar_bl_trs_type = "mean",
 #'                                         optimized_compile=FALSE)
+#'
 
 check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                                 optimized_compile, ...){
@@ -69,6 +72,7 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
   covar_bl_trs <- NULL
+  covar_bl_trs_type <- NULL
   # ------------------------------------------------------
 
   logger::log_debug("Started checking covariate balance ... ")
@@ -116,7 +120,9 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
     output <- list(corr_results = abs_cor)
-    if (abs_cor$mean_absolute_corr < covar_bl_trs){
+    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+
+    if (getElement(abs_cor,covar_bl_t) < covar_bl_trs){
       output$pass <- TRUE
     } else {
       output$pass <- FALSE

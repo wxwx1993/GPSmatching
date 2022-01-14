@@ -80,8 +80,18 @@ absolute_weighted_corr_fun <- function(w,
                   "\nIn computing mean covariate balance, they will be ignored."))
   }
 
-  mean_val = mean(absolute_corr, na.rm = TRUE)
+  # compute mean value
+  mean_val <- mean(absolute_corr, na.rm = TRUE)
+
+  # compute median value
+  median_val <- median(absolute_corr, na.rm = TRUE)
+
+  # Maximal value
+  max_val <- max(absolute_corr, na.rm = TRUE)
 
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean_val))
+              mean_absolute_corr = mean_val,
+              median_absolute_corr = median_val,
+              maximal_absolute_corr = max_val))
+
 }
