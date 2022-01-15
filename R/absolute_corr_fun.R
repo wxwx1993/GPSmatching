@@ -33,7 +33,6 @@ absolute_corr_fun <- function(w, c){
   if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
   if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
 
-
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 
