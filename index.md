@@ -4,7 +4,7 @@
 [![R build status](https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions)
 [![](http://www.r-pkg.org/badges/version-last-release/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
-[![Codecov test coverage](https://codecov.io/gh/fasrc/CausalGPS/branch/master/graph/badge.svg)](https://codecov.io/gh/fasrc/CausalGPS?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg)](https://codecov.io/gh/fasrc/CausalGPS?branch=develop)
 <!-- badges: end -->
 
 
