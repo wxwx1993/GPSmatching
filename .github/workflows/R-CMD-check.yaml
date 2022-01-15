@@ -32,6 +32,16 @@ jobs:
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
+
+    steps:
+      - uses: actions/checkout@develop
+      - uses: codecov/codecov-action@v2
+        with:
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+
     steps:
       - uses: actions/checkout@v2
 
