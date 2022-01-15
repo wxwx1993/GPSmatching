@@ -1,11 +1,10 @@
 # CausalGPS
 
 
-| Resource    |  Github Actions      |
-| ----------  | -------------------- |
-| Platforms   | Windows, macOS, Linux|
-| R CMD check | [![R build status](https://github.com/FASRC/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions) |
-
+| Resource    |  Github Actions      |  Code Coverage  |
+| ----------  | -------------------- |-----------------|
+| Platforms   | Windows, macOS, Linux|  codecov        |
+| R CMD check | [![R build status](https://github.com/FASRC/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions) | [![Codecov test coverage](https://codecov.io/gh/fasrc/CausalGPS/branch/master/graph/badge.svg)](https://codecov.io/gh/fasrc/CausalGPS?branch=master) |
 
 Matching on generalized propensity scores with continuous exposures
 
