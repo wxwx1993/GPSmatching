@@ -60,12 +60,22 @@ absolute_weighted_corr_fun <- function(w,
   }
 
   if (length(col_f) > 0) {
-    absolute_corr_f<- sapply(col_f,function(i){
-      abs(wCorr::weightedCorr(as.list(w)[[colnames(w)[1]]],
-                              c[[i]],
-                              weights = as.list(vw)[[colnames(vw)[1]]],
-                              method = c("Polyserial")))})
-    absolute_corr_f <- unlist(absolute_corr_f)
+    internal_fun<- function(i){
+                          abs(wCorr::weightedCorr(as.list(w)[[colnames(w)[1]]],
+                          c[[i]],
+                          weights = as.list(vw)[[colnames(vw)[1]]],
+                          method = c("Polyserial")))}
+
+    absolute_corr_f <- c()
+    for (item in col_f){
+      if (length(unique(c[[item]])) == 1 ){
+        absolute_corr_f <- c(absolute_corr_f, NA)
+      } else {
+        absolute_corr_f <- c(absolute_corr_f, internal_fun(item))
+      }
+    }
+    # absolute_corr_f<- sapply(col_f,)
+    # absolute_corr_f <- unlist(absolute_corr_f)
     names(absolute_corr_f) <- col_f
   }
 
@@ -79,6 +89,7 @@ absolute_weighted_corr_fun <- function(w,
                   names(absolute_corr)[is.na(absolute_corr)],
                   "\nIn computing mean covariate balance, they will be ignored."))
   }
+
 
   # compute mean value
   mean_val <- mean(absolute_corr, na.rm = TRUE)
