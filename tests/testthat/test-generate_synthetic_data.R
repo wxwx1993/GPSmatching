@@ -42,5 +42,4 @@ test_that("generate_synthetic_data works as expected.", {
   expect_equal(data_7$cf3[28], 0.5890692, tolerance = 0.0001)
   expect_equal(data_8$cf2[70], -1.339188, tolerance = 0.0001)
   expect_equal(data_9$cf5[19], -2, tolerance = 0.0001)
-
 })
