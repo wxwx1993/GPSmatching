@@ -30,4 +30,10 @@ test_that("absoulte_corr_fun works as expected.", {
   expect_equal(val2$maximal_absolute_corr, 0.2877995, tolerance=0.0001)
   expect_equal(length(val2$absolute_corr), 8)
 
+  # Test with categorical data while generating missing values
+  data3 <- as.data.table(pseudo_pop_weight_test)
+  data3$region <- "East"
+  expect_warning(absolute_corr_fun(data3[,2],
+                            data3[,5:length(data3)]))
+
 })
