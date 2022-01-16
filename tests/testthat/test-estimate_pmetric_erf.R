@@ -5,5 +5,5 @@ test_that("estimate_pmetric_erf works as expected", {
                             family = gaussian,
                             data = pseudo_pop_weight_test,
                             ci_appr = "weighting")
-  expect_equal(gnm_model$coefficients[3][[1]], 2.576177, tolerance = 0.00001)
+  expect_equal(gnm_model$coefficients[3][[1]], 1.341568, tolerance = 0.00001)
 })

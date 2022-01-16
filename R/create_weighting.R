@@ -30,6 +30,7 @@ create_weighting <- function(dataset, ...){
 
   Nm <- compute_density(dataset[["w"]], dataset[["w"]])
   ipw <- Nm / (dataset[["gps"]])
-  return(data.table(cbind(dataset[,c("Y","w","gps","counter","row_index")],
+  return(data.table::data.table(cbind(dataset[,c("Y","w","gps",
+                                                 "counter","row_index")],
                           ipw, dataset[,6:length(dataset)])))
 }

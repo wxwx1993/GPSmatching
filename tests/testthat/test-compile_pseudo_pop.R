@@ -30,7 +30,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      covar_bl_method = "absolute",
                                      covar_bl_trs = 0.1,
                                      covar_bl_trs_type = "mean",
-                                     max_attempt = 4,
                                      matching_fun = "matching_l1",
                                      delta_n = 1,
                                      scale = 0.5)
@@ -39,5 +38,30 @@ test_that("Compiling pseudo pop works as expected.", {
   expect_equal(sum(pseudo_pop_1$counter), 2500)
   expect_equal(nrow(pseudo_pop_1),100)
   expect_equal(length(pseudo_pop_1),11)
+
+
+
+
+  set.seed(934)
+  data <- list(pseudo_pop_weight_test[, !c("ipw")])
+  pseudo_pop_2 <- compile_pseudo_pop(dataset=data,
+                                     ci_appr="weighting",
+                                     gps_model="parametric",
+                                     bin_seq = NULL,
+                                     nthread = 1,
+                                     trim_quantiles = c(0.01, 0.99),
+                                     optimized_compile = TRUE,
+                                     covar_bl_method = "absolute",
+                                     covar_bl_trs = 0.1,
+                                     covar_bl_trs_type = "mean",
+                                     delta_n = 1,
+                                     scale = 0.5)
+
+
+
+  expect_equal(nrow(pseudo_pop_2),1000)
+  expect_equal(length(pseudo_pop_2),14)
+  expect_equal(mean(pseudo_pop_2$ipw), 0.7465975, tolerance = 0.00001)
+
 
 })
