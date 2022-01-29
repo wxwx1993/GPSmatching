@@ -55,18 +55,54 @@ absolute_weighted_corr_fun <- function(w,
                               c[[i]],
                               weights = as.list(vw)[[colnames(vw)[1]]],
                               method = c("spearman")))})
+    absolute_corr_n <- unlist(absolute_corr_n)
+    names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
-    absolute_corr_f<- sapply(col_f,function(i){
-      abs(wCorr::weightedCorr(as.list(w)[[colnames(w)[1]]],
-                              c[[i]],
-                              weights = as.list(vw)[[colnames(vw)[1]]],
-                              method = c("Polyserial")))})
+    internal_fun<- function(i){
+                          abs(wCorr::weightedCorr(as.list(w)[[colnames(w)[1]]],
+                          c[[i]],
+                          weights = as.list(vw)[[colnames(vw)[1]]],
+                          method = c("Polyserial")))}
+
+    absolute_corr_f <- c()
+    for (item in col_f){
+      if (length(unique(c[[item]])) == 1 ){
+        absolute_corr_f <- c(absolute_corr_f, NA)
+      } else {
+        absolute_corr_f <- c(absolute_corr_f, internal_fun(item))
+      }
+    }
+    # absolute_corr_f<- sapply(col_f,)
+    # absolute_corr_f <- unlist(absolute_corr_f)
+    names(absolute_corr_f) <- col_f
   }
 
-  absolute_corr <- c(absolute_corr_f, absolute_corr_n)
+  absolute_corr <- c(absolute_corr_n, absolute_corr_f)
+
+  logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
+                           "absolute_corr, collapse = ', ', sep = ' : ')}"))
+
+  if (sum(is.na(absolute_corr)) > 0){
+    warning(paste("The following features generated missing values: ",
+                  names(absolute_corr)[is.na(absolute_corr)],
+                  "\nIn computing mean covariate balance, they will be ignored."))
+  }
+
+
+  # compute mean value
+  mean_val <- mean(absolute_corr, na.rm = TRUE)
+
+  # compute median value
+  median_val <- median(absolute_corr, na.rm = TRUE)
+
+  # Maximal value
+  max_val <- max(absolute_corr, na.rm = TRUE)
 
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean(absolute_corr)))
+              mean_absolute_corr = mean_val,
+              median_absolute_corr = median_val,
+              maximal_absolute_corr = max_val))
+
 }

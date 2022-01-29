@@ -136,6 +136,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
   covar_bl_method <- NULL
   matching_fun <- NULL
   max_attempt <- NULL
+  covar_bl_trs_type <- NULL
 
   required_args <- NULL
 
@@ -165,7 +166,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
   # checkpoint 2 ------------------------------------------
   if (ci_appr == 'matching'){
     required_args <- c(required_args, 'covar_bl_method', 'covar_bl_trs',
-                       'matching_fun', 'delta_n', 'scale')
+                       'covar_bl_trs_type','matching_fun', 'delta_n', 'scale')
   }
 
   # checkpoint 3 ------------------------------------------
@@ -200,9 +201,14 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
       stop(paste("scale shoule be in [0,1] range. Current provided value: ",
                  scale))
     }
-
-
   }
+
+  if (!is.element(covar_bl_trs_type, c('mean', 'median', 'maximal'))){
+    stop(paste(covar_bl_method, " is not a valid covar balance type.",
+               " Available options: mean, median, maximal."))
+  }
+
+
   invisible(TRUE)
 }
 

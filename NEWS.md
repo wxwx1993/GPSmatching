@@ -1,4 +1,18 @@
-## CausalGPS 0.2.6 (2021-09-03)
+## CausalGPS (Current)
+
+### Fixed
+* Naming covariate balance scores.
+
+### Changed
+* Restarting adaptive approach to keep trying upto maximum attempt.
+
+### Added
+* Synthetic data (synthetic_us_2010)
+* Check on not defined covariate balance (absolute_corr_fun, absolute_weighted_corr_fun)
+* Covariate balance threshold type: mean, median, maximal. 
+* Improved test coverage.
+
+## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
 * added the status of optimized compile to generate_psuedo_pop function output.

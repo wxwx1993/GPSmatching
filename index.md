@@ -1,9 +1,10 @@
-# CausalGPS  <a href="https://fasrc.github.io/GPSmatching/"><img src="man/figures/png/causalgps_logo_01.png" align="right" height="115" /></a>
+# CausalGPS  <a href="https://fasrc.github.io/GPSmatching/"><img src="man/figures/png/causalgps_logo_01.png" align="right" width="120" /></a>
 
 <!-- badges: start -->
 [![R build status](https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions)
 [![](http://www.r-pkg.org/badges/version-last-release/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
+[![codecov](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://codecov.io/gh/fasrc/CausalGPS)
 <!-- badges: end -->
 
 

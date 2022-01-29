@@ -13,6 +13,7 @@
 #' - \code{mean_absolute_corr}: the average absolute correlations for all
 #'  pre-exposure covairates.
 #'
+#' @importFrom stats median
 #' @export
 #' @examples
 #' set.seed(291)
@@ -32,7 +33,6 @@ absolute_corr_fun <- function(w, c){
   if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
   if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
 
-
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
 
@@ -42,17 +42,41 @@ absolute_corr_fun <- function(w, c){
   absolute_corr_n <- absolute_corr_f <- NULL
 
   if (length(col_n) > 0){
-      absolute_corr_n<- lapply(col_n,function(i){
+      absolute_corr_n <- lapply(col_n,function(i){
         abs(stats::cor(w,c[[i]],method = c("spearman")))})
+      absolute_corr_n <- unlist(absolute_corr_n)
+      names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
       w_numeric <- as.list(w[,1])[[colnames(w[,1])[1]]]
-      absolute_corr_f<- lapply(col_f,function(i){
+      absolute_corr_f <- lapply(col_f,function(i){
         abs(polycor::polyserial(w_numeric,c[[i]]))})
+      absolute_corr_f <- unlist(absolute_corr_f)
+      names(absolute_corr_f) <- col_f
   }
 
-  absolute_corr <- c(unlist(absolute_corr_f), unlist(absolute_corr_n))
+  absolute_corr <- c(absolute_corr_n, absolute_corr_f)
+  logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
+                    "absolute_corr, collapse = ', ', sep = ' : ')}"))
+
+  if (sum(is.na(absolute_corr)) > 0){
+    warning(paste("The following features generated missing values: ",
+                  names(absolute_corr)[is.na(absolute_corr)],
+                  "\n In computing mean covariate balance, they will be ignored."))
+  }
+
+  # compute mean value
+  mean_val <- mean(absolute_corr, na.rm = TRUE)
+
+  # compute median value
+  median_val <- stats::median(absolute_corr, na.rm = TRUE)
+
+  # Maximal value
+  max_val <- max(absolute_corr, na.rm = TRUE)
+
   return(list(absolute_corr = absolute_corr,
-              mean_absolute_corr = mean(absolute_corr)))
+              mean_absolute_corr = mean_val,
+              median_absolute_corr = median_val,
+              maximal_absolute_corr = max_val))
 }

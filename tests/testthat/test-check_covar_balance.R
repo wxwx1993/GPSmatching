@@ -21,24 +21,28 @@ test_that("Covariate balance check works as expected", {
   #                               scale = 0.5)
   #
   # mydata <- generate_syn_data(sample_size = 1000)
-  #
+  # #
   # year <- c(rep(c("2001"), each=200),
   #           rep(c("2002"), each=200),
   #           rep(c("2003"), each=200),
   #           rep(c("2004"), each=200),
   #           rep(c("2005"), each=200))
-  #
+  # #
   # region <- rep(c(rep("North",each=50),
   #                 rep("South",each=50),
   #                 rep("East",each=50),
   #                 rep("West",each=50)), each=5)
-  #
+  # #
   # mydata$year <- as.factor(year)
   # mydata$region <- as.factor(region)
-  #
+  # #
+  # set.seed(729)
   # pseudo_pop_weight_test <- generate_pseudo_pop(mydata$Y,
   #                                               mydata$treat,
-  #                                               mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+  #                                               mydata[c("cf1","cf2","cf3",
+  #                                                        "cf4","cf5","cf6",
+  #                                                        "year","region")],
+  #                                               trim_quantiles = c(0.0,1.0),
   #                                               ci_appr = "weighting",
   #                                               pred_model = "sl",
   #                                               sl_lib = c("m_xgboost"),
@@ -47,15 +51,17 @@ test_that("Covariate balance check works as expected", {
   #                                               nthread = 1,
   #                                               covar_bl_method = "absolute",
   #                                               covar_bl_trs = 0.1,
+  #                                               covar_bl_trs_type = "mean",
   #                                               max_attempt = 1
   # )
 
-  # # pseudo_pop_covar_test is saved in R/sysdata.R
+  # # pseudo_pop_covar_test and pseudo_pop_weight_test are saved in R/sysdata.R
 
   val1 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.3,
+                              covar_bl_trs_type="mean",
                               optimized_compile = FALSE)
 
   expect_true(val1$pass)
@@ -64,30 +70,26 @@ test_that("Covariate balance check works as expected", {
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1,
+                              covar_bl_trs_type="mean",
                               optimized_compile = FALSE)
 
   expect_false(val2$pass)
 
-  # temp solution.
-  # TODO: regenrate pseudo_pop_weight_test to include counter and row_index.
-  mydata <- data.frame(pseudo_pop_weight_test[,c("Y","w","gps","gps","gps",
-                                                 "ipw","cf1","cf2","cf3",
-                                                 "cf4","cf5","cf6",
-                                                 "year","region")])
-  setDT(mydata)
-  val3 <- check_covar_balance(pseudo_pop = mydata,
+  val3 <- check_covar_balance(pseudo_pop = setDT(pseudo_pop_weight_test),
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1,
+                              covar_bl_trs_type="mean",
                               optimized_compile = FALSE)
 
-  expect_false(val3$pass)
+  expect_true(val3$pass)
 
-  val4 <- check_covar_balance(pseudo_pop = mydata,
+  val4 <- check_covar_balance(pseudo_pop = setDT(pseudo_pop_weight_test),
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
-                              covar_bl_trs=0.12,
+                              covar_bl_trs=0.01,
+                              covar_bl_trs_type="mean",
                               optimized_compile = FALSE)
-  expect_true(val4$pass)
+  expect_false(val4$pass)
 
 })

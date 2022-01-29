@@ -1,9 +1,14 @@
+url: https://fasrc.github.io/CausalGPS/
+
+home:
+  title: Implementing matching, and weighting on GPS with continuous exposures.
+
 template:
-  params:
-    bootswatch: cosmo
-    docsearch:
-      api_key: API_KEY
-      index_name: INDEX_NAME
+  bootstrap: 5
+  bslib:
+    bg: "#FEFFFF"
+    fg: "#202123"
+    primary: "#306cc9"
 
 reference:
   - title: Estimate GPS values
@@ -26,6 +31,9 @@ reference:
     - generate_syn_data
     - set_logger
     - get_logger
+  - title: Data
+    contents:
+    - synthetic_us_2010
 
 articles:
   - title: Introduction
@@ -35,3 +43,5 @@ articles:
   - title: Collabration
     navbar: Collabration
     contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper]
+
+
