@@ -29,6 +29,6 @@ Pseudo population dataset is computed based on user-defined causal inference app
 
 Several outcome models can be achieved using the generated pseudo population dataset. Users can specify non-/semi-parametric models to obtain exposure-response curves and parametric models to obtain regression coefficients of interest.
 
-## Acknowledgments
+#### Acknowledgments
 
 Funding was provided by the Health Effects Institute grant 4953-RFA14-3/16-4, Environmental Protection Agency grant 83587201-0, National Institute of Health grants R01 ES026217, R01 MD012769, R01 ES028033, 1R01 ES030616, 1R01 AG066793-01R01, 1R01 ES029950, R01 ES028033-S1, Alfred P. Sloan Foundation grant G-2020-13946.
