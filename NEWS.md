@@ -156,6 +156,7 @@
 * check_args function to check availability of the required parameters.
 * check_covar_balance function to check if the generated pseudo population statistically acceptable.
 * create_matching function to generate pseudo population based on matching approach.
+* acknowledgments to index file 
 
 ### Changed
 
@@ -172,3 +173,5 @@
 ### Removed
 
 * GPSmatching.R functions are separated into smaller functions, and the file is removed.
+
+###
