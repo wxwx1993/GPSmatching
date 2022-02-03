@@ -5,6 +5,7 @@
 [![](http://www.r-pkg.org/badges/version-last-release/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
 [![codecov](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://codecov.io/gh/fasrc/CausalGPS)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/NSAPH/R_project_binder/master?urlpath=rstudio)
 <!-- badges: end -->
 
 
