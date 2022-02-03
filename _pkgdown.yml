@@ -42,6 +42,6 @@ articles:
 
   - title: Collabration
     navbar: Collabration
-    contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper]
+    contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper, Singularity-Image]
 
 
