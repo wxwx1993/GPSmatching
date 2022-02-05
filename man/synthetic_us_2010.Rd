@@ -8,7 +8,7 @@ case study: 2010 county-Level data set for the contiguous United States}
 \format{
 A data frame with 3109 rows and 46 variables:
 \describe{
-\item{qd_mean_pm25}{Mean PM2.5 (μg/m3)}
+\item{qd_mean_pm25}{Mean PM2.5 (microgram/m3)}
 \item{cs_poverty}{The proportion of below poverty level population among
 65+ years old.}
 \item{cs_hispanic}{The proportion of Hispanic or Latino population
@@ -70,11 +70,12 @@ county.}
 }
 }
 \usage{
-synthetic_us_2010
+data(synthetic_us_2010)
 }
 \description{
 A dataset containing exposure, confounders, and outcome for causal inference
-studies. This dataset was produced from five different resources. Please see
+studies. The dataset is hosted on Harvard dataverse \doi{10.7910/DVN/L7YF2G}.
+This dataset was produced from five different resources. Please see
 \url{https://github.com/NSAPH/synthetic_data} for the data processing
 pipelines. In the following
 
@@ -119,7 +120,7 @@ States.
 \references{
 Abatzoglou, John T. 2013. “Development of Gridded Surface Meteorological
 Data for Ecological Applications and Modelling.” International Journal of
-Climatology 33 (1): 121–31. \url{https://doi.org/10.1002/joc.3413}.
+Climatology 33 (1): 121–31. \doi{10.1002/joc.3413}.
 
 Centers for Disease Control and Prevention. 2021. “Behavioral Risk
 Factor Surveillance System.”
@@ -133,12 +134,12 @@ Di, Qian, Heresh Amini, Liuhua Shi, Itai Kloog, Rachel Silvern, James Kelly,
 M Benjamin Sabath, et al. 2019. “An Ensemble-Based Model of Pm2. 5
 Concentration Across the Contiguous United States with High Spatiotemporal
 Resolution.” Environment International 130: 104909.
-\url{https://doi.org/10.1016/j.envint.2019.104909}.
+\doi{10.1016/j.envint.2019.104909}.
 
 Di, Qian, Yaguang Wei, Alexandra Shtein, Carolynne Hultquist, Xiaoshi Xing,
 Heresh Amini, Liuhua Shi, et al. 2021. “Daily and Annual Pm2.5
 Concentrations for the Contiguous United States, 1-Km Grids, V1
 (2000 - 2016).” NASA Socioeconomic Data; Applications Center (SEDAC).
-\url{https://doi.org/10.7927/0rvr-4538}.
+\doi{10.7927/0rvr-4538}.
 }
 \keyword{datasets}
