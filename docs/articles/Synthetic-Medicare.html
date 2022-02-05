@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -558,7 +558,7 @@
                                     sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                                     params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17</span><span class="op">)</span>,
                                                   xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.28</span><span class="op">)</span><span class="op">)</span>,
-                                    nthread <span class="op">=</span> <span class="fl">6</span>,
+                                    nthread <span class="op">=</span> <span class="fl">1</span>,
                                     covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                                     covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
                                     covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
@@ -601,7 +601,7 @@
                                     sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                                     params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17</span><span class="op">)</span>,
                                                   xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.28</span><span class="op">)</span><span class="op">)</span>,
-                                    nthread <span class="op">=</span> <span class="fl">6</span>,
+                                    nthread <span class="op">=</span> <span class="fl">1</span>,
                                     covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                                     covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
                                     covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
@@ -680,7 +680,7 @@
                                       sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                                       params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>,
                                                     xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,
-                                      nthread <span class="op">=</span> <span class="fl">6</span>,
+                                      nthread <span class="op">=</span> <span class="fl">1</span>,
                                       covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                                       covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
                                       covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
@@ -696,10 +696,9 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_3</span><span class="op">)</span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="scenario-4">Scenario 4<a class="anchor" aria-label="anchor" href="#scenario-4"></a>
-</h2>
+<div class="section level3">
+<h3 id="scenario-4">Scenario 4<a class="anchor" aria-label="anchor" href="#scenario-4"></a>
+</h3>
 <ul>
 <li>Causal Inference: Weighting</li>
 <li>GPS model: Parametric</li>
@@ -728,7 +727,7 @@
                                       sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                                       params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span>,
                                                     xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.14</span><span class="op">)</span><span class="op">)</span>,
-                                      nthread <span class="op">=</span> <span class="fl">6</span>,
+                                      nthread <span class="op">=</span> <span class="fl">1</span>,
                                       covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                                       covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
                                       covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
@@ -743,6 +742,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_4</span><span class="op">)</span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="covariate-balance">Covariate Balance<a class="anchor" aria-label="anchor" href="#covariate-balance"></a>
@@ -775,9 +775,9 @@
 <li>
 <code>eta</code> for <code>xgboost</code>: 0.1-0.5.</li>
 <li>
-<code>max_attempt</code>: 20.</li>
+<code>max_attempt</code>: 5.</li>
 <li>
-<code>covar_bl_trs</code>: 0.12.</li>
+<code>covar_bl_trs</code>: 0.08.</li>
 <li>
 <code>covar_bl_trs_type</code>: <code>mean</code>
 </li>
@@ -805,11 +805,11 @@
                                       sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                                       params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,
                                                     xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>,
-                                      nthread <span class="op">=</span> <span class="fl">6</span>,
+                                      nthread <span class="op">=</span> <span class="fl">1</span>,
                                       covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                                       covar_bl_trs <span class="op">=</span> <span class="fl">0.08</span>,
                                       covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
-                                      max_attempt <span class="op">=</span> <span class="fl">10</span>,
+                                      max_attempt <span class="op">=</span> <span class="fl">5</span>,
                                       matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
                                       delta_n <span class="op">=</span> <span class="fl">0.1</span>,
                                       scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -819,17 +819,12 @@
 <span class="co">#&gt; Mean absolute correlation:  0.165235822265409 | Covariate balance threshold:  0.08</span>
 <span class="co">#&gt; Mean absolute correlation:  0.160530585591875 | Covariate balance threshold:  0.08</span>
 <span class="co">#&gt; Mean absolute correlation:  0.180224262686973 | Covariate balance threshold:  0.08</span>
-<span class="co">#&gt; Mean absolute correlation:  0.171991886223486 | Covariate balance threshold:  0.08</span>
-<span class="co">#&gt; Mean absolute correlation:  0.0997942746513713 | Covariate balance threshold:  0.08</span>
-<span class="co">#&gt; Mean absolute correlation:  0.132206241750343 | Covariate balance threshold:  0.08</span>
-<span class="co">#&gt; Mean absolute correlation:  0.175714517307722 | Covariate balance threshold:  0.08</span>
-<span class="co">#&gt; Mean absolute correlation:  0.179078850856703 | Covariate balance threshold:  0.08</span>
 <span class="co">#&gt; Covariate balance condition has not been met.</span>
-<span class="co">#&gt; Best Mean absolute correlation:  0.0997942746513713 | Covariate balance threshold:  0.08</span>
+<span class="co">#&gt; Best Mean absolute correlation:  0.123384745637948 | Covariate balance threshold:  0.08</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_5</span><span class="op">)</span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>In this example, after 10 attempts, we could not find a pseudo population that can satisfy the covariate balance test.</p>
+<p>In this example, after 5 attempts, we could not find a pseudo population that can satisfy the covariate balance test.</p>
 </div>
 </div>
 <div class="section level2 unnumbered">
