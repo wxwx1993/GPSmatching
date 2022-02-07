@@ -1,4 +1,19 @@
-## CausalGPS 0.2.6 (2021-09-03)
+## CausalGPS 0.2.7 (2022-02-04)
+
+### Fixed
+* Naming covariate balance scores.
+
+### Changed
+* Restarting adaptive approach to keep trying up to maximum attempt.
+
+### Added
+* Synthetic data (synthetic_us_2010)
+* Check on not defined covariate balance (absolute_corr_fun, absolute_weighted_corr_fun)
+* Covariate balance threshold type: mean, median, maximal. 
+* Improved test coverage.
+* Singularity definition file.
+
+## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
 * added the status of optimized compile to generate_psuedo_pop function output.
@@ -142,6 +157,7 @@
 * check_args function to check availability of the required parameters.
 * check_covar_balance function to check if the generated pseudo population statistically acceptable.
 * create_matching function to generate pseudo population based on matching approach.
+* acknowledgments to index file 
 
 ### Changed
 
@@ -158,3 +174,5 @@
 ### Removed
 
 * GPSmatching.R functions are separated into smaller functions, and the file is removed.
+
+###

@@ -63,6 +63,7 @@
 #'                          matching_fun = "matching_l1",
 #'                          covar_bl_method = 'absolute',
 #'                          covar_bl_trs = 0.1,
+#'                          covar_bl_trs_type= "mean",
 #'                          delta_n = 0.5,
 #'                          scale = 1)
 #'
@@ -78,22 +79,28 @@ compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
                     " (original data size: {nrow(dataset[[1]])}) ... ")
 
   if (ci_appr == 'matching'){
+
       matched_set <- create_matching(dataset, bin_seq, gps_model, nthread,
                                      optimized_compile,...)
       logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
       return(matched_set)
-  }
 
-  if (ci_appr == 'weighting'){
+  } else if (ci_appr == 'weighting'){
+
     weighted_set <- create_weighting(dataset[[1]], ...)
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)
-  }
 
-  if (is.element(ci_appr, c('adjusting'))){
+  } else if (is.element(ci_appr, c('adjusting'))){
+
     stop(paste(ci_appr, " casual inference approach is not implemented."))
+
+  } else {
+
+  stop(paste('The code should not get here.',
+             'Something is wrong with checking arguments.'))
+
   }
-  stop('The code should not get here. Something is wrong with checking arguments.')
 }

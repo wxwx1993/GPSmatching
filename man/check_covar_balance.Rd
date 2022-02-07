@@ -69,6 +69,7 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                  sl_lib = c("m_xgboost"),
                                  covar_bl_method = "absolute",
                                  covar_bl_trs = 0.1,
+                                 covar_bl_trs_type = "mean",
                                  max_attempt = 1,
                                  matching_fun = "matching_l1",
                                  delta_n = 1,
@@ -80,5 +81,7 @@ adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
                                         nthread=1,
                                         covar_bl_method = "absolute",
                                         covar_bl_trs = 0.1,
+                                        covar_bl_trs_type = "mean",
                                         optimized_compile=FALSE)
+
 }

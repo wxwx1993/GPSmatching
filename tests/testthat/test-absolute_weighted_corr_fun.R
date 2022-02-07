@@ -2,17 +2,30 @@ test_that("absoulte_weighted_corr_fun works as expected.", {
 
   # see test-check_covar_balance.R for more details about the test data.
 
-  # temp solution.
-  # TODO: regenrate pseudo_pop_weight_test to include counter and row_index.
-  mydata <- data.frame(pseudo_pop_weight_test[,c("Y","w","gps","gps","gps",
-                                                 "ipw","cf1","cf2","cf3",
-                                                 "cf4","cf5","cf6",
-                                                 "year","region")])
+  data1 <- setDT(pseudo_pop_weight_test)
+  val1 <- absolute_weighted_corr_fun(data1[,2],
+            data1[,6],
+            data1[,7:length(data1)]
+            )
+  expect_equal(val1$mean_absolute_corr, 0.09003267, tolerance=0.0001)
+  expect_equal(val1$median_absolute_corr, 0.07821234, tolerance=0.0001)
+  expect_equal(val1$maximal_absolute_corr, 0.2222087, tolerance = 0.0001)
 
-  setDT(mydata)
-  val <- absolute_weighted_corr_fun(mydata[,2],
-            mydata[,6],
-            mydata[,7:length(mydata)]
-            )$mean_absolute_corr
-  expect_equal(val, 0.110354332937308, tolerance=0.0001)
+
+  # Use data that cause missing value in the results.
+  data2 <- data1
+  data2$region <- "East"
+  data2$region <- as.factor(data2$region)
+  expect_warning(absolute_weighted_corr_fun(data2[,2],
+                                            data2[,6],
+                                            data2[,7:length(data2)]
+  ))
+
+  # use data.frame instead of data.table (w)
+  data3 <- setDF(data1)
+  expect_error(absolute_weighted_corr_fun(data3[,2],
+                                          data3[,6],
+                                          data3[,7:length(data3)]
+  ))
+
 })

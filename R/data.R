@@ -1,0 +1,143 @@
+#' @title
+#' Public data set for air pollution and health studies,
+#' case study: 2010 county-Level data set for the contiguous United States
+#'
+#' @description
+#' A dataset containing exposure, confounders, and outcome for causal inference
+#' studies. The dataset is hosted on Harvard dataverse \doi{10.7910/DVN/L7YF2G}.
+#' This dataset was produced from five different resources. Please see
+#' \url{https://github.com/NSAPH/synthetic_data} for the data processing
+#' pipelines. In the following
+#'
+#'
+#' **Exposure Data**
+#'
+#' The exposure parameter is PM2.5. Di et al. (2019) provided
+#' daily, and annual PM2.5 estimates at 1 km×1 km grid cells in the entire
+#' United States. The data can be downloaded from Di et al. (2021). Features in
+#' this category starts with *qd_* prefix.
+#'
+#' **Census Data**
+#'
+#' The main reference for getting the census data is the United States Census
+#' Bureau. There are numerous studies and surveys for different geographical
+#' resolutions. We use 2010 county level American County Survey at the county
+#' level (`acs5`). Features in this category starts with *cs_* prefix.
+#'
+#' **CDC Data**
+#'
+#' The Centers for Disease Control and Prevention (CDC), provides the Behavioral
+#' Risk Factor Surveillance System (Centers for Disease Control and Prevention
+#' (2021)), which is the nation’s premier system of health-related telephone
+#' surveys that collect state data about U.S. residents regarding their
+#' health-related risk behaviors.
+#'
+#' **GridMET Data**
+#'
+#' Climatology Lab at the University of California, Merced, provides the GridMET
+#' data (Abatzoglou (2013)). The data set is daily surface meteorological data
+#' covering the contiguous United States.
+#'
+#' **CMS Data**
+#'
+#' The Centers for Medicare and Medicaid Services(CMS) provides synthetic data
+#' at the county level for 2008-2010
+#' (Centers for Medicare & Medicaid Services (2021)).
+#'
+#' The definition of each variables are provided below. All data are collected
+#' for 2010 and aggregated into the county level and in the contiguous United
+#' States.
+#'
+#' @format A data frame with 3109 rows and 46 variables:
+#' \describe{
+#'   \item{qd_mean_pm25}{Mean PM2.5 (microgram/m3)}
+#'   \item{cs_poverty}{The proportion of below poverty level population among
+#'   65+ years old.}
+#'   \item{cs_hispanic}{The proportion of Hispanic or Latino population
+#'   among 65+ years old.}
+#'   \item{cs_black}{The proportion of Black or African American population
+#'   among 65+ years old.}
+#'   \item{cs_white}{The proportion of White population among 65 years and over.}
+#'   \item{cs_native}{The proportion of American Indian or Alaska native
+#'   population among 65 years and over.}
+#'   \item{cs_asian}{The proportion of Asian population among 65 years and over.}
+#'   \item{cs_other}{The proportion of other races population among 65 years and over.}
+#'   \item{cs_ed_below_highschool}{The proportion of the population with below
+#'   high school level education among 65 years and over.}
+#'   \item{cs_household_income}{Median Household income in the past 12 months
+#'   (in 2010 inflation-adjusted  dollars) where householder is 65 years and over.}
+#'   \item{cs_median_house_value}{Median house value (USD)}
+#'   \item{cs_total_population}{Total Population}
+#'   \item{cs_area}{Area of each county (square miles)}
+#'   \item{cs_population_density}{The number of the population in one square mile.}
+#'   \item{cdc_mean_bmi}{Body Mass Index.}
+#'   \item{cdc_pct_cusmoker}{The proportion of current smokers.}
+#'   \item{cdc_pct_sdsmoker}{The proportion of some days smokers.}
+#'   \item{cdc_pct_fmsmoker}{The proportion of former smokers.}
+#'   \item{cdc_pct_nvsmoker}{The proportion of never smokers.}
+#'   \item{cdc_pct_nnsmoker}{The proportion of not known smokers.}
+#'   \item{gmet_mean_tmmn}{Annual mean of daily minimum temperature (K)}
+#'   \item{gmet_mean_summer_tmmn}{The mean of daily minimum temperature during summer (K)}
+#'   \item{gmet_mean_winter_tmmn}{The mean of daily minimum temperature during winter (K)}
+#'   \item{gmet_mean_tmmx}{Annual mean of daily maximum temprature (K)}
+#'   \item{gmet_mean_summer_tmmx}{The mean of daily maximum temperature during summer (K)}
+#'   \item{gmet_mean_winter_tmmx}{The mean of daily maximum temperature during winter (K)}
+#'   \item{gmet_mean_rmn}{Annual mean of daily minimum relative humidity (%)}
+#'   \item{gmet_mean_summer_rmn}{The mean of daily minimum relative humidity during summer (%)}
+#'   \item{gmet_mean_winter_rmn}{The mean of daily minimum relative humidity during winter (%)}
+#'   \item{gmet_mean_rmx}{Annual mean of daily maximum relative humidity (%)}
+#'   \item{gmet_mean_summer_rmx}{The mean of daily maximum relative humidity during summer (%)}
+#'   \item{gmet_mean_winter_rmx}{The mean of daily maximum relative humidity during winter (%)}
+#'   \item{gmet_mean_sph}{Annual mean of daily mean specific humidity (kg/kg)}
+#'   \item{gmet_mean_summer_sph}{The mean of daily mean specific humidity during summer(kg/kg)}
+#'   \item{gmet_mean_winter_sph}{The mean of daily mean specific humidity during winter(kg/kg)}
+#'   \item{cms_mortality_pct}{The proportion of deceased patients.}
+#'   \item{cms_white_pct}{The proportion of White patients.}
+#'   \item{cms_black_pct}{The proportion of Black patients.}
+#'   \item{cms_hispanic_pct}{The proportion of Hispanic patients.}
+#'   \item{cms_others_pct}{The proportion of Other patients.}
+#'   \item{cms_female_pct}{The proportion of Female patients.}
+#'   \item{region}{The region that the county is located in.
+#'
+#'       NORTHEAST=("NY","MA","PA","RI","NH","ME","VT","CT","NJ")
+#'       SOUTH=("DC","VA","NC","WV","KY","SC","GA","FL","AL","TN","MS","AR","MD","DE","OK","TX","LA")
+#'       MIDWEST=c("OH","IN","MI","IA","MO","WI","MN","SD","ND","IL","KS","NE")
+#'       WEST=c("MT","CO","WY","ID","UT","NV","CA","OR","WA","AZ","NM")
+#'   }
+#'   \item{FIPS}{Federal Information Processing Standards, a unique ID for each
+#'    county.}
+#'   \item{NAME}{County, State name.}
+#'   \item{STATE}{State abbreviation.}
+#'   \item{STATE_CODE}{State numerical code.}
+#' }
+#' @references
+#'
+#' Abatzoglou, John T. 2013. “Development of Gridded Surface Meteorological
+#' Data for Ecological Applications and Modelling.” International Journal of
+#' Climatology 33 (1): 121–31. \doi{10.1002/joc.3413}.
+#'
+#' Centers for Disease Control and Prevention. 2021. “Behavioral Risk
+#' Factor Surveillance System.”
+#' \url{https://www.cdc.gov/brfss/annual_data/annual_2010.htm}.
+#'
+#' Centers for Medicare & Medicaid Services. 2021. “CMS 2008-2010 Data
+#' Entrepreneurs’ Synthetic Public Use File (DE-SynPUF).”
+#' \url{https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF}.
+#'
+#' Di, Qian, Heresh Amini, Liuhua Shi, Itai Kloog, Rachel Silvern, James Kelly,
+#' M Benjamin Sabath, et al. 2019. “An Ensemble-Based Model of Pm2. 5
+#' Concentration Across the Contiguous United States with High Spatiotemporal
+#' Resolution.” Environment International 130: 104909.
+#' \doi{10.1016/j.envint.2019.104909}.
+#'
+#' Di, Qian, Yaguang Wei, Alexandra Shtein, Carolynne Hultquist, Xiaoshi Xing,
+#' Heresh Amini, Liuhua Shi, et al. 2021. “Daily and Annual Pm2.5
+#' Concentrations for the Contiguous United States, 1-Km Grids, V1
+#' (2000 - 2016).” NASA Socioeconomic Data; Applications Center (SEDAC).
+#' \doi{10.7927/0rvr-4538}.
+#'
+#' @usage data(synthetic_us_2010)
+"synthetic_us_2010"
+
+
+

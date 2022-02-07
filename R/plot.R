@@ -110,7 +110,7 @@ autoplot.gpsm_pspop <- function(object, ...){
   }
 
   # create a data.frame from two data.
-  balance <- data.frame(original= object$original_corr_results$absolute_corr,
+  balance <- data.frame(original = object$original_corr_results$absolute_corr,
                         adjusted = object$adjusted_corr_results$absolute_corr)
 
   # Convert row names in to attribute.
