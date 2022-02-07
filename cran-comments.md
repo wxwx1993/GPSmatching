@@ -1,3 +1,13 @@
+Resubmission (February 7, 2022)
+
+Thank you so much for taking the time and reviewing the CausalGPS 0.2.7 package.
+
+I fixed the URL issues in the notes. 
+
+Best regards,
+Naeem Khoshnevis
+
+
 Submission (February 4, 2022)
 
 Thank you so much for taking the time and reviewing the CausalGPS 0.2.7 package.
