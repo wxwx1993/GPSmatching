@@ -9,12 +9,9 @@
 <!-- badges: end -->
 
 
-
 ## Summary
 
 An R package for implementing matching, and weighting on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
-
-
 
 ## Features
 
