@@ -106,17 +106,43 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     return(data.table(do.call(rbind,matched_set)))
   } else {
 
+    logger::log_debug("Started working on compiling (sequential) ... ")
+
+
     cp_original_data <- dataset[[1]]
+    cp_original_data_tmp <- dataset[[1]]
     bind_matched_set = do.call(rbind,matched_set)
     freq_table = as.data.frame(table(bind_matched_set))
 
     index_of_data <- as.numeric(as.character(freq_table[1][,1]))
     added_count <- as.numeric(as.character(freq_table[2][,1]))
 
+    s_comp_n <- proc.time()
+
     for (i in seq(1,nrow(freq_table))){
       (cp_original_data[index_of_data[i],"counter"] <-
           cp_original_data[index_of_data[i],"counter"] + added_count[i])
     }
+
+    e_comp_n <- proc.time()
+
+    logger::log_debug("Finished compiling (for-loop) (Wall clock time:  ",
+                      " {(e_comp_n - s_comp_n)[[3]]} seconds).")
+
+    s_comp_p <- proc.time()
+
+    counter_tmp <- numeric(nrow(cp_original_data))
+    counter_tmp[index_of_data] <- added_count
+    cp_original_data_tmp$counter <- counter_tmp
+
+    e_comp_p <- proc.time()
+
+    logger::log_debug("Finished compiling (vectorized) (Wall clock time:  ",
+                      " {(e_comp_p - s_comp_p)[[3]]} seconds).")
+
+    print("Parallel and sequential version give the same results: ")
+    print(identical(cp_original_data, cp_original_data_tmp))
+
 
     return(data.table(cp_original_data))
   }

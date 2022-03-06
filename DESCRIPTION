@@ -44,7 +44,7 @@ Imports:
     gnm,
     tidyr
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
     covr,
     knitr,
