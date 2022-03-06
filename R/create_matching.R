@@ -106,6 +106,10 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     return(data.table(do.call(rbind,matched_set)))
   } else {
 
+    logger::log_debug("Started working on compiling  ... ")
+
+    s_comp_p <- proc.time()
+
     cp_original_data <- dataset[[1]]
     bind_matched_set = do.call(rbind,matched_set)
     freq_table = as.data.frame(table(bind_matched_set))
@@ -113,10 +117,14 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     index_of_data <- as.numeric(as.character(freq_table[1][,1]))
     added_count <- as.numeric(as.character(freq_table[2][,1]))
 
-    for (i in seq(1,nrow(freq_table))){
-      (cp_original_data[index_of_data[i],"counter"] <-
-          cp_original_data[index_of_data[i],"counter"] + added_count[i])
-    }
+    counter_tmp <- numeric(nrow(cp_original_data))
+    counter_tmp[index_of_data] <- added_count
+    cp_original_data$counter <- counter_tmp
+
+    e_comp_p <- proc.time()
+
+    logger::log_debug("Finished compiling (vectorized) (Wall clock time:  ",
+                      " {(e_comp_p - s_comp_p)[[3]]} seconds).")
 
     return(data.table(cp_original_data))
   }
