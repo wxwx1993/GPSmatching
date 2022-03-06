@@ -111,7 +111,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     s_comp_p <- proc.time()
 
     cp_original_data <- dataset[[1]]
-    cp_original_data_tmp <- dataset[[1]]
     bind_matched_set = do.call(rbind,matched_set)
     freq_table = as.data.frame(table(bind_matched_set))
 
