@@ -50,6 +50,7 @@
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,
+#'                                  covar_bl_trs_type = "mean",
 #'                                  max_attempt = 1,
 #'                                  matching_fun = "matching_l1",
 #'                                  delta_n = 1,
@@ -61,7 +62,9 @@
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
+#'                                         covar_bl_trs_type = "mean",
 #'                                         optimized_compile=FALSE)
+#'
 
 check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
                                 optimized_compile, ...){
@@ -69,6 +72,7 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
   covar_bl_trs <- NULL
+  covar_bl_trs_type <- NULL
   # ------------------------------------------------------
 
   logger::log_debug("Started checking covariate balance ... ")
@@ -93,28 +97,32 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
       if (!optimized_compile){
         abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
                                      pseudo_pop[,6:length(pseudo_pop)])
-        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else if (optimized_compile){
         abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
                                      pseudo_pop[,6:length(pseudo_pop)])
-        names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else {
         stop("The code should never get here. There is something wrong with check arguments.")
       }
     } else if (ci_appr == 'weighting') {
       abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 6],
                                             pseudo_pop[, 7:length(pseudo_pop)])
-      names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
+      #names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))
     }
 
+    logger::log_debug(paste("Mean absolute correlation: ",
+                            abs_cor$mean_absolute_corr))
     message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
                   "| Covariate balance threshold: ", covar_bl_trs))
 
     output <- list(corr_results = abs_cor)
-    if (abs_cor$mean_absolute_corr < covar_bl_trs){
+    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+
+    if (getElement(abs_cor,covar_bl_t) < covar_bl_trs){
       output$pass <- TRUE
     } else {
       output$pass <- FALSE

@@ -1,0 +1,111 @@
+---
+title: "Singularity"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Singularity-Image}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A Singularity image is an essential part of creating a reproducible container and, eventually, reproducible research. This section explains the steps to create a singularity definition file, build an image, and run a container. The two primary sources for further discussion and details include:
+
+- [Singularity Definition Files](https://sylabs.io/guides/3.0/user-guide/definition_files.html)
+- [Rocker Project (Singularity)](https://www.rocker-project.org/use/singularity/)
+
+
+### Setting up the environment
+
+In order to build a singularity image, you need to have singularity installed on your system, and you need to have a root privilege to build an image. There are sufficient instructions to do that (for example, [here](https://sylabs.io/guides/3.7/user-guide/quick_start.html)). You can also use [Sylab Remote Builder](https://cloud.sylabs.io/builder) services.
+
+### Definition File
+
+The Definition File (CausalGPS_rstudio.def) is the recipe for building the image. Please note that we build it upon [rocker/rstudio:4.0.4] image. For more details about generating a Definition File, please refer to [Singularity User Guide](https://sylabs.io/guides/3.7/user-guide/definition_files.html).
+
+### Building Singularity Image
+
+To build the image, download the Definition File (CausalGPS_rstudio.def) and run the following:
+
+```r
+$ sudo singularity build CausalGPS_rstudio.sif CausalGPS_rstudio.def 
+```
+
+Running the command will generate a Singularity image (CausalGPS_rstudio.sif). You can double-check the CausalGPS package version by running the image using the following command:
+
+```r
+singularity run CausalGPS_rstudio.sif 
+```
+This will result in the following format:
+
+```s
+Container was created Thu 03 Feb 2022 07:54:45 PM UTC
+CausalGPS package installed (ver: [1] ‘0.2.6.9000’)
+```
+
+### Run an R Session
+
+If you want to use R in a console, you can follow these steps:
+
+- Run shell command in the image
+
+```r
+singularity shell CausalGPS_rstudio.sif
+```
+and then run R. 
+
+```r
+Singularity> R
+```
+This will provide the following results and will activate R.
+
+```r
+R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+>
+```
+
+Now, you can run an R command. For example:
+
+```r
+> utils::packageVersion("CausalGPS")
+# [1] ‘0.2.6.9000’
+```
+
+### Run a Rstudio Session
+
+You can also open an RStudio session in your browser by following these steps mentioned in [Rocker Project (Singularity)](https://www.rocker-project.org/use/singularity/).
+
+```r
+mkdir -p run var-lib-rstudio-server
+
+printf 'provider=sqlite\ndirectory=/var/lib/rstudio-server\n' > database.conf
+
+singularity exec --bind run:/run,var-lib-rstudio-server:/var/lib/rstudio-server,database.conf:/etc/rstudio/database.conf CausalGPS_rstudio.sif rserver --www-address=127.0.0.1
+
+```
+
+Open your browser and enter this URL: 
+
+```r
+127.0.0.1:8787
+```

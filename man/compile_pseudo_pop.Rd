@@ -85,6 +85,7 @@ pd <- compile_pseudo_pop(dataset = data_with_gps,
                          matching_fun = "matching_l1",
                          covar_bl_method = 'absolute',
                          covar_bl_trs = 0.1,
+                         covar_bl_trs_type= "mean",
                          delta_n = 0.5,
                          scale = 1)
 

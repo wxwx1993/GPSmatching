@@ -1,7 +1,7 @@
 Package: CausalGPS
 Type: Package
 Title: Matching on Generalized Propensity Scores with Continuous Exposures
-Version: 0.2.6.9000
+Version: 0.2.7.9000
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
@@ -44,8 +44,9 @@ Imports:
     gnm,
     tidyr
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
+    covr,
     knitr,
     rmarkdown,
     testthat

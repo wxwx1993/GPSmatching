@@ -4,174 +4,144 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="CausalGPS">
 <title>CausalGPS • CausalGPS</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="CausalGPS">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="CausalGPS">
 <meta property="og:description" content="CausalGPS">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="active nav-item">
+  <a class="nav-link" href="../articles/CausalGPS.html">Get started</a>
 </li>
-<li>
-  <a href="../articles/CausalGPS.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="divider">
-    <li class="dropdown-header">Introduction</li>
-    <li>
-      <a href="../articles/Estimating-GPS.html">Estimating GPS</a>
-    </li>
-    <li>
-      <a href="../articles/Generating-Pseudo-Population.html">Generating Pseudo Population</a>
-    </li>
-    <li>
-      <a href="../articles/Outcome-Models.html">Outcome Models</a>
-    </li>
-    <li>
-      <a href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
-    </li>
-    <li>
-      <a href="../articles/FAQ.html">Frequently Asked Questions</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Collabration</li>
-    <li>
-      <a href="../articles/Developers-Guide.html">Developers Guide</a>
-    </li>
-    <li>
-      <a href="../articles/Testing-the-Package.html">Testing the Package</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-</div>
-      </form>
-      
-    </div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Introduction</h6>
+    <a class="dropdown-item" href="../articles/Estimating-GPS.html">Estimating GPS</a>
+    <a class="dropdown-item" href="../articles/Generating-Pseudo-Population.html">Generating Pseudo Population</a>
+    <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
+    <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
+    <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
+    <a class="dropdown-item" href="../articles/FAQ.html">Frequently Asked Questions</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
+    <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
+    <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/fasrc/CausalGPS/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="CausalGPS_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>CausalGPS</h1>
+
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>CausalGPS</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/master/vignettes/CausalGPS.Rmd"><code>vignettes/CausalGPS.Rmd</code></a></small>
-      <div class="hidden name"><code>CausalGPS.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/fasrc/CausalGPS/blob/HEAD/vignettes/CausalGPS.Rmd" class="external-link"><code>vignettes/CausalGPS.Rmd</code></a></small>
+      <div class="d-none name"><code>CausalGPS.Rmd</code></div>
     </div>
 
     
     
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"master"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS">"CausalGPS"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"fasrc/CausalGPS"</span>, ref<span class="op">=</span><span class="st">"master"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/fasrc/CausalGPS" class="external-link">"CausalGPS"</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>Input parameters:</p>
-<p><strong><code>Y</code></strong> a vector of observed outcome.<br><strong><code>w</code></strong> a vector of observed continues exposure.<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates.<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>pred_model</code></strong> a prediction model (use “sl” for SuperLearner). <strong><code>gps_model</code></strong> Model type which is used for estimating GPS value, including “parametric” (default) and “non-parametric”.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> Is a list of transformers. Each transformer should be a unary function. Available transformers are “pow2” and “pow3”. <strong><code>bin_seq</code></strong> Sequence of w (treatment) to generate pseudo population. If <code>NULL</code> is passed the default value will be used, which is <code><a href="https://rdrr.io/r/base/seq.html">seq(min(w)+delta_n/2,max(w), by=delta_n)</a></code>. <strong><code>matching_fun</code></strong> specified matching function. <strong><code>trim_quantiles</code></strong> A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order(default: c(0.01,0.99)). <strong><code>optimized_compile</code></strong> If TRUE, uses counts to keep track of number of replicated pseudo population. <strong><code>params</code></strong> Includes list of params that is used internally. Unrelated parameters will be ignored. <strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates.<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>sl_lib</code></strong> a set of machine learning methods used for estimating GPS<br><strong><code>ci_appr</code></strong> causal inference approach<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
+<p><strong><code>Y</code></strong> a vector of observed outcome.<br><strong><code>w</code></strong> a vector of observed continues exposure.<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates.<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>pred_model</code></strong> a prediction model (use “sl” for SuperLearner). <strong><code>gps_model</code></strong> Model type which is used for estimating GPS value, including “parametric” (default) and “non-parametric”.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> Is a list of transformers. Each transformer should be a unary function. Available transformers are “pow2” and “pow3”. <strong><code>bin_seq</code></strong> Sequence of w (treatment) to generate pseudo population. If <code>NULL</code> is passed the default value will be used, which is <code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>. <strong><code>matching_fun</code></strong> specified matching function. <strong><code>trim_quantiles</code></strong> A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order(default: c(0.01,0.99)). <strong><code>optimized_compile</code></strong> If TRUE, uses counts to keep track of number of replicated pseudo population. <strong><code>params</code></strong> Includes list of params that is used internally. Unrelated parameters will be ignored. <strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates.<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>sl_lib</code></strong> a set of machine learning methods used for estimating GPS<br><strong><code>ci_appr</code></strong> causal inference approach<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>covar_bl_trs_type</code></strong> specified covariate balance threshold type <strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
 <ul>
 <li>Generating Pseudo Population</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">422</span><span class="op">)</span>
+<code class="sourceCode R"> <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">422</span><span class="op">)</span>
  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
  <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="va">n</span><span class="op">)</span>
- <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2001"</span>,<span class="st">"2002"</span>,<span class="st">"2003"</span>,<span class="st">"2004"</span>,<span class="st">"2005"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
- <span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
- <span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>
- <span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>
- <span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span><span class="op">)</span>
+ <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2001"</span>,<span class="st">"2002"</span>,<span class="st">"2003"</span>,<span class="st">"2004"</span>,<span class="st">"2005"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+ <span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>
+ <span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span><span class="op">)</span>
                              
  <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,
                              <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,
-                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
+                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,
                              ci_appr <span class="op">=</span> <span class="st">"matching"</span>,
                              pred_model <span class="op">=</span> <span class="st">"sl"</span>,
                              gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,
                              use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,
-                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, <span class="st">"scale"</span><span class="op">)</span>,
-                             trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,
+                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, <span class="st">"scale"</span><span class="op">)</span>,
+                             trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,
                              optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,
-                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
+                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
                              covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,
                              covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,
+                             covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,
                              max_attempt <span class="op">=</span> <span class="fl">4</span>,
                              matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,
                              delta_n <span class="op">=</span> <span class="fl">1</span>,
                              scale <span class="op">=</span> <span class="fl">0.5</span>,
                              nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>                            
                              
- <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">)</span></code></pre></div>
-<p><strong><code>matching_l1</code></strong> is Manhattan distance matching approach. For prediciton model we use <a href="https://github.com/ecpolley/SuperLearner">SuperLearner</a> package. User need to pass <strong><code>sl</code></strong> as <strong><code>pred_model</code></strong> to use SuperLearner package. SuperLearner supports different machine learning methods and packages. <strong><code>params</code></strong> is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list. The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in <strong><code>sl_lib</code></strong>, the prefixes that should be used for their hyperparameters in the <strong><code>params</code></strong> list, and available hyperparameters.</p>
+ <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">)</span></code></pre></div>
+<p><strong><code>matching_l1</code></strong> is Manhattan distance matching approach. For prediciton model we use <a href="https://github.com/ecpolley/SuperLearner" class="external-link">SuperLearner</a> package. User need to pass <strong><code>sl</code></strong> as <strong><code>pred_model</code></strong> to use SuperLearner package. SuperLearner supports different machine learning methods and packages. <strong><code>params</code></strong> is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list. The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in <strong><code>sl_lib</code></strong>, the prefixes that should be used for their hyperparameters in the <strong><code>params</code></strong> list, and available hyperparameters.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="center">Package name</th>
@@ -182,13 +152,13 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center"><a href="https://xgboost.readthedocs.io/en/latest/index.html">XGBoost</a></td>
+<td align="center"><a href="https://xgboost.readthedocs.io/en/latest/index.html" class="external-link">XGBoost</a></td>
 <td align="center"><code>m_xgboost</code></td>
 <td align="center"><code>xgb_</code></td>
 <td align="center">nrounds, eta, max_depth, min_child_weight</td>
 </tr>
 <tr class="even">
-<td align="center"><a href="https://cran.r-project.org/package=ranger">ranger</a></td>
+<td align="center"><a href="https://cran.r-project.org/package=ranger" class="external-link">ranger</a></td>
 <td align="center"><code>m_ranger</code></td>
 <td align="center"><code>rgr_</code></td>
 <td align="center">num.trees, write.forest, replace, verbose, family</td>
@@ -205,10 +175,10 @@
                               <span class="va">c</span>,
                               pred_model <span class="op">=</span> <span class="st">"sl"</span>,
                               internal_use <span class="op">=</span> <span class="cn">FALSE</span>,
-                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
-                                            xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,
+                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,
+                                            xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,
                               nthread <span class="op">=</span> <span class="fl">1</span>,                                
-                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>
+                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>
                               <span class="op">)</span></code></pre></div>
 <p>If <strong><code>internal_use</code></strong> is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See <strong><code><a href="../reference/estimate_gps.html">?estimate_gps</a></code></strong> for more details.</p>
 <ul>
@@ -231,46 +201,30 @@
 <ul>
 <li>Logging</li>
 </ul>
-<p>The CausalGPS package is logging internal activities into the <code>CausalGPS.log</code> file. The file is located in the source file location and will be appended. Users can change the logging file name (and path) and logging threshold. The logging mechanism has different thresholds (see <a href="https://cran.r-project.org/package=logger">logger</a> package). The two most important thresholds are INFO and DEBUG levels. The former, which is the default level, logs more general information about the process. The latter, if activated, logs more detailed information that can be used for debugging purposes.</p>
+<p>The CausalGPS package is logging internal activities into the <code>CausalGPS.log</code> file. The file is located in the source file location and will be appended. Users can change the logging file name (and path) and logging threshold. The logging mechanism has different thresholds (see <a href="https://cran.r-project.org/package=logger" class="external-link">logger</a> package). The two most important thresholds are INFO and DEBUG levels. The former, which is the default level, logs more general information about the process. The latter, if activated, logs more detailed information that can be used for debugging purposes.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'API_KEY',
-    indexName: 'INDEX_NAME',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>

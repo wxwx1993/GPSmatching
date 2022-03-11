@@ -1,4 +1,4 @@
-test_that("estimate_erf works as expected", {
+test_that("estimate_npmetric_erf works as expected", {
 
   m_d <- generate_syn_data(sample_size = 100)
 
@@ -13,6 +13,7 @@ test_that("estimate_erf works as expected", {
                                     sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
+                                    covar_bl_trs_type = "mean",
                                     max_attempt = 1,
                                     matching_fun = "matching_l1",
                                     delta_n = 1,
