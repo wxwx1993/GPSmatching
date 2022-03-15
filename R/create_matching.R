@@ -124,16 +124,26 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     s_comp_p <- proc.time()
 
+    # store data
+    save(dataset, matched_set, file = "process_data.rda")
+
     cp_original_data <- dataset[[1]]
+    print("finished copying dataset.")
+
     bind_matched_set = do.call(rbind,matched_set)
+    print("finished rbinding.")
+
     freq_table = as.data.frame(table(bind_matched_set))
+    print("finished converting into data.frame.")
 
     index_of_data <- as.numeric(as.character(freq_table[1][,1]))
     added_count <- as.numeric(as.character(freq_table[2][,1]))
+    print("finished converting into numeric")
 
     counter_tmp <- numeric(nrow(cp_original_data))
     counter_tmp[index_of_data] <- added_count
     cp_original_data$counter <- counter_tmp
+    print("finished expanding the counter.")
 
     e_comp_p <- proc.time()
 
