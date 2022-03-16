@@ -124,59 +124,40 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     s_comp_p <- proc.time()
 
-    # old solution
-    s_old <- proc.time()
-
-    cp_original_data <- dataset[[1]]
-    bind_matched_set = do.call(rbind,matched_set)
-    freq_table = as.data.frame(table(bind_matched_set))
-    index_of_data <- as.numeric(as.character(freq_table[1][,1]))
-    added_count <- as.numeric(as.character(freq_table[2][,1]))
-    #index_of_data <- freq_table[1][,1]
-    #added_count <- freq_table[2][,1]
-
-    e_old <- proc.time()
-
-    print(paste0("Finished old version (Wall clock time:  ",
-           (e_old - s_old)[[3]]," seconds)."))
+    # # old solution
+    # s_old <- proc.time()
+    #
+    # cp_original_data <- dataset[[1]]
+    # bind_matched_set = do.call(rbind,matched_set)
+    # freq_table = as.data.frame(table(bind_matched_set))
+    # index_of_data <- as.numeric(as.character(freq_table[1][,1]))
+    # added_count <- as.numeric(as.character(freq_table[2][,1]))
+    # #index_of_data <- freq_table[1][,1]
+    # #added_count <- freq_table[2][,1]
+    #
+    # e_old <- proc.time()
+    #
+    # print(paste0("Finished old version (Wall clock time:  ",
+    #        (e_old - s_old)[[3]]," seconds)."))
 
     # New solution
-    s_new <- proc.time()
     cp_original_data <- dataset[[1]]
     logger::log_debug("Started working on binding the matched set  ... ")
-
-    # s_bind <- proc.time()
-    # bind_matched_set_2 = do.call(rbind,matched_set)
-    # e_bind <- proc.time()
-    # print(paste0("Finished binding the matched set - rbind(Wall clock time:  ",
-    #              (e_bind - s_bind)[[3]]," seconds)."))
-
     s_bindlist <- proc.time()
-    bind_matched_set = data.table::rbindlist(matched_set)
+    bind_matched_set <- data.table::rbindlist(matched_set)
     e_bindlist <- proc.time()
-    print(paste0("Finished binding the matched set - rbindlist(Wall clock time:  ",
-                 (e_bindlist - s_bindlist)[[3]]," seconds)."))
-
-    #print(paste0("rbind and rbindlist have the same values: ", identical(bind_matched_set_2$row_index, bind_matched_set$row_index)))
+    logger::log_debug(paste0("Finished binding the matched set - rbindlist(Wall clock time:  ",
+                            (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
     bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
     row.names(bind_matched_set) <- NULL
     data.table::setDT(bind_matched_set)
-    freq_table_2 <- bind_matched_set[ , .N, by=row_index]
-    freq_table_2 <- freq_table_2[order(row_index)]
-    index_of_data_2 <- freq_table_2$row_index
-    added_count_2 <- freq_table_2$N
-
-    e_new <- proc.time()
-
-    print(paste0("Finished new version (Wall clock time:  ",
-          (e_new - s_new)[[3]]," seconds)."))
-
-    print(paste0("row_index are identical: ", sum(as.integer(as.character(freq_table$bind_matched_set)) - freq_table_2$row_index)))
-    print(paste0("counts are indentical: ", sum(freq_table$Freq - freq_table_2$N)))
-
+    freq_table <- bind_matched_set[ , .N, by=row_index]
+    freq_table <- freq_table[order(row_index)]
+    index_of_data <- freq_table$row_index
+    added_count <- freq_table$N
     counter_tmp <- numeric(nrow(cp_original_data))
-    counter_tmp[index_of_data_2] <- added_count_2
+    counter_tmp[index_of_data] <- added_count
     cp_original_data$counter <- counter_tmp
 
     e_comp_p <- proc.time()
