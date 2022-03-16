@@ -145,11 +145,11 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     cp_original_data <- dataset[[1]]
     logger::log_debug("Started working on binding the matched set  ... ")
 
-    s_bind <- proc.time()
-    bind_matched_set_2 = do.call(rbind,matched_set)
-    e_bind <- proc.time()
-    print(paste0("Finished binding the matched set - rbind(Wall clock time:  ",
-                 (e_bind - s_bind)[[3]]," seconds)."))
+    # s_bind <- proc.time()
+    # bind_matched_set_2 = do.call(rbind,matched_set)
+    # e_bind <- proc.time()
+    # print(paste0("Finished binding the matched set - rbind(Wall clock time:  ",
+    #              (e_bind - s_bind)[[3]]," seconds)."))
 
     s_bindlist <- proc.time()
     bind_matched_set = data.table::rbindlist(matched_set)
@@ -157,7 +157,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     print(paste0("Finished binding the matched set - rbindlist(Wall clock time:  ",
                  (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
-    print(paste0("rbind and rbindlist have the same values: ", identical(bind_matched_set_2$row_index, bind_matched_set$row_index)))
+    #print(paste0("rbind and rbindlist have the same values: ", identical(bind_matched_set_2$row_index, bind_matched_set$row_index)))
 
     bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
     row.names(bind_matched_set) <- NULL
