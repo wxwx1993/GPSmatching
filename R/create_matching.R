@@ -60,43 +60,21 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug("Started generating matched set ...")
     st_t_m <- proc.time()
 
-    lfp <- get_options("logger_file_path")
+    #lfp <- get_options("logger_file_path")
 
-    p_c_t_s <- proc.time()
-    cl <- parallel::makeCluster(nthread, type="PSOCK",
-                                outfile= lfp)
-
-
-    # seed_val <- .Random.seed
-    # parallel::clusterSetRNGStream(cl = cl, iseed = seed_val)
-
-    parallel::clusterEvalQ(cl, {library("CausalGPS")})
-    p_c_t_e <- proc.time()
-
-    logger::log_debug("Wall clock time to create cluster with ",
-                      "{nthread} core(s): {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
-    parallel::clusterExport(cl=cl,
-                          varlist = c("bin_num", "matching_fun", "dataset",
-                                      "gps_mx", "w_mx", "delta_n", "scale",
-                                      "nthread", "compute_closest_wgps",
-                                      "compute_resid", "compute_density"),
-                          envir=environment())
-
-    matched_set <-  parallel::parLapply(cl,
-                                        bin_num,
-                                        matching_fun,
-                                        dataset=dataset[[1]],
-                                        e_gps_pred = dataset[[2]],
-                                        e_gps_std_pred = dataset[[3]],
-                                        w_resid=dataset[[4]],
-                                        gps_mx = gps_mx,
-                                        w_mx = w_mx,
-                                        gps_model = gps_model,
-                                        delta_n = delta_n,
-                                        scale = scale,
-                                        nthread = nthread,
-                                        optimized_compile = optimized_compile)
-    parallel::stopCluster(cl)
+    matched_set <-  lapply(bin_num,
+                           matching_fun,
+                           dataset=dataset[[1]],
+                           e_gps_pred = dataset[[2]],
+                           e_gps_std_pred = dataset[[3]],
+                           w_resid=dataset[[4]],
+                           gps_mx = gps_mx,
+                           w_mx = w_mx,
+                           gps_model = gps_model,
+                           delta_n = delta_n,
+                           scale = scale,
+                           nthread = nthread,
+                           optimized_compile = optimized_compile)
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
@@ -111,12 +89,21 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     s_comp_p <- proc.time()
 
     cp_original_data <- dataset[[1]]
-    bind_matched_set = do.call(rbind,matched_set)
-    freq_table = as.data.frame(table(bind_matched_set))
+    logger::log_debug("Started working on binding the matched set  ... ")
+    s_bindlist <- proc.time()
+    bind_matched_set <- data.table::rbindlist(matched_set)
+    e_bindlist <- proc.time()
+    logger::log_debug(paste0("Finished binding the matched set -",
+                             "rbindlist(Wall clock time:  ",
+                            (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
-    index_of_data <- as.numeric(as.character(freq_table[1][,1]))
-    added_count <- as.numeric(as.character(freq_table[2][,1]))
-
+    bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
+    row.names(bind_matched_set) <- NULL
+    data.table::setDT(bind_matched_set)
+    freq_table <- bind_matched_set[ , .N, by=row_index]
+    freq_table <- freq_table[order(row_index)]
+    index_of_data <- freq_table$row_index
+    added_count <- freq_table$N
     counter_tmp <- numeric(nrow(cp_original_data))
     counter_tmp[index_of_data] <- added_count
     cp_original_data$counter <- counter_tmp
