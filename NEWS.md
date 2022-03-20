@@ -4,7 +4,8 @@
 * 
 
 ### Changed
-* Vectorized population compilation.
+* Vectorized population compilation and used data.table for multi-thread assignment.
+* Removed nested parallelization in compiling pseudo population, which results in close control on memory.
 
 ### Added
 *
