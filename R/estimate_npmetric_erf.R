@@ -106,6 +106,8 @@ estimate_npmetric_erf<-function(matched_Y,
   result$params$matched_w <- matched_w
   result$params$bw_seq <- bw_seq
   result$params$w_vals <- w_vals
+  result$risk_val <- risk_val
+  result$h_opt <- h_opt
   result$erf <- erf
   result$fcall <- fcall
 
