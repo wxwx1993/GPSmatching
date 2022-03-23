@@ -1,3 +1,16 @@
+## CausalGPS (development)
+
+### Fixed
+* 
+
+### Changed
+* Vectorized population compilation and used data.table for multi-thread assignment.
+* Removed nested parallelization in compiling pseudo population, which results in close control on memory.
+
+### Added
+*
+
+
 ## CausalGPS 0.2.7 (2022-02-04)
 
 ### Fixed
