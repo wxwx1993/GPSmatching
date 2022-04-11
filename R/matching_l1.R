@@ -111,6 +111,7 @@ matching_l1 <- function(w,
     freq_table <- row_index_data[ , .N, by=row_index]
     freq_table <- freq_table[order(row_index)]
     row.names(freq_table) <- NULL
+    row_index_data <- NULL
 
     return(freq_table)
   }
