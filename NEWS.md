@@ -1,7 +1,7 @@
 ## CausalGPS (development)
 
 ### Fixed
-* 
+* Message for not implemented methods changed to reduce misunderstanding.
 
 ### Changed
 * matching_l1 returns frequency table instead of entire vector. 
