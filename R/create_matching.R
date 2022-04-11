@@ -89,24 +89,55 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     s_comp_p <- proc.time()
 
     cp_original_data <- dataset[[1]]
-    logger::log_debug("Started working on binding the matched set  ... ")
-    s_bindlist <- proc.time()
-    bind_matched_set <- data.table::rbindlist(matched_set)
-    e_bindlist <- proc.time()
-    logger::log_debug(paste0("Finished binding the matched set -",
-                             "rbindlist(Wall clock time:  ",
-                            (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
-    bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
-    row.names(bind_matched_set) <- NULL
-    data.table::setDT(bind_matched_set)
-    freq_table <- bind_matched_set[ , .N, by=row_index]
-    freq_table <- freq_table[order(row_index)]
-    index_of_data <- freq_table$row_index
-    added_count <- freq_table$N
-    counter_tmp <- numeric(nrow(cp_original_data))
-    counter_tmp[index_of_data] <- added_count
-    cp_original_data$counter <- counter_tmp
+    # create initial freq_table
+    logger::log_debug("Started working on merging the frequency table  ... ")
+    s_bindlist <- proc.time()
+    N <- N.x <- N.y <- row_index <- NULL
+    freq_table <- data.table(row_index=numeric(), N=integer())
+    for (i in seq(1, length(matched_set))){
+
+      if (length(matched_set[[i]]) == 0){
+        # bins that does not have any match.
+        next
+      }
+      freq_table <- merge(freq_table, matched_set[[i]],
+                          by="row_index",
+                          all=TRUE)
+      row.names(freq_table) <- NULL
+      freq_table[is.na(freq_table)] <- 0
+      freq_table[, N:= N.x + N.y]
+      freq_table[, N.x:= NULL]
+      freq_table[, N.y:= NULL]
+    }
+    e_bindlist <- proc.time()
+    logger::log_debug(paste0("Finished binding the frequency table ",
+                             "(Wall clock time:  ",
+                             (e_bindlist - s_bindlist)[[3]]," seconds)."))
+
+
+
+    # logger::log_debug("Started working on binding the matched set  ... ")
+    # s_bindlist <- proc.time()
+    # #bind_matched_set <- data.table::rbindlist(matched_set)
+    # e_bindlist <- proc.time()
+    # logger::log_debug(paste0("Finished binding the matched set -",
+    #                          "rbindlist(Wall clock time:  ",
+    #                         (e_bindlist - s_bindlist)[[3]]," seconds)."))
+
+    # bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
+    # row.names(bind_matched_set) <- NULL
+    # data.table::setDT(bind_matched_set)
+    # freq_table <- bind_matched_set[ , .N, by=row_index]
+    # freq_table <- freq_table[order(row_index)]
+
+    if (nrow(freq_table) != 0){
+      index_of_data <- freq_table[["row_index"]]
+      added_count <- freq_table[["N"]]
+      counter_tmp <- numeric(nrow(cp_original_data))
+      counter_tmp[index_of_data] <- added_count
+      cp_original_data$counter <- counter_tmp
+    }
 
     e_comp_p <- proc.time()
 
