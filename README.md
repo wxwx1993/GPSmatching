@@ -53,18 +53,20 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   gps_model = "parametric",
                                   use_cov_transform = TRUE,
                                   transformers = list("pow2", "pow3"),
-                                  sl_lib = c("m_xgboost","SL.earth","SL.gam",
-                                             "SL.ranger"),
-                                  params = list(xgb_nrounds=c(10,20,30),
-                                                xgb_eta=c(0.1,0.2,0.3)),
+                                  sl_lib = c("m_xgboost"),
+                                  params = list(xgb_nrounds = 50,
+                                                xgb_max_depth = 6,
+                                                xgb_eta = 0.3,
+                                                xgb_min_child_weight = 1),
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   trim_quantiles = c(0.01,0.99),
+                                  optimized_compile = TRUE,
                                   max_attempt = 1,
                                   matching_fun = "matching_l1",
                                   delta_n = 1,
-                                  scale = 0.5)
+                                  scale = 1)
 
 ```
 `matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
@@ -85,8 +87,10 @@ data_with_gps <- estimate_gps(Y,
                               pred_model = "sl",
                               gps_model = "parametric",
                               internal_use = FALSE,
-                              params = list(xgb_max_depth = c(3,4,5),
-                                            xgb_rounds = c(10,20,30,40)),
+                              params = list(xgb_nrounds = 50,
+                                            xgb_max_depth = 6,
+                                            xgb_eta = 0.3,
+                                            xgb_min_child_weight = 1),
                               nthread = 1,                                
                               sl_lib = c("m_xgboost")
                               )

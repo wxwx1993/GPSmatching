@@ -7,9 +7,10 @@
 * matching_l1 returns frequency table instead of entire vector. 
 * Vectorized population compilation and used data.table for multi-thread assignment.
 * Removed nested parallelization in compiling pseudo population, which results in close control on memory.
+* estimate_npmetric_erf also returns optimal h and risk values.
 
 ### Added
-*
+* 
 
 
 ## CausalGPS 0.2.7 (2022-02-04)
