@@ -174,7 +174,7 @@ generate_pseudo_pop <- function(Y,
 
   # transformed_vals is a list of lists. Each internal list's first element is
   # the column name and the rest is operands that is applied to it.
-  # TODO: this need a dictionary style data structure.
+  # TODO: this needs a dictionary style data structure.
 
   transformed_vals <- covariate_cols
   c_extended <- c
