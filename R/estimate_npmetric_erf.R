@@ -86,6 +86,12 @@ estimate_npmetric_erf<-function(matched_Y,
   cl <- parallel::makeCluster(nthread, type="PSOCK",
                               outfile="CausalGPS.log")
 
+  parallel::clusterExport(cl=cl,
+                          varlist = c("estimate_hat_vals", "w_fun",
+                                      "generate_kernel", "smooth_erf"
+                                      ),
+                          envir=environment())
+
   risk_val_1 <-  parallel::parLapply(cl,
                                      bw_seq,
                                      compute_risk,
@@ -98,7 +104,7 @@ estimate_npmetric_erf<-function(matched_Y,
   risk_val <- do.call(rbind, risk_val_1)[,1]
 
   h_opt <- bw_seq[which.min(risk_val)]
-  erf <- stats::approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+  erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
 
   result <- list()
   class(result) <- "gpsm_erf"
