@@ -151,10 +151,12 @@ If `internal_use` is set to be TRUE, the program will return additional vectors 
 - Estimating Exposure Rate Function
 
 ```r
-erf <- estimate_erf(Y,
-                    w,
-                    bw_seq,
-                    w_vals)
+estimate_npmetric_erf<-function(matched_Y,
+                                matched_w,
+                                matched_counter = NULL,
+                                bw_seq=seq(0.2,2,0.2),
+                                w_vals,
+                                nthread)
 ```
 
 - Generating Synthetic Data

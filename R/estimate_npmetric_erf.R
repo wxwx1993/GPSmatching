@@ -5,13 +5,13 @@
 #' Estimate smoothed exposure-response function (ERF) for matched and weighted
 #' data set using non-parametric models.
 #'
-#' @param matched_Y a vector of outcome variable in the matched set.
-#' @param matched_w a vector of continuous exposure variable in the matched set.
-#' @param matched_counter a vector of counter variable in the matched set.
-#' @param bw_seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
-#' @param w_vals a vector of values that you want to calculate the values of
+#' @param matched_Y A vector of outcome variable in the matched set.
+#' @param matched_w A vector of continuous exposure variable in the matched set.
+#' @param matched_counter A vector of counter variable in the matched set.
+#' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
+#' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
-#' @param nthread number of available cores.
+#' @param nthread The number of available cores.
 #'
 #' @details
 #' Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
@@ -105,6 +105,10 @@ estimate_npmetric_erf<-function(matched_Y,
 
   h_opt <- bw_seq[which.min(risk_val)]
   erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+
+  if (sum(is.na(erf)) > 0){
+    logger::log_debug("erf has {sum(is.na(erf))} missing values.")
+  }
 
   result <- list()
   class(result) <- "gpsm_erf"
