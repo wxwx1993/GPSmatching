@@ -21,7 +21,7 @@
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return
-#' The function returns a list of 6 objects according to the following order:
+#' The function returns a S3 object. Including the following:
 #'   - Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
 #'    row_index, c)
 #'   - e_gps_pred
@@ -29,6 +29,7 @@
 #'   - w_resid
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
+#'   - used_params
 #' If \code{internal.use} is set to be FALSE, only original data set + GPS will
 #' be returned.
 #'
@@ -73,10 +74,12 @@ estimate_gps <- function(Y,
 
   # Generate SL wrapper library for each type of prediction algorithms
   sl_lib_internal = NULL
+  used_params <- list()
   for (item in sl_lib){
-    wrapper_generated <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
-    if (wrapper_generated){
+    wrapper_generated_res <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
+    if (wrapper_generated_res[[1]]){
       sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
+      used_params <- c(used_params, wrapper_generated_res[[2]])
     } else {
       sl_lib_internal <- c(sl_lib_internal, item)
     }
@@ -138,9 +141,19 @@ estimate_gps <- function(Y,
   logger::log_debug("Wall clock time to run estimate_gps function: ",
                     " {(end_time - start_time)[[3]]} seconds.")
 
+
+  result <- list()
+  class(result) <- "cgps_gps"
+  result$dataset <- dataset
+  result$used_params <- used_params
+
   if (internal_use){
-    return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
-  } else {
-    return(list(dataset))
+    result$e_gps_pred <- e_gps_pred
+    result$e_gps_std_pred <- e_gps_std_pred
+    result$w_resid <- w_resid
+    result$gps_mx <- gps_mx
+    result$w_mx <- w_mx
   }
+
+  invisible(result)
 }

@@ -26,13 +26,12 @@ generate_pseudo_pop(
 
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A data.frame or matrix of observed covariates variable.}
+\item{c}{A data.frame of observed covariates variable.}
 
 \item{ci_appr}{The causal inference approach. Possible values are:
 \itemize{
 \item "matching": Matching by GPS
 \item "weighting": Weighting by GPS
-\item "adjusting": Adjusting by GPS
 }}
 
 \item{pred_model}{a prediction model (use "sl" for SuperLearner)}
@@ -85,6 +84,7 @@ object includes the following objects:
 \item adjusted_corr_results
 \item original_corr_results
 \item optimized_compile (True or False)
+\item best_gps_used_params
 }
 }
 \description{

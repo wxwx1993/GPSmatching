@@ -5,7 +5,7 @@
 #' Compiles pseudo population based on the original population and estimated GPS
 #' value.
 #'
-#' @param dataset List of size 6 including the following:
+#' @param data_obj A S3 object including the following:
 #'   - Original data set + GPS values (Y, w, GPS, counter, row_index, c)
 #'   - e_gps_pred
 #'   - e_gps_std_pred
@@ -39,6 +39,7 @@
 #'
 #' @examples
 #'
+#' set.seed(112)
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d$Y,
 #'                               m_d$treat,
@@ -53,7 +54,7 @@
 #'                              )
 #'
 #'
-#' pd <- compile_pseudo_pop(dataset = data_with_gps,
+#' pd <- compile_pseudo_pop(data_obj = data_with_gps,
 #'                          ci_appr = "matching",
 #'                          gps_model = "parametric",
 #'                          bin_seq = NULL,
@@ -67,20 +68,31 @@
 #'                          delta_n = 0.5,
 #'                          scale = 1)
 #'
-compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
-                               bin_seq = NULL, nthread = 1, trim_quantiles,
+compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
+                               bin_seq, nthread, trim_quantiles,
                                optimized_compile, ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr, trim_quantiles=trim_quantiles,
+  check_args_compile_pseudo_pop(ci_appr = ci_appr,
+                                trim_quantiles=trim_quantiles,
                                 optimized_compile=optimized_compile, ...)
 
+  if (!(is.object(data_obj) && !isS4(data_obj))){
+    stop("data_obj should be a S3 object.")
+  }
+
+  if (!(is.element("dataset",attributes(data_obj)$names))){
+    stop("data_obj should have the required dataset field.")
+  }
+
+
+
   logger::log_info("Starting compiling pseudo population ",
-                    " (original data size: {nrow(dataset[[1]])}) ... ")
+                    " (original data size: {nrow(data_obj$dataset)}) ... ")
 
   if (ci_appr == 'matching'){
 
-      matched_set <- create_matching(dataset, bin_seq, gps_model, nthread,
+      matched_set <- create_matching(data_obj, bin_seq, gps_model, nthread,
                                      optimized_compile,...)
       logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
@@ -88,7 +100,7 @@ compile_pseudo_pop <- function(dataset, ci_appr, gps_model = "parametric",
 
   } else if (ci_appr == 'weighting'){
 
-    weighted_set <- create_weighting(dataset[[1]], ...)
+    weighted_set <- create_weighting(data_obj$dataset, ...)
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)

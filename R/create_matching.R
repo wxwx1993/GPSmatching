@@ -39,8 +39,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   matching_fun <- get(matching_fun)
 
-  gps_mx <- dataset[[5]]
-  w_mx <- dataset[[6]]
+  gps_mx <- dataset$gps_mx
+  w_mx <- dataset$w_mx
 
   if (is.null(bin_seq)){
 
@@ -64,10 +64,10 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     matched_set <-  lapply(bin_num,
                            matching_fun,
-                           dataset=dataset[[1]],
-                           e_gps_pred = dataset[[2]],
-                           e_gps_std_pred = dataset[[3]],
-                           w_resid=dataset[[4]],
+                           dataset=dataset$dataset,
+                           e_gps_pred = dataset$e_gps_pred,
+                           e_gps_std_pred = dataset$e_gps_std_pred,
+                           w_resid=dataset$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
                            gps_model = gps_model,
@@ -114,22 +114,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug(paste0("Finished binding the frequency table ",
                              "(Wall clock time:  ",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
-
-
-
-    # logger::log_debug("Started working on binding the matched set  ... ")
-    # s_bindlist <- proc.time()
-    # #bind_matched_set <- data.table::rbindlist(matched_set)
-    # e_bindlist <- proc.time()
-    # logger::log_debug(paste0("Finished binding the matched set -",
-    #                          "rbindlist(Wall clock time:  ",
-    #                         (e_bindlist - s_bindlist)[[3]]," seconds)."))
-
-    # bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
-    # row.names(bind_matched_set) <- NULL
-    # data.table::setDT(bind_matched_set)
-    # freq_table <- bind_matched_set[ , .N, by=row_index]
-    # freq_table <- freq_table[order(row_index)]
 
     if (nrow(freq_table) != 0){
       index_of_data <- freq_table[["row_index"]]

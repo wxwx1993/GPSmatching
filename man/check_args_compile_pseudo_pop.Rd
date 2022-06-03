@@ -4,17 +4,12 @@
 \alias{check_args_compile_pseudo_pop}
 \title{Check compile_pseudo_pop function arguments}
 \usage{
-check_args_compile_pseudo_pop(
-  ci_appr,
-  use_cov_transform,
-  transformers,
-  trim_quantiles,
-  optimized_compile,
-  ...
-)
+check_args_compile_pseudo_pop(ci_appr, trim_quantiles, optimized_compile, ...)
 }
 \arguments{
 \item{...}{Additional arguments to successfully run the selected ci_appr.}
+
+\item{data_obj}{A S3 object with \code{dataset} as required parameter.}
 
 \item{ci.appr}{The selected causal inference approach.}
 }
