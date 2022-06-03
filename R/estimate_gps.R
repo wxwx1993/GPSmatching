@@ -21,7 +21,7 @@
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return
-#' The function returns a list of 6 objects according to the following order:
+#' The function returns a S3 object. Including the following:
 #'   - Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
 #'    row_index, c)
 #'   - e_gps_pred
@@ -138,9 +138,25 @@ estimate_gps <- function(Y,
   logger::log_debug("Wall clock time to run estimate_gps function: ",
                     " {(end_time - start_time)[[3]]} seconds.")
 
+
+  result <- list()
+  class(result) <- "cgps_gps"
+  result$dataset <- dataset
+
+
   if (internal_use){
-    return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
-  } else {
-    return(list(dataset))
+    result$e_gps_pred <- e_gps_pred
+    result$e_gps_std_pred <- e_gps_std_pred
+    result$w_resid <- w_resid
+    result$gps_mx <- gps_mx
+    result$w_mx <- w_mx
   }
+
+  invisible(result)
+
+  # if (internal_use){
+  #   return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
+  # } else {
+  #   return(list(dataset))
+  # }
 }

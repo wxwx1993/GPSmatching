@@ -22,6 +22,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   # ------------------------------------------------------
   xgb_nrounds <- xgb_eta <- xgb_max_depth <- xgb_min_child_weight <- NULL
+  xgb_verbose <- NULL
   rgr_num.trees <- rgr_write.forest <- rgr_replace <- rgr_verbose <- NULL
   rgr_family <- NULL
   # ------------------------------------------------------

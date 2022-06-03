@@ -39,8 +39,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   matching_fun <- get(matching_fun)
 
-  gps_mx <- dataset[[5]]
-  w_mx <- dataset[[6]]
+  gps_mx <- dataset$gps_mx
+  w_mx <- dataset$w_mx
 
   if (is.null(bin_seq)){
 
@@ -64,10 +64,10 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     matched_set <-  lapply(bin_num,
                            matching_fun,
-                           dataset=dataset[[1]],
-                           e_gps_pred = dataset[[2]],
-                           e_gps_std_pred = dataset[[3]],
-                           w_resid=dataset[[4]],
+                           dataset=dataset$dataset,
+                           e_gps_pred = dataset$e_gps_pred,
+                           e_gps_std_pred = dataset$e_gps_std_pred,
+                           w_resid=dataset$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
                            gps_model = gps_model,

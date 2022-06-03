@@ -200,8 +200,8 @@ generate_pseudo_pop <- function(Y,
       covariate_cols[[new_col_ind]] <- NULL
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      estimate_gps_out[[1]][recent_swap[2]] <- NULL
-      estimate_gps_out[[1]][length(estimate_gps_out[[1]])+1] <- c[recent_swap[1]]
+      estimate_gps_out$dataset[recent_swap[2]] <- NULL
+      estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
