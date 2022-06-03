@@ -73,10 +73,12 @@ estimate_gps <- function(Y,
 
   # Generate SL wrapper library for each type of prediction algorithms
   sl_lib_internal = NULL
+  used_params <- list()
   for (item in sl_lib){
-    wrapper_generated <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
-    if (wrapper_generated){
+    wrapper_generated_res <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
+    if (wrapper_generated_res[[1]]){
       sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
+      used_params <- c(used_params, wrapper_generated_res[[2]])
     } else {
       sl_lib_internal <- c(sl_lib_internal, item)
     }
@@ -150,6 +152,7 @@ estimate_gps <- function(Y,
     result$w_resid <- w_resid
     result$gps_mx <- gps_mx
     result$w_mx <- w_mx
+    result$used_params <- used_params
   }
 
   invisible(result)

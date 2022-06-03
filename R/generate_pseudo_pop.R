@@ -190,6 +190,7 @@ generate_pseudo_pop <- function(Y,
                                      pred_model, gps_model,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
+    gps_used_params <- estimate_gps_out$used_params
     logger::log_debug("Finished estimating gps.")
 
     # Dropping the transformed column ------------
@@ -231,12 +232,14 @@ generate_pseudo_pop <- function(Y,
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
+      best_gps_used_params <- gps_used_params
     }
 
     if (adjusted_corr_obj$corr_results$mean_absolute_corr < best_ach_covar_balance){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
+      best_gps_used_params <- gps_used_params
     }
 
     if (adjusted_corr_obj$pass){
@@ -347,6 +350,7 @@ generate_pseudo_pop <- function(Y,
   result$counter <- counter
   result$ci_appr <- ci_appr
   result$optimized_compile <- optimized_compile
+  result$best_gps_used_params <- best_gps_used_params
 
   end_time_gpp <- proc.time()
 

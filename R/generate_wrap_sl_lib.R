@@ -65,10 +65,16 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            "...)}", sep="")), envir = .GlobalEnv)
 
 
+    used_params <- list("xgb_nrounds" = xgb_nrounds,
+                        "xgb_max_depth" = xgb_max_depth,
+                        "xgb_eta" = xgb_eta,
+                        "xgb_min_child_weight" = xgb_min_child_weight,
+                        "xgb_verbose" = xgb_verbose
+    )
+
     logger::log_debug("Hyperparameters for m_xgboost: ntrees: {xgb_nrounds}, ",
                       " eta: {xgb_eta}, max_depth: {xgb_max_depth}, ",
                       " min_child_weight: {xgb_min_child_weight}.")
-    return(TRUE)
 
   } else if (lib_name == "m_ranger"){
     rgr_default_params = list("rgr_num.trees"=500,
@@ -110,9 +116,17 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                       " write.forest: {rgr_write.forest}, replace: {rgr_replace}, ",
                       " verbose: {rgr_verbose}, family: {rgr_family}.")
 
-    return(TRUE)
+    used_params <- list("rgr_num.trees"=rgr_num.trees,
+                        "rgr_write.forest"=rgr_write.forest,
+                        "rgr_replace"=rgr_replace,
+                        "rgr_verbose"=rgr_verbose,
+                        "rgr_family"= rgr_family
+    )
+
   } else {
     message(paste(lib_name, " will be used by SuperLearner's default arguements."))
-    return(FALSE)
+    return(list(FALSE))
   }
+
+  return(list(TRUE, used_params))
 }
