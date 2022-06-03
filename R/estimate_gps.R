@@ -153,10 +153,4 @@ estimate_gps <- function(Y,
   }
 
   invisible(result)
-
-  # if (internal_use){
-  #   return(list(dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx))
-  # } else {
-  #   return(list(dataset))
-  # }
 }

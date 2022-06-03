@@ -39,6 +39,7 @@
 #'
 #' @examples
 #'
+#' set.seed(112)
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d$Y,
 #'                               m_d$treat,
@@ -67,13 +68,24 @@
 #'                          delta_n = 0.5,
 #'                          scale = 1)
 #'
-compile_pseudo_pop <- function(data_obj, ci_appr, gps_model = "parametric",
-                               bin_seq = NULL, nthread = 1, trim_quantiles,
+compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
+                               bin_seq, nthread, trim_quantiles,
                                optimized_compile, ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr, trim_quantiles=trim_quantiles,
+  check_args_compile_pseudo_pop(ci_appr = ci_appr,
+                                trim_quantiles=trim_quantiles,
                                 optimized_compile=optimized_compile, ...)
+
+  if (!(is.object(data_obj) && !isS4(data_obj))){
+    stop("data_obj should be a S3 object.")
+  }
+
+  if (!(is.element("dataset",attributes(data_obj)$names))){
+    stop("data_obj should have the required dataset field.")
+  }
+
+
 
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(data_obj$dataset)}) ... ")
@@ -88,7 +100,7 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model = "parametric",
 
   } else if (ci_appr == 'weighting'){
 
-    weighted_set <- create_weighting(data_obj$dataset[[1]], ...)
+    weighted_set <- create_weighting(data_obj$dataset, ...)
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)

@@ -23,24 +23,24 @@ estimate_gps(
 
 \item{c}{A data frame of observed covariates variable.}
 
-\item{pred_model}{The selected prediction model.}
+\item{pred_model}{The selected prediction mode (e.g., "sl")}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
 
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
-will return original data + GPS value.}
+will return original data + GPS values.}
 
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
 
-\item{nthread}{An integer value that represents then number threads to use by
-internal packages.}
+\item{nthread}{An integer value that represents the number threads to be used
+by internal packages.}
 
 \item{...}{Additional arguments passed to the model.}
 }
 \value{
-The function returns a list of 6 objects according to the following order:
+The function returns a S3 object. Including the following:
 \itemize{
 \item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
 row_index, c)

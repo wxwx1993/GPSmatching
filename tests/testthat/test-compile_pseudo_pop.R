@@ -46,7 +46,7 @@ test_that("Compiling pseudo pop works as expected.", {
   data <- list(pseudo_pop_weight_test[, !c("ipw")])
   obj <- list()
   class(obj) <- "cgps_gps"
-  obj$dataset <- data
+  obj$dataset <- data[[1]]
   pseudo_pop_2 <- compile_pseudo_pop(data_obj = obj,
                                      ci_appr="weighting",
                                      gps_model="parametric",

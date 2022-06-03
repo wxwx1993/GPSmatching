@@ -5,18 +5,18 @@
 \title{Compile Pseudo Population}
 \usage{
 compile_pseudo_pop(
-  dataset,
+  data_obj,
   ci_appr,
-  gps_model = "parametric",
-  bin_seq = NULL,
-  nthread = 1,
+  gps_model,
+  bin_seq,
+  nthread,
   trim_quantiles,
   optimized_compile,
   ...
 )
 }
 \arguments{
-\item{dataset}{List of size 6 including the following:
+\item{data_obj}{A S3 object including the following:
 \itemize{
 \item Original data set + GPS values (Y, w, GPS, counter, row_index, c)
 \item e_gps_pred
@@ -61,6 +61,7 @@ internal_use flag activated.
 }
 \examples{
 
+set.seed(112)
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d$Y,
                               m_d$treat,
@@ -75,7 +76,7 @@ data_with_gps <- estimate_gps(m_d$Y,
                              )
 
 
-pd <- compile_pseudo_pop(dataset = data_with_gps,
+pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          ci_appr = "matching",
                          gps_model = "parametric",
                          bin_seq = NULL,

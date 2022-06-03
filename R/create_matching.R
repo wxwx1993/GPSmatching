@@ -115,22 +115,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                              "(Wall clock time:  ",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
-
-
-    # logger::log_debug("Started working on binding the matched set  ... ")
-    # s_bindlist <- proc.time()
-    # #bind_matched_set <- data.table::rbindlist(matched_set)
-    # e_bindlist <- proc.time()
-    # logger::log_debug(paste0("Finished binding the matched set -",
-    #                          "rbindlist(Wall clock time:  ",
-    #                         (e_bindlist - s_bindlist)[[3]]," seconds)."))
-
-    # bind_matched_set$row_index <- as.integer(bind_matched_set$row_index)
-    # row.names(bind_matched_set) <- NULL
-    # data.table::setDT(bind_matched_set)
-    # freq_table <- bind_matched_set[ , .N, by=row_index]
-    # freq_table <- freq_table[order(row_index)]
-
     if (nrow(freq_table) != 0){
       index_of_data <- freq_table[["row_index"]]
       added_count <- freq_table[["N"]]

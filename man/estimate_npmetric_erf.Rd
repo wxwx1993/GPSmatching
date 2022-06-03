@@ -14,18 +14,18 @@ estimate_npmetric_erf(
 )
 }
 \arguments{
-\item{matched_Y}{a vector of outcome variable in the matched set.}
+\item{matched_Y}{A vector of outcome variable in the matched set.}
 
-\item{matched_w}{a vector of continuous exposure variable in the matched set.}
+\item{matched_w}{A vector of continuous exposure variable in the matched set.}
 
-\item{matched_counter}{a vector of counter variable in the matched set.}
+\item{matched_counter}{A vector of counter variable in the matched set.}
 
-\item{bw_seq}{a vector of bandwidth values (Default is seq(0.2,2,0.2)).}
+\item{bw_seq}{A vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
-\item{w_vals}{a vector of values that you want to calculate the values of
+\item{w_vals}{A vector of values that you want to calculate the values of
 the ERF at.}
 
-\item{nthread}{number of available cores.}
+\item{nthread}{The number of available cores.}
 }
 \value{
 The function returns a gpsm_erf object. The object includes the following

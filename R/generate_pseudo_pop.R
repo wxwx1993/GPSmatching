@@ -207,8 +207,11 @@ generate_pseudo_pop <- function(Y,
 
     ## Compile data ---------
     logger::log_debug("Started compiling pseudo population ... ")
-    pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out, ci_appr=ci_appr,
-                                     gps_model,bin_seq, nthread = nthread,
+    pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
+                                     ci_appr = ci_appr,
+                                     gps_model = gps_model,
+                                     bin_seq = bin_seq,
+                                     nthread = nthread,
                                      trim_quantiles = trim_quantiles,
                                      optimized_compile = optimized_compile,...)
     # trim pseudo population
