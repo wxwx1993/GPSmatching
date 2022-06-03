@@ -14,9 +14,9 @@
 #' @keywords internal
 #'
 #' @return
-#' Returns A Boolean value. TRUE if the modified library for the given library is
-#' implemented; otherwise, it returns FALSE. This function is called for side
-#' effects.
+#' Returns a list of TRUE and best used parameters, if the modified library for
+#' the given library is implemented; otherwise, it returns a list of FALSE.
+#' This function is also called for side effects.
 #'
 gen_wrap_sl_lib <- function(lib_name, params, nthread){
 

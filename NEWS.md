@@ -11,6 +11,8 @@
 
 ### Added
 * Internal xgboost approach support `verbose` parameter.
+* Pseudo-population object now report the parameters that are used for the best covariate balance.
+
 
 
 ## CausalGPS 0.2.7 (2022-02-04)

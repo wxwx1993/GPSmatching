@@ -29,6 +29,7 @@
 #'   - w_resid
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
+#'   - used_params
 #' If \code{internal.use} is set to be FALSE, only original data set + GPS will
 #' be returned.
 #'
@@ -144,7 +145,7 @@ estimate_gps <- function(Y,
   result <- list()
   class(result) <- "cgps_gps"
   result$dataset <- dataset
-
+  result$used_params <- used_params
 
   if (internal_use){
     result$e_gps_pred <- e_gps_pred
@@ -152,7 +153,6 @@ estimate_gps <- function(Y,
     result$w_resid <- w_resid
     result$gps_mx <- gps_mx
     result$w_mx <- w_mx
-    result$used_params <- used_params
   }
 
   invisible(result)

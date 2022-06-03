@@ -73,6 +73,7 @@
 #' - adjusted_corr_results
 #' - original_corr_results
 #' - optimized_compile (True or False)
+#' - best_gps_used_params
 #'
 #' @export
 #' @examples

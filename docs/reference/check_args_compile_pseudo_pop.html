@@ -163,14 +163,7 @@
     <p>additional arguments are provided.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_args_compile_pseudo_pop</span><span class='op'>(</span>
-  <span class='va'>ci_appr</span>,
-  <span class='va'>use_cov_transform</span>,
-  <span class='va'>transformers</span>,
-  <span class='va'>trim_quantiles</span>,
-  <span class='va'>optimized_compile</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_args_compile_pseudo_pop</span><span class='op'>(</span><span class='va'>ci_appr</span>, <span class='va'>trim_quantiles</span>, <span class='va'>optimized_compile</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,6 +171,10 @@
     <tr>
       <th>...</th>
       <td><p>Additional arguments to successfully run the selected ci_appr.</p></td>
+    </tr>
+    <tr>
+      <th>data_obj</th>
+      <td><p>A S3 object with <code>dataset</code> as required parameter.</p></td>
     </tr>
     <tr>
       <th>ci.appr</th>

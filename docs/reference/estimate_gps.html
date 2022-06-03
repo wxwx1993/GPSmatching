@@ -194,7 +194,7 @@ approaches.</p>
     </tr>
     <tr>
       <th>pred_model</th>
-      <td><p>The selected prediction model.</p></td>
+      <td><p>The selected prediction mode (e.g., "sl")</p></td>
     </tr>
     <tr>
       <th>gps_model</th>
@@ -204,7 +204,7 @@ parametric (default) and non-parametric.</p></td>
     <tr>
       <th>internal_use</th>
       <td><p>If TRUE will return helper vectors as well. Otherwise,
-will return original data + GPS value.</p></td>
+will return original data + GPS values.</p></td>
     </tr>
     <tr>
       <th>params</th>
@@ -213,8 +213,8 @@ parameters will be ignored.</p></td>
     </tr>
     <tr>
       <th>nthread</th>
-      <td><p>An integer value that represents then number threads to use by
-internal packages.</p></td>
+      <td><p>An integer value that represents the number threads to be used
+by internal packages.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -224,14 +224,15 @@ internal packages.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns a list of 6 objects according to the following order:</p><ul>
+    <p>The function returns a S3 object. Including the following:</p><ul>
 <li><p>Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
 row_index, c)</p></li>
 <li><p>e_gps_pred</p></li>
 <li><p>e_gps_std_pred</p></li>
 <li><p>w_resid</p></li>
 <li><p>gps_mx (min and max of gps)</p></li>
-<li><p>w_mx (min and max of w).
+<li><p>w_mx (min and max of w).</p></li>
+<li><p>used_params
 If <code>internal.use</code> is set to be FALSE, only original data set + GPS will
 be returned.</p></li>
 </ul>

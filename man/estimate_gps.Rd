@@ -49,6 +49,7 @@ row_index, c)
 \item w_resid
 \item gps_mx (min and max of gps)
 \item w_mx (min and max of w).
+\item used_params
 If \code{internal.use} is set to be FALSE, only original data set + GPS will
 be returned.
 }

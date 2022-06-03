@@ -84,6 +84,7 @@ object includes the following objects:
 \item adjusted_corr_results
 \item original_corr_results
 \item optimized_compile (True or False)
+\item best_gps_used_params
 }
 }
 \description{
