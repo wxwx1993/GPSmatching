@@ -14,33 +14,82 @@ An R package for implementing matching on generalized propensity scores with con
 
 ## Installation
 
+- Installing from source
+
 ```r
 library("devtools")
 install_github("fasrc/CausalGPS")
 library("CausalGPS")
 ```
 
+- Installing from CRAN 
+
+```r
+install.packages("CausalGPS")
+```
+
+- Setting up docker environment
+
+Developing Docker image can be downloaded from Docker Hub. See more details [here](docker_singularity/README.md).
+
 ## Usage
 
 Input parameters:
 
-`Y`: a vector of observed outcome  
-`w`: a vector of observed continues exposure  
-`c`: data frame or matrix of observed baseline covariates  
-`matching_fun`: specified matching function  
-`pred_model`: prediction model 
-`gps_model`: model type for estimating GPS (parametric, non-parametric)
-`bin_seq`: sequence of treatment (w) to generate pseudo population 
-`scale`: specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
-`delta_n`: specified caliper parameter on the exposure  
-`sl_lib`: a set of machine learning methods used for estimating GPS  
-`ci_appr`: causal inference approach   
-`covar_bl_method`: specified covariate balance method  
-`covar_bl_trs`: specified covariate balance threshold  
-`max_attempt`: maximum number of attempt to satisfy covariate balance 
-`use_cov_transform`: If `TRUE`, uses internal transformers to achieve covariate balance.
-`transformers`: List of transformers (default: list("pow2","pow3")). Users can define a unary function and pass as transformer to the list.
-`trim_quantiles`: a vector of two indicating upper and lower trimming quantiles (default: c(0.01, 0.99)). 
+**`Y`** A vector of observed outcome variable.     
+ **`w`** A vector of observed continuous exposure variable.   
+ **`c`** A data.frame or matrix of observed covariates variable.   
+ **`ci_appr`** The causal inference approach. Possible values are:   
+   - "matching": Matching by GPS   
+   - "weighting": Weighting by GPS   
+ **`pred_model`** a prediction model (use "sl" for SuperLearner)   
+ **`gps_model`** Model type which is used for estimating GPS value, including
+ parametric (default) and non-parametric.   
+ **`use_cov_transform`** If TRUE, the function uses transformer to meet the
+  covariate balance.   
+ **`transformers`** A list of transformers. Each transformer should be a
+ unary function. You can pass name of customized function in the quotes.   
+ Available transformers:   
+   - pow2: to the power of 2   
+   - pow3: to the power of 3   
+ **`bin_seq`** Sequence of w (treatment) to generate pseudo population. If
+ NULL is passed the default value will be used, which is
+ `seq(min(w)+delta_n/2,max(w), by=delta_n)`.   
+ **`trim_quantiles`** A numerical vector of two. Represents the trim quantile
+ level. Both numbers should be in the range of [0,1] and in increasing order
+ (default: c(0.01,0.99)).   
+ **`optimized_compile`** If TRUE, uses counts to keep track of number of
+ replicated pseudo population.   
+ **`params`** Includes list of params that is used internally. Unrelated
+  parameters will be ignored.   
+ **`nthread`** An integer value that represents the number of threads to be
+ used by internal packages.   
+ **`...`**  Additional arguments passed to different models.
+
+### Additional parameters   
+#### Causal Inference Approach (`ci.appr`)   
+ 
+ - if ci.appr = 'matching':   
+   - *matching_fun*: Matching function. Available options:   
+     - matching_l1: Manhattan distance matching   
+   - *delta_n*: caliper parameter.   
+   - *scale*: a specified scale parameter to control the relative weight that
+  is attributed to the distance measures of the exposure versus the GPS.   
+   - *covar_bl_method*: covariate balance method. Available options:   
+      - 'absolute'   
+   - *covar_bl_trs*: covariate balance threshold   
+   - *covar_bl_trs_type*: covariate balance type (mean, median, maximal)   
+   - *max_attempt*: maximum number of attempt to satisfy covariate balance.   
+   - See [create_matching()] for more details about the parameters and default
+   values.   
+ - if ci.appr = 'weighting':   
+   - *covar_bl_method*: Covariate balance method.   
+   - *covar_bl_trs*: Covariate balance threshold   
+   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
+   
+#### Prediction models (pred_model)   
+ - if pred_model = 'sl':   
+   - *sl_lib*: A vector of prediction algorithms.   
 
 - Generating Pseudo Population
 
@@ -102,17 +151,18 @@ If `internal_use` is set to be TRUE, the program will return additional vectors 
 - Estimating Exposure Rate Function
 
 ```r
-erf <- estimate_erf(Y,
-                    w,
-                    bw_seq,
-                    w_vals)
+estimate_npmetric_erf<-function(matched_Y,
+                                matched_w,
+                                matched_counter = NULL,
+                                bw_seq=seq(0.2,2,0.2),
+                                w_vals,
+                                nthread)
 ```
 
 - Generating Synthetic Data
 
 ```r
 syn_data <- generate_syn_data(sample_size=1000,
-                              seed = 403,
                               outcome_sd = 10,
                               gps_spec = 1,
                               cova_spec = 1)

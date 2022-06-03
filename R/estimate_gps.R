@@ -9,15 +9,15 @@
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame of observed covariates variable.
-#' @param pred_model The selected prediction model.
+#' @param pred_model The selected prediction mode (e.g., "sl")
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,
-#'  will return original data + GPS value.
+#'  will return original data + GPS values.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
-#' @param nthread An integer value that represents then number threads to use by
-#'  internal packages.
+#' @param nthread An integer value that represents the number threads to be used
+#' by internal packages.
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return

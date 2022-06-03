@@ -10,7 +10,7 @@
 * estimate_npmetric_erf also returns optimal h and risk values.
 
 ### Added
-* 
+* Internal xgboost approach support `verbose` parameter.
 
 
 ## CausalGPS 0.2.7 (2022-02-04)

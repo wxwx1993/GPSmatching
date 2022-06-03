@@ -10,11 +10,10 @@
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data.frame or matrix of observed covariates variable.
+#' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#'   - "adjusting": Adjusting by GPS
 #' @param pred_model a prediction model (use "sl" for SuperLearner)
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
@@ -150,7 +149,7 @@ generate_pseudo_pop <- function(Y,
   # do not use gps values.
   # The forth column is reserved for counter.
   # The fifth column is reserved for row_index
-  # TODO: find a better place to the following code.
+  # TODO: find a better place to the following code also see issue #67.
 
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
@@ -174,7 +173,7 @@ generate_pseudo_pop <- function(Y,
 
   # transformed_vals is a list of lists. Each internal list's first element is
   # the column name and the rest is operands that is applied to it.
-  # TODO: this need a dictionary style data structure.
+  # TODO: this needs a dictionary style data structure.
 
   transformed_vals <- covariate_cols
   c_extended <- c

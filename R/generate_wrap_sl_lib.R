@@ -31,7 +31,8 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     xgb_default_params = list("xgb_nrounds"=100,
                               "xgb_max_depth"=6,
                               "xgb_eta"=0.3,
-                              "xgb_min_child_weight"=1
+                              "xgb_min_child_weight"=1,
+                              "xgb_verbose"=0
                              )
     for (item in names(params)){
 
@@ -55,9 +56,11 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            ", shrinkage = ",xgb_eta,
                            ", max_depth = ",xgb_max_depth,
                            ", minobspernode = ",xgb_min_child_weight,
+                           ", verbose= ", xgb_verbose,
                            ",...) {SuperLearner::SL.xgboost(nthread = nthread,",
                            "ntrees = ntrees, shrinkage=shrinkage,",
                            "max_depth=max_depth, minobspernode = minobspernode,",
+                           "verbose = verbose,",
                            "...)}", sep="")), envir = .GlobalEnv)
 
 
@@ -108,7 +111,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
     return(TRUE)
   } else {
-    message(paste( lib_name, " Will be used by SuperLearner's default arguements."))
+    message(paste(lib_name, " will be used by SuperLearner's default arguements."))
     return(FALSE)
   }
 }

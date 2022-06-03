@@ -1,4 +1,4 @@
-# CausalGPS  <a href="https://fasrc.github.io/GPSmatching/"><img src="man/figures/png/causalgps_logo_01.png" align="right" width="120" /></a>
+# CausalGPS  <a href="https://fasrc.github.io/CausalGPS/"><img src="man/figures/png/causalgps_logo_01.png" align="right" width="120" /></a>
 
 <!-- badges: start -->
 [![R build status](https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions)
