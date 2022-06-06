@@ -52,6 +52,7 @@
 #'
 #' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
 #'                                  pseudo_pop$pseudo_pop$w,
+#'                                  pseudo_pop$pseudo_pop$counter,
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
@@ -104,6 +105,9 @@ estimate_npmetric_erf<-function(matched_Y,
   risk_val <- do.call(rbind, risk_val_1)[,1]
 
   h_opt <- bw_seq[which.min(risk_val)]
+
+  logger::log_info("The band width with the minimum risk value: {h_opt}.")
+
   erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
 
   if (sum(is.na(erf)) > 0){

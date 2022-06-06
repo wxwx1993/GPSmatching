@@ -30,8 +30,13 @@
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
 #'   - used_params
+#'
+#' @note
 #' If \code{internal.use} is set to be FALSE, only original data set + GPS will
 #' be returned.
+#'
+#' The outcome variable is not used in estimating the GPS value. However, it is
+#' used in compiling the dataset with GPS values.
 #'
 #' @export
 #'
@@ -59,10 +64,10 @@ estimate_gps <- function(Y,
                          nthread = 1,
                          ...){
 
-  sl_lib = NULL
+  sl_lib <- NULL
   start_time <- proc.time()
 
-  # Check passed arguments
+  # Check passed arguments -----------------------------------------------------
   check_args_estimate_gps(pred_model, gps_model, ...)
 
   dot_args <- list(...)
@@ -72,11 +77,23 @@ estimate_gps <- function(Y,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  # Generate SL wrapper library for each type of prediction algorithms
+  # Check if data has missing value(s) -----------------------------------------
+  if (sum(is.na(w)) > 0){
+    logger::log_warn("Vector w has {sum(is.na(w))} missing values.")
+  }
+
+  if (sum(is.na(c)) > 0){
+    logger::log_warn(
+      "Confounders data.frame (c) has {sum(is.na(c))} missing values.")
+  }
+
+
+  # Generate SL wrapper library for each type of prediction algorithms ---------
   sl_lib_internal = NULL
   used_params <- list()
   for (item in sl_lib){
-    wrapper_generated_res <- gen_wrap_sl_lib(lib_name = item, params, nthread = nthread)
+    wrapper_generated_res <- gen_wrap_sl_lib(lib_name = item, params,
+                                             nthread = nthread)
     if (wrapper_generated_res[[1]]){
       sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
       used_params <- c(used_params, wrapper_generated_res[[2]])
