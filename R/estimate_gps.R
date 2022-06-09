@@ -14,10 +14,10 @@
 #' parametric (default) and non-parametric.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,
 #'  will return original data + GPS values.
-#' @param params Includes list of params that is used internally. Unrelated
+#' @param params Includes list of parameters that are used internally. Unrelated
 #'  parameters will be ignored.
 #' @param nthread An integer value that represents the number threads to be used
-#' by internal packages.
+#' in a shared memory system.
 #' @param ...  Additional arguments passed to the model.
 #'
 #' @return
@@ -36,7 +36,9 @@
 #' be returned.
 #'
 #' The outcome variable is not used in estimating the GPS value. However, it is
-#' used in compiling the dataset with GPS values.
+#' used in compiling the data set with GPS values.
+#'
+#' In case of using "sl" as prediction model, sl_lib input parameter is required.
 #'
 #' @export
 #'
@@ -86,7 +88,6 @@ estimate_gps <- function(Y,
     logger::log_warn(
       "Confounders data.frame (c) has {sum(is.na(c))} missing values.")
   }
-
 
   # Generate SL wrapper library for each type of prediction algorithms ---------
   sl_lib_internal = NULL
@@ -157,6 +158,11 @@ estimate_gps <- function(Y,
 
   logger::log_debug("Wall clock time to run estimate_gps function: ",
                     " {(end_time - start_time)[[3]]} seconds.")
+
+
+  #TODO
+  # Collect training information and pass it to the output object.
+  # See issue #131
 
 
   result <- list()
