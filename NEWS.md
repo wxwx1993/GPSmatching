@@ -35,7 +35,7 @@
 ## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
-* added the status of optimized compile to generate_psuedo_pop function output.
+* added the status of optimized compile to generate_pseudo_pop function output.
 * compute_closest_wgps accepts the number of user-defined threads.
 
 ### Changed

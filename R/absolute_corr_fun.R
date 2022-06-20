@@ -11,7 +11,7 @@
 #' - \code{absolute_corr}: the absolute correlations for each pre-exposure
 #'  covariates;
 #' - \code{mean_absolute_corr}: the average absolute correlations for all
-#'  pre-exposure covairates.
+#'  pre-exposure covariates.
 #'
 #' @importFrom stats median
 #' @export
