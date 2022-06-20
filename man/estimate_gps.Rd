@@ -31,11 +31,11 @@ parametric (default) and non-parametric.}
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
 will return original data + GPS values.}
 
-\item{params}{Includes list of params that is used internally. Unrelated
+\item{params}{Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.}
 
 \item{nthread}{An integer value that represents the number threads to be used
-by internal packages.}
+in a shared memory system.}
 
 \item{...}{Additional arguments passed to the model.}
 }
@@ -50,13 +50,20 @@ row_index, c)
 \item gps_mx (min and max of gps)
 \item w_mx (min and max of w).
 \item used_params
-If \code{internal.use} is set to be FALSE, only original data set + GPS will
-be returned.
 }
 }
 \description{
 Estimates GPS value for each observation using parametric or non-parametric
 approaches.
+}
+\note{
+If \code{internal.use} is set to be FALSE, only original data set + GPS will
+be returned.
+
+The outcome variable is not used in estimating the GPS value. However, it is
+used in compiling the data set with GPS values.
+
+In case of using "sl" as prediction model, sl_lib input parameter is required.
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
