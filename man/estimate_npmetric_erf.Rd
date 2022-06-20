@@ -72,7 +72,7 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
 erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                  pseudo_pop$pseudo_pop$w,
                                  pseudo_pop$pseudo_pop$counter,
-                                 bw_seq=seq(0.5,2,0.5),
+                                 bw_seq=seq(0.2,2,0.2),
                                  w_vals = seq(2,20,0.5),
                                  nthread = 1)
 
