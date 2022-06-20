@@ -4,14 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Provides a framework for estimating causal effects of a continuous 
+    exposure using observational data, and implementing matching and weighting 
+    on the generalized propensity score.
+    Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 
+    2018. Matching on generalized propensity scores with continuous exposures. 
+    arXiv preprint &lt;arXiv:1812.06575&gt;.">
 <title>Implementing matching, and weighting on GPS with continuous exposures. • CausalGPS</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Implementing matching, and weighting on GPS with continuous exposures.">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Implementing matching, and weighting on GPS with continuous exposures.">
 <meta property="og:description" content="Provides a framework for estimating causal effects of a continuous 
     exposure using observational data, and implementing matching and weighting 
     on the generalized propensity score.
@@ -23,201 +28,190 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">CausalGPS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">CausalGPS</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="articles/CausalGPS.html">Get started</a>
 </li>
-<li>
-  <a href="articles/CausalGPS.html">Get started</a>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="divider">
-    <li class="dropdown-header">Introduction</li>
-    <li>
-      <a href="articles/Estimating-GPS.html">Estimating GPS</a>
-    </li>
-    <li>
-      <a href="articles/Generating-Pseudo-Population.html">Generating Pseudo Population</a>
-    </li>
-    <li>
-      <a href="articles/Outcome-Models.html">Outcome Models</a>
-    </li>
-    <li>
-      <a href="articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
-    </li>
-    <li>
-      <a href="articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
-    </li>
-    <li>
-      <a href="articles/FAQ.html">Frequently Asked Questions</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Collabration</li>
-    <li>
-      <a href="articles/Developers-Guide.html">Developers Guide</a>
-    </li>
-    <li>
-      <a href="articles/Testing-the-Package.html">Testing the Package</a>
-    </li>
-    <li>
-      <a href="articles/Singularity-Image.html">Singularity</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/fasrc/CausalGPS/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Introduction</h6>
+    <a class="dropdown-item" href="articles/Estimating-GPS.html">Estimating GPS</a>
+    <a class="dropdown-item" href="articles/Generating-Pseudo-Population.html">Generating Pseudo Population</a>
+    <a class="dropdown-item" href="articles/Outcome-Models.html">Outcome Models</a>
+    <a class="dropdown-item" href="articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
+    <a class="dropdown-item" href="articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
+    <a class="dropdown-item" href="articles/FAQ.html">Frequently Asked Questions</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
+    <a class="dropdown-item" href="articles/Developers-Guide.html">Developers Guide</a>
+    <a class="dropdown-item" href="articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="articles/Singularity-Image.html">Singularity</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/fasrc/CausalGPS/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div id="causalgps-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#causalgps-" class="anchor"></a>CausalGPS <a href="https://fasrc.github.io/CausalGPS/"><img src="reference/figures/png/causalgps_logo_01.png" align="right" width="120"></a>
+    
+  </div>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="causalgps-">CausalGPS
+<a href="https://fasrc.github.io/CausalGPS/"><img src="reference/figures/png/causalgps_logo_01.png" align="right" width="120"></a>
+<a class="anchor" aria-label="anchor" href="#causalgps-"></a>
 </h1></div>
 <!-- badges: start -->
 
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
-<p>An R package for implementing matching, and weighting on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.</p>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>An R package for implementing matching, and weighting on generalized
+propensity scores with continuous exposures. We developed an innovative
+approach for estimating causal effects using observational data in
+settings with continuous exposures, and introduce a new framework for
+GPS caliper matching that jointly matches on both the estimated GPS and
+exposure levels to fully adjust for confounding bias.</p>
 </div>
-<div id="features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
-<div id="estimating-gps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#estimating-gps" class="anchor"></a>Estimating GPS</h3>
-<p>The generalized propensity scores are computed using various parametric and/or non-parametric models. The generalized propensity scores are used for the following causal inference approaches.</p>
+<div class="section level2">
+<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+</h2>
+<div class="section level3">
+<h3 id="estimating-gps">Estimating GPS<a class="anchor" aria-label="anchor" href="#estimating-gps"></a>
+</h3>
+<p>The generalized propensity scores are computed using various
+parametric and/or non-parametric models. The generalized propensity
+scores are used for the following causal inference approaches.</p>
 </div>
-<div id="generating-pseudo-population" class="section level3">
-<h3 class="hasAnchor">
-<a href="#generating-pseudo-population" class="anchor"></a>Generating Pseudo Population</h3>
-<p>Pseudo population dataset is computed based on user-defined causal inference approaches (e.g., matching or weighting). A covariate balance test is performed on the pseudo population dataset. Users can specify covariate balance criteria and activate an adaptive approach and number of attempts to search for a target pseudo population dataset that meets the covariate balance criteria.</p>
+<div class="section level3">
+<h3 id="generating-pseudo-population">Generating Pseudo Population<a class="anchor" aria-label="anchor" href="#generating-pseudo-population"></a>
+</h3>
+<p>Pseudo population dataset is computed based on user-defined causal
+inference approaches (e.g., matching or weighting). A covariate balance
+test is performed on the pseudo population dataset. Users can specify
+covariate balance criteria and activate an adaptive approach and number
+of attempts to search for a target pseudo population dataset that meets
+the covariate balance criteria.</p>
 </div>
-<div id="outcome-models" class="section level3">
-<h3 class="hasAnchor">
-<a href="#outcome-models" class="anchor"></a>Outcome Models</h3>
-<p>Several outcome models can be achieved using the generated pseudo population dataset. Users can specify non-/semi-parametric models to obtain exposure-response curves and parametric models to obtain regression coefficients of interest.</p>
-<div id="acknowledgments" class="section level4">
-<h4 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h4>
-<p>Funding was provided by the Health Effects Institute grant 4953-RFA14-3/16-4, Environmental Protection Agency grant 83587201-0, National Institute of Health grants R01 ES026217, R01 MD012769, R01 ES028033, 1R01 ES030616, 1R01 AG066793-01R01, 1R01 ES029950, R01 ES028033-S1, Alfred P. Sloan Foundation grant G-2020-13946.</p>
+<div class="section level3">
+<h3 id="outcome-models">Outcome Models<a class="anchor" aria-label="anchor" href="#outcome-models"></a>
+</h3>
+<p>Several outcome models can be achieved using the generated pseudo
+population dataset. Users can specify non-/semi-parametric models to
+obtain exposure-response curves and parametric models to obtain
+regression coefficients of interest.</p>
+<div class="section level4">
+<h4 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h4>
+<p>Funding was provided by the Health Effects Institute grant
+4953-RFA14-3/16-4, Environmental Protection Agency grant 83587201-0,
+National Institute of Health grants R01 ES026217, R01 MD012769, R01
+ES028033, 1R01 ES030616, 1R01 AG066793-01R01, 1R01 ES029950, R01
+ES028033-S1, Alfred P. Sloan Foundation grant G-2020-13946.</p>
 </div>
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=CausalGPS">https://​cloud.r-project.org/​package=CausalGPS</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/fasrc/CausalGPS/">https://​github.com/​fasrc/​CausalGPS/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/fasrc/CausalGPS/issues">https://​github.com/​fasrc/​CausalGPS/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=CausalGPS" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/fasrc/CausalGPS/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/fasrc/CausalGPS/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing CausalGPS</a></li>
+<li><a href="authors.html#citation">Citing CausalGPS</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Naeem Khoshnevis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4315-1426" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> <br><small>(FASRC)</small>
-</li>
-<li>Xiao Wu <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4884-657X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> <br><small>(HSPH)</small>
-</li>
-<li>Danielle Braun <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5177-8598" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> <br><small>(HSPH)</small>
-</li>
+<li>Naeem Khoshnevis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4315-1426" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Xiao Wu <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4884-657X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Danielle Braun <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5177-8598" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/fasrc/CausalGPS/actions"><img src="https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://cran.r-project.org/package=CausalGPS"><img src="http://www.r-pkg.org/badges/version-last-release/CausalGPS"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/causalgps"><img src="https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://app.codecov.io/gh/fasrc/CausalGPS/"><img src="https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH" alt="codecov"></a></li>
-<li><a href="https://mybinder.org/v2/gh/NSAPH/R_project_binder/master?urlpath=rstudio"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
+<li><a href="https://github.com/fasrc/CausalGPS/actions" class="external-link"><img src="https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://cran.r-project.org/package=CausalGPS" class="external-link"><img src="http://www.r-pkg.org/badges/version-last-release/CausalGPS"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/causalgps" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://app.codecov.io/gh/fasrc/CausalGPS/" class="external-link"><img src="https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH" alt="codecov"></a></li>
+<li><a href="https://mybinder.org/v2/gh/NSAPH/R_project_binder/master?urlpath=rstudio" class="external-link"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="copyright">
-  <p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
+  </aside>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Naeem Khoshnevis, Xiao Wu, Danielle Braun.</p>
 </div>
 
-      </footer>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
+</div>
+
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

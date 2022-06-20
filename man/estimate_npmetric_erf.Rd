@@ -49,7 +49,8 @@ Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmoo
 }
 \examples{
 
-m_d <- generate_syn_data(sample_size = 100)
+set.seed(697)
+m_d <- generate_syn_data(sample_size = 200)
 pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                   m_d$treat,
                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -59,6 +60,7 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                   params = list(xgb_nrounds=c(10,20,30),
                                    xgb_eta=c(0.1,0.2,0.3)),
                                   nthread = 1,
+                                  optimized_compile = TRUE,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type="mean",
@@ -69,6 +71,7 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
 
 erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                  pseudo_pop$pseudo_pop$w,
+                                 pseudo_pop$pseudo_pop$counter,
                                  bw_seq=seq(0.2,2,0.2),
                                  w_vals = seq(2,20,0.5),
                                  nthread = 1)

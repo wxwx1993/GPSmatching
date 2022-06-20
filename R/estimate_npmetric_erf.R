@@ -32,7 +32,8 @@
 #'
 #' @examples
 #'
-#' m_d <- generate_syn_data(sample_size = 100)
+#' set.seed(697)
+#' m_d <- generate_syn_data(sample_size = 200)
 #' pseudo_pop <- generate_pseudo_pop(m_d$Y,
 #'                                   m_d$treat,
 #'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -42,6 +43,7 @@
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                    xgb_eta=c(0.1,0.2,0.3)),
 #'                                   nthread = 1,
+#'                                   optimized_compile = TRUE,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type="mean",
@@ -52,6 +54,7 @@
 #'
 #' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
 #'                                  pseudo_pop$pseudo_pop$w,
+#'                                  pseudo_pop$pseudo_pop$counter,
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
@@ -73,6 +76,13 @@ estimate_npmetric_erf<-function(matched_Y,
   if (!is.double(matched_Y) || !is.double(matched_w)){
     stop("Output and treatment vectors should be double vectors.")
   }
+
+  if (!is.null(matched_counter) && sum(matched_counter)== 0){
+    stop(paste0("The matched_counter is provided but the counters are all zero.",
+                " Either pass NULL to the matched_counter or use ",
+                " optimized_compile = TRUE in generating pseudo pop."))
+  }
+
 
   if (!is.null(matched_counter)){
     if (length(matched_Y) != length(matched_counter)){
@@ -104,6 +114,9 @@ estimate_npmetric_erf<-function(matched_Y,
   risk_val <- do.call(rbind, risk_val_1)[,1]
 
   h_opt <- bw_seq[which.min(risk_val)]
+
+  logger::log_info("The band width with the minimum risk value: {h_opt}.")
+
   erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
 
   if (sum(is.na(erf)) > 0){
