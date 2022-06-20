@@ -114,7 +114,7 @@
 #'
 #' Abatzoglou, John T. 2013. “Development of Gridded Surface Meteorological
 #' Data for Ecological Applications and Modelling.” International Journal of
-#' Climatology 33 (1): 121–31. \doi{10.1002/joc.3413}.
+#' Climatology 33 (1): 121–31. \url{https://doi.org/10.1002/joc.3413}.
 #'
 #' Centers for Disease Control and Prevention. 2021. “Behavioral Risk
 #' Factor Surveillance System.”

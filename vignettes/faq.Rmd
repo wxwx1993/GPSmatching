@@ -29,7 +29,7 @@ The `gen_pseudo_pop` function tries transformers if the covariate balance test h
 
 ### 3) How change the logger level?
 
-You can use `set_logger` function and set logger_level to one of "TRACE", "DEBUG", "INFO", "SUCCES", "WARN", "ERROR", or"FATAL". In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue [here](https://github.com/fasrc/CausalGPS/issues).
+You can use `set_logger` function and set logger_level to one of "TRACE", "DEBUG", "INFO", "SUCCESS", "WARN", "ERROR", or"FATAL". In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue [here](https://github.com/fasrc/CausalGPS/issues).
 
 ### 4) Is there any trade-off between number of CPU cores (nthread) and memory usage?
 

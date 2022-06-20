@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +64,36 @@
       <small>Source: <a href="https://github.com/fasrc/CausalGPS/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.8" id="causalgps-028-2022-06-20">CausalGPS 0.2.8 (2022-06-20)<a class="anchor" aria-label="anchor" href="#causalgps-028-2022-06-20"></a></h2>
+<div class="section level3">
+<h3 id="fixed-0-2-8">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-8"></a></h3>
+<ul><li>Message for not implemented methods changed to reduce
+misunderstanding.</li>
+<li>Empty counter will raise error in estimating non-parameteric
+response function.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-0-2-8">Changed<a class="anchor" aria-label="anchor" href="#changed-0-2-8"></a></h3>
+<ul><li>matching_l1 returns frequency table instead of entire vector.</li>
+<li>Vectorized population compilation and used data.table for
+multi-thread assignment.</li>
+<li>Removed nested parallelism in compiling pseudo population, which
+results in close control on memory.</li>
+<li>estimate_npmetric_erf also returns optimal h and risk values.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-0-2-8">Added<a class="anchor" aria-label="anchor" href="#added-0-2-8"></a></h3>
+<ul><li>
+<code>estimate_gps</code> returns the optimal hyperparameters.</li>
+<li>
+<code>estimate_gps</code> returns S3 object.</li>
+<li>Internal xgboost approach support <code>verbose</code>
+parameter.</li>
+<li>Pseudo-population object now report the parameters that are used for
+the best covariate balance.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.7" id="causalgps-027-2022-02-04">CausalGPS 0.2.7 (2022-02-04)<a class="anchor" aria-label="anchor" href="#causalgps-027-2022-02-04"></a></h2><p class="text-muted">CRAN release: 2022-02-07</p>
 <div class="section level3">

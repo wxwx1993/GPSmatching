@@ -160,11 +160,6 @@ estimate_gps <- function(Y,
                     " {(end_time - start_time)[[3]]} seconds.")
 
 
-  #TODO
-  # Collect training information and pass it to the output object.
-  # See issue #131
-
-
   result <- list()
   class(result) <- "cgps_gps"
   result$dataset <- dataset

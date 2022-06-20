@@ -1,4 +1,4 @@
-## CausalGPS (development)
+## CausalGPS 0.2.8 (2022-06-20)
 
 ### Fixed
 * Message for not implemented methods changed to reduce misunderstanding.
@@ -7,13 +7,14 @@
 ### Changed
 * matching_l1 returns frequency table instead of entire vector. 
 * Vectorized population compilation and used data.table for multi-thread assignment.
-* Removed nested parallelization in compiling pseudo population, which results in close control on memory.
+* Removed nested parallelism in compiling pseudo population, which results in close control on memory.
 * estimate_npmetric_erf also returns optimal h and risk values.
 
 ### Added
+* `estimate_gps` returns the optimal hyperparameters.
+* `estimate_gps` returns S3 object. 
 * Internal xgboost approach support `verbose` parameter.
 * Pseudo-population object now report the parameters that are used for the best covariate balance.
-
 
 
 ## CausalGPS 0.2.7 (2022-02-04)
@@ -122,7 +123,7 @@
 
 ### Added
 
-*  User defined bin sequence in compiling speudo population.
+*  User defined bin sequence in compiling pseudo population.
 *  Non-parametric option for estimating GPS.
 *  Adaptive approach to transform features in training sessions.
 *  Cpp code for computing pair of w and GPS.

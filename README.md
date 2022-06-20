@@ -118,14 +118,14 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   scale = 1)
 
 ```
-`matching_l1` is Manhattan distance matching approach. For prediciton model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+`matching_l1` is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
 
 | Package name | `sl_lib` name | prefix| available hyperparameters |
 |:------------:|:-------------:|:-----:|:-------------------------:|
 | [XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)| `m_xgboost` | `xgb_`|  nrounds, eta, max_depth, min_child_weight |
 | [ranger](https://cran.r-project.org/package=ranger) |`m_ranger`| `rgr_` | num.trees, write.forest, replace, verbose, family |
 
-`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
+`nthread` is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallel the processing. `use_covariate_transform` activates transforming covariates in order to achieve covariate balance. Users can pass custom function name in a list to be included in the processing. At each iteration, which is set by the users using `max_attempt`, the column that provides the worst covariate balance will be transformed.  
 
 - Estimating GPS
 
