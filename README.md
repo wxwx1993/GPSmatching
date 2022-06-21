@@ -30,7 +30,7 @@ install.packages("CausalGPS")
 
 - Setting up docker environment
 
-Developing Docker image can be downloaded from Docker Hub. See more details [here](docker_singularity/README.md).
+Developing Docker image can be downloaded from Docker Hub. See more details in docker_singularity.
 
 ## Usage
 

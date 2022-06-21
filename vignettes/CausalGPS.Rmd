@@ -107,7 +107,7 @@ See create_matching() for more details about the parameters and default values.
                              
  plot(pseudo_pop)
 ```
-**`matching_l1`** is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. 
+**`matching_l1`** is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner/) package. 
 User need to pass **`sl`** as **`pred_model`** to use SuperLearner package. SuperLearner supports different machine learning methods and packages. 
 **`params`** is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. 
 All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. 

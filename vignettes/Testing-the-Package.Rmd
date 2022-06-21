@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 
-Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/CausalGPS/issues). In the following, there steps to generate synthetic data and conduct some testing. 
+Testing the package is an important part of package development. Although we are unit-testing the functions, there is always a situation that is not tested. Please feel free to try the code under different conditions. Please report the bugs as a [new issue](https://github.com/fasrc/CausalGPS/issues/). In the following, there steps to generate synthetic data and conduct some testing. 
 
 In order to test the package, you need to have the code on your system (R (>= 3.5.0)). There are two options:
 
@@ -42,7 +42,7 @@ The process should run smoothly. Try `?CausalGPS`. It should open the package de
 
 ### Cloning the Package
 
-Go to the package [Github repository](https://github.com/fasrc/CausalGPS), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
+Go to the package [Github repository](https://github.com/fasrc/CausalGPS/), at the top left (A), choose the branch that you want to clone, then click on the `Code` button (B), then choose  `Download ZIP`. The following figure shows the buttons' location.
 
 <p float="center">
   <img src="../man/figures/png/testing_example_discussion_fig1.png" width="600">
@@ -285,6 +285,3 @@ save(list=list_names, file="R/sysdata.rda")
 
 - Step 8: Run `check()/test()` to make sure that it passes all tests. If it does not pass all tests, address the problem. 
 - Step 9: After successful `check()/pass()` remove the backup file. 
-
-
-

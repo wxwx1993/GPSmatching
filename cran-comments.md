@@ -1,3 +1,21 @@
+Re-submission (June 21, 2022)
+
+Thank you so much for taking the time and reviewing the CausalGPS 0.2.8 package and providing feedback. 
+I fixed the issues according to the following:
+
+- Modified (https://sylabs.io/guides/3.0/user-guide/definition_files.html) into (https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html) (2 instances.)
+- Modified (https://sylabs.io/guides/3.7/user-guide/quick_start.html) into ( https://docs.sylabs.io/guides/3.7/user-guide/quick_start.html)
+- Modified (\url{https://doi.org/10.1002/joc.3413}) to (\doi{10.1002/joc.3413})
+- Fixed the linking issue in the readme file. 
+- Added trailing slash to the URLs.
+- Double-checked http -> https. 
+
+Best regards, 
+Naeem Khoshnevis 
+FASRC - Harvard University
+
+
+
 Submission (June 20, 2022)
 
 Thank you so much for taking the time and reviewing the CausalGPS 0.2.8 package. In this version upgrade we:

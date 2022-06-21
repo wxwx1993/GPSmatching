@@ -15,3 +15,4 @@ index.md
 ^.covrignore
 ^docker_singularity/*$
 ^functional_tests/*$
+^CRAN-SUBMISSION$
