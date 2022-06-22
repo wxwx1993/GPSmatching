@@ -1,4 +1,4 @@
-## CausalGPS 0.2.8 (2022-06-21)
+## CausalGPS 0.2.8 (2022-06-22)
 
 ### Fixed
 * Message for not implemented methods changed to reduce misunderstanding.
