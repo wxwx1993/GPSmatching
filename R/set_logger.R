@@ -10,7 +10,7 @@
 #'   - TRACE
 #'   - DEBUG
 #'   - INFO (Default)
-#'   - SUCESS
+#'   - SUCCESS
 #'   - WARN
 #'   - ERROR
 #'   - FATAL

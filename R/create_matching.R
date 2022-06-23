@@ -39,8 +39,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   matching_fun <- get(matching_fun)
 
-  gps_mx <- dataset[[5]]
-  w_mx <- dataset[[6]]
+  gps_mx <- dataset$gps_mx
+  w_mx <- dataset$w_mx
 
   if (is.null(bin_seq)){
 
@@ -60,43 +60,21 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug("Started generating matched set ...")
     st_t_m <- proc.time()
 
-    lfp <- get_options("logger_file_path")
+    #lfp <- get_options("logger_file_path")
 
-    p_c_t_s <- proc.time()
-    cl <- parallel::makeCluster(nthread, type="PSOCK",
-                                outfile= lfp)
-
-
-    # seed_val <- .Random.seed
-    # parallel::clusterSetRNGStream(cl = cl, iseed = seed_val)
-
-    parallel::clusterEvalQ(cl, {library("CausalGPS")})
-    p_c_t_e <- proc.time()
-
-    logger::log_debug("Wall clock time to create cluster with ",
-                      "{nthread} core(s): {p_c_t_e[[3]] - p_c_t_s[[3]]} s.")
-    parallel::clusterExport(cl=cl,
-                          varlist = c("bin_num", "matching_fun", "dataset",
-                                      "gps_mx", "w_mx", "delta_n", "scale",
-                                      "nthread", "compute_closest_wgps",
-                                      "compute_resid", "compute_density"),
-                          envir=environment())
-
-    matched_set <-  parallel::parLapply(cl,
-                                        bin_num,
-                                        matching_fun,
-                                        dataset=dataset[[1]],
-                                        e_gps_pred = dataset[[2]],
-                                        e_gps_std_pred = dataset[[3]],
-                                        w_resid=dataset[[4]],
-                                        gps_mx = gps_mx,
-                                        w_mx = w_mx,
-                                        gps_model = gps_model,
-                                        delta_n = delta_n,
-                                        scale = scale,
-                                        nthread = nthread,
-                                        optimized_compile = optimized_compile)
-    parallel::stopCluster(cl)
+    matched_set <-  lapply(bin_num,
+                           matching_fun,
+                           dataset=dataset$dataset,
+                           e_gps_pred = dataset$e_gps_pred,
+                           e_gps_std_pred = dataset$e_gps_std_pred,
+                           w_resid=dataset$w_resid,
+                           gps_mx = gps_mx,
+                           w_mx = w_mx,
+                           gps_model = gps_model,
+                           delta_n = delta_n,
+                           scale = scale,
+                           nthread = nthread,
+                           optimized_compile = optimized_compile)
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
@@ -106,17 +84,49 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     return(data.table(do.call(rbind,matched_set)))
   } else {
 
+    logger::log_debug("Started working on compiling  ... ")
+
+    s_comp_p <- proc.time()
+
     cp_original_data <- dataset[[1]]
-    bind_matched_set = do.call(rbind,matched_set)
-    freq_table = as.data.frame(table(bind_matched_set))
 
-    index_of_data <- as.numeric(as.character(freq_table[1][,1]))
-    added_count <- as.numeric(as.character(freq_table[2][,1]))
+    # create initial freq_table
+    logger::log_debug("Started working on merging the frequency table  ... ")
+    s_bindlist <- proc.time()
+    N <- N.x <- N.y <- row_index <- NULL
+    freq_table <- data.table(row_index=numeric(), N=integer())
+    for (i in seq(1, length(matched_set))){
 
-    for (i in seq(1,nrow(freq_table))){
-      (cp_original_data[index_of_data[i],"counter"] <-
-          cp_original_data[index_of_data[i],"counter"] + added_count[i])
+      if (length(matched_set[[i]]) == 0){
+        # bins that does not have any match.
+        next
+      }
+      freq_table <- merge(freq_table, matched_set[[i]],
+                          by="row_index",
+                          all=TRUE)
+      row.names(freq_table) <- NULL
+      freq_table[is.na(freq_table)] <- 0
+      freq_table[, N:= N.x + N.y]
+      freq_table[, N.x:= NULL]
+      freq_table[, N.y:= NULL]
     }
+    e_bindlist <- proc.time()
+    logger::log_debug(paste0("Finished binding the frequency table ",
+                             "(Wall clock time:  ",
+                             (e_bindlist - s_bindlist)[[3]]," seconds)."))
+
+    if (nrow(freq_table) != 0){
+      index_of_data <- freq_table[["row_index"]]
+      added_count <- freq_table[["N"]]
+      counter_tmp <- numeric(nrow(cp_original_data))
+      counter_tmp[index_of_data] <- added_count
+      cp_original_data$counter <- counter_tmp
+    }
+
+    e_comp_p <- proc.time()
+
+    logger::log_debug("Finished compiling (vectorized) (Wall clock time:  ",
+                      " {(e_comp_p - s_comp_p)[[3]]} seconds).")
 
     return(data.table(cp_original_data))
   }

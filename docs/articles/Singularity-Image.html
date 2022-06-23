@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -94,31 +95,48 @@
 
     
     
-<p>A Singularity image is an essential part of creating a reproducible container and, eventually, reproducible research. This section explains the steps to create a singularity definition file, build an image, and run a container. The two primary sources for further discussion and details include:</p>
+<p>A Singularity image is an essential part of creating a reproducible
+container and, eventually, reproducible research. This section explains
+the steps to create a singularity definition file, build an image, and
+run a container. The two primary sources for further discussion and
+details include:</p>
 <ul>
-<li><a href="https://sylabs.io/guides/3.0/user-guide/definition_files.html" class="external-link">Singularity Definition Files</a></li>
-<li><a href="https://www.rocker-project.org/use/singularity/" class="external-link">Rocker Project (Singularity)</a></li>
+<li><a href="https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html" class="external-link">Singularity
+Definition Files</a></li>
+<li><a href="https://www.rocker-project.org/use/singularity/" class="external-link">Rocker
+Project (Singularity)</a></li>
 </ul>
 <div class="section level3">
 <h3 id="setting-up-the-environment">Setting up the environment<a class="anchor" aria-label="anchor" href="#setting-up-the-environment"></a>
 </h3>
-<p>In order to build a singularity image, you need to have singularity installed on your system, and you need to have a root privilege to build an image. There are sufficient instructions to do that (for example, <a href="https://sylabs.io/guides/3.7/user-guide/quick_start.html" class="external-link">here</a>). You can also use <a href="https://cloud.sylabs.io/builder" class="external-link">Sylab Remote Builder</a> services.</p>
+<p>In order to build a singularity image, you need to have singularity
+installed on your system, and you need to have a root privilege to build
+an image. There are sufficient instructions to do that (for example, <a href="https://docs.sylabs.io/guides/3.7/user-guide/quick_start.html" class="external-link">here</a>).
+You can also use <a href="https://cloud.sylabs.io/builder/" class="external-link">Sylab Remote
+Builder</a> services.</p>
 </div>
 <div class="section level3">
 <h3 id="definition-file">Definition File<a class="anchor" aria-label="anchor" href="#definition-file"></a>
 </h3>
-<p>The Definition File (CausalGPS_rstudio.def) is the recipe for building the image. Please note that we build it upon [rocker/rstudio:4.0.4] image. For more details about generating a Definition File, please refer to <a href="https://sylabs.io/guides/3.7/user-guide/definition_files.html" class="external-link">Singularity User Guide</a>.</p>
+<p>The Definition File (CausalGPS_rstudio.def) is the recipe for
+building the image. Please note that we build it upon
+[rocker/rstudio:4.0.4] image. For more details about generating a
+Definition File, please refer to <a href="https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html" class="external-link">Singularity
+User Guide</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="building-singularity-image">Building Singularity Image<a class="anchor" aria-label="anchor" href="#building-singularity-image"></a>
 </h3>
-<p>To build the image, download the Definition File (CausalGPS_rstudio.def) and run the following:</p>
+<p>To build the image, download the Definition File
+(CausalGPS_rstudio.def) and run the following:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> sudo singularity build CausalGPS_rstudio.sif CausalGPS_rstudio.def </span></code></pre></div>
-<p>Running the command will generate a Singularity image (CausalGPS_rstudio.sif). You can double-check the CausalGPS package version by running the image using the following command:</p>
+<p>Running the command will generate a Singularity image
+(CausalGPS_rstudio.sif). You can double-check the CausalGPS package
+version by running the image using the following command:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>singularity run CausalGPS_rstudio.sif </span></code></pre></div>
 <p>This will result in the following format:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Container was created Thu <span class="dv">03</span> Feb <span class="dv">2022</span> <span class="kw">07:54:</span><span class="dv">45</span> PM UTC</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CausalGPS package installed (<span class="kw">ver:</span> [<span class="dv">1</span>] ‘<span class="dv">0</span>.2.6.9000’)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Container was created Thu <span class="dv">03</span> Feb <span class="dv">2022</span> <span class="fu">07:54:</span><span class="dv">45</span> PM UTC</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CausalGPS package installed <span class="op">(</span><span class="fu">ver:</span> <span class="op">[</span><span class="dv">1</span><span class="op">]</span> ‘<span class="dv">0</span>.2.6.9000’<span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="run-an-r-session">Run an R Session<a class="anchor" aria-label="anchor" href="#run-an-r-session"></a>
@@ -156,7 +174,9 @@
 <div class="section level3">
 <h3 id="run-a-rstudio-session">Run a Rstudio Session<a class="anchor" aria-label="anchor" href="#run-a-rstudio-session"></a>
 </h3>
-<p>You can also open an RStudio session in your browser by following these steps mentioned in <a href="https://www.rocker-project.org/use/singularity/" class="external-link">Rocker Project (Singularity)</a>.</p>
+<p>You can also open an RStudio session in your browser by following
+these steps mentioned in <a href="https://www.rocker-project.org/use/singularity/" class="external-link">Rocker Project
+(Singularity)</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p run var<span class="sc">-</span>lib<span class="sc">-</span>rstudio<span class="sc">-</span>server</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>printf <span class="st">'provider=sqlite</span><span class="sc">\n</span><span class="st">directory=/var/lib/rstudio-server</span><span class="sc">\n</span><span class="st">'</span> <span class="sc">&gt;</span> database.conf</span>
@@ -177,7 +197,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

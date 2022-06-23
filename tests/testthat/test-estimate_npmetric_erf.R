@@ -1,5 +1,6 @@
 test_that("estimate_npmetric_erf works as expected", {
 
+  set.seed(347)
   m_d <- generate_syn_data(sample_size = 100)
 
   pseudo_pop <- generate_pseudo_pop(m_d$Y,
@@ -31,5 +32,9 @@ test_that("estimate_npmetric_erf works as expected", {
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)
   expect_equal(length(res$params$w_vals), length(res$erf))
+  expect_equal(res$risk_val[1], 30.71272, tolerance = 0.00001)
+
+  # Address reproducibility issue.
+  # expect_equal(res$risk_val[10], 140.09654, tolerance = 0.00001)
 
 })

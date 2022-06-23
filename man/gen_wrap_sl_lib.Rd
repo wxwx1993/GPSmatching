@@ -16,9 +16,9 @@ relevant parameters will be extracted, others will be ignored.}
 (in case they can use it).}
 }
 \value{
-Returns A Boolean value. TRUE if the modified library for the given library is
-implemented; otherwise, it returns FALSE. This function is called for side
-effects.
+Returns a list of TRUE and best used parameters, if the modified library for
+the given library is implemented; otherwise, it returns a list of FALSE.
+This function is also called for side effects.
 }
 \description{
 The function generates customized wrapper in order to have access to the

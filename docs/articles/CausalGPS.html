@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -106,8 +107,103 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Input parameters:</p>
-<p><strong><code>Y</code></strong> a vector of observed outcome.<br><strong><code>w</code></strong> a vector of observed continues exposure.<br><strong><code>c</code></strong> data frame or matrix of observed baseline covariates.<br><strong><code>ci_appr</code></strong> The causal inference approach. Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>pred_model</code></strong> a prediction model (use “sl” for SuperLearner). <strong><code>gps_model</code></strong> Model type which is used for estimating GPS value, including “parametric” (default) and “non-parametric”.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> Is a list of transformers. Each transformer should be a unary function. Available transformers are “pow2” and “pow3”. <strong><code>bin_seq</code></strong> Sequence of w (treatment) to generate pseudo population. If <code>NULL</code> is passed the default value will be used, which is <code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>. <strong><code>matching_fun</code></strong> specified matching function. <strong><code>trim_quantiles</code></strong> A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order(default: c(0.01,0.99)). <strong><code>optimized_compile</code></strong> If TRUE, uses counts to keep track of number of replicated pseudo population. <strong><code>params</code></strong> Includes list of params that is used internally. Unrelated parameters will be ignored. <strong><code>scale</code></strong> specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates.<br><strong><code>delta_n</code></strong> specified caliper parameter on the exposure<br><strong><code>sl_lib</code></strong> a set of machine learning methods used for estimating GPS<br><strong><code>ci_appr</code></strong> causal inference approach<br><strong><code>covar_bl_method</code></strong> specified covariate balance method<br><strong><code>covar_bl_trs</code></strong> specified covariate balance threshold<br><strong><code>covar_bl_trs_type</code></strong> specified covariate balance threshold type <strong><code>max_attempt</code></strong> maximum number of attempt to satisfy covariate balance</p>
+<p><strong><code>Y</code></strong> A vector of observed outcome
+variable.<br><strong><code>w</code></strong> A vector of observed continuous exposure
+variable.<br><strong><code>c</code></strong> A data.frame or matrix of observed
+covariates variable.<br><strong><code>ci_appr</code></strong> The causal inference approach.
+Possible values are:<br>
+- “matching”: Matching by GPS<br>
+- “weighting”: Weighting by GPS<br><strong><code>pred_model</code></strong> a prediction model (use “sl”
+for SuperLearner)<br><strong><code>gps_model</code></strong> Model type which is used for
+estimating GPS value, including parametric (default) and
+non-parametric.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function
+uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> A list of transformers. Each
+transformer should be a unary function. You can pass name of customized
+function in the quotes.<br>
+Available transformers:<br>
+- pow2: to the power of 2<br>
+- pow3: to the power of 3<br><strong><code>bin_seq</code></strong> Sequence of w (treatment) to
+generate pseudo population. If NULL is passed the default value will be
+used, which is
+<code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>.<br><strong><code>trim_quantiles</code></strong> A numerical vector of two.
+Represents the trim quantile level. Both numbers should be in the range
+of [0,1] and in increasing order (default: c(0.01,0.99)).<br><strong><code>optimized_compile</code></strong> If TRUE, uses counts to
+keep track of number of replicated pseudo population.<br><strong><code>params</code></strong> Includes list of params that is
+used internally. Unrelated parameters will be ignored.<br><strong><code>nthread</code></strong> An integer value that represents
+the number of threads to be used by internal packages.<br><strong><code>...</code></strong> Additional arguments passed to
+different models.</p>
+</div>
+<div class="section level2">
+<h2 id="additional-parameters">Additional parameters<a class="anchor" aria-label="anchor" href="#additional-parameters"></a>
+</h2>
+<div class="section level3">
+<h3 id="causal-inference-approach-ci-appr">Causal Inference Approach (<code>ci.appr</code>)<a class="anchor" aria-label="anchor" href="#causal-inference-approach-ci-appr"></a>
+</h3>
 <ul>
+<li>if ci.appr = ‘matching’:
+<ul>
+<li>
+<em>matching_fun</em>: Matching function. Available options:
+<ul>
+<li>matching_l1: Manhattan distance matching<br>
+</li>
+</ul>
+</li>
+<li>
+<em>delta_n</em>: caliper parameter.<br>
+</li>
+<li>
+<em>scale</em>: a specified scale parameter to control the relative
+weight that is attributed to the distance measures of the exposure
+versus the GPS.<br>
+</li>
+<li>
+<em>covar_bl_method</em>: covariate balance method. Available
+options:
+<ul>
+<li>‘absolute’<br>
+</li>
+</ul>
+</li>
+<li>
+<em>covar_bl_trs</em>: covariate balance threshold<br>
+</li>
+<li>
+<em>covar_bl_trs_type</em>: covariate balance type (mean, median,
+maximal)</li>
+<li>
+<em>max_attempt</em>: maximum number of attempt to satisfy covariate
+balance.<br>
+See create_matching() for more details about the parameters and default
+values.<br>
+</li>
+</ul>
+</li>
+<li>if ci.appr = ‘weighting’:
+<ul>
+<li>
+<em>covar_bl_method</em>: Covariate balance method.<br>
+</li>
+<li>
+<em>covar_bl_trs</em>: Covariate balance threshold<br>
+</li>
+<li>
+<em>max_attempt</em>: Maximum number of attempt to satisfy covariate
+balance.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="prediction-models-pred_model">Prediction models (pred_model)<a class="anchor" aria-label="anchor" href="#prediction-models-pred_model"></a>
+</h3>
+<ul>
+<li>if pred_model = ‘sl’:
+<ul>
+<li>
+<em>sl_lib</em>: A vector of prediction algorithms.</li>
+</ul>
+</li>
 <li>Generating Pseudo Population</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -141,8 +237,27 @@
                              nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>                            
                              
  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">)</span></code></pre></div>
-<p><strong><code>matching_l1</code></strong> is Manhattan distance matching approach. For prediciton model we use <a href="https://github.com/ecpolley/SuperLearner" class="external-link">SuperLearner</a> package. User need to pass <strong><code>sl</code></strong> as <strong><code>pred_model</code></strong> to use SuperLearner package. SuperLearner supports different machine learning methods and packages. <strong><code>params</code></strong> is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list. The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in <strong><code>sl_lib</code></strong>, the prefixes that should be used for their hyperparameters in the <strong><code>params</code></strong> list, and available hyperparameters.</p>
+<p><strong><code>matching_l1</code></strong> is Manhattan distance
+matching approach. For prediction model we use <a href="https://github.com/ecpolley/SuperLearner/" class="external-link">SuperLearner</a>
+package. User need to pass <strong><code>sl</code></strong> as
+<strong><code>pred_model</code></strong> to use SuperLearner package.
+SuperLearner supports different machine learning methods and packages.
+<strong><code>params</code></strong> is a list of hyperparameters that
+users can pass to the third party libraries in the SuperLearner package.
+All hyperparameters go into the params list. The prefixes are used to
+distinguished parameters for different libraries. The following table
+shows the external package names, their equivalent name that should be
+used in <strong><code>sl_lib</code></strong>, the prefixes that should
+be used for their hyperparameters in the
+<strong><code>params</code></strong> list, and available
+hyperparameters.</p>
 <table class="table">
+<colgroup>
+<col width="22%">
+<col width="23%">
+<col width="11%">
+<col width="42%">
+</colgroup>
 <thead><tr class="header">
 <th align="center">Package name</th>
 <th align="center">
@@ -161,11 +276,14 @@
 <td align="center"><a href="https://cran.r-project.org/package=ranger" class="external-link">ranger</a></td>
 <td align="center"><code>m_ranger</code></td>
 <td align="center"><code>rgr_</code></td>
-<td align="center">num.trees, write.forest, replace, verbose, family</td>
+<td align="center">num.trees, write.forest, replace, verbose,
+family</td>
 </tr>
 </tbody>
 </table>
-<p><strong><code>nthread</code></strong> is the number of available threads (cores). XGBoost needs OpenMP installed on the system to parallize the processing.</p>
+<p><strong><code>nthread</code></strong> is the number of available
+threads (cores). XGBoost needs OpenMP installed on the system to
+parallelize the processing.</p>
 <ul>
 <li>Estimating GPS</li>
 </ul>
@@ -180,28 +298,40 @@
                               nthread <span class="op">=</span> <span class="fl">1</span>,                                
                               sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>
                               <span class="op">)</span></code></pre></div>
-<p>If <strong><code>internal_use</code></strong> is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See <strong><code><a href="../reference/estimate_gps.html">?estimate_gps</a></code></strong> for more details.</p>
+<p>If <strong><code>internal_use</code></strong> is set to be TRUE, the
+program will return additional vectors to be used by the selected causal
+inference approach to generate a pseudo population. See
+<strong><code><a href="../reference/estimate_gps.html">?estimate_gps</a></code></strong> for more details.</p>
 <ul>
 <li>Estimating Exposure Rate Function</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">erf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_npmetric_erf.html">estimate_npmetric_erf</a></span><span class="op">(</span><span class="va">Y</span>,
-                             <span class="va">w</span>,
-                             <span class="va">bw_seq</span>,
-                             <span class="va">w_vals</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>estimate_npmetric_erf<span class="ot">&lt;-</span><span class="cf">function</span>(matched_Y,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                matched_w,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">matched_counter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">bw_seq=</span><span class="fu">seq</span>(<span class="fl">0.2</span>,<span class="dv">2</span>,<span class="fl">0.2</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                w_vals,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                nthread)</span></code></pre></div>
 <ul>
 <li>Generating Synthetic Data</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">syn_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="fl">1000</span>,
-                              seed <span class="op">=</span> <span class="fl">403</span>,
                               outcome_sd <span class="op">=</span> <span class="fl">10</span>,
                               gps_spec <span class="op">=</span> <span class="fl">1</span>,
                               cova_spec <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Logging</li>
 </ul>
-<p>The CausalGPS package is logging internal activities into the <code>CausalGPS.log</code> file. The file is located in the source file location and will be appended. Users can change the logging file name (and path) and logging threshold. The logging mechanism has different thresholds (see <a href="https://cran.r-project.org/package=logger" class="external-link">logger</a> package). The two most important thresholds are INFO and DEBUG levels. The former, which is the default level, logs more general information about the process. The latter, if activated, logs more detailed information that can be used for debugging purposes.</p>
+<p>The CausalGPS package is logging internal activities into the
+<code>CausalGPS.log</code> file. The file is located in the source file
+location and will be appended. Users can change the logging file name
+(and path) and logging threshold. The logging mechanism has different
+thresholds (see <a href="https://cran.r-project.org/package=logger" class="external-link">logger</a> package).
+The two most important thresholds are INFO and DEBUG levels. The former,
+which is the default level, logs more general information about the
+process. The latter, if activated, logs more detailed information that
+can be used for debugging purposes.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -216,7 +346,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

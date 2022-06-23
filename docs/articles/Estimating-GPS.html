@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -94,14 +95,41 @@
 
     
     
-<p>The propensity score (PS) is the conditional probability of assignment to a particular treatment given a vector of observed covariates <span class="citation">(Rosenbaum and Rubin 1983)</span>. <span class="citation">Hirano and Imbens (2004)</span> extended the idea to studies with continuous treatment (or exposure) and labeled it as the generalized propensity score (GPS), which is a probability density function. In this package, we use either a parametric model (a standard linear regression model) or a non-parametric model (a flexible machine learning model) to train the GPS model as a density estimation procedure <span class="citation">(Kennedy et al. 2017)</span>. After the model training, we can estimate GPS values based on the model prediction. The machine learning models are developed using the SuperLearner Package <span class="citation">(Van der Laan, Polley, and Hubbard 2007)</span>. For more details on the problem framework and assumptions, please see <span class="citation">Wu et al. (2020)</span>.</p>
+<p>The propensity score (PS) is the conditional probability of
+assignment to a particular treatment given a vector of observed
+covariates <span class="citation">(Rosenbaum and Rubin 1983)</span>.
+<span class="citation">Hirano and Imbens (2004)</span> extended the idea
+to studies with continuous treatment (or exposure) and labeled it as the
+generalized propensity score (GPS), which is a probability density
+function. In this package, we use either a parametric model (a standard
+linear regression model) or a non-parametric model (a flexible machine
+learning model) to train the GPS model as a density estimation procedure
+<span class="citation">(Kennedy et al. 2017)</span>. After the model
+training, we can estimate GPS values based on the model prediction. The
+machine learning models are developed using the SuperLearner Package
+<span class="citation">(Van der Laan, Polley, and Hubbard 2007)</span>.
+For more details on the problem framework and assumptions, please see
+<span class="citation">Wu et al. (2020)</span>.</p>
 <!-- [TBD: Data flow and mathematical equations] -->
-<p>Whether the prediction models’ performance should be considered the primary parameter in the training of the prediction model is an open research question. In this package, the users have complete control over the hyperparameters, which can fine-tune the prediction models to achieve different performance levels.</p>
+<p>Whether the prediction models’ performance should be considered the
+primary parameter in the training of the prediction model is an open
+research question. In this package, the users have complete control over
+the hyperparameters, which can fine-tune the prediction models to
+achieve different performance levels.</p>
 <div class="section level2">
 <h2 id="available-superlearner-libraries">Available SuperLearner Libraries<a class="anchor" aria-label="anchor" href="#available-superlearner-libraries"></a>
 </h2>
-<p>The users can use any library in the SuperLearner package. However, in order to have control on internal libraries we generate customized wrappers. The following table represents the available customized wrappers as well as hyperparameters.</p>
+<p>The users can use any library in the SuperLearner package. However,
+in order to have control on internal libraries we generate customized
+wrappers. The following table represents the available customized
+wrappers as well as hyperparameters.</p>
 <table class="table">
+<colgroup>
+<col width="22%">
+<col width="23%">
+<col width="11%">
+<col width="42%">
+</colgroup>
 <thead><tr class="header">
 <th align="center">Package name</th>
 <th align="center">
@@ -114,13 +142,15 @@
 <td align="center"><a href="https://xgboost.readthedocs.io/en/latest/index.html" class="external-link">XGBoost</a></td>
 <td align="center"><code>m_xgboost</code></td>
 <td align="center"><code>xgb_</code></td>
-<td align="center">nrounds, eta, max_depth, min_child_weight</td>
+<td align="center">nrounds, eta, max_depth, min_child_weight,
+verbose</td>
 </tr>
 <tr class="even">
 <td align="center"><a href="https://cran.r-project.org/package=ranger" class="external-link">ranger</a></td>
 <td align="center"><code>m_ranger</code></td>
 <td align="center"><code>rgr_</code></td>
-<td align="center">num.trees, write.forest, replace, verbose, family</td>
+<td align="center">num.trees, write.forest, replace, verbose,
+family</td>
 </tr>
 </tbody>
 </table>
@@ -128,27 +158,47 @@
 <div class="section level2">
 <h2 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
 </h2>
-<p>Both <code>XGBoost</code> and <code>ranger</code> libraries are developed for efficient processing on multiple cores. The only requirement is making sure that OpenMP is installed on the system. User needs to pass the number of threads (<code>nthread</code>) in running the <code>estimate_gps</code> function.</p>
-<p>In the following section, we conduct several analyses to test the scalability and performance. These analyses can be used to have a rough estimate of what to expect in different data sizes and computational resources.</p>
+<p>Both <code>XGBoost</code> and <code>ranger</code> libraries are
+developed for efficient processing on multiple cores. The only
+requirement is making sure that OpenMP is installed on the system. User
+needs to pass the number of threads (<code>nthread</code>) in running
+the <code>estimate_gps</code> function.</p>
+<p>In the following section, we conduct several analyses to test the
+scalability and performance. These analyses can be used to have a rough
+estimate of what to expect in different data sizes and computational
+resources.</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-hirano_2004" class="csl-entry">
-Hirano, Keisuke, and Guido W Imbens. 2004. <span>“The Propensity Score with Continuous Treatments.”</span> <em>Applied Bayesian Modeling and Causal Inference from Incomplete-Data Perspectives</em> 226164: 73–84. <a href="https://doi.org/10.1002/0470090456.ch7" class="external-link">https://doi.org/10.1002/0470090456.ch7</a>.
+Hirano, Keisuke, and Guido W Imbens. 2004. <span>“The Propensity Score
+with Continuous Treatments.”</span> <em>Applied Bayesian Modeling and
+Causal Inference from Incomplete-Data Perspectives</em> 226164: 73–84.
+<a href="https://doi.org/10.1002/0470090456.ch7" class="external-link">https://doi.org/10.1002/0470090456.ch7</a>.
 </div>
 <div id="ref-kennedy_2017" class="csl-entry">
-Kennedy, Edward H, Zongming Ma, Matthew D McHugh, and Dylan S Small. 2017. <span>“Nonparametric Methods for Doubly Robust Estimation of Continuous Treatment Effects.”</span> <em>Journal of the Royal Statistical Society. Series B, Statistical Methodology</em> 79 (4): 1229. <a href="https://doi.org/10.1111/rssb.12212" class="external-link">https://doi.org/10.1111/rssb.12212</a>.
+Kennedy, Edward H, Zongming Ma, Matthew D McHugh, and Dylan S Small.
+2017. <span>“Nonparametric Methods for Doubly Robust Estimation of
+Continuous Treatment Effects.”</span> <em>Journal of the Royal
+Statistical Society. Series B, Statistical Methodology</em> 79 (4):
+1229. <a href="https://doi.org/10.1111/rssb.12212" class="external-link">https://doi.org/10.1111/rssb.12212</a>.
 </div>
 <div id="ref-rosenbaum_1983" class="csl-entry">
-Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
+Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of
+the Propensity Score in Observational Studies for Causal
+Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
 </div>
 <div id="ref-superlearner_2007" class="csl-entry">
-Van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“Super Learner.”</span> <em>Statistical Applications in Genetics and Molecular Biology</em> 6 (1).
+Van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007.
+<span>“Super Learner.”</span> <em>Statistical Applications in Genetics
+and Molecular Biology</em> 6 (1).
 </div>
 <div id="ref-wu_2018" class="csl-entry">
-Wu, Xiao, Fabrizia Mealli, Marianthi-Anna Kioumourtzoglou, Francesca Dominici, and Danielle Braun. 2020. <span>“Matching on Generalized Propensity Scores with Continuous Exposures.”</span> <a href="https://arxiv.org/abs/1812.06575" class="external-link">https://arxiv.org/abs/1812.06575</a>.
+Wu, Xiao, Fabrizia Mealli, Marianthi-Anna Kioumourtzoglou, Francesca
+Dominici, and Danielle Braun. 2020. <span>“Matching on Generalized
+Propensity Scores with Continuous Exposures.”</span> <a href="https://arxiv.org/abs/1812.06575" class="external-link">https://arxiv.org/abs/1812.06575</a>.
 </div>
 </div>
 </div>
@@ -165,7 +215,8 @@ Wu, Xiao, Fabrizia Mealli, Marianthi-Anna Kioumourtzoglou, Francesca Dominici, a
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

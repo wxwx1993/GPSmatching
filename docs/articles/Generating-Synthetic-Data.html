@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -94,34 +95,62 @@
 
     
     
-<p>We provide <strong><code>gen_syn_data</code></strong> to generate synthetic data for CausalGPS package</p>
+<p>We provide <strong><code>gen_syn_data</code></strong> to generate
+synthetic data for CausalGPS package</p>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Input parameters:</p>
 <p><strong><code>sample_size</code></strong> Number of data samples</p>
-<p><strong><code>seed</code></strong> The seed of R’s random number generator</p>
-<p><strong><code>outcome_sd</code></strong> Standard deviation used to generate the outcome</p>
-<p><strong><code>gps_spec</code></strong> A numerical value (1-7) that indicates the GPS model used to generate synthetic data. See the following section for more details.</p>
-<p><strong><code>cova_spec</code></strong> A numerical value (1-2) to modify the covariates. See the code for more details.</p>
+<p><strong><code>seed</code></strong> The seed of R’s random number
+generator</p>
+<p><strong><code>outcome_sd</code></strong> Standard deviation used to
+generate the outcome</p>
+<p><strong><code>gps_spec</code></strong> A numerical value (1-7) that
+indicates the GPS model used to generate synthetic data. See the
+following section for more details.</p>
+<p><strong><code>cova_spec</code></strong> A numerical value (1-2) to
+modify the covariates. See the code for more details.</p>
 </div>
 <div class="section level2">
 <h2 id="technical-details-for-data-generating-process">Technical Details for Data Generating Process<a class="anchor" aria-label="anchor" href="#technical-details-for-data-generating-process"></a>
 </h2>
-<p>We generate six confounders <span class="math inline">\((C_1,C_2,...,C_6)\)</span>, which include a combination of continuous and categorical variables, <span class="math display">\[\begin{align*}
-    C_1,\ldots,C_4 \sim N(0,\boldsymbol{I}_4), C_5 \sim U\{-2,2\}, C_6 \sim U(-3,3),
-\end{align*}\]</span> and generate <span class="math inline">\(W\)</span> using six specifications of the generalized propensity score model,</p>
+<p>We generate six confounders <span class="math inline">\((C_1,C_2,...,C_6)\)</span>, which include a
+combination of continuous and categorical variables, <span class="math display">\[\begin{align*}
+    C_1,\ldots,C_4 \sim N(0,\boldsymbol{I}_4), C_5 \sim U\{-2,2\}, C_6
+\sim U(-3,3),
+\end{align*}\]</span> and generate <span class="math inline">\(W\)</span> using six specifications of the
+generalized propensity score model,</p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} +17 + N(0,5)\)</span></p></li>
-<li><p><span class="math inline">\(W = 15\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 22 + T(2)\)</span></p></li>
-<li><p><span class="math inline">\(W = 9 \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 3/2 C_3^2 + 15 + N(0,5)\)</span></p></li>
-<li><p><span class="math inline">\(W = \frac{49 \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} -6 + N(0,5)\)</span></p></li>
-<li><p><span class="math inline">\(W = \frac{42}{1+ \exp(\{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} - 18 + N(0,5)\)</span></p></li>
-<li><p><span class="math inline">\(W = 7 \text{log} ( \{-0.8+ (0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\}) + 13 + N(0,4)\)</span></p></li>
+<li><p><span class="math inline">\(W = 9 \{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} +17 +
+N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = 15\{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 22 +
+T(2)\)</span></p></li>
+<li><p><span class="math inline">\(W = 9 \{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\} + 3/2 C_3^2 + 15 +
+N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = \frac{49 \exp(\{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})}{1+ \exp(\{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} -6 +
+N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = \frac{42}{1+ \exp(\{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\})} - 18 +
+N(0,5)\)</span></p></li>
+<li><p><span class="math inline">\(W = 7 \text{log} ( \{-0.8+
+(0.1,0.1,-0.1,0.2,0.1,0.1) \boldsymbol{C}\}) + 13 +
+N(0,4)\)</span></p></li>
 </ol>
-<p>We generate <span class="math inline">\(Y\)</span> from an outcome model which is assumed to be a cubical function of <span class="math inline">\(W\)</span> with additive terms for the confounders and interactions between <span class="math inline">\(W\)</span> and confounders <span class="math inline">\(\mathbf{C}\)</span>,</p>
-<p><span class="math display">\[Y | W, \mathbf{C} \sim N\{\mu(W, \mathbf{C}),\text{sd}^2\}\]</span></p>
-<p><span class="math display">\[\mu(W, \mathbf{C}) = -10 - (2, 2, 3, -1,2,2)\mathbf{C}  - W(0.1 - 0.1C_1 + 0.1C_4 + 0.1C_5 + 0.1C_3^2)  + 0.13^2W^3\]</span></p>
+<p>We generate <span class="math inline">\(Y\)</span> from an outcome
+model which is assumed to be a cubical function of <span class="math inline">\(W\)</span> with additive terms for the confounders
+and interactions between <span class="math inline">\(W\)</span> and
+confounders <span class="math inline">\(\mathbf{C}\)</span>,</p>
+<p><span class="math display">\[Y | W, \mathbf{C} \sim N\{\mu(W,
+\mathbf{C}),\text{sd}^2\}\]</span></p>
+<p><span class="math display">\[\mu(W, \mathbf{C}) = -10 - (2, 2, 3,
+-1,2,2)\mathbf{C}  - W(0.1 - 0.1C_1 + 0.1C_4 + 0.1C_5 + 0.1C_3^2)  +
+0.13^2W^3\]</span></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -136,7 +165,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

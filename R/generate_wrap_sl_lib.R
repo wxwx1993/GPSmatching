@@ -14,14 +14,15 @@
 #' @keywords internal
 #'
 #' @return
-#' Returns A Boolean value. TRUE if the modified library for the given library is
-#' implemented; otherwise, it returns FALSE. This function is called for side
-#' effects.
+#' Returns a list of TRUE and best used parameters, if the modified library for
+#' the given library is implemented; otherwise, it returns a list of FALSE.
+#' This function is also called for side effects.
 #'
 gen_wrap_sl_lib <- function(lib_name, params, nthread){
 
   # ------------------------------------------------------
   xgb_nrounds <- xgb_eta <- xgb_max_depth <- xgb_min_child_weight <- NULL
+  xgb_verbose <- NULL
   rgr_num.trees <- rgr_write.forest <- rgr_replace <- rgr_verbose <- NULL
   rgr_family <- NULL
   # ------------------------------------------------------
@@ -31,7 +32,8 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     xgb_default_params = list("xgb_nrounds"=100,
                               "xgb_max_depth"=6,
                               "xgb_eta"=0.3,
-                              "xgb_min_child_weight"=1
+                              "xgb_min_child_weight"=1,
+                              "xgb_verbose"=0
                              )
     for (item in names(params)){
 
@@ -55,16 +57,24 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                            ", shrinkage = ",xgb_eta,
                            ", max_depth = ",xgb_max_depth,
                            ", minobspernode = ",xgb_min_child_weight,
+                           ", verbose= ", xgb_verbose,
                            ",...) {SuperLearner::SL.xgboost(nthread = nthread,",
                            "ntrees = ntrees, shrinkage=shrinkage,",
                            "max_depth=max_depth, minobspernode = minobspernode,",
+                           "verbose = verbose,",
                            "...)}", sep="")), envir = .GlobalEnv)
 
+
+    used_params <- list("xgb_nrounds" = xgb_nrounds,
+                        "xgb_max_depth" = xgb_max_depth,
+                        "xgb_eta" = xgb_eta,
+                        "xgb_min_child_weight" = xgb_min_child_weight,
+                        "xgb_verbose" = xgb_verbose
+    )
 
     logger::log_debug("Hyperparameters for m_xgboost: ntrees: {xgb_nrounds}, ",
                       " eta: {xgb_eta}, max_depth: {xgb_max_depth}, ",
                       " min_child_weight: {xgb_min_child_weight}.")
-    return(TRUE)
 
   } else if (lib_name == "m_ranger"){
     rgr_default_params = list("rgr_num.trees"=500,
@@ -106,10 +116,17 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                       " write.forest: {rgr_write.forest}, replace: {rgr_replace}, ",
                       " verbose: {rgr_verbose}, family: {rgr_family}.")
 
-    return(TRUE)
+    used_params <- list("rgr_num.trees"=rgr_num.trees,
+                        "rgr_write.forest"=rgr_write.forest,
+                        "rgr_replace"=rgr_replace,
+                        "rgr_verbose"=rgr_verbose,
+                        "rgr_family"= rgr_family
+    )
+
   } else {
-    message(paste("Modified library for ", lib_name, " is not implemented.",
-                  "Will be used as provided."))
-    return(FALSE)
+    message(paste(lib_name, " will be used by SuperLearner's default arguements."))
+    return(list(FALSE))
   }
+
+  return(list(TRUE, used_params))
 }

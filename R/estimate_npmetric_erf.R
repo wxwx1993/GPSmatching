@@ -5,13 +5,13 @@
 #' Estimate smoothed exposure-response function (ERF) for matched and weighted
 #' data set using non-parametric models.
 #'
-#' @param matched_Y a vector of outcome variable in the matched set.
-#' @param matched_w a vector of continuous exposure variable in the matched set.
-#' @param matched_counter a vector of counter variable in the matched set.
-#' @param bw_seq a vector of bandwidth values (Default is seq(0.2,2,0.2)).
-#' @param w_vals a vector of values that you want to calculate the values of
+#' @param matched_Y A vector of outcome variable in the matched set.
+#' @param matched_w A vector of continuous exposure variable in the matched set.
+#' @param matched_counter A vector of counter variable in the matched set.
+#' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
+#' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
-#' @param nthread number of available cores.
+#' @param nthread The number of available cores.
 #'
 #' @details
 #' Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
@@ -32,7 +32,8 @@
 #'
 #' @examples
 #'
-#' m_d <- generate_syn_data(sample_size = 100)
+#' set.seed(697)
+#' m_d <- generate_syn_data(sample_size = 200)
 #' pseudo_pop <- generate_pseudo_pop(m_d$Y,
 #'                                   m_d$treat,
 #'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -42,6 +43,7 @@
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                    xgb_eta=c(0.1,0.2,0.3)),
 #'                                   nthread = 1,
+#'                                   optimized_compile = TRUE,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type="mean",
@@ -52,6 +54,7 @@
 #'
 #' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
 #'                                  pseudo_pop$pseudo_pop$w,
+#'                                  pseudo_pop$pseudo_pop$counter,
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
@@ -74,6 +77,13 @@ estimate_npmetric_erf<-function(matched_Y,
     stop("Output and treatment vectors should be double vectors.")
   }
 
+  if (!is.null(matched_counter) && sum(matched_counter)== 0){
+    stop(paste0("The matched_counter is provided but the counters are all zero.",
+                " Either pass NULL to the matched_counter or use ",
+                " optimized_compile = TRUE in generating pseudo pop."))
+  }
+
+
   if (!is.null(matched_counter)){
     if (length(matched_Y) != length(matched_counter)){
       stop("Length of matched_counter should be according to other inputs.")
@@ -85,6 +95,12 @@ estimate_npmetric_erf<-function(matched_Y,
 
   cl <- parallel::makeCluster(nthread, type="PSOCK",
                               outfile="CausalGPS.log")
+
+  parallel::clusterExport(cl=cl,
+                          varlist = c("estimate_hat_vals", "w_fun",
+                                      "generate_kernel", "smooth_erf"
+                                      ),
+                          envir=environment())
 
   risk_val_1 <-  parallel::parLapply(cl,
                                      bw_seq,
@@ -98,7 +114,14 @@ estimate_npmetric_erf<-function(matched_Y,
   risk_val <- do.call(rbind, risk_val_1)[,1]
 
   h_opt <- bw_seq[which.min(risk_val)]
-  erf <- stats::approx(locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+
+  logger::log_info("The band width with the minimum risk value: {h_opt}.")
+
+  erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+
+  if (sum(is.na(erf)) > 0){
+    logger::log_debug("erf has {sum(is.na(erf))} missing values.")
+  }
 
   result <- list()
   class(result) <- "gpsm_erf"
@@ -106,6 +129,8 @@ estimate_npmetric_erf<-function(matched_Y,
   result$params$matched_w <- matched_w
   result$params$bw_seq <- bw_seq
   result$params$w_vals <- w_vals
+  result$risk_val <- risk_val
+  result$h_opt <- h_opt
   result$erf <- erf
   result$fcall <- fcall
 

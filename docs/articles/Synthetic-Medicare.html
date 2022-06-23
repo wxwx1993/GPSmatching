@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -97,7 +98,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fasrc/CausalGPS" class="external-link">CausalGPS</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
-<p>In this vignette, we present application of CausalGPS package on the Synthetic Medicare Data. In the dataset, we link the 2010 synthetic Medicare claims data to environmental exposures and potential confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(Khoshnevis, Wu, and Braun 2022)</span>.</p>
+<p>In this vignette, we present application of CausalGPS package on the
+Synthetic Medicare Data. In the dataset, we link the 2010 synthetic
+Medicare claims data to environmental exposures and potential
+confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(Khoshnevis, Wu, and Braun 2022)</span>.</p>
 <div class="section level2">
 <h2 id="load-data-and-preprocessing">Load Data and Preprocessing<a class="anchor" aria-label="anchor" href="#load-data-and-preprocessing"></a>
 </h2>
@@ -616,7 +620,10 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_2</span><span class="op">)</span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>By activating <code>optimized_compile</code> flag, we keep track of number of data samples, instead of aggregating them. Both approach should result in the same values, however, <code>optimized_compile</code> version will consume less memory.</p>
+<p>By activating <code>optimized_compile</code> flag, we keep track of
+number of data samples, instead of aggregating them. Both approach
+should result in the same values, however,
+<code>optimized_compile</code> version will consume less memory.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">optimized_data_1</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_1</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter"</span><span class="op">)</span><span class="op">]</span>
 <span class="va">nonoptimized_data_2</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_2</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter"</span><span class="op">)</span><span class="op">]</span>
@@ -747,29 +754,49 @@
 <div class="section level2">
 <h2 id="covariate-balance">Covariate Balance<a class="anchor" aria-label="anchor" href="#covariate-balance"></a>
 </h2>
-<p>In the previous examples, we passed specific parameters for estimating GPS values. Achieving acceptable covariate balance can be computed by searching for the most appropriate parameters and might not be a simple task. This package uses transformers on the features to get an acceptable covariate balance. The following parameters are directly related to searching for an acceptable covariate balance.</p>
+<p>In the previous examples, we passed specific parameters for
+estimating GPS values. Achieving acceptable covariate balance can be
+computed by searching for the most appropriate parameters and might not
+be a simple task. This package uses transformers on the features to get
+an acceptable covariate balance. The following parameters are directly
+related to searching for an acceptable covariate balance.</p>
 <ul>
 <li>
-<strong>covar_bl_trs</strong>: Is the acceptable threshold to stop searching. It can be computed either by <code>mean</code>, <code>median</code>, or <code>maximal</code> value of features correlation, which is defined in <strong>covar_bl_trs_type</strong>.</li>
+<strong>covar_bl_trs</strong>: Is the acceptable threshold to stop
+searching. It can be computed either by <code>mean</code>,
+<code>median</code>, or <code>maximal</code> value of features
+correlation, which is defined in
+<strong>covar_bl_trs_type</strong>.</li>
 <li>
-<strong>params</strong>: In different iterations, we choose a parameter at random from the provided list. For example, by <code>xgb_nrounds=seq(1,100)</code> in the parameters, <code>nround</code> parameter for <code>xgboost</code> trainer will be selected a number between 1 and 100 at random, at each iteration.</li>
+<strong>params</strong>: In different iterations, we choose a
+parameter at random from the provided list. For example, by
+<code>xgb_nrounds=seq(1,100)</code> in the parameters,
+<code>nround</code> parameter for <code>xgboost</code> trainer will be
+selected a number between 1 and 100 at random, at each iteration.</li>
 <li>
-<strong>transformers</strong>: After each iteration, we choose a feature with the highest correlation and apply a transformer from the provided list. All transformers should be applied to a feature before reapplying the same transformer on the same feature.</li>
+<strong>transformers</strong>: After each iteration, we choose a
+feature with the highest correlation and apply a transformer from the
+provided list. All transformers should be applied to a feature before
+reapplying the same transformer on the same feature.</li>
 <li>
-<strong>max_attempt</strong>: Number of test iteration. If the covar_bl_trs is not met, the search will stop after max_attempt iteration and will return the best found population.</li>
+<strong>max_attempt</strong>: Number of test iteration. If the
+covar_bl_trs is not met, the search will stop after max_attempt
+iteration and will return the best found population.</li>
 </ul>
 <div class="section level3">
 <h3 id="scenario-5">Scenario 5<a class="anchor" aria-label="anchor" href="#scenario-5"></a>
 </h3>
 <ul>
-<li><p>Causal Inference: Matching + searching for acceptable covariate balance</p></li>
+<li><p>Causal Inference: Matching + searching for acceptable covariate
+balance</p></li>
 <li><p>GPS model: Non-Parametric</p></li>
 <li><p>Optimized_compile: True</p></li>
 <li>
 <p>Search domain:</p>
 <ul>
 <li>
-<code>transformers</code>: <code>pow2</code>, <code>pow3</code>, <code>clog</code>.</li>
+<code>transformers</code>: <code>pow2</code>, <code>pow3</code>,
+<code>clog</code>.</li>
 <li>
 <code>nround</code> for <code>xgboost</code>: 10-100.</li>
 <li>
@@ -824,7 +851,8 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_5</span><span class="op">)</span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>In this example, after 5 attempts, we could not find a pseudo population that can satisfy the covariate balance test.</p>
+<p>In this example, after 5 attempts, we could not find a pseudo
+population that can satisfy the covariate balance test.</p>
 </div>
 </div>
 <div class="section level2 unnumbered">
@@ -832,7 +860,8 @@
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-khoshnevis_2022" class="csl-entry">
-Khoshnevis, Naeem, Xiao Wu, and Danielle Braun. 2022. <span>“<span class="nocase">Synthetic Medicare Data for Environmental Health Studies</span>.”</span> Harvard Dataverse. <a href="https://doi.org/10.7910/DVN/L7YF2G" class="external-link">https://doi.org/10.7910/DVN/L7YF2G</a>.
+Khoshnevis, Naeem, Xiao Wu, and Danielle Braun. 2022. <span>“<span class="nocase">Synthetic Medicare Data for Environmental Health
+Studies</span>.”</span> Harvard Dataverse. <a href="https://doi.org/10.7910/DVN/L7YF2G" class="external-link">https://doi.org/10.7910/DVN/L7YF2G</a>.
 </div>
 </div>
 </div>
@@ -849,7 +878,8 @@ Khoshnevis, Naeem, Xiao Wu, and Danielle Braun. 2022. <span>“<span class="noca
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

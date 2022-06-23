@@ -1,3 +1,22 @@
+## CausalGPS 0.2.8 (2022-06-22)
+
+### Fixed
+* Message for not implemented methods changed to reduce misunderstanding.
+* Empty counter will raise error in estimating non-parameteric response function. 
+
+### Changed
+* matching_l1 returns frequency table instead of entire vector. 
+* Vectorized population compilation and used data.table for multi-thread assignment.
+* Removed nested parallelism in compiling pseudo population, which results in close control on memory.
+* estimate_npmetric_erf also returns optimal h and risk values.
+
+### Added
+* `estimate_gps` returns the optimal hyperparameters.
+* `estimate_gps` returns S3 object. 
+* Internal xgboost approach support `verbose` parameter.
+* Pseudo-population object now report the parameters that are used for the best covariate balance.
+
+
 ## CausalGPS 0.2.7 (2022-02-04)
 
 ### Fixed
@@ -16,7 +35,7 @@
 ## CausalGPS 0.2.6 (2021-09-06)
 
 ### Added
-* added the status of optimized compile to generate_psuedo_pop function output.
+* added the status of optimized compile to generate_pseudo_pop function output.
 * compute_closest_wgps accepts the number of user-defined threads.
 
 ### Changed
@@ -104,7 +123,7 @@
 
 ### Added
 
-*  User defined bin sequence in compiling speudo population.
+*  User defined bin sequence in compiling pseudo population.
 *  Non-parametric option for estimating GPS.
 *  Adaptive approach to transform features in training sessions.
 *  Cpp code for computing pair of w and GPS.

@@ -1,4 +1,4 @@
-pandoc: 2.11.4
+pandoc: 2.17.1.1
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
@@ -8,12 +8,12 @@ articles:
   FAQ: FAQ.html
   Generating-Pseudo-Population: Generating-Pseudo-Population.html
   Generating-Synthetic-Data: Generating-Synthetic-Data.html
-  Notes-on-SL_Wrapper: Notes-on-SL_Wrapper.html
+  Notes-on-SL-Wrapper: Notes-on-SL-Wrapper.html
   Outcome-Models: Outcome-Models.html
   Singularity-Image: Singularity-Image.html
   Synthetic-Medicare: Synthetic-Medicare.html
   Testing-the-Package: Testing-the-Package.html
-last_built: 2022-02-07T12:28Z
+last_built: 2022-06-22T21:55Z
 urls:
   reference: https://fasrc.github.io/CausalGPS/reference
   article: https://fasrc.github.io/CausalGPS/articles

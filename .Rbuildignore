@@ -13,4 +13,6 @@ index.md
 ^cran-comments\.md$
 ^codecov\.yml$
 ^.covrignore
-CausalGPS_rstudio.def
+^docker_singularity/*$
+^functional_tests/*$
+^CRAN-SUBMISSION$

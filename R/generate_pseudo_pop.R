@@ -10,11 +10,10 @@
 #'
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data.frame or matrix of observed covariates variable.
+#' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#'   - "adjusting": Adjusting by GPS
 #' @param pred_model a prediction model (use "sl" for SuperLearner)
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
@@ -74,6 +73,7 @@
 #' - adjusted_corr_results
 #' - original_corr_results
 #' - optimized_compile (True or False)
+#' - best_gps_used_params
 #'
 #' @export
 #' @examples
@@ -150,7 +150,7 @@ generate_pseudo_pop <- function(Y,
   # do not use gps values.
   # The forth column is reserved for counter.
   # The fifth column is reserved for row_index
-  # TODO: find a better place to the following code.
+  # TODO: find a better place to the following code also see issue #67.
 
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
@@ -174,7 +174,7 @@ generate_pseudo_pop <- function(Y,
 
   # transformed_vals is a list of lists. Each internal list's first element is
   # the column name and the rest is operands that is applied to it.
-  # TODO: this need a dictionary style data structure.
+  # TODO: this needs a dictionary style data structure.
 
   transformed_vals <- covariate_cols
   c_extended <- c
@@ -191,6 +191,7 @@ generate_pseudo_pop <- function(Y,
                                      pred_model, gps_model,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
+    gps_used_params <- estimate_gps_out$used_params
     logger::log_debug("Finished estimating gps.")
 
     # Dropping the transformed column ------------
@@ -201,15 +202,18 @@ generate_pseudo_pop <- function(Y,
       covariate_cols[[new_col_ind]] <- NULL
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      estimate_gps_out[[1]][recent_swap[2]] <- NULL
-      estimate_gps_out[[1]][length(estimate_gps_out[[1]])+1] <- c[recent_swap[1]]
+      estimate_gps_out$dataset[recent_swap[2]] <- NULL
+      estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
     ## Compile data ---------
     logger::log_debug("Started compiling pseudo population ... ")
-    pseudo_pop <- compile_pseudo_pop(dataset=estimate_gps_out, ci_appr=ci_appr,
-                                     gps_model,bin_seq, nthread = nthread,
+    pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
+                                     ci_appr = ci_appr,
+                                     gps_model = gps_model,
+                                     bin_seq = bin_seq,
+                                     nthread = nthread,
                                      trim_quantiles = trim_quantiles,
                                      optimized_compile = optimized_compile,...)
     # trim pseudo population
@@ -229,12 +233,14 @@ generate_pseudo_pop <- function(Y,
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
+      best_gps_used_params <- gps_used_params
     }
 
     if (adjusted_corr_obj$corr_results$mean_absolute_corr < best_ach_covar_balance){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
+      best_gps_used_params <- gps_used_params
     }
 
     if (adjusted_corr_obj$pass){
@@ -345,6 +351,7 @@ generate_pseudo_pop <- function(Y,
   result$counter <- counter
   result$ci_appr <- ci_appr
   result$optimized_compile <- optimized_compile
+  result$best_gps_used_params <- best_gps_used_params
 
   end_time_gpp <- proc.time()
 

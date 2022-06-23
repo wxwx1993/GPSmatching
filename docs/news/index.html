@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,7 @@
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
     <a class="dropdown-item" href="../articles/Testing-the-Package.html">Testing the Package</a>
+    <a class="dropdown-item" href="../articles/Notes-on-SL-Wrapper.html">Notes on SL Wrappers</a>
     <a class="dropdown-item" href="../articles/Singularity-Image.html">Singularity</a>
   </div>
 </li>
@@ -65,19 +66,51 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.7" id="causalgps-027-2022-02-04">CausalGPS 0.2.7 (2022-02-04)<a class="anchor" aria-label="anchor" href="#causalgps-027-2022-02-04"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.8" id="causalgps-028-2022-06-22">CausalGPS 0.2.8 (2022-06-22)<a class="anchor" aria-label="anchor" href="#causalgps-028-2022-06-22"></a></h2>
+<div class="section level3">
+<h3 id="fixed-0-2-8">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-8"></a></h3>
+<ul><li>Message for not implemented methods changed to reduce
+misunderstanding.</li>
+<li>Empty counter will raise error in estimating non-parameteric
+response function.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-0-2-8">Changed<a class="anchor" aria-label="anchor" href="#changed-0-2-8"></a></h3>
+<ul><li>matching_l1 returns frequency table instead of entire vector.</li>
+<li>Vectorized population compilation and used data.table for
+multi-thread assignment.</li>
+<li>Removed nested parallelism in compiling pseudo population, which
+results in close control on memory.</li>
+<li>estimate_npmetric_erf also returns optimal h and risk values.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-0-2-8">Added<a class="anchor" aria-label="anchor" href="#added-0-2-8"></a></h3>
+<ul><li>
+<code>estimate_gps</code> returns the optimal hyperparameters.</li>
+<li>
+<code>estimate_gps</code> returns S3 object.</li>
+<li>Internal xgboost approach support <code>verbose</code>
+parameter.</li>
+<li>Pseudo-population object now report the parameters that are used for
+the best covariate balance.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.7" id="causalgps-027-2022-02-04">CausalGPS 0.2.7 (2022-02-04)<a class="anchor" aria-label="anchor" href="#causalgps-027-2022-02-04"></a></h2><p class="text-muted">CRAN release: 2022-02-07</p>
 <div class="section level3">
 <h3 id="fixed-0-2-7">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-7"></a></h3>
 <ul><li>Naming covariate balance scores.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changed-0-2-7">Changed<a class="anchor" aria-label="anchor" href="#changed-0-2-7"></a></h3>
-<ul><li>Restarting adaptive approach to keep trying up to maximum attempt.</li>
+<ul><li>Restarting adaptive approach to keep trying up to maximum
+attempt.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="added-0-2-7">Added<a class="anchor" aria-label="anchor" href="#added-0-2-7"></a></h3>
 <ul><li>Synthetic data (synthetic_us_2010)</li>
-<li>Check on not defined covariate balance (absolute_corr_fun, absolute_weighted_corr_fun)</li>
+<li>Check on not defined covariate balance (absolute_corr_fun,
+absolute_weighted_corr_fun)</li>
 <li>Covariate balance threshold type: mean, median, maximal.</li>
 <li>Improved test coverage.</li>
 <li>Singularity definition file.</li>
@@ -87,20 +120,26 @@
 <h2 class="pkg-version" data-toc-text="0.2.6" id="causalgps-026-2021-09-06">CausalGPS 0.2.6 (2021-09-06)<a class="anchor" aria-label="anchor" href="#causalgps-026-2021-09-06"></a></h2><p class="text-muted">CRAN release: 2021-09-06</p>
 <div class="section level3">
 <h3 id="added-0-2-6">Added<a class="anchor" aria-label="anchor" href="#added-0-2-6"></a></h3>
-<ul><li>added the status of optimized compile to generate_psuedo_pop function output.</li>
-<li>compute_closest_wgps accepts the number of user-defined threads.</li>
+<ul><li>added the status of optimized compile to generate_pseudo_pop
+function output.</li>
+<li>compute_closest_wgps accepts the number of user-defined
+threads.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changed-0-2-6">Changed<a class="anchor" aria-label="anchor" href="#changed-0-2-6"></a></h3>
 <ul><li>Vignette file names.</li>
 <li>The trim condition from &gt; and &lt; into &gt;= and &lt;=.</li>
-<li>Removed seed input from generate_syn_data function. In R package, setting seed value inside function is not recommended. Users can set the seed before using the function.</li>
+<li>Removed seed input from generate_syn_data function. In R package,
+setting seed value inside function is not recommended. Users can set the
+seed before using the function.</li>
 <li>OpenMP uses user defined number of cores.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="fixed-0-2-6">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-6"></a></h3>
-<ul><li>Initial covariate balance for weighted approach. The counter column was not preallocated correctly.</li>
-<li>Counter value for compiling. The initial value was set to one, which, however, zero is the correct one.</li>
+<ul><li>Initial covariate balance for weighted approach. The counter column
+was not preallocated correctly.</li>
+<li>Counter value for compiling. The initial value was set to one,
+which, however, zero is the correct one.</li>
 <li>Private variable issue with OpenMP.</li>
 <li>Fixed OpenMP option on macOS checks.</li>
 </ul></div>
@@ -184,7 +223,8 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer></div>

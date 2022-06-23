@@ -29,7 +29,7 @@ The `gen_pseudo_pop` function tries transformers if the covariate balance test h
 
 ### 3) How change the logger level?
 
-You can use `set_logger` function and set logger_level to one of "TRACE", "DEBUG", "INFO", "SUCCES", "WARN", "ERROR", or"FATAL". In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue [here](https://github.com/fasrc/CausalGPS/issues).
+You can use `set_logger` function and set logger_level to one of "TRACE", "DEBUG", "INFO", "SUCCESS", "WARN", "ERROR", or"FATAL". In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue [here](https://github.com/fasrc/CausalGPS/issues/).
 
 ### 4) Is there any trade-off between number of CPU cores (nthread) and memory usage?
 
@@ -39,8 +39,8 @@ We are using a spawning mechanism in multicore processing. Each worker processor
 
 Many internal libraries (e.g., `XGBoost`) are dependent on OpenMP library for parallel computation. Please make sure that you have installed OpenMP library and configured it correctly. Please see the following links for more details:
 
-- [Installing data.table on macOS](https://github.com/Rdatatable/data.table/wiki/Installation)  
-- [Installing XGBoost on macOS ](https://xgboost.readthedocs.io/en/latest/install.html#r)  
+- [Installing data.table on macOS](https://github.com/Rdatatable/data.table/wiki/Installation/)  
+- [Installing XGBoost on macOS ](https://xgboost.readthedocs.io/en/latest/install.html#r/)  
  
 ### 6) I am running the package on HPC; however, I think the package is using only one core. 
 
@@ -51,4 +51,4 @@ module load intel/19.0.5-fasrc01
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ```
 
-Please read more [here](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP).
+Please read more [here](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP/).

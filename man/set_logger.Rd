@@ -15,7 +15,7 @@ set_logger(logger_file_path = "CausalGPS.log", logger_level = "INFO")
 \item TRACE
 \item DEBUG
 \item INFO (Default)
-\item SUCESS
+\item SUCCESS
 \item WARN
 \item ERROR
 \item FATAL

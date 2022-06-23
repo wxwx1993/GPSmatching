@@ -41,8 +41,8 @@ check_args <- function(pred_model, ci_appr,
 
   check_args_estimate_gps(pred_model, gps_model, ...)
   check_args_generate_pseudo_pop(max_attempt = max_attempt)
-  check_args_compile_pseudo_pop(ci_appr, use_cov_transform,
-                                transformers, trim_quantiles,
+  check_args_compile_pseudo_pop(ci_appr,
+                                trim_quantiles,
                                 optimized_compile, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
@@ -120,6 +120,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #  Checks compile_pseudo_pop function arguments to make sure that the required
 #' additional arguments are provided.
 #'
+#' @param data_obj A S3 object with `dataset` as required parameter.
 #' @param ci.appr The selected causal inference approach.
 #' @param ...  Additional arguments to successfully run the selected ci_appr.
 #'
@@ -128,8 +129,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #'
 #' @keywords internal
 #'
-check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
-                                          transformers, trim_quantiles,
+check_args_compile_pseudo_pop <- function(ci_appr, trim_quantiles,
                                           optimized_compile, ...){
 
   # Passing packaging check() ----------------------------
@@ -207,7 +207,6 @@ check_args_compile_pseudo_pop <- function(ci_appr, use_cov_transform,
     stop(paste(covar_bl_method, " is not a valid covar balance type.",
                " Available options: mean, median, maximal."))
   }
-
 
   invisible(TRUE)
 }
