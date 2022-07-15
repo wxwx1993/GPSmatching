@@ -39,7 +39,7 @@ articles:
   - title: Introduction
     navbar: Introduction
     contents: [Estimating-GPS,Generating-Pseudo-Population,Outcome-Models,
-               Generating-Synthetic-Data, Synthetic-Medicare, FAQ]
+               Generating-Synthetic-Data, Synthetic-Medicare, faq]
 
   - title: Collabration
     navbar: Collabration
