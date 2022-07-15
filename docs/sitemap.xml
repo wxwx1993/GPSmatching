@@ -22,9 +22,6 @@
     <loc>https://fasrc.github.io/CausalGPS/articles/Notes-on-SL-Wrapper.html</loc>
   </url>
   <url>
-    <loc>https://fasrc.github.io/CausalGPS/articles/Notes-on-SL_Wrapper.html</loc>
-  </url>
-  <url>
     <loc>https://fasrc.github.io/CausalGPS/articles/Outcome-Models.html</loc>
   </url>
   <url>
@@ -112,37 +109,19 @@
     <loc>https://fasrc.github.io/CausalGPS/reference/create_weighting.html</loc>
   </url>
   <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/estimate_erf.html</loc>
-  </url>
-  <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/estimate_gps.html</loc>
   </url>
   <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/estimate_hat_vals.html</loc>
   </url>
   <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/estimate_hr.html</loc>
-  </url>
-  <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/estimate_npmetric_erf.html</loc>
-  </url>
-  <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/estimate_pmetric_coefs.html</loc>
   </url>
   <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/estimate_pmetric_erf.html</loc>
   </url>
   <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/estimate_semi_erf.html</loc>
-  </url>
-  <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/estimate_semipmetric_erf.html</loc>
-  </url>
-  <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/gen_pseudo_pop.html</loc>
-  </url>
-  <url>
-    <loc>https://fasrc.github.io/CausalGPS/reference/gen_syn_data.html</loc>
   </url>
   <url>
     <loc>https://fasrc.github.io/CausalGPS/reference/gen_wrap_sl_lib.html</loc>
