@@ -124,7 +124,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     )
 
   } else {
-    message(paste(lib_name, " will be used by SuperLearner's default arguements."))
+    message(paste(lib_name, " will be used by SuperLearner's default arguments."))
     return(list(FALSE))
   }
 
