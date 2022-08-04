@@ -4,7 +4,7 @@
 * 
 
 ### Changed
-* 
+* Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 
 
 ### Added
 * 
