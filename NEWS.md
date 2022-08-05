@@ -1,7 +1,7 @@
 ## CausalGPS (development)
 
 ### Fixed
-* 
+* `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
 * Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 

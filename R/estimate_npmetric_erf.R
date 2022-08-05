@@ -93,8 +93,14 @@ estimate_npmetric_erf<-function(matched_Y,
     }
   }
 
+  if (is.null(get_options("logger_file_path"))){
+    logger_file_path <- "CausalGPS.log"
+  } else {
+    logger_file_path <- get_options("logger_file_path")
+  }
+
   cl <- parallel::makeCluster(nthread, type="PSOCK",
-                              outfile="CausalGPS.log")
+                              outfile=logger_file_path)
 
   parallel::clusterExport(cl=cl,
                           varlist = c("estimate_hat_vals", "w_fun",
