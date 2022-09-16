@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ```r
 library("devtools")
-install_github("fasrc/CausalGPS", ref="master")
+install_github("NSAPH-Software/CausalGPS", ref="master")
 library("CausalGPS")
 ```
 

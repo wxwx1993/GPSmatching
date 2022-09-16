@@ -4,7 +4,7 @@
 | Resource    |  Github Actions      |  Code Coverage  |
 | ----------  | -------------------- |-----------------|
 | Platforms   | Windows, macOS, Linux|  codecov        |
-| R CMD check | [![R build status](https://github.com/FASRC/CausalGPS/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/fasrc/CausalGPS/actions) | [![codecov](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/fasrc/CausalGPS/) |
+| R CMD check | [![R build status](https://github.com/NSAPH-Software/CausalGPS/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/NSAPH-Software/CausalGPS/actions) | [![codecov](https://codecov.io/gh/NSAPH-Software/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/NSAPH-Software/CausalGPS/) |
 
 Matching on generalized propensity scores with continuous exposures
 
@@ -18,7 +18,7 @@ An R package for implementing matching on generalized propensity scores with con
 
 ```r
 library("devtools")
-install_github("fasrc/CausalGPS")
+install_github("NSAPH-Software/CausalGPS")
 library("CausalGPS")
 ```
 

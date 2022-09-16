@@ -4,7 +4,9 @@
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
+* The package has been transferred into NSAPH-Software Github account.
 * Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 
+
 
 ### Added
 * 

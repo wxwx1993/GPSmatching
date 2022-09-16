@@ -21,8 +21,8 @@ Description: Provides a framework for estimating causal effects of a continuous
     arXiv preprint <arXiv:1812.06575>.
 License: GPL-3
 Language: en-US
-URL: https://github.com/fasrc/CausalGPS
-BugReports: https://github.com/fasrc/CausalGPS/issues
+URL: https://github.com/NSAPH-Software/CausalGPS
+BugReports: https://github.com/NSAPH-Software/CausalGPS/issues
 Copyright: Harvard University
 Imports: 
     parallel,
