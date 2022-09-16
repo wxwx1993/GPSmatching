@@ -1,5 +1,5 @@
 # Issue 135
-# https://github.com/fasrc/CausalGPS/issues/135
+# https://github.com/NSAPH-Software/CausalGPS/issues/135
 
 rm(list = ls())
 library(tidyverse)
@@ -8,7 +8,7 @@ library(data.table)
 library(weights)
 library("devtools")
 library(ggplot2)
-#install_github("fasrc/CausalGPS")
+#install_github("NSAPH-Software/CausalGPS")
 #library("CausalGPS")
 
 # Example script of CausalGPS not finding covariate balance
