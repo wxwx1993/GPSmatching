@@ -28,7 +28,7 @@ Please read the following documents before making changes to the codebase.
 
 In order to contribute to the project, it is a better idea to have your own local copy of  _CausalGPS_ on your Github account. Here are the steps:
 
-- Navigate to CausalGPS Github [repository](https://github.com/fasrc/CausalGPS/), and at the top right corner, click on the `Fork` button. This will add a clone of the project to your Github account.
+- Navigate to CausalGPS Github [repository](https://github.com/NSAPH-Software/CausalGPS/), and at the top right corner, click on the `Fork` button. This will add a clone of the project to your Github account.
 - Open your terminal (or Gitbash for Windows, Anaconda prompt, ...) and run the following command  (brackets are not included):
 
 ```S
@@ -47,13 +47,13 @@ Here is the summary of the branches:
 - **master**: master branch only hosts the released software packages. Only project maintainers have write access on the master branch.
 - **develop**: develop branch is considered the main branch where the source code of HEAD always reflects a state with the latest delivered development changes for the next release.
 - **supporting** branch: There are different supporting branches, three main supporting branches that we suggest the contributors to follow the naming convention includes:
-  - *feature*: we start a new feature branch to add new features to the software. The naming convention is iss[issue_number]_short_description. For example, if I need to add unittest to one of the functions in the package and the issue number is 12, iss12_add_unittest can be a valid git branch name. We start it with the issue number to go back and take a look at the issue details if necessary. Although feature branches are temporary, this naming convention helps developers to understand the situation while working on the codebase. If you are working on some features that there is no open issue for that, please open an issue [here](https://github.com/fasrc/CausalGPS/issues/) and assign it to yourself. You can also make a comment that you are working on that. 
+  - *feature*: we start a new feature branch to add new features to the software. The naming convention is iss[issue_number]_short_description. For example, if I need to add unittest to one of the functions in the package and the issue number is 12, iss12_add_unittest can be a valid git branch name. We start it with the issue number to go back and take a look at the issue details if necessary. Although feature branches are temporary, this naming convention helps developers to understand the situation while working on the codebase. If you are working on some features that there is no open issue for that, please open an issue [here](https://github.com/NSAPH-Software/CausalGPS/issues/) and assign it to yourself. You can also make a comment that you are working on that. 
   - *hotfix*: hotfix branches will be only used for fixing a bug on a released package. After fixing the bug, the third digit of the version number should be incremented by one. For example, 2.3.5 –> 2.3.6. These branches will be prefixed with hotfix and followed by the upcoming version number (e.g., in this case, hotfix_2.3.6)
   - *release*: Release branches support the preparation of a new production release.
 
 ## Where to submit pull requests?
 
-All pull requests should be submitted to `base repository: fasrc/GMSmatching` and `base: develop` branch.
+All pull requests should be submitted to `base repository: NSAPH-Software/CausalGPS` and `base: develop` branch.
 
 ## Pull request checklist
 
@@ -66,7 +66,7 @@ All pull requests should be submitted to `base repository: fasrc/GMSmatching` an
 
 ## Reporting bugs
 
-Please report potential bugs by creating a [new issue](https://github.com/fasrc/CausalGPS/issues/) or sending us an email. Please include the following information in your bug report:
+Please report potential bugs by creating a [new issue](https://github.com/NSAPH-Software/CausalGPS/issues/) or sending us an email. Please include the following information in your bug report:
 
 - A brief description of what you are doing, what you expected to happen, and what happened. 
 - OS that you are using and whether you are using a personal computer or HPC cluster. 

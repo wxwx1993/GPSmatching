@@ -13,6 +13,9 @@
     <loc>https://fasrc.github.io/CausalGPS/articles/Estimating-GPS.html</loc>
   </url>
   <url>
+    <loc>https://fasrc.github.io/CausalGPS/articles/FAQ.html</loc>
+  </url>
+  <url>
     <loc>https://fasrc.github.io/CausalGPS/articles/Generating-Pseudo-Population.html</loc>
   </url>
   <url>
@@ -32,9 +35,6 @@
   </url>
   <url>
     <loc>https://fasrc.github.io/CausalGPS/articles/Testing-the-Package.html</loc>
-  </url>
-  <url>
-    <loc>https://fasrc.github.io/CausalGPS/articles/faq.html</loc>
   </url>
   <url>
     <loc>https://fasrc.github.io/CausalGPS/articles/index.html</loc>
