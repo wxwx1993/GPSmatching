@@ -4,13 +4,15 @@
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
+* `counter_weight` is used as a counter or weight, in `matching` or `weighting`
+approaches. `counter` and `ipw` are dropped.
 * `sl_lib` becomes a required argument.
 * The package has been transferred into NSAPH-Software Github account.
 * Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 
 
 
 ### Added
-* 
+* `pseodo_pop` also includes covariate column names.
 
 ### Removed 
 

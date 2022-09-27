@@ -44,14 +44,15 @@ log_system_info <- function(){
 convert_data_into_standard_format <- function(Y, w, c, q1, q2, ci_appr){
 
   w_4 <- replicate(4, w)
-  colnames(w_4) <- c("w", "gps", "counter", "row_index")
+  colnames(w_4) <- c("w", "gps", "counter_weight", "row_index")
   w_4 <- data.frame(w_4)
   w_4$counter <- w_4$counter * 0 + 1
-  if (ci_appr=="matching"){
-    tmp_data <- cbind(Y,w_4,c)
-  } else if (ci_appr=="weighting"){
-    tmp_data <- cbind(Y,w_4,w*0+1,c)
-  }
+  tmp_data <- cbind(Y,w_4,c)
+  # if (ci_appr=="matching"){
+  #   tmp_data <- cbind(Y,w_4,c)
+  # } else if (ci_appr=="weighting"){
+  #   tmp_data <- cbind(Y,w_4,w*0+1,c)
+  # }
 
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
                      w <= q2  & w >= q1)

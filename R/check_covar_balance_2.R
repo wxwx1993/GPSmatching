@@ -88,8 +88,8 @@ check_covar_balance_2 <- function(w,
                     "type of w is: {class(w)[1]}")
   logger::log_debug("Expecting c to be a data.table. ",
                     "type of c is: {class(c)[1]}")
-  logger::log_debug("Expecting counter_weight to be a data.table.",
-                    "type of counter_weight is: {class(counter_weight)[1]}")
+  # logger::log_debug("Expecting counter_weight to be a data.table.",
+  #                   "type of counter_weight is: {class(counter_weight)}")
 
   logger::log_debug("Started checking covariate balance ... ")
   s_ccb_t <- proc.time()
@@ -136,7 +136,7 @@ check_covar_balance_2 <- function(w,
 
   if (is.null(counter_weight)){
     abs_cor <- absolute_corr_fun(w, c)
-    post_process_abs(abs_cor)
+    return(post_process_abs(abs_cor))
   }
 
   if (ci_appr == "matching"){
@@ -147,14 +147,14 @@ check_covar_balance_2 <- function(w,
     } else {
       abs_cor <- absolute_corr_fun(w, c)
     }
-    post_process_abs(abs_cor)
+    return(post_process_abs(abs_cor))
   }
 
   if (ci_appr == "weighting"){
     abs_cor <- absolute_weighted_corr_fun(w = w,
                                           vw = counter_weight,
                                           c = c)
-    post_process_abs(abs_cor)
+    return(post_process_abs(abs_cor))
   }
 
 
