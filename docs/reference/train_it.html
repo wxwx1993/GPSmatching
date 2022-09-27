@@ -33,7 +33,6 @@
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
     <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
-    <a class="dropdown-item" href="../articles/FAQ.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
@@ -72,7 +71,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">train_it</span><span class="op">(</span><span class="va">target</span>, <span class="va">input</span>, <span class="va">pred_model</span>, sl_lib_internal <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">train_it</span><span class="op">(</span><span class="va">target</span>, <span class="va">input</span>, sl_lib_internal <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -81,11 +80,6 @@
 <dd><p>A vector of target data.</p></dd>
 <dt>input</dt>
 <dd><p>A vector, matrix, or dataframe of input data.</p></dd>
-<dt>pred_model</dt>
-<dd><p>Prediction model algorithm.</p><ul><li><p>'sl': SuperLearner The required parameters:</p><ul><li><p><em>sl_lib</em>: a set of methods used for estimating target value (e.g.,
-("SL.xgboost","SL.earth","SL.gam","SL.ranger"))</p></li>
-</ul></li>
-</ul></dd>
 <dt>sl_lib_internal</dt>
 <dd><p>The internal library to be used by SuperLearner</p></dd>
 <dt>...</dt>

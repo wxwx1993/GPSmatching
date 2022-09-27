@@ -35,7 +35,6 @@ approaches."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
     <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
-    <a class="dropdown-item" href="../articles/FAQ.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
@@ -79,10 +78,10 @@ approaches.</p>
   <span class="va">Y</span>,
   <span class="va">w</span>,
   <span class="va">c</span>,
-  <span class="va">pred_model</span>,
   gps_model <span class="op">=</span> <span class="st">"parametric"</span>,
   internal_use <span class="op">=</span> <span class="cn">TRUE</span>,
   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
+  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
   nthread <span class="op">=</span> <span class="fl">1</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -96,8 +95,6 @@ approaches.</p>
 <dd><p>A vector of observed continuous exposure variable.</p></dd>
 <dt>c</dt>
 <dd><p>A data frame of observed covariates variable.</p></dd>
-<dt>pred_model</dt>
-<dd><p>The selected prediction mode (e.g., "sl")</p></dd>
 <dt>gps_model</dt>
 <dd><p>Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.</p></dd>
@@ -107,6 +104,8 @@ will return original data + GPS values.</p></dd>
 <dt>params</dt>
 <dd><p>Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.</p></dd>
+<dt>sl_lib</dt>
+<dd><p>A vector of prediction algorithms.</p></dd>
 <dt>nthread</dt>
 <dd><p>An integer value that represents the number threads to be used
 in a shared memory system.</p></dd>
@@ -139,7 +138,6 @@ used in compiling the data set with GPS values.</p>
 <span class="r-in"><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu">estimate_gps</span><span class="op">(</span><span class="va">m_d</span><span class="op">$</span><span class="va">Y</span>,</span>
 <span class="r-in">                              <span class="va">m_d</span><span class="op">$</span><span class="va">treat</span>,</span>
 <span class="r-in">                              <span class="va">m_d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">                              pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
 <span class="r-in">                              gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
 <span class="r-in">                              internal_use <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,</span>

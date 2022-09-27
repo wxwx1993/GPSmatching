@@ -32,6 +32,8 @@ will return original data + GPS values.}
 \item{params}{Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.}
 
+\item{sl_lib}{A vector of prediction algorithms.}
+
 \item{nthread}{An integer value that represents the number threads to be used
 in a shared memory system.}
 

@@ -41,7 +41,6 @@ first."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
     <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
-    <a class="dropdown-item" href="../articles/FAQ.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
@@ -89,7 +88,6 @@ first.</p>
   <span class="va">w</span>,
   <span class="va">c</span>,
   <span class="va">ci_appr</span>,
-  <span class="va">pred_model</span>,
   gps_model <span class="op">=</span> <span class="st">"parametric"</span>,
   use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,
   transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span><span class="op">)</span>,
@@ -97,6 +95,7 @@ first.</p>
   trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span><span class="op">)</span>,
   optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,
   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
+  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
   nthread <span class="op">=</span> <span class="fl">1</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -114,8 +113,6 @@ first.</p>
 <dd><p>The causal inference approach. Possible values are:</p><ul><li><p>"matching": Matching by GPS</p></li>
 <li><p>"weighting": Weighting by GPS</p></li>
 </ul></dd>
-<dt>pred_model</dt>
-<dd><p>a prediction model (use "sl" for SuperLearner)</p></dd>
 <dt>gps_model</dt>
 <dd><p>Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.</p></dd>
@@ -142,6 +139,8 @@ replicated pseudo population.</p></dd>
 <dt>params</dt>
 <dd><p>Includes list of params that is used internally. Unrelated
 parameters will be ignored.</p></dd>
+<dt>sl_lib</dt>
+<dd><p>A vector of prediction algorithms.</p></dd>
 <dt>nthread</dt>
 <dd><p>An integer value that represents the number of threads to be
 used by internal packages.</p></dd>
@@ -153,7 +152,6 @@ used by internal packages.</p></dd>
     <p>Returns a pseudo population (gpsm_pspop) object that is generated
 or augmented based on the selected causal inference approach (ci_appr). The
 object includes the following objects:</p><ul><li><p>params</p><ul><li><p>ci_appr</p></li>
-<li><p>pred_model</p></li>
 <li><p>params</p></li>
 </ul></li>
 <li><p>pseudo_pop</p></li>
@@ -190,13 +188,6 @@ values.</p></li>
 </ul></li>
 </ul></div>
 
-<div class="section">
-<h4 id="prediction-models-pred-model-">Prediction models (pred_model)<a class="anchor" aria-label="anchor" href="#prediction-models-pred-model-"></a></h4>
-
-<ul><li><p>if pred_model = 'sl':</p><ul><li><p><em>sl_lib</em>: A vector of prediction algorithms.</p></li>
-</ul></li>
-</ul></div>
-
 
 </div>
 
@@ -209,16 +200,15 @@ values.</p></li>
 <span class="r-in">                                  <span class="va">m_d</span><span class="op">$</span><span class="va">treat</span>,</span>
 <span class="r-in">                                  <span class="va">m_d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span class="r-in">                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span class="r-in">                                  pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
 <span class="r-in">                                  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
 <span class="r-in">                                  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span class="r-in">                                  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span>
 <span class="r-in">                                  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">                                  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">                                  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span class="r-in">                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,</span>
 <span class="r-in">                                                xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span class="r-in">                                  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
 <span class="r-in">                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
 <span class="r-in">                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
