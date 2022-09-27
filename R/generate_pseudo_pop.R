@@ -184,7 +184,9 @@ generate_pseudo_pop <- function(Y,
     logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
                                      gps_model,
-                                     params = params, nthread = nthread,
+                                     params = params,
+                                     sl_lib = sl_lib,
+                                     nthread = nthread,
                                      internal_use = internal_use, ...)
     gps_used_params <- estimate_gps_out$used_params
     logger::log_debug("Finished estimating gps.")

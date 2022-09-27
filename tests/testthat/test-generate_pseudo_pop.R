@@ -82,24 +82,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    scale = 0.5,
                                    nthread = 1))
 
-  # expect error with missing sl_lib
-  expect_error(generate_pseudo_pop(mydata$Y,
-                                   mydata$treat,
-                                   mydata[c("cf1","cf2","cf3","cf4","cf5",
-                                            "cf6","year","region")],
-                                   ci_appr = "matching",
-                                   gps_model = "parametric",
-                                   trim_quantiles = c(0.04,0.96),
-                                   optimized_compile = TRUE,
-                                   covar_bl_method = "absolute",
-                                   covar_bl_trs = 0.1,
-                                   covar_bl_trs_type = "mean",
-                                   max_attempt = 1,
-                                   matching_fun = "matching_l1",
-                                   delta_n = 1,
-                                   scale = 0.5,
-                                   nthread = 1))
-
   # expect error with wrong gps_model
   expect_error(generate_pseudo_pop(mydata$Y,
                                    mydata$treat,
@@ -118,26 +100,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
-
-  # expect error with missing gps parameter
-  expect_error(generate_pseudo_pop(mydata$Y,
-                                   mydata$treat,
-                                   mydata[c("cf1","cf2","cf3","cf4","cf5",
-                                            "cf6","year","region")],
-                                   ci_appr = "matching",
-                                   gps_model = "parametric",
-                                   trim_quantiles = c(0.04,0.96),
-                                   optimized_compile = TRUE,
-                                   #sl_lib = c("m_xgboost"),
-                                   covar_bl_method = "absolute",
-                                   covar_bl_trs = 0.1,
-                                   covar_bl_trs_type = "mean",
-                                   max_attempt = 1,
-                                   matching_fun = "matching_l1",
-                                   delta_n = 1,
-                                   scale = 0.5,
-                                   nthread = 1))
-
 
   # expect error with wrong max attempt
   expect_error(generate_pseudo_pop(mydata$Y,
