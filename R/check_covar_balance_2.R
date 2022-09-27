@@ -4,11 +4,6 @@
 #' @description
 #' Checks the covariate balance of original population or pseudo population.
 #'
-#' @param pseudo_pop The generated pseudo population. In the following format:
-#'   - 1st column: outcome (Y)
-#'   - 2nd column: exposure (w)
-#'   - 3rd column: gps
-#'   - 4th column to the end: covariates (c)
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach.
@@ -64,19 +59,18 @@
 #'                                  scale = 0.5,
 #'                                  nthread = 1)
 #'
-#'adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
-#'                                         w = pseudo_pop$pseudo_pop$w,
-#'                                         c = pseudo_pop$pseudo_pop[[]]
+#'adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
+#'                                         c = pseudo_pop$pseudo_pop[ ,pseudo_pop$covariate_cols_name, with=FALSE],
+#'                                         counter = pseudo_pop$pseudo_pop[, c("counter")],
 #'                                         ci_appr="matching",
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
 #'                                         covar_bl_trs_type = "mean",
-#'                                         optimized_compile=FALSE)
+#'                                         optimized_compile=TRUE)
 #'
 
-check_covar_balance_2 <- function(pseudo_pop,
-                                  w,
+check_covar_balance_2 <- function(w,
                                   c,
                                   ci_appr,
                                   optimized_compile,

@@ -36,7 +36,6 @@ absolute_weighted_corr_fun <- function(w,
                                        vw,
                                        c){
 
-
   if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
   if (class(vw)[1] != "data.table"){stop("vw should be a data.table.")}
   if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
