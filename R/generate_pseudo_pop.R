@@ -348,6 +348,7 @@ generate_pseudo_pop <- function(Y,
   result$ci_appr <- ci_appr
   result$optimized_compile <- optimized_compile
   result$best_gps_used_params <- best_gps_used_params
+  result$covariate_cols_name <- unlist(covariate_cols)
 
   end_time_gpp <- proc.time()
 

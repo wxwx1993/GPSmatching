@@ -9,9 +9,14 @@
 #'   - 2nd column: exposure (w)
 #'   - 3rd column: gps
 #'   - 4th column to the end: covariates (c)
+#' @param w A vector of observed continuous exposure variable.
+#' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach.
-#' @param nthread The number of available threads.
 #' @param optimized_compile If TRUE, use optimized compile approach.
+#' @param counter_weight A weight vector in different situations. If the
+#' matching approach is selected, it is an integer data.table of counters.
+#' In the case of the weighting approach, it is weight data.table.
+#' @param nthread The number of available threads.
 #' @param ... Additional arguments passed to different models.
 #'
 #' @details
@@ -39,6 +44,8 @@
 #'mydata$region <- as.factor(region)
 #'mydata$cf5 <- as.factor(mydata$cf5)
 #'
+#'
+#'
 #'pseudo_pop <- generate_pseudo_pop(mydata$Y,
 #'                                  mydata$treat,
 #'                                  mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
@@ -58,6 +65,8 @@
 #'                                  nthread = 1)
 #'
 #'adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
+#'                                         w = pseudo_pop$pseudo_pop$w,
+#'                                         c = pseudo_pop$pseudo_pop[[]]
 #'                                         ci_appr="matching",
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
@@ -66,14 +75,27 @@
 #'                                         optimized_compile=FALSE)
 #'
 
-check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
-                                optimized_compile, ...){
+check_covar_balance_2 <- function(pseudo_pop,
+                                  w,
+                                  c,
+                                  ci_appr,
+                                  optimized_compile,
+                                  counter_weight = NULL,
+                                  nthread=1,
+                                  ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
   covar_bl_trs <- NULL
   covar_bl_trs_type <- NULL
   # ------------------------------------------------------
+
+  logger::log_debug("Expecting w to be a data.table. ",
+                    "type of w is: {class(w)[1]}")
+  logger::log_debug("Expecting c to be a data.table. ",
+                    "type of c is: {class(c)[1]}")
+  logger::log_debug("Expecting counter_weight to be a data.table.",
+                    "type of counter_weight is: {class(counter_weight)[1]}")
 
   logger::log_debug("Started checking covariate balance ... ")
   s_ccb_t <- proc.time()
@@ -89,12 +111,18 @@ check_covar_balance <- function(pseudo_pop, ci_appr, nthread=1,
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
       if (!optimized_compile){
-        abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
-                                     pseudo_pop[,6:length(pseudo_pop)])
+
+        abs_cor <- absolute_corr_fun(w, c)
+
+        # abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
+        #                              pseudo_pop[,6:length(pseudo_pop)])
         #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else if (optimized_compile){
-        abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
-                                              pseudo_pop[,6:length(pseudo_pop)])
+        abs_cor <- absolute_weighted_corr_fun(w = w,
+                                              vw = counter_weight,
+                                              c = c)
+        # abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
+        #                                       pseudo_pop[,6:length(pseudo_pop)])
         #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
       } else {
         stop("The code should never get here. There is something wrong with check arguments.")
