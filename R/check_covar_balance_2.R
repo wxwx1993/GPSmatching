@@ -102,30 +102,7 @@ check_covar_balance_2 <- function(w,
     assign(i,unlist(dot_args[i], use.names = FALSE))
   }
 
-  if (covar_bl_method == 'absolute'){
-    if (ci_appr == 'matching'){
-      if (optimized_compile){
-
-        abs_cor <- absolute_weighted_corr_fun(w = w,
-                                              vw = counter_weight,
-                                              c = c)
-        } else if (!optimized_compile) {
-
-        abs_cor <- absolute_corr_fun(w, c)
-
-      } else {
-        stop("The code should never get here. There is something wrong with check arguments.")
-      }
-    } else if (ci_appr == 'weighting') {
-
-      abs_cor <- absolute_weighted_corr_fun(w = w,
-                                            vw = counter_weight,
-                                            c = c)
-
-    } else {
-      stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
-                 ") is not implemented."))
-    }
+  post_process_abs <- function(abs_cor){
 
     logger::log_debug(paste("Mean absolute correlation: ",
                             abs_cor$mean_absolute_corr))
@@ -145,8 +122,93 @@ check_covar_balance_2 <- function(w,
     logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
                       " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
     return(output)
-  } else {
-    stop(paste(covar_bl_method, " method for covariate balance is not a valid
-               option."))
+
   }
+
+  if (covar_bl_method != "absolute"){
+    stop(paste(covar_bl_method, " method for covariate balance is not a valid
+               option or not implemented."))
+  }
+
+  if (!(ci_appr %in% c("matching", "weighting"))){
+    stope(paste (ci_appr, " is not a valid causal inference approach."))
+  }
+
+  if (is.null(counter_weight)){
+    abs_cor <- absolute_corr_fun(w, c)
+    post_process_abs(abs_cor)
+  }
+
+  if (ci_appr == "matching"){
+    if (optimized_compile){
+      abs_cor <- absolute_weighted_corr_fun(w = w,
+                                            vw = counter_weight,
+                                            c = c)
+    } else {
+      abs_cor <- absolute_corr_fun(w, c)
+    }
+    post_process_abs(abs_cor)
+  }
+
+  if (ci_appr == "weighting"){
+    abs_cor <- absolute_weighted_corr_fun(w = w,
+                                          vw = counter_weight,
+                                          c = c)
+    post_process_abs(abs_cor)
+  }
+
+
+  stop(paste0("Input values for check_covar_balance are not correct.",
+       " The code should not get here. Please inform the developers."))
+
+  # if (covar_bl_method == 'absolute'){
+  #   if (is.null(counter_weight)){
+  #     abs_cor <- absolute_corr_fun(w, c)
+  #   } else {
+  #     if (ci_appr == 'matching'){
+  #       if (optimized_compile){
+  #
+  #         abs_cor <- absolute_weighted_corr_fun(w = w,
+  #                                               vw = counter_weight,
+  #                                               c = c)
+  #       } else if (!optimized_compile) {
+  #
+  #         abs_cor <- absolute_corr_fun(w, c)
+  #
+  #       } else {
+  #         stop("The code should never get here. There is something wrong with check arguments.")
+  #       }
+  #     } else if (ci_appr == 'weighting') {
+  #
+  #       abs_cor <- absolute_weighted_corr_fun(w = w,
+  #                                             vw = counter_weight,
+  #                                             c = c)
+  #
+  #   }} else {
+  #     stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
+  #                ") is not implemented."))
+  #   }
+  #
+  #   # logger::log_debug(paste("Mean absolute correlation: ",
+  #   #                         abs_cor$mean_absolute_corr))
+  #   # message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
+  #   #               "| Covariate balance threshold: ", covar_bl_trs))
+  #   #
+  #   # output <- list(corr_results = abs_cor)
+  #   # covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+  #   #
+  #   # if (getElement(abs_cor,covar_bl_t) < covar_bl_trs){
+  #   #   output$pass <- TRUE
+  #   # } else {
+  #   #   output$pass <- FALSE
+  #   # }
+  #   #
+  #   # e_ccb_t <- proc.time()
+  #   # logger::log_debug("Finished checking covariate balance (Wall clock time:  ",
+  #   #                   " {(e_ccb_t - s_ccb_t)[[3]]} seconds).")
+  #   # return(output)
+  # } else {
+  #   stop(paste(covar_bl_method, " method for covariate balance is not a valid
+  #              option."))
+  # }
 }
