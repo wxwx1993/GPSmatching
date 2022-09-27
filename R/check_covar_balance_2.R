@@ -128,9 +128,6 @@ check_covar_balance_2 <- function(pseudo_pop,
                                             vw = counter_weight,
                                             c = c)
 
-      # abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2],pseudo_pop[, 6],
-      #                                       pseudo_pop[, 7:length(pseudo_pop)])
-      #names(abs_cor$absolute_corr) <- names(pseudo_pop)[7:length(pseudo_pop)]
     } else {
       stop(paste("Selected causal inference approach (ci_appr =", ci_appr,
                  ") is not implemented."))
