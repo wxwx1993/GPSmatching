@@ -4,12 +4,13 @@
 \alias{check_args_estimate_gps}
 \title{Check estimate_gps function arguments}
 \usage{
-check_args_estimate_gps(pred_model, gps_model, ...)
+check_args_estimate_gps(gps_model, ...)
 }
 \arguments{
-\item{pred_model}{The selected prediction model.}
+\item{gps_model}{Model type which is used for estimating GPS value, including
+\code{parametric} and \code{non-parametric}.}
 
-\item{...}{Additional arguments to successfully run the selected pred_model.}
+\item{...}{Additional arguments to successfully run the process.}
 }
 \value{
 Returns True if passes all checks, successfully. Otherwise raises ERROR.

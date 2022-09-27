@@ -4,21 +4,12 @@
 \alias{train_it}
 \title{Generate Prediction Model}
 \usage{
-train_it(target, input, pred_model, sl_lib_internal = NULL, ...)
+train_it(target, input, sl_lib_internal = NULL, ...)
 }
 \arguments{
 \item{target}{A vector of target data.}
 
 \item{input}{A vector, matrix, or dataframe of input data.}
-
-\item{pred_model}{Prediction model algorithm.
-\itemize{
-\item 'sl': SuperLearner The required parameters:
-\itemize{
-\item \emph{sl_lib}: a set of methods used for estimating target value (e.g.,
-("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
-}
-}}
 
 \item{sl_lib_internal}{The internal library to be used by SuperLearner}
 

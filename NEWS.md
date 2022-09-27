@@ -4,12 +4,17 @@
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
+* `sl_lib` becomes a required argument.
 * The package has been transferred into NSAPH-Software Github account.
 * Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 
 
 
 ### Added
 * 
+
+### Removed 
+
+* `pred_model` argument dropped. The package only predicts using SuperLearner.
 
 
 ## CausalGPS 0.2.8 (2022-06-22)

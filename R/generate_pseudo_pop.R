@@ -14,7 +14,6 @@
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#' @param pred_model a prediction model (use "sl" for SuperLearner)
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
@@ -34,6 +33,7 @@
 #' replicated pseudo population.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
+#' @param sl_lib A vector of prediction algorithms.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
 #' @param ...  Additional arguments passed to different models.
@@ -57,9 +57,6 @@
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
-#' ### Prediction models (pred_model)
-#' - if pred_model = 'sl':
-#'   - *sl_lib*: A vector of prediction algorithms.
 #'
 #' @return
 #' Returns a pseudo population (gpsm_pspop) object that is generated
@@ -67,7 +64,6 @@
 #' object includes the following objects:
 #' - params
 #'   - ci_appr
-#'   - pred_model
 #'   - params
 #' - pseudo_pop
 #' - adjusted_corr_results
@@ -82,16 +78,15 @@
 #'                                   m_d$treat,
 #'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
-#'                                   pred_model = "sl",
 #'                                   gps_model = "parametric",
 #'                                   bin_seq = NULL,
 #'                                   trim_quantiles = c(0.01,0.99),
 #'                                   optimized_compile = FALSE,
 #'                                   use_cov_transform = FALSE,
 #'                                   transformers = list(),
-#'                                   sl_lib = c("m_xgboost"),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                                 xgb_eta=c(0.1,0.2,0.3)),
+#'                                   sl_lib = c("m_xgboost"),
 #'                                   nthread = 1,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
@@ -105,7 +100,6 @@ generate_pseudo_pop <- function(Y,
                                 w,
                                 c,
                                 ci_appr,
-                                pred_model,
                                 gps_model = "parametric",
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
@@ -113,6 +107,7 @@ generate_pseudo_pop <- function(Y,
                                 trim_quantiles = c(0.01,0.99),
                                 optimized_compile = FALSE,
                                 params = list(),
+                                sl_lib = c("m_xgboost"),
                                 nthread = 1,
                                 ...){
 
@@ -131,7 +126,7 @@ generate_pseudo_pop <- function(Y,
   fcall <- match.call()
 
   # Check arguments ----------------------------------------
-  check_args(pred_model,ci_appr, use_cov_transform, transformers,
+  check_args(ci_appr, use_cov_transform, transformers,
              gps_model, trim_quantiles, optimized_compile, ...)
 
   # Generate output set ------------------------------------
@@ -188,7 +183,7 @@ generate_pseudo_pop <- function(Y,
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
-                                     pred_model, gps_model,
+                                     gps_model,
                                      params = params, nthread = nthread,
                                      internal_use = internal_use, ...)
     gps_used_params <- estimate_gps_out$used_params
@@ -337,7 +332,6 @@ generate_pseudo_pop <- function(Y,
   class(result) <- "gpsm_pspop"
 
   result$params$ci_appr <- ci_appr
-  result$params$pred_model <- pred_model
   result$params$params <- params
   for (item in arg_names){
     result$params[[item]] <- get(item)
