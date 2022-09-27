@@ -110,20 +110,15 @@ check_covar_balance_2 <- function(pseudo_pop,
 
   if (covar_bl_method == 'absolute'){
     if (ci_appr == 'matching'){
-      if (!optimized_compile){
+      if (optimized_compile){
 
-        abs_cor <- absolute_corr_fun(w, c)
-
-        # abs_cor <- absolute_corr_fun(pseudo_pop[, 2],
-        #                              pseudo_pop[,6:length(pseudo_pop)])
-        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
-      } else if (optimized_compile){
         abs_cor <- absolute_weighted_corr_fun(w = w,
                                               vw = counter_weight,
                                               c = c)
-        # abs_cor <- absolute_weighted_corr_fun(pseudo_pop[, 2], pseudo_pop[, 4],
-        #                                       pseudo_pop[,6:length(pseudo_pop)])
-        #names(abs_cor$absolute_corr) <- names(pseudo_pop)[6:length(pseudo_pop)]
+        } else if (!optimized_compile) {
+
+        abs_cor <- absolute_corr_fun(w, c)
+
       } else {
         stop("The code should never get here. There is something wrong with check arguments.")
       }
