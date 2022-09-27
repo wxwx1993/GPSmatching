@@ -9,13 +9,13 @@
 #' @param Y A vector of observed outcome variable.
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data frame of observed covariates variable.
-#' @param pred_model The selected prediction mode (e.g., "sl")
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,
 #'  will return original data + GPS values.
 #' @param params Includes list of parameters that are used internally. Unrelated
 #'  parameters will be ignored.
+#' @param sl_lib A vector of prediction algorithms.
 #' @param nthread An integer value that represents the number threads to be used
 #' in a shared memory system.
 #' @param ...  Additional arguments passed to the model.
@@ -47,7 +47,6 @@
 #' data_with_gps <- estimate_gps(m_d$Y,
 #'                               m_d$treat,
 #'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                               pred_model = "sl",
 #'                               gps_model = "parametric",
 #'                               internal_use = FALSE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
@@ -59,18 +58,17 @@
 estimate_gps <- function(Y,
                          w,
                          c,
-                         pred_model,
                          gps_model = "parametric",
                          internal_use = TRUE,
                          params = list(),
+                         sl_lib = c("m_xgboost"),
                          nthread = 1,
                          ...){
 
-  sl_lib <- NULL
   start_time <- proc.time()
 
   # Check passed arguments -----------------------------------------------------
-  check_args_estimate_gps(pred_model, gps_model, ...)
+  check_args_estimate_gps(gps_model, ...)
 
   dot_args <- list(...)
   arg_names <- names(dot_args)
@@ -105,7 +103,7 @@ estimate_gps <- function(Y,
 
   if (gps_model == "parametric"){
 
-    e_gps <- train_it(target = w, input = c, pred_model,
+    e_gps <- train_it(target = w, input = c,
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
     e_gps_std_pred <- stats::sd(w - e_gps_pred)
@@ -114,10 +112,10 @@ estimate_gps <- function(Y,
 
   } else if (gps_model == "non-parametric"){
 
-    e_gps <- train_it(target = w, input = c, pred_model,
+    e_gps <- train_it(target = w, input = c,
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std <- train_it(target = abs(w-e_gps_pred), input = c, pred_model,
+    e_gps_std <- train_it(target = abs(w-e_gps_pred), input = c,
                            sl_lib_internal = sl_lib_internal, ...)
     e_gps_std_pred <- e_gps_std$SL.predict
     w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)

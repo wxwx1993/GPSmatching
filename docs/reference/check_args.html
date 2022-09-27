@@ -35,7 +35,6 @@ prediction models."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
     <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
-    <a class="dropdown-item" href="../articles/FAQ.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
@@ -76,7 +75,6 @@ prediction models.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_args</span><span class="op">(</span>
-  <span class="va">pred_model</span>,
   <span class="va">ci_appr</span>,
   <span class="va">use_cov_transform</span>,
   <span class="va">transformers</span>,
@@ -89,9 +87,7 @@ prediction models.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pred_model</dt>
-<dd><p>The prediction model.</p></dd>
-<dt>ci_appr</dt>
+    <dl><dt>ci_appr</dt>
 <dd><p>The causal inference approach.</p></dd>
 <dt>use_cov_transform</dt>
 <dd><p>A logical value (TRUE/FALSE) to use covariate balance

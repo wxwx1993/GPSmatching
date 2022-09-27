@@ -7,7 +7,6 @@ test_that("create_weighting works as expected.", {
                                     m_d$treat,
                                     m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                                     ci_appr = "matching",
-                                    pred_model = "sl",
                                     gps_model = "non-parametric",
                                     trim_quantiles = c(0.01,0.99),
                                     optimized_compile = FALSE,

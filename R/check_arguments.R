@@ -5,7 +5,6 @@
 #' Checks additional arguments that user needs to provide for different
 #' prediction models.
 #'
-#' @param pred_model The prediction model.
 #' @param ci_appr The causal inference approach.
 #' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
 #' transforming.
@@ -18,7 +17,7 @@
 #' @keywords internal
 #'
 #'
-check_args <- function(pred_model, ci_appr,
+check_args <- function(ci_appr,
                        use_cov_transform, transformers,
                        gps_model, trim_quantiles,
                        optimized_compile, ...){
@@ -39,7 +38,7 @@ check_args <- function(pred_model, ci_appr,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  check_args_estimate_gps(pred_model, gps_model, ...)
+  check_args_estimate_gps(gps_model, ...)
   check_args_generate_pseudo_pop(max_attempt = max_attempt)
   check_args_compile_pseudo_pop(ci_appr,
                                 trim_quantiles,
@@ -57,22 +56,23 @@ check_args <- function(pred_model, ci_appr,
 #' Checks estimate_gps function arguments to make sure that the required
 #' additional arguments are provided.
 #'
-#' @param pred_model The selected prediction model.
-#' @param ... Additional arguments to successfully run the selected pred_model.
+#' @param gps_model Model type which is used for estimating GPS value, including
+#' `parametric` and `non-parametric`.
+#' @param ... Additional arguments to successfully run the process.
 #'
 #' @return
 #' Returns True if passes all checks, successfully. Otherwise raises ERROR.
 #'
 #' @keywords internal
 #'
-check_args_estimate_gps <- function(pred_model, gps_model, ...){
+check_args_estimate_gps <- function(gps_model, ...){
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
-  if (!is.element(pred_model, c('sl'))){
-    stop(paste(pred_model, " is not a valid prediction model."))
-  }
+  # if (!is.element(pred_model, c('sl'))){
+  #   stop(paste(pred_model, " is not a valid prediction model."))
+  # }
 
   if (!is.element(gps_model, c('parametric','non-parametric'))){
     stop(paste(gps_model, " is not a valide gps_model.",
@@ -80,9 +80,11 @@ check_args_estimate_gps <- function(pred_model, gps_model, ...){
   }
 
   # checkpoint 2 ------------------------------------------
-  if (pred_model == 'sl'){
-    required_args <- c(required_args, 'sl_lib')
-  }
+  #required_args <- c(required_args, 'sl_lib')
+
+  # if (pred_model == 'sl'){
+  #   required_args <- c(required_args, 'sl_lib')
+  # }
 
   # checkpoint 3 ------------------------------------------
   dot_args <- list(...)
