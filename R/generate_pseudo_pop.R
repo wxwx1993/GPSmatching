@@ -153,14 +153,14 @@ generate_pseudo_pop <- function(Y,
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
                      w <= q2  & w >= q1)
   tmp_data <- data.table(tmp_data)
-  original_corr_obj <- check_covar_balance_2(w = tmp_data[, c("w")],
-                                             c = tmp_data[, unlist(covariate_cols),
+  original_corr_obj <- check_covar_balance(w = tmp_data[, c("w")],
+                                           c = tmp_data[, unlist(covariate_cols),
                                                           with = FALSE],
-                                             counter_weight = NULL,
-                                             ci_appr = ci_appr,
-                                             nthread = nthread,
-                                             optimized_compile = optimized_compile,
-                                             ...)
+                                           counter_weight = NULL,
+                                           ci_appr = ci_appr,
+                                           nthread = nthread,
+                                           optimized_compile = optimized_compile,
+                                           ...)
   tmp_data <- NULL
 
 
@@ -227,13 +227,13 @@ generate_pseudo_pop <- function(Y,
       break
     }
     # check covariate balance
-    adjusted_corr_obj <- check_covar_balance_2(w = pseudo_pop[, c("w")],
-                                               c = pseudo_pop[, unlist(covariate_cols),
+    adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
+                                             c = pseudo_pop[, unlist(covariate_cols),
                                                             with = FALSE],
-                                               counter_weight = pseudo_pop[, c("counter_weight")],
-                                               ci_appr = ci_appr,
-                                               nthread = nthread,
-                                               optimized_compile = optimized_compile, ...)
+                                             counter_weight = pseudo_pop[, c("counter_weight")],
+                                             ci_appr = ci_appr,
+                                             nthread = nthread,
+                                             optimized_compile = optimized_compile, ...)
 
     if (is.null(best_ach_covar_balance)){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
