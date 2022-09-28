@@ -30,8 +30,6 @@ train_it <- function(target, input,
 
   platform_os <- .Platform$OS.type
 
-
-
   pr_mdl <- SuperLearner::SuperLearner(Y=target,
                                        X=data.frame(input),
                                        SL.library=sl_lib_internal)

@@ -123,7 +123,8 @@ estimate_npmetric_erf<-function(matched_Y,
 
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
-  erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y, bandwidth=h_opt), xout=w_vals)$y
+  erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y,
+                                           bandwidth=h_opt), xout=w_vals)$y
 
   if (sum(is.na(erf)) > 0){
     logger::log_debug("erf has {sum(is.na(erf))} missing values.")

@@ -222,10 +222,6 @@ generate_pseudo_pop <- function(Y,
                          w <= q2  & w >= q1)
     logger::log_debug("Finished compiling pseudo population.")
 
-    if (ci_appr == 'adjust'){
-      # No covariate balance test for the 'adjust' causal inference approach.
-      break
-    }
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
                                              c = pseudo_pop[, unlist(covariate_cols),

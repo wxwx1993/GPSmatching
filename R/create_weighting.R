@@ -32,7 +32,4 @@ create_weighting <- function(dataset, ...){
   ipw <- Nm / (dataset[["gps"]])
   dataset$counter_weight <- ipw
   return(data.table::data.table(dataset))
-  # return(data.table::data.table(cbind(dataset[,c("Y","w","gps",
-  #                                                "counter","row_index")],
-  #                         ipw, dataset[,6:length(dataset)])))
 }
