@@ -23,12 +23,12 @@ test_that("absoulte_corr_fun works as expected.", {
   # Test with categorical data
   data2 <- as.data.table(pseudo_pop_weight_test)
   val2 <- absolute_corr_fun(data2[,2],
-                            data2[,5:length(data2)])
+                            data2[,5:12])
 
-  expect_equal(val2$mean_absolute_corr, 0.1374095, tolerance=0.0001)
+  expect_equal(val2$mean_absolute_corr, 0.1514455, tolerance=0.0001)
   expect_equal(val2$median_absolute_corr, 0.1208244, tolerance=0.0001)
   expect_equal(val2$maximal_absolute_corr, 0.3078682, tolerance=0.0001)
-  expect_equal(length(val2$absolute_corr), 10)
+  expect_equal(length(val2$absolute_corr), 8)
 
   # Test with categorical data while generating missing values
   data3 <- as.data.table(pseudo_pop_weight_test)

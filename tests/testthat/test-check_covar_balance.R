@@ -56,17 +56,24 @@ test_that("Covariate balance check works as expected", {
   # )
 
   # # pseudo_pop_covar_test and pseudo_pop_weight_test are saved in R/sysdata.R
-
-  val1 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
-                              ci_appr = "matching",
-                              covar_bl_method="absolute",
-                              covar_bl_trs=0.3,
-                              covar_bl_trs_type="mean",
-                              optimized_compile = FALSE)
+  confounders <- paste0("cf", seq(1,6))
+  val1 <- check_covar_balance_2(w = pseudo_pop_covar_test[, c("w")],
+                                c = pseudo_pop_covar_test[, confounders, with=FALSE],
+                                counter_weight = pseudo_pop_covar_test[, c("w")]*0,
+                                ci_appr = "matching",
+                                covar_bl_method="absolute",
+                                covar_bl_trs=0.3,
+                                covar_bl_trs_type="mean",
+                                optimized_compile = FALSE)
 
   expect_true(val1$pass)
 
-  val2 <- check_covar_balance(pseudo_pop = pseudo_pop_covar_test,
+
+
+
+  val2 <- check_covar_balance_2(w = pseudo_pop_covar_test[, c("w")],
+                              c = pseudo_pop_covar_test[, confounders, with=FALSE],
+                              counter_weight = pseudo_pop_covar_test[, c("w")]*0,
                               ci_appr = "matching",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.1,
@@ -75,21 +82,29 @@ test_that("Covariate balance check works as expected", {
 
   expect_false(val2$pass)
 
-  val3 <- check_covar_balance(pseudo_pop = setDT(pseudo_pop_weight_test),
-                              ci_appr = "weighting",
-                              covar_bl_method="absolute",
-                              covar_bl_trs=0.1,
-                              covar_bl_trs_type="mean",
-                              optimized_compile = FALSE)
+  w_1 <- data.table(pseudo_pop_weight_test[, c("w")])
+  c_1 <- data.table(pseudo_pop_weight_test[, c("cf1", "cf2", "cf3", "cf4",
+                                               "cf5", "cf6", "year", "region")])
+  cw <- data.table(pseudo_pop_weight_test[, c("counter_weight")])
+
+  val3 <- check_covar_balance_2(w = w_1,
+                                c = c_1,
+                                counter_weight = cw ,
+                                ci_appr = "weighting",
+                                covar_bl_method="absolute",
+                                covar_bl_trs=0.1,
+                                covar_bl_trs_type="mean",
+                                optimized_compile = FALSE)
 
   expect_true(val3$pass)
 
-  val4 <- check_covar_balance(pseudo_pop = setDT(pseudo_pop_weight_test),
+  val4 <- check_covar_balance_2(w = w_1,
+                              c = c_1,
+                              counter_weight = cw,
                               ci_appr = "weighting",
                               covar_bl_method="absolute",
                               covar_bl_trs=0.01,
                               covar_bl_trs_type="mean",
                               optimized_compile = FALSE)
   expect_false(val4$pass)
-
 })

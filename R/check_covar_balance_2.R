@@ -59,9 +59,11 @@
 #'                                  scale = 0.5,
 #'                                  nthread = 1)
 #'
-#'adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
-#'                                         c = pseudo_pop$pseudo_pop[ ,pseudo_pop$covariate_cols_name, with=FALSE],
-#'                                         counter = pseudo_pop$pseudo_pop[, c("counter")],
+#'adjusted_corr_obj <- check_covar_balance_2(w = pseudo_pop$pseudo_pop[, c("w")],
+#'                                         c = pseudo_pop$pseudo_pop[ ,
+#'                                         pseudo_pop$covariate_cols_name,
+#'                                          with=FALSE],
+#'                                         counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
 #'                                         ci_appr="matching",
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
@@ -84,10 +86,10 @@ check_covar_balance_2 <- function(w,
   covar_bl_trs_type <- NULL
   # ------------------------------------------------------
 
-  logger::log_debug("Expecting w to be a data.table. ",
-                    "type of w is: {class(w)[1]}")
-  logger::log_debug("Expecting c to be a data.table. ",
-                    "type of c is: {class(c)[1]}")
+  # logger::log_debug("Expecting w to be a data.table. ",
+  #                   "type of w is: {class(w)}")
+  # logger::log_debug("Expecting c to be a data.table. ",
+  #                   "type of c is: {class(c)}")
   # logger::log_debug("Expecting counter_weight to be a data.table.",
   #                   "type of counter_weight is: {class(counter_weight)}")
 
@@ -131,7 +133,7 @@ check_covar_balance_2 <- function(w,
   }
 
   if (!(ci_appr %in% c("matching", "weighting"))){
-    stope(paste (ci_appr, " is not a valid causal inference approach."))
+    stop(paste (ci_appr, " is not a valid causal inference approach."))
   }
 
   if (is.null(counter_weight)){
