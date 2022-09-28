@@ -35,7 +35,7 @@ test_that("Compiling pseudo pop works as expected.", {
                                      scale = 0.5)
 
 
-  expect_equal(sum(pseudo_pop_1$counter), 2500)
+  expect_equal(sum(pseudo_pop_1$counter_weight), 2500)
   expect_equal(nrow(pseudo_pop_1),100)
   expect_equal(length(pseudo_pop_1),11)
 
@@ -43,7 +43,8 @@ test_that("Compiling pseudo pop works as expected.", {
 
 
   set.seed(934)
-  data <- list(pseudo_pop_weight_test[, !c("ipw")])
+  #data <- list(pseudo_pop_weight_test[, !c("counter_weight")])
+  data <- list(pseudo_pop_weight_test)
   obj <- list()
   class(obj) <- "cgps_gps"
   obj$dataset <- data[[1]]
@@ -63,8 +64,9 @@ test_that("Compiling pseudo pop works as expected.", {
 
 
   expect_equal(nrow(pseudo_pop_2),1000)
-  expect_equal(length(pseudo_pop_2),14)
-  expect_equal(mean(pseudo_pop_2$ipw), 0.7465975, tolerance = 0.00001)
+  expect_equal(length(pseudo_pop_2),13)
+  expect_equal(mean(pseudo_pop_2$counter_weight),
+               0.7465975, tolerance = 0.00001)
 
 
 })

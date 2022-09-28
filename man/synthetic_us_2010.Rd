@@ -55,11 +55,13 @@ high school level education among 65 years and over.}
 \item{cms_hispanic_pct}{The proportion of Hispanic patients.}
 \item{cms_others_pct}{The proportion of Other patients.}
 \item{cms_female_pct}{The proportion of Female patients.}
-\item{region}{The region that the county is located in.\preformatted{  NORTHEAST=("NY","MA","PA","RI","NH","ME","VT","CT","NJ")
+\item{region}{The region that the county is located in.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  NORTHEAST=("NY","MA","PA","RI","NH","ME","VT","CT","NJ")
   SOUTH=("DC","VA","NC","WV","KY","SC","GA","FL","AL","TN","MS","AR","MD","DE","OK","TX","LA")
   MIDWEST=c("OH","IN","MI","IA","MO","WI","MN","SD","ND","IL","KS","NE")
   WEST=c("MT","CO","WY","ID","UT","NV","CA","OR","WA","AZ","NM")
-}
+}\if{html}{\out{</div>}}
 
 }
 \item{FIPS}{Federal Information Processing Standards, a unique ID for each

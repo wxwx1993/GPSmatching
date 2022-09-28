@@ -38,6 +38,18 @@ test_that("generate_pseudo_pop works as expected.", {
                0.323827746927678,
                tolerance = 0.000001)
 
+  # Test if all required attributes are included in the final object.
+  expect_true(("params" %in% names(ps_pop1)))
+  expect_true(("pseudo_pop" %in% names(ps_pop1)))
+  expect_true(("adjusted_corr_results" %in% names(ps_pop1)))
+  expect_true(("original_corr_results" %in% names(ps_pop1)))
+  expect_true(("fcall" %in% names(ps_pop1)))
+  expect_true(("passed_covar_test" %in% names(ps_pop1)))
+  expect_true(("counter" %in% names(ps_pop1)))
+  expect_true(("ci_appr" %in% names(ps_pop1)))
+  expect_true(("optimized_compile" %in% names(ps_pop1)))
+  expect_true(("best_gps_used_params" %in% names(ps_pop1)))
+  expect_true(("covariate_cols_name" %in% names(ps_pop1)))
 
   ps_pop2 <- generate_pseudo_pop(mydata$Y,
                                  mydata$treat,

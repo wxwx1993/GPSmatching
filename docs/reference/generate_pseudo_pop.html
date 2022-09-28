@@ -3,7 +3,7 @@
 approach. The function uses an adaptive approach to satisfies covariate
 balance requirements. The function terminates either by satisfying covariate
 balance or completing the requested number of iteration, whichever comes
-first."><title>Generate Pseudo Population — generate_pseudo_pop • CausalGPS</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate Pseudo Population — generate_pseudo_pop"><meta property="og:description" content="Generates pseudo population data set based on user-defined causal inference
+first."><title>Generate Pseudo Population — generate_pseudo_pop • CausalGPS</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate Pseudo Population — generate_pseudo_pop"><meta property="og:description" content="Generates pseudo population data set based on user-defined causal inference
 approach. The function uses an adaptive approach to satisfies covariate
 balance requirements. The function terminates either by satisfying covariate
 balance or completing the requested number of iteration, whichever comes
@@ -41,6 +41,7 @@ first."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
     <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
+    <a class="dropdown-item" href="../articles/Frequently-Asked-Questions.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
     <a class="dropdown-item" href="../articles/Developers-Guide.html">Developers Guide</a>
@@ -83,73 +84,102 @@ first.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">generate_pseudo_pop</span><span class="op">(</span>
-  <span class="va">Y</span>,
-  <span class="va">w</span>,
-  <span class="va">c</span>,
-  <span class="va">ci_appr</span>,
-  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,
-  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,
-  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span><span class="op">)</span>,
-  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,
-  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span><span class="op">)</span>,
-  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,
-  nthread <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generate_pseudo_pop</span><span class="op">(</span></span>
+<span>  <span class="va">Y</span>,</span>
+<span>  <span class="va">w</span>,</span>
+<span>  <span class="va">c</span>,</span>
+<span>  <span class="va">ci_appr</span>,</span>
+<span>  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span><span class="op">)</span>,</span>
+<span>  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span><span class="op">)</span>,</span>
+<span>  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
+<span>  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>Y</dt>
 <dd><p>A vector of observed outcome variable.</p></dd>
+
+
 <dt>w</dt>
 <dd><p>A vector of observed continuous exposure variable.</p></dd>
+
+
 <dt>c</dt>
 <dd><p>A data.frame of observed covariates variable.</p></dd>
+
+
 <dt>ci_appr</dt>
 <dd><p>The causal inference approach. Possible values are:</p><ul><li><p>"matching": Matching by GPS</p></li>
 <li><p>"weighting": Weighting by GPS</p></li>
 </ul></dd>
+
+
 <dt>gps_model</dt>
 <dd><p>Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.</p></dd>
+
+
 <dt>use_cov_transform</dt>
 <dd><p>If TRUE, the function uses transformer to meet the
 covariate balance.</p></dd>
+
+
 <dt>transformers</dt>
 <dd><p>A list of transformers. Each transformer should be a
 unary function. You can pass name of customized function in the quotes.
 Available transformers:</p><ul><li><p>pow2: to the power of 2</p></li>
 <li><p>pow3: to the power of 3</p></li>
 </ul></dd>
+
+
 <dt>bin_seq</dt>
 <dd><p>Sequence of w (treatment) to generate pseudo population. If
 NULL is passed the default value will be used, which is
 <code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>.</p></dd>
+
+
 <dt>trim_quantiles</dt>
 <dd><p>A numerical vector of two. Represents the trim quantile
 level. Both numbers should be in the range of [0,1] and in increasing order
 (default: c(0.01,0.99)).</p></dd>
+
+
 <dt>optimized_compile</dt>
 <dd><p>If TRUE, uses counts to keep track of number of
 replicated pseudo population.</p></dd>
+
+
 <dt>params</dt>
 <dd><p>Includes list of params that is used internally. Unrelated
 parameters will be ignored.</p></dd>
+
+
 <dt>sl_lib</dt>
 <dd><p>A vector of prediction algorithms.</p></dd>
+
+
 <dt>nthread</dt>
 <dd><p>An integer value that represents the number of threads to be
 used by internal packages.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to different models.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a pseudo population (gpsm_pspop) object that is generated
+    
+
+<p>Returns a pseudo population (gpsm_pspop) object that is generated
 or augmented based on the selected causal inference approach (ci_appr). The
 object includes the following objects:</p><ul><li><p>params</p><ul><li><p>ci_appr</p></li>
 <li><p>params</p></li>
@@ -195,33 +225,33 @@ values.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">m_d</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pseuoo_pop</span> <span class="op">&lt;-</span> <span class="fu">generate_pseudo_pop</span><span class="op">(</span><span class="va">m_d</span><span class="op">$</span><span class="va">Y</span>,</span>
-<span class="r-in">                                  <span class="va">m_d</span><span class="op">$</span><span class="va">treat</span>,</span>
-<span class="r-in">                                  <span class="va">m_d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span class="r-in">                                  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
-<span class="r-in">                                  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">                                  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span>
-<span class="r-in">                                  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">                                  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">                                  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,</span>
-<span class="r-in">                                                xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
-<span class="r-in">                                  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
-<span class="r-in">                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span class="r-in">                                  covar_bl_trs_type<span class="op">=</span> <span class="st">"mean"</span>,</span>
-<span class="r-in">                                  max_attempt <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
-<span class="r-in">                                  delta_n <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m_d</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pseuoo_pop</span> <span class="op">&lt;-</span> <span class="fu">generate_pseudo_pop</span><span class="op">(</span><span class="va">m_d</span><span class="op">$</span><span class="va">Y</span>,</span></span>
+<span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">$</span><span class="va">treat</span>,</span></span>
+<span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span></span>
+<span class="r-in"><span>                                  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span></span>
+<span class="r-in"><span>                                  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>                                  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                                  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                                  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  nthread <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span></span>
+<span class="r-in"><span>                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
+<span class="r-in"><span>                                  covar_bl_trs_type<span class="op">=</span> <span class="st">"mean"</span>,</span></span>
+<span class="r-in"><span>                                  max_attempt <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span></span>
+<span class="r-in"><span>                                  delta_n <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Mean absolute correlation:  0.192667484575667 | Covariate balance threshold:  0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Mean absolute correlation:  0.174344704404403 | Covariate balance threshold:  0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Covariate balance condition has not been met.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Best Mean absolute correlation:  0.174344704404403 | Covariate balance threshold:  0.1</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -233,8 +263,7 @@ values.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>

@@ -21,45 +21,6 @@ log_system_info <- function(){
 
 }
 
-
-#' @title
-#' Put original data into package standard data
-#'
-#' @description
-#' This is a temporal function to convert original data into a package standard
-#' data. This function will be removed after addressing issue #67:
-#' "convert accessing data from column index to column name #67"
-#'
-#' @param Y Output vector
-#' @param w Treatment or exposure vector
-#' @param c Covariate matrix
-#' @param ci_appr Causal Inference approach
-#'
-#' @return
-#' Original data with place holder columns.
-#'
-#' @keywords internal
-#'
-
-convert_data_into_standard_format <- function(Y, w, c, q1, q2, ci_appr){
-
-  w_4 <- replicate(4, w)
-  colnames(w_4) <- c("w", "gps", "counter", "row_index")
-  w_4 <- data.frame(w_4)
-  w_4$counter <- w_4$counter * 0 + 1
-  if (ci_appr=="matching"){
-    tmp_data <- cbind(Y,w_4,c)
-  } else if (ci_appr=="weighting"){
-    tmp_data <- cbind(Y,w_4,w*0+1,c)
-  }
-
-  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
-                     w <= q2  & w >= q1)
-  tmp_data <- data.table(tmp_data)
-
-  return(tmp_data)
-}
-
 # Keeping logger options
 my_options <- new.env(parent = emptyenv())
 

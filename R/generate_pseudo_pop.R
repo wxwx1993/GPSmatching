@@ -141,31 +141,35 @@ generate_pseudo_pop <- function(Y,
   }
 
   # Compute original data absolute correlation
-  # The third column is reserved for gps, however, in covariate balance test we
-  # do not use gps values.
-  # The forth column is reserved for counter.
-  # The fifth column is reserved for row_index
-  # TODO: find a better place to the following code also see issue #67.
-
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
+
+  covariate_cols <- as.list(colnames(c))
 
   logger::log_debug("{trim_quantiles[1]*100}% qauntile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
-  tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
-
-  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
-                                           optimized_compile, ...)
+  tmp_data <- cbind(w, c)
+  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
+                     w <= q2  & w >= q1)
+  tmp_data <- data.table(tmp_data)
+  original_corr_obj <- check_covar_balance(w = tmp_data[, c("w")],
+                                           c = tmp_data[, unlist(covariate_cols),
+                                                          with = FALSE],
+                                           counter_weight = NULL,
+                                           ci_appr = ci_appr,
+                                           nthread = nthread,
+                                           optimized_compile = optimized_compile,
+                                           ...)
   tmp_data <- NULL
+
+
+
+  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
+
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
-
-  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
-  #internal_use = TRUE
-
-  covariate_cols <- as.list(colnames(c))
 
   # transformed_vals is a list of lists. Each internal list's first element is
   # the column name and the rest is operands that is applied to it.
@@ -218,13 +222,14 @@ generate_pseudo_pop <- function(Y,
                          w <= q2  & w >= q1)
     logger::log_debug("Finished compiling pseudo population.")
 
-    if (ci_appr == 'adjust'){
-      # No covariate balance test for the 'adjust' causal inference approach.
-      break
-    }
     # check covariate balance
-    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread,
-                                             optimized_compile, ...)
+    adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
+                                             c = pseudo_pop[, unlist(covariate_cols),
+                                                            with = FALSE],
+                                             counter_weight = pseudo_pop[, c("counter_weight")],
+                                             ci_appr = ci_appr,
+                                             nthread = nthread,
+                                             optimized_compile = optimized_compile, ...)
 
     if (is.null(best_ach_covar_balance)){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
@@ -348,6 +353,7 @@ generate_pseudo_pop <- function(Y,
   result$ci_appr <- ci_appr
   result$optimized_compile <- optimized_compile
   result$best_gps_used_params <- best_gps_used_params
+  result$covariate_cols_name <- unlist(covariate_cols)
 
   end_time_gpp <- proc.time()
 

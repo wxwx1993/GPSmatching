@@ -80,11 +80,7 @@ check_args_estimate_gps <- function(gps_model, ...){
   }
 
   # checkpoint 2 ------------------------------------------
-  #required_args <- c(required_args, 'sl_lib')
-
-  # if (pred_model == 'sl'){
-  #   required_args <- c(required_args, 'sl_lib')
-  # }
+  # None
 
   # checkpoint 3 ------------------------------------------
   dot_args <- list(...)

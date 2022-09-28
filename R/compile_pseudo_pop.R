@@ -113,6 +113,5 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
 
   stop(paste('The code should not get here.',
              'Something is wrong with checking arguments.'))
-
   }
 }

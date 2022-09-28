@@ -12,9 +12,11 @@ test_that("estimate-semi-erf works as expected ", {
 
   # Matching
   set.seed(897)
+  data_1 <- pseudo_pop_weight_test
+  data_1$counter_weight <- (pseudo_pop_weight_test$counter_weight)*0
   gam_model <-  estimate_semipmetric_erf(Y ~ s(w) + cf5,
                                          family = gaussian,
-                                         data = pseudo_pop_weight_test,
+                                         data = data_1,
                                          ci_appr = "matching")
   coef_val <- gam_model$coefficients[2]
   expect_equal(coef_val[[1]], 7.350412, tolerance = 0.00001)

@@ -4,8 +4,8 @@ test_that("absoulte_weighted_corr_fun works as expected.", {
 
   data1 <- setDT(pseudo_pop_weight_test)
   val1 <- absolute_weighted_corr_fun(data1[,2],
-            data1[,6],
-            data1[,7:length(data1)]
+            data1[,13],
+            data1[,5:12]
             )
   expect_equal(val1$mean_absolute_corr, 0.09003267, tolerance=0.0001)
   expect_equal(val1$median_absolute_corr, 0.07821234, tolerance=0.0001)
