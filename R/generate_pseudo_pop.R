@@ -114,7 +114,6 @@ generate_pseudo_pop <- function(Y,
   # Passing packaging check() ------------------------------
   max_attempt <- NULL
   covar_bl_trs <- NULL
-  # --------------------------------------------------------
 
   # Log system info
   log_system_info()
@@ -140,15 +139,17 @@ generate_pseudo_pop <- function(Y,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  # Compute original data absolute correlation
+  # get trim quantiles
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
 
   covariate_cols <- as.list(colnames(c))
 
-  logger::log_debug("{trim_quantiles[1]*100}% qauntile for trim: {q1}")
+  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
+  # generating temporal data to compute covariate
+  # balance based on trimmed data.
   tmp_data <- cbind(w, c)
   tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
                      w <= q2  & w >= q1)
@@ -163,10 +164,7 @@ generate_pseudo_pop <- function(Y,
                                            ...)
   tmp_data <- NULL
 
-
-
   if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
-
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
@@ -208,7 +206,7 @@ generate_pseudo_pop <- function(Y,
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
-    ## Compile data ---------
+    ## Compile data -------------------------------
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
                                      ci_appr = ci_appr,
@@ -224,12 +222,15 @@ generate_pseudo_pop <- function(Y,
 
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
-                                             c = pseudo_pop[, unlist(covariate_cols),
+                                             c = pseudo_pop[,
+                                                            unlist(covariate_cols),
                                                             with = FALSE],
-                                             counter_weight = pseudo_pop[, c("counter_weight")],
+                                             counter_weight = pseudo_pop[,
+                                                           c("counter_weight")],
                                              ci_appr = ci_appr,
                                              nthread = nthread,
-                                             optimized_compile = optimized_compile, ...)
+                                             optimized_compile = optimized_compile,
+                                             ...)
 
     if (is.null(best_ach_covar_balance)){
       best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
