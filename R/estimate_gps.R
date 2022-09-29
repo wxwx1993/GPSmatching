@@ -22,8 +22,8 @@
 #'
 #' @return
 #' The function returns a S3 object. Including the following:
-#'   - Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
-#'    row_index, c)
+#'   - Original data set + GPS, counter, row_index values (Y, w, GPS,
+#'   counter_weight, row_index, c)
 #'   - e_gps_pred
 #'   - e_gps_std_pred
 #'   - w_resid
@@ -38,7 +38,6 @@
 #' The outcome variable is not used in estimating the GPS value. However, it is
 #' used in compiling the data set with GPS values.
 #'
-#' In case of using "sl" as prediction model, sl_lib input parameter is required.
 #'
 #' @export
 #'
