@@ -21,7 +21,7 @@
 #'
 create_weighting <- function(dataset, ...){
 
-  # data set content: Y, w, gps, counter, row_index, c
+  # data set content: Y, w, gps, counter_weight, row_index, c
 
   if (sum(!is.element(c("Y","w","gps","counter_weight","row_index"),
                       colnames(dataset)))> 0){

@@ -42,8 +42,8 @@ in a shared memory system.}
 \value{
 The function returns a S3 object. Including the following:
 \itemize{
-\item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
-row_index, c)
+\item Original data set + GPS, counter, row_index values (Y, w, GPS,
+counter_weight, row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -62,8 +62,6 @@ be returned.
 
 The outcome variable is not used in estimating the GPS value. However, it is
 used in compiling the data set with GPS values.
-
-In case of using "sl" as prediction model, sl_lib input parameter is required.
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)

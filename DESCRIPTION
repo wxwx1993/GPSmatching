@@ -29,8 +29,6 @@ Imports:
     data.table,
     SuperLearner,
     xgboost,
-    earth,
-    ranger,
     gam,
     KernSmooth,
     MASS,
@@ -49,6 +47,7 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
+    ranger,
     testthat
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

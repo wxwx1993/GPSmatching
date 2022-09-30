@@ -73,7 +73,7 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
                                optimized_compile, ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr = ci_appr,
+  check_args_compile_pseudo_pop(ci_appr=ci_appr,
                                 trim_quantiles=trim_quantiles,
                                 optimized_compile=optimized_compile, ...)
 
@@ -84,8 +84,6 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
   if (!(is.element("dataset",attributes(data_obj)$names))){
     stop("data_obj should have the required dataset field.")
   }
-
-
 
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(data_obj$dataset)}) ... ")
@@ -104,10 +102,6 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)
-
-  } else if (is.element(ci_appr, c('adjusting'))){
-
-    stop(paste(ci_appr, " casual inference approach is not implemented."))
 
   } else {
 

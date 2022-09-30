@@ -29,15 +29,19 @@ test_that("generate_wrap_sl_lib works as expected.", {
                               nthread = 1
   )[[1]])
 
+  if (!requireNamespace("ranger", quietly = TRUE)) {
+    expect_error(gen_wrap_sl_lib(lib_name = "m_ranger",
+                                 params = list(rgr_num.trees = c(55)),
+                                 nthread = 12
+    )[[1]])} else {
+    expect_true(gen_wrap_sl_lib(lib_name = "m_ranger",
+                                params = list(rgr_num.trees = c(55)),
+                                nthread = 12)[[1]])
 
-  expect_true(gen_wrap_sl_lib(lib_name = "m_ranger",
-                              params = list(rgr_num.trees = c(55)),
-                              nthread = 12
-  )[[1]])
-
-  m_rgr <- formals(m_ranger_internal)
-  expect_equal(m_rgr$num.threads, 12)
-  expect_equal(m_rgr$num.trees, 55)
-  expect_true(m_rgr$replace)
+    m_rgr <- formals(m_ranger_internal)
+    expect_equal(m_rgr$num.threads, 12)
+    expect_equal(m_rgr$num.trees, 55)
+    expect_true(m_rgr$replace)
+    }
 
 })

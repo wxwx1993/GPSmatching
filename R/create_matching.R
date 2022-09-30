@@ -60,8 +60,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug("Started generating matched set ...")
     st_t_m <- proc.time()
 
-    #lfp <- get_options("logger_file_path")
-
     matched_set <-  lapply(bin_num,
                            matching_fun,
                            dataset=dataset$dataset,
