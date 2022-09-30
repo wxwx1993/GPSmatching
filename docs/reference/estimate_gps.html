@@ -134,8 +134,8 @@ in a shared memory system.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>The function returns a S3 object. Including the following:</p><ul><li><p>Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
-row_index, c)</p></li>
+<p>The function returns a S3 object. Including the following:</p><ul><li><p>Original data set + GPS, counter, row_index values (Y, w, GPS,
+counter_weight, row_index, c)</p></li>
 <li><p>e_gps_pred</p></li>
 <li><p>e_gps_std_pred</p></li>
 <li><p>w_resid</p></li>
@@ -149,7 +149,6 @@ row_index, c)</p></li>
 be returned.</p>
 <p>The outcome variable is not used in estimating the GPS value. However, it is
 used in compiling the data set with GPS values.</p>
-<p>In case of using "sl" as prediction model, sl_lib input parameter is required.</p>
     </div>
 
     <div class="section level2">
