@@ -4,6 +4,8 @@
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
+
+* `earth` and `ranger` are not installed automatically. They can be installed manually if needed.
 * `sysdata.rda` is modified to reflect transition from `counter` and `ipw` to `counter_weight`
 * `counter_weight` is used as a counter or weight, in `matching` or `weighting`
 approaches. `counter` and `ipw` are dropped.
