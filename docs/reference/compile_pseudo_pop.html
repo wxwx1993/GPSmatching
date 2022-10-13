@@ -81,7 +81,6 @@ value.</p>
 <span>  <span class="va">gps_model</span>,</span>
 <span>  <span class="va">bin_seq</span>,</span>
 <span>  <span class="va">nthread</span>,</span>
-<span>  <span class="va">trim_quantiles</span>,</span>
 <span>  <span class="va">optimized_compile</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -117,12 +116,6 @@ NULL is passed the default value will be used, which is
 <dt>nthread</dt>
 <dd><p>An integer value that represents the number of threads to be
 used by internal packages.</p></dd>
-
-
-<dt>trim_quantiles</dt>
-<dd><p>A numerical vector of two. Represents the trim quantile
-level. Both numbers should be in the range of [0,1] and in increasing order
-(default: c(0.01,0.99)).</p></dd>
 
 
 <dt>optimized_compile</dt>
@@ -170,7 +163,6 @@ internal_use flag activated.</p>
 <span class="r-in"><span>                         gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span></span>
 <span class="r-in"><span>                         bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>                         nthread <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>                         trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         optimized_compile<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                         matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span></span>
 <span class="r-in"><span>                         covar_bl_method <span class="op">=</span> <span class="st">'absolute'</span>,</span></span>
