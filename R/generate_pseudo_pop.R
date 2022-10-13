@@ -139,20 +139,32 @@ generate_pseudo_pop <- function(Y,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  # get trim quantiles
+  covariate_cols <- as.list(colnames(c))
+
+
+  # get trim quantiles and trim data
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
-
-  covariate_cols <- as.list(colnames(c))
 
   logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
+  # Drop data with missing values
+  # Trim data based on quantiles.
+  tmp_data <- cbind(Y, w, c)
+  tmp_data <- tmp_data[stats::complete.cases(tmp_data),]
+  tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
+
+  # Retrieve data.
+  Y <- tmp_data$Y
+  w <- tmp_data$w
+  c <- tmp_data[, unlist(covariate_cols)]
+
   # generating temporal data to compute covariate
   # balance based on trimmed data.
-  tmp_data <- cbind(w, c)
-  tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
-                     w <= q2  & w >= q1)
+  # tmp_data <- cbind(w, c)
+  # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
+  #                    w <= q2  & w >= q1)
   tmp_data <- data.table(tmp_data)
   original_corr_obj <- check_covar_balance(w = tmp_data[, c("w")],
                                            c = tmp_data[, unlist(covariate_cols),
@@ -213,11 +225,8 @@ generate_pseudo_pop <- function(Y,
                                      gps_model = gps_model,
                                      bin_seq = bin_seq,
                                      nthread = nthread,
-                                     trim_quantiles = trim_quantiles,
                                      optimized_compile = optimized_compile,...)
     # trim pseudo population
-    pseudo_pop <- subset(pseudo_pop[stats::complete.cases(pseudo_pop) ,],
-                         w <= q2  & w >= q1)
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance

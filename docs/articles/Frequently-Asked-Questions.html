@@ -199,6 +199,28 @@ the requested exposure level, not based on each original data sample.
 Therefore in the context of the CausalGPS package, it is not a correct
 question.</p>
 </div>
+<div class="section level3">
+<h3 id="where-can-i-get-the-code">10) Where can I get the code?<a class="anchor" aria-label="anchor" href="#where-can-i-get-the-code"></a>
+</h3>
+<p>The most updated version is under <code>NSAPH-Software/develop</code>
+branch and the latest release is under
+<code>NSAPH-Software/master</code> branch.</p>
+</div>
+<div class="section level3">
+<h3 id="how-does-trimming-work">11) How does trimming work?<a class="anchor" aria-label="anchor" href="#how-does-trimming-work"></a>
+</h3>
+<p>The <code><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop()</a></code> function trims the entire data
+based on the trimming quantiles. All other processes (e.g., estimating
+gps, compiling pseudo population, matching, weighting, …) use the
+trimmed data. Trimming data is an open research question, and many
+different configurations can be considered.</p>
+</div>
+<div class="section level3">
+<h3 id="can-i-use-a-data-with-missing-value">12) Can I use a data with missing value?<a class="anchor" aria-label="anchor" href="#can-i-use-a-data-with-missing-value"></a>
+</h3>
+<p>Yes. But any rows with missing values will be eliminated from the
+process.</p>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>

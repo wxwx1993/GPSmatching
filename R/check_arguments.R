@@ -38,10 +38,21 @@ check_args <- function(ci_appr,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
+  # check for trimming values
+  if (!is.numeric(trim_quantiles)){
+    stop("trim_quantiles should be numeric values.")
+  }
+
+  if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
+      (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
+      (trim_quantiles[1] > trim_quantiles[2])){
+    stop(paste("trim_quntiles should be in the [0,1] range,",
+               " and the first quantile should be less than the second one."))
+  }
+
   check_args_estimate_gps(gps_model, ...)
   check_args_generate_pseudo_pop(max_attempt = max_attempt)
   check_args_compile_pseudo_pop(ci_appr,
-                                trim_quantiles,
                                 optimized_compile, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
@@ -127,7 +138,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #'
 #' @keywords internal
 #'
-check_args_compile_pseudo_pop <- function(ci_appr, trim_quantiles,
+check_args_compile_pseudo_pop <- function(ci_appr,
                                           optimized_compile, ...){
 
   # Passing packaging check() ----------------------------
@@ -142,17 +153,6 @@ check_args_compile_pseudo_pop <- function(ci_appr, trim_quantiles,
   #if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
   if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
-  }
-
-  if (!is.numeric(trim_quantiles)){
-    stop("trim_quantiles should be numeric values.")
-  }
-
-  if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
-      (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
-      (trim_quantiles[1] > trim_quantiles[2])){
-    stop(paste("trim_quntiles should be in the [0,1] range,",
-               " and the first quantile should be less than the second one."))
   }
 
   if (!is.logical(optimized_compile)){

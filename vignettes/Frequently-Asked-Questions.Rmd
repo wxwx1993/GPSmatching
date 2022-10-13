@@ -65,7 +65,17 @@ One can either generate synthetic data using `generate_syn_data()` function, or 
 
 This question is commonly asked by researchers coming from matching with binary exposures. In the CausalGPS package (and the algorithm), for each exposure level and for each data sample, we generate a new data sample that poses the requested exposure level; however, it has a different GPS value. We find the closest original data (in terms of w and GPS) to the generated pseudo-data sample. So data are matched for the requested exposure level, not based on each original data sample. Therefore in the context of the CausalGPS package, it is not a correct question.
 
+### 10) Where can I get the code?
 
+The most updated version is under `NSAPH-Software/develop` branch and the latest release is under `NSAPH-Software/master` branch.
+
+### 11) How does trimming work?
+
+The `generate_pseudo_pop()` function trims the entire data based on the trimming quantiles. All other processes (e.g., estimating gps, compiling pseudo population, matching, weighting, ...) use the trimmed data. Trimming data is an open research question, and many different configurations can be considered. 
+
+### 12) Can I use a data with missing value?
+
+Yes. But any rows with missing values will be eliminated from the process. 
 
 
 
