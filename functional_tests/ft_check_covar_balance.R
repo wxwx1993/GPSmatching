@@ -16,7 +16,7 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                   mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
                                   ci_appr = "matching",
                                   gps_model = "non-parametric",
-                                  trim_quantiles = c(0.01,0.99),
+                                  trim_quantiles = c(0.1,0.9),
                                   optimized_compile = TRUE,
                                   sl_lib = c("m_xgboost"),
                                   covar_bl_method = "absolute",
@@ -28,15 +28,15 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                   scale = 0.5,
                                   nthread = 1)
 
-adjusted_corr_obj <- check_covar_balance_2(w = pseudo_pop$pseudo_pop[, c("w")],
-                                           c = pseudo_pop$pseudo_pop[ ,pseudo_pop$covariate_cols_name, with=FALSE],
-                                           counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
-                                           ci_appr="matching",
-                                           nthread=1,
-                                           covar_bl_method = "absolute",
-                                           covar_bl_trs = 0.1,
-                                           covar_bl_trs_type = "mean",
-                                           optimized_compile=TRUE)
+adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
+                                         c = pseudo_pop$pseudo_pop[ ,pseudo_pop$covariate_cols_name, with=FALSE],
+                                         counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
+                                         ci_appr="matching",
+                                         nthread=1,
+                                         covar_bl_method = "absolute",
+                                         covar_bl_trs = 0.1,
+                                         covar_bl_trs_type = "mean",
+                                         optimized_compile=TRUE)
 } else if (ci_appr == "weighting"){
 
   region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
