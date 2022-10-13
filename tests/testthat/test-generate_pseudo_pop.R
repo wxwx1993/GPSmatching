@@ -35,7 +35,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop1$passed_covar_test)
   expect_equal(nrow(ps_pop1$pseudo_pop), 490)
   expect_equal(ps_pop1$adjusted_corr_results$mean_absolute_corr,
-               0.323827746927678,
+               0.2580037,
                tolerance = 0.000001)
 
   # Test if all required attributes are included in the final object.
@@ -72,7 +72,8 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_equal(class(ps_pop2),"gpsm_pspop")
   expect_false(ps_pop2$passed_covar_test)
   expect_equal(nrow(ps_pop2$pseudo_pop), 460)
-  expect_equal(ps_pop2$adjusted_corr_results$mean_absolute_corr, 0.2145893,
+  expect_equal(ps_pop2$adjusted_corr_results$mean_absolute_corr,
+               0.2243034,
                tolerance = 0.000001)
 
   # expect error with wrong ci_appr
@@ -276,7 +277,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop3$passed_covar_test)
   expect_equal(nrow(ps_pop3$pseudo_pop), 460)
   expect_equal(ps_pop3$adjusted_corr_results$mean_absolute_corr,
-               0.493702041980042,
+               0.4481222,
                tolerance = 0.000001)
 
   ps_pop4 <- generate_pseudo_pop(mydata$Y,
@@ -300,10 +301,10 @@ test_that("generate_pseudo_pop works as expected.", {
                                  nthread = 1)
 
   expect_equal(class(ps_pop4),"gpsm_pspop")
-  expect_true(ps_pop4$passed_covar_test)
+  expect_false(ps_pop4$passed_covar_test)
   expect_equal(nrow(ps_pop4$pseudo_pop), 460)
   expect_equal(ps_pop4$adjusted_corr_results$mean_absolute_corr,
-               0.0795775617737965,
+               0.2210705,
                tolerance = 0.000001)
 
 
@@ -330,7 +331,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop5$passed_covar_test)
   expect_equal(nrow(ps_pop4$pseudo_pop), 460)
   expect_equal(ps_pop5$adjusted_corr_results$mean_absolute_corr,
-               0.05900387,
+               0.1078871,
                tolerance = 0.000001)
 
 

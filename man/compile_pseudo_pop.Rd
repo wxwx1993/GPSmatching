@@ -10,7 +10,6 @@ compile_pseudo_pop(
   gps_model,
   bin_seq,
   nthread,
-  trim_quantiles,
   optimized_compile,
   ...
 )
@@ -37,10 +36,6 @@ NULL is passed the default value will be used, which is
 
 \item{nthread}{An integer value that represents the number of threads to be
 used by internal packages.}
-
-\item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
-level. Both numbers should be in the range of [0,1] and in increasing order
-(default: c(0.01,0.99)).}
 
 \item{optimized_compile}{If TRUE, uses counts to keep track of number of
 replicated pseudo population.}
@@ -81,7 +76,6 @@ pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          gps_model = "parametric",
                          bin_seq = NULL,
                          nthread = 1,
-                         trim_quantiles = c(0.01, 0.99),
                          optimized_compile=TRUE,
                          matching_fun = "matching_l1",
                          covar_bl_method = 'absolute',
