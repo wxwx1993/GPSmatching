@@ -84,15 +84,6 @@ estimate_npmetric_erf<-function(matched_Y,
   }
 
 
-  # if (!is.null(matched_counter)){
-  #   if (length(matched_Y) != length(matched_counter)){
-  #     stop("Length of matched_counter should be according to other inputs.")
-  #   } else {
-  #     matched_Y <- tidyr::uncount(data.frame(matched_Y), matched_counter)[,1]
-  #     matched_w <- tidyr::uncount(data.frame(matched_w), matched_counter)[,1]
-  #   }
-  # }
-
   if (is.null(get_options("logger_file_path"))){
     logger_file_path <- "CausalGPS.log"
   } else {
@@ -133,9 +124,6 @@ estimate_npmetric_erf<-function(matched_Y,
                             kernel = locpol::gaussK)
 
   erf <- tmp_loc$lpFit$matched_Y
-
-  # erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y,
-  #                                          bandwidth=h_opt), xout=w_vals)$y
 
   if (sum(is.na(erf)) > 0){
     logger::log_debug("erf has {sum(is.na(erf))} missing values.")

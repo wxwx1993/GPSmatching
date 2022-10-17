@@ -19,12 +19,6 @@ smooth_erf <- function(matched_Y,bw,matched_w, matched_cw){
     stop("bw should be of length 1.")
   }
 
-  # smoothed_val <- stats::approx(KernSmooth::locpoly(matched_w,
-  #                                                   matched_Y,
-  #                                                   bandwidth=bw,
-  #                                                   gridsize=1000),
-  #                        xout=matched_w,rule=2)$y
-
   data <- data.frame(matched_Y = matched_Y, matched_w = matched_w)
   val <- locpol::locpol(formula = matched_Y~matched_w,
                         data = data,
@@ -34,7 +28,6 @@ smooth_erf <- function(matched_Y,bw,matched_w, matched_cw){
                         kernel = locpol::gaussK)
 
   smoothed_val <- val$lpFit$matched_Y
-
 
   return(smoothed_val)
 }
