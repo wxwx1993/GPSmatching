@@ -78,7 +78,7 @@ data set using non-parametric models.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">estimate_npmetric_erf</span><span class="op">(</span></span>
 <span>  <span class="va">matched_Y</span>,</span>
 <span>  <span class="va">matched_w</span>,</span>
-<span>  matched_counter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">matched_cw</span>,</span>
 <span>  bw_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>,</span>
 <span>  <span class="va">w_vals</span>,</span>
 <span>  <span class="va">nthread</span></span>
@@ -95,8 +95,8 @@ data set using non-parametric models.</p>
 <dd><p>A vector of continuous exposure variable in the matched set.</p></dd>
 
 
-<dt>matched_counter</dt>
-<dd><p>A vector of counter variable in the matched set.</p></dd>
+<dt>matched_cw</dt>
+<dd><p>A vector of counter or weight variable in the matched set.</p></dd>
 
 
 <dt>bw_seq</dt>
@@ -127,7 +127,7 @@ attributes:</p><ul><li><p>params</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.</p>
+    <p>Estimate Functions Using Local Polynomial kernel regression.</p>
     </div>
 
     <div class="section level2">
@@ -159,7 +159,7 @@ attributes:</p><ul><li><p>params</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">erf_obj</span> <span class="op">&lt;-</span> <span class="fu">estimate_npmetric_erf</span><span class="op">(</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">Y</span>,</span></span>
 <span class="r-in"><span>                                 <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">w</span>,</span></span>
-<span class="r-in"><span>                                 <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">counter</span>,</span></span>
+<span class="r-in"><span>                                 <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">$</span><span class="va">counter_weight</span>,</span></span>
 <span class="r-in"><span>                                 bw_seq<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">2</span>,<span class="fl">0.2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                 w_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">20</span>,<span class="fl">0.5</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                 nthread <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
