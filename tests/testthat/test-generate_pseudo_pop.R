@@ -18,7 +18,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                  mydata[c("cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
-                                 pred_model = "sl",
                                  gps_model = "non-parametric",
                                  trim_quantiles = c(0.01,0.99),
                                  optimized_compile = TRUE,
@@ -36,16 +35,27 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop1$passed_covar_test)
   expect_equal(nrow(ps_pop1$pseudo_pop), 490)
   expect_equal(ps_pop1$adjusted_corr_results$mean_absolute_corr,
-               0.323827746927678,
+               0.2580037,
                tolerance = 0.000001)
 
+  # Test if all required attributes are included in the final object.
+  expect_true(("params" %in% names(ps_pop1)))
+  expect_true(("pseudo_pop" %in% names(ps_pop1)))
+  expect_true(("adjusted_corr_results" %in% names(ps_pop1)))
+  expect_true(("original_corr_results" %in% names(ps_pop1)))
+  expect_true(("fcall" %in% names(ps_pop1)))
+  expect_true(("passed_covar_test" %in% names(ps_pop1)))
+  expect_true(("counter" %in% names(ps_pop1)))
+  expect_true(("ci_appr" %in% names(ps_pop1)))
+  expect_true(("optimized_compile" %in% names(ps_pop1)))
+  expect_true(("best_gps_used_params" %in% names(ps_pop1)))
+  expect_true(("covariate_cols_name" %in% names(ps_pop1)))
 
   ps_pop2 <- generate_pseudo_pop(mydata$Y,
                                  mydata$treat,
                                  mydata[c("cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
-                                 pred_model = "sl",
                                  gps_model = "parametric",
                                  trim_quantiles = c(0.04,0.96),
                                  optimized_compile = TRUE,
@@ -62,7 +72,8 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_equal(class(ps_pop2),"gpsm_pspop")
   expect_false(ps_pop2$passed_covar_test)
   expect_equal(nrow(ps_pop2$pseudo_pop), 460)
-  expect_equal(ps_pop2$adjusted_corr_results$mean_absolute_corr, 0.2145893,
+  expect_equal(ps_pop2$adjusted_corr_results$mean_absolute_corr,
+               0.2243034,
                tolerance = 0.000001)
 
   # expect error with wrong ci_appr
@@ -71,27 +82,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "grounding",
-                                   pred_model = "sl",
-                                   gps_model = "parametric",
-                                   trim_quantiles = c(0.04,0.96),
-                                   optimized_compile = TRUE,
-                                   sl_lib = c("m_xgboost"),
-                                   covar_bl_method = "absolute",
-                                   covar_bl_trs = 0.1,
-                                   covar_bl_trs_type = "mean",
-                                   max_attempt = 1,
-                                   matching_fun = "matching_l1",
-                                   delta_n = 1,
-                                   scale = 0.5,
-                                   nthread = 1))
-
-  # expect error with wrong pred_model
-  expect_error(generate_pseudo_pop(mydata$Y,
-                                   mydata$treat,
-                                   mydata[c("cf1","cf2","cf3","cf4","cf5",
-                                            "cf6","year","region")],
-                                   ci_appr = "matching",
-                                   pred_model = "fl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -111,7 +101,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "fl",
                                    gps_model = "half-parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -125,34 +114,12 @@ test_that("generate_pseudo_pop works as expected.", {
                                    scale = 0.5,
                                    nthread = 1))
 
-  # expect error with missing gps parameter
-  expect_error(generate_pseudo_pop(mydata$Y,
-                                   mydata$treat,
-                                   mydata[c("cf1","cf2","cf3","cf4","cf5",
-                                            "cf6","year","region")],
-                                   ci_appr = "matching",
-                                   pred_model = "sl",
-                                   gps_model = "parametric",
-                                   trim_quantiles = c(0.04,0.96),
-                                   optimized_compile = TRUE,
-                                   #sl_lib = c("m_xgboost"),
-                                   covar_bl_method = "absolute",
-                                   covar_bl_trs = 0.1,
-                                   covar_bl_trs_type = "mean",
-                                   max_attempt = 1,
-                                   matching_fun = "matching_l1",
-                                   delta_n = 1,
-                                   scale = 0.5,
-                                   nthread = 1))
-
-
   # expect error with wrong max attempt
   expect_error(generate_pseudo_pop(mydata$Y,
                                    mydata$treat,
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -172,7 +139,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = "YES",
@@ -192,7 +158,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -213,7 +178,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -233,7 +197,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -256,7 +219,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -279,7 +241,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                    mydata[c("cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
-                                   pred_model = "sl",
                                    gps_model = "parametric",
                                    trim_quantiles = c(0.04,0.96),
                                    optimized_compile = TRUE,
@@ -299,7 +260,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                  mydata[c("cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "weighting",
-                                 pred_model = "sl",
                                  gps_model = "parametric",
                                  trim_quantiles = c(0.04,0.96),
                                  optimized_compile = TRUE,
@@ -317,7 +277,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop3$passed_covar_test)
   expect_equal(nrow(ps_pop3$pseudo_pop), 460)
   expect_equal(ps_pop3$adjusted_corr_results$mean_absolute_corr,
-               0.493702041980042,
+               0.4481222,
                tolerance = 0.000001)
 
   ps_pop4 <- generate_pseudo_pop(mydata$Y,
@@ -325,7 +285,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                  mydata[c("cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
-                                 pred_model = "sl",
                                  gps_model = "parametric",
                                  trim_quantiles = c(0.04,0.96),
                                  optimized_compile = TRUE,
@@ -342,10 +301,10 @@ test_that("generate_pseudo_pop works as expected.", {
                                  nthread = 1)
 
   expect_equal(class(ps_pop4),"gpsm_pspop")
-  expect_true(ps_pop4$passed_covar_test)
+  expect_false(ps_pop4$passed_covar_test)
   expect_equal(nrow(ps_pop4$pseudo_pop), 460)
   expect_equal(ps_pop4$adjusted_corr_results$mean_absolute_corr,
-               0.0795775617737965,
+               0.2210705,
                tolerance = 0.000001)
 
 
@@ -353,7 +312,6 @@ test_that("generate_pseudo_pop works as expected.", {
                                  mydata$treat,
                                  mydata[c("cf1","cf2","cf4")],
                                  ci_appr = "matching",
-                                 pred_model = "sl",
                                  gps_model = "parametric",
                                  trim_quantiles = c(0.04,0.96),
                                  optimized_compile = TRUE,
@@ -373,7 +331,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_false(ps_pop5$passed_covar_test)
   expect_equal(nrow(ps_pop4$pseudo_pop), 460)
   expect_equal(ps_pop5$adjusted_corr_results$mean_absolute_corr,
-               0.05900387,
+               0.1078871,
                tolerance = 0.000001)
 
 

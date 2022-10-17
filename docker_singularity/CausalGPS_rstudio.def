@@ -1,0 +1,22 @@
+Bootstrap: docker
+From: rocker/rstudio:4.0.4
+
+%post
+    apt-get -y update
+    NOW=`date`
+    Rscript -e 'install.packages("devtools")'
+    Rscript -e 'devtools::install_github("NSAPH-Software/CausalGPS",
+    ref="develop")'
+    PACKAGE_VER=`Rscript -e 'utils::packageVersion("CausalGPS")'`
+    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+    echo "export PACKAGE_VER=\"${PACKAGE_VER}\"" >> $SINGULARITY_ENVIRONMENT
+
+%runscript
+    echo "Container was created $NOW"
+    echo CausalGPS package installed "("ver: $PACKAGE_VER")"
+
+%labels
+    Author nkhoshnevis@g.harvard.edu
+
+%help
+   A container to run CausalGPS R package. For more information visit: https://NSAPH-Software.github.io/CausalGPS/

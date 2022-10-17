@@ -1,4 +1,4 @@
-url: https://fasrc.github.io/CausalGPS/
+url: https://NSAPH-Software.github.io/CausalGPS/
 
 home:
   title: Implementing matching, and weighting on GPS with continuous exposures.
@@ -11,6 +11,9 @@ template:
     primary: "#306cc9"
 
 reference:
+  - title: CausalGPS Package
+    contents:
+    - CausalGPS-package
   - title: Estimate GPS values
     contents:
     - estimate_gps
@@ -31,6 +34,12 @@ reference:
     - generate_syn_data
     - set_logger
     - get_logger
+    - plot.gpsm_erf
+    - plot.gpsm_pspop
+    - print.gpsm_erf
+    - print.gpsm_pspop
+    - summary.gpsm_erf
+    - summary.gpsm_pspop
   - title: Data
     contents:
     - synthetic_us_2010
@@ -39,10 +48,12 @@ articles:
   - title: Introduction
     navbar: Introduction
     contents: [Estimating-GPS,Generating-Pseudo-Population,Outcome-Models,
-               Generating-Synthetic-Data, Synthetic-Medicare, FAQ]
+               Generating-Synthetic-Data, Synthetic-Medicare,
+               Frequently-Asked-Questions]
 
   - title: Collabration
     navbar: Collabration
-    contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper, Singularity-Image]
+    contents: [Developers-Guide, Testing-the-Package, Notes-on-SL-Wrapper,
+               Singularity-Image]
 
 

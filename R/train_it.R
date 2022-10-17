@@ -1,15 +1,11 @@
-#' @title 
+#' @title
 #' Generate Prediction Model
-#' 
-#' @description 
+#'
+#' @description
 #' Function to develop prediction model based on user's preferences.
 #'
 #' @param target A vector of target data.
 #' @param input A vector, matrix, or dataframe of input data.
-#' @param pred_model Prediction model algorithm.
-#'   - 'sl': SuperLearner The required parameters:
-#'     - *sl_lib*: a set of methods used for estimating target value (e.g.,
-#'     ("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
 #' @param sl_lib_internal The internal library to be used by SuperLearner
 #' @param ... Model related parameters should be provided.
 #'
@@ -18,7 +14,7 @@
 #'
 #' @keywords internal
 #'
-train_it <- function(target, input, pred_model,
+train_it <- function(target, input,
                      sl_lib_internal=NULL, ...) {
 
   # Passing packaging check() ----------------------------
@@ -34,13 +30,9 @@ train_it <- function(target, input, pred_model,
 
   platform_os <- .Platform$OS.type
 
-  if (pred_model == 'sl'){
+  pr_mdl <- SuperLearner::SuperLearner(Y=target,
+                                       X=data.frame(input),
+                                       SL.library=sl_lib_internal)
+  return(pr_mdl)
 
-      pr_mdl <- SuperLearner::SuperLearner(Y=target, X=data.frame(input),
-                                           SL.library=sl_lib_internal)
-      return(pr_mdl)
-    } else {
-    stop(' This should not be raised. Something is wrong with CheckArgs
-         function.')
-  }
 }

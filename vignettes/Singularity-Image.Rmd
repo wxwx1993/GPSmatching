@@ -16,17 +16,17 @@ knitr::opts_chunk$set(
 
 A Singularity image is an essential part of creating a reproducible container and, eventually, reproducible research. This section explains the steps to create a singularity definition file, build an image, and run a container. The two primary sources for further discussion and details include:
 
-- [Singularity Definition Files](https://sylabs.io/guides/3.0/user-guide/definition_files.html)
+- [Singularity Definition Files](https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html)
 - [Rocker Project (Singularity)](https://www.rocker-project.org/use/singularity/)
 
 
 ### Setting up the environment
 
-In order to build a singularity image, you need to have singularity installed on your system, and you need to have a root privilege to build an image. There are sufficient instructions to do that (for example, [here](https://sylabs.io/guides/3.7/user-guide/quick_start.html)). You can also use [Sylab Remote Builder](https://cloud.sylabs.io/builder) services.
+In order to build a singularity image, you need to have singularity installed on your system, and you need to have a root privilege to build an image. There are sufficient instructions to do that (for example, [here](https://docs.sylabs.io/guides/3.7/user-guide/quick_start.html)). You can also use [Sylab Remote Builder](https://cloud.sylabs.io/builder/) services.
 
 ### Definition File
 
-The Definition File (CausalGPS_rstudio.def) is the recipe for building the image. Please note that we build it upon [rocker/rstudio:4.0.4] image. For more details about generating a Definition File, please refer to [Singularity User Guide](https://sylabs.io/guides/3.7/user-guide/definition_files.html).
+The Definition File (CausalGPS_rstudio.def) is the recipe for building the image. Please note that we build it upon [rocker/rstudio:4.0.4] image. For more details about generating a Definition File, please refer to [Singularity User Guide](https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html).
 
 ### Building Singularity Image
 

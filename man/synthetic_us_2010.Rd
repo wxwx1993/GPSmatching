@@ -55,11 +55,13 @@ high school level education among 65 years and over.}
 \item{cms_hispanic_pct}{The proportion of Hispanic patients.}
 \item{cms_others_pct}{The proportion of Other patients.}
 \item{cms_female_pct}{The proportion of Female patients.}
-\item{region}{The region that the county is located in.\preformatted{  NORTHEAST=("NY","MA","PA","RI","NH","ME","VT","CT","NJ")
+\item{region}{The region that the county is located in.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  NORTHEAST=("NY","MA","PA","RI","NH","ME","VT","CT","NJ")
   SOUTH=("DC","VA","NC","WV","KY","SC","GA","FL","AL","TN","MS","AR","MD","DE","OK","TX","LA")
   MIDWEST=c("OH","IN","MI","IA","MO","WI","MN","SD","ND","IL","KS","NE")
   WEST=c("MT","CO","WY","ID","UT","NV","CA","OR","WA","AZ","NM")
-}
+}\if{html}{\out{</div>}}
 
 }
 \item{FIPS}{Federal Information Processing Standards, a unique ID for each
@@ -76,7 +78,7 @@ data(synthetic_us_2010)
 A dataset containing exposure, confounders, and outcome for causal inference
 studies. The dataset is hosted on Harvard dataverse \doi{10.7910/DVN/L7YF2G}.
 This dataset was produced from five different resources. Please see
-\url{https://github.com/NSAPH/synthetic_data} for the data processing
+\url{https://github.com/NSAPH/synthetic_data/} for the data processing
 pipelines. In the following
 
 \strong{Exposure Data}
@@ -124,11 +126,11 @@ Climatology 33 (1): 121–31. \doi{10.1002/joc.3413}.
 
 Centers for Disease Control and Prevention. 2021. “Behavioral Risk
 Factor Surveillance System.”
-\url{https://www.cdc.gov/brfss/annual_data/annual_2010.htm}.
+\url{https://www.cdc.gov/brfss/annual_data/annual_2010.htm/}.
 
 Centers for Medicare & Medicaid Services. 2021. “CMS 2008-2010 Data
 Entrepreneurs’ Synthetic Public Use File (DE-SynPUF).”
-\url{https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF}.
+\url{https://www.cms.gov/research-statistics-data-and-systems/downloadable-public-use-files/synpufs/de_syn_puf}.
 
 Di, Qian, Heresh Amini, Liuhua Shi, Itai Kloog, Rachel Silvern, James Kelly,
 M Benjamin Sabath, et al. 2019. “An Ensemble-Based Model of Pm2. 5

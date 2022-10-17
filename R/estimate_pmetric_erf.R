@@ -45,27 +45,27 @@
 #'
 estimate_pmetric_erf <- function(formula, family, data, ci_appr){
 
-  counter <- ipw <- NULL
+  counter_weight <- NULL
 
   if (ci_appr == "matching"){
 
     # If the approach is not optimized, the counter will be zero, which causes
     # problem in generating prediction model.
-    if (sum(data$counter) == 0) {
-      data$counter <- data$counter + 1
+    if (sum(data$counter_weight) == 0) {
+      data$counter_weight <- data$counter_weight + 1
       logger::log_debug("Giving equal weight for all samples.")
     }
 
     suppressWarnings(gnm_model <- gnm::gnm(formula = formula,
                                            family = family,
                                            data = data,
-                                           weights = counter,
+                                           weights = counter_weight,
                                            verbose = FALSE, model = FALSE))
   } else if (ci_appr == "weighting"){
     suppressWarnings(gnm_model <- gnm::gnm(formula = formula,
                                            family = family,
                                            data = data,
-                                           weights = ipw,
+                                           weights = counter_weight,
                                            verbose = FALSE, model = FALSE))
   } else {
     stop(paste("ci_appr: ", ci_appr, " is not a valid causal inference."))

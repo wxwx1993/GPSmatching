@@ -8,10 +8,10 @@ estimate_gps(
   Y,
   w,
   c,
-  pred_model,
   gps_model = "parametric",
   internal_use = TRUE,
   params = list(),
+  sl_lib = c("m_xgboost"),
   nthread = 1,
   ...
 )
@@ -23,46 +23,51 @@ estimate_gps(
 
 \item{c}{A data frame of observed covariates variable.}
 
-\item{pred_model}{The selected prediction model.}
-
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
 
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
-will return original data + GPS value.}
+will return original data + GPS values.}
 
-\item{params}{Includes list of params that is used internally. Unrelated
+\item{params}{Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.}
 
-\item{nthread}{An integer value that represents then number threads to use by
-internal packages.}
+\item{sl_lib}{A vector of prediction algorithms.}
+
+\item{nthread}{An integer value that represents the number threads to be used
+in a shared memory system.}
 
 \item{...}{Additional arguments passed to the model.}
 }
 \value{
-The function returns a list of 6 objects according to the following order:
+The function returns a S3 object. Including the following:
 \itemize{
-\item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
-row_index, c)
+\item Original data set + GPS, counter, row_index values (Y, w, GPS,
+counter_weight, row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
 \item gps_mx (min and max of gps)
 \item w_mx (min and max of w).
-If \code{internal.use} is set to be FALSE, only original data set + GPS will
-be returned.
+\item used_params
 }
 }
 \description{
 Estimates GPS value for each observation using parametric or non-parametric
 approaches.
 }
+\note{
+If \code{internal.use} is set to be FALSE, only original data set + GPS will
+be returned.
+
+The outcome variable is not used in estimating the GPS value. However, it is
+used in compiling the data set with GPS values.
+}
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d$Y,
                               m_d$treat,
                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                              pred_model = "sl",
                               gps_model = "parametric",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),

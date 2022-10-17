@@ -18,8 +18,10 @@ smooth_erf <- function(matched_Y,bw,matched_w){
     stop("bw should be of length 1.")
   }
 
-  smoothed_val <- stats::approx(locpoly(matched_w, matched_Y, bandwidth=bw,
-                                 gridsize=1000),
+  smoothed_val <- stats::approx(KernSmooth::locpoly(matched_w,
+                                                    matched_Y,
+                                                    bandwidth=bw,
+                                                    gridsize=1000),
                          xout=matched_w,rule=2)$y
   return(smoothed_val)
 }

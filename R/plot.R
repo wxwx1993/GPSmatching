@@ -18,8 +18,7 @@
 #'
 autoplot.gpsm_erf <- function(object, ...){
 
-  gg_labs <- NULL
-  gg_title <- "Exposure Rate Function"
+  gg_labs <- gg_title <- NULL
 
   ## collect additional arguments
   dot_args <- list(...)
@@ -27,6 +26,14 @@ autoplot.gpsm_erf <- function(object, ...){
 
   for (i in arg_names){
     assign(i,unlist(dot_args[i],use.names = FALSE))
+  }
+
+  if (is.null(gg_labs)){
+    gg_labs <- c("Exposure Level", "Outcome Rate")
+  }
+
+  if (is.null(gg_title)){
+    gg_title <- "Exposure Response Curve"
   }
 
   # extract data
@@ -39,13 +46,11 @@ autoplot.gpsm_erf <- function(object, ...){
        ggplot2::geom_line(ggplot2::aes(.data$w.vals, .data$erf),
                           color="red", size=1)
 
-  if (!is.null(gg_labs)){
-    g <- g + ggplot2::labs(x=gg_labs[1], y=gg_labs[2])
-  }
 
-  if (!is.null(gg_title)){
-    g <- g + ggplot2::ggtitle(gg_title)
-  }
+  g <- g + ggplot2::labs(x=gg_labs[1], y=gg_labs[2])
+  g <- g + ggplot2::ggtitle(gg_title)
+
+
 
   return(g)
 }
