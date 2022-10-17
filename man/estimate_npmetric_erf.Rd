@@ -7,7 +7,7 @@
 estimate_npmetric_erf(
   matched_Y,
   matched_w,
-  matched_cw = NULL,
+  matched_cw,
   bw_seq = seq(0.2, 2, 0.2),
   w_vals,
   nthread

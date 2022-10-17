@@ -39,7 +39,6 @@ Imports:
     logger,
     Rcpp,
     gnm,
-    tidyr,
     locpol
 Encoding: UTF-8
 RoxygenNote: 7.2.1

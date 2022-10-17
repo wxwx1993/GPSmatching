@@ -19,6 +19,11 @@ smooth_erf <- function(matched_Y,bw,matched_w, matched_cw){
     stop("bw should be of length 1.")
   }
 
+  if (sum(matched_cw == 0) == length(matched_cw)) {
+    matched_cw <- matched_cw + 1
+    logger::log_debug("Giving equal weight for all samples.")
+  }
+
   data <- data.frame(matched_Y = matched_Y, matched_w = matched_w)
   val <- locpol::locpol(formula = matched_Y~matched_w,
                         data = data,

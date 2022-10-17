@@ -5,6 +5,7 @@
 
 ### Changed
 
+* In `estimate_npmetric_erf` function, the `matched_cw` input is now mandatory. 
 * Internal kernel smoothing now uses `locpol::locpol` function.
 * The entire data set is trimmed based on trimming quantiles.
 * `earth` and `ranger` are not installed automatically. They can be installed manually if needed.
@@ -21,7 +22,7 @@ approaches. `counter` and `ipw` are dropped.
 
 ### Removed 
 
-* Dropped importing `KernSmooth` package. 
+* Dropped importing `KernSmooth` and `tidyr` packages. 
 * `pred_model` argument dropped. The package only predicts using SuperLearner.
 
 

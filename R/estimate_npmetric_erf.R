@@ -61,7 +61,7 @@
 #'
 estimate_npmetric_erf<-function(matched_Y,
                                 matched_w,
-                                matched_cw = NULL,
+                                matched_cw,
                                 bw_seq=seq(0.2,2,0.2),
                                 w_vals,
                                 nthread){
@@ -77,12 +77,10 @@ estimate_npmetric_erf<-function(matched_Y,
     stop("Output and treatment vectors should be double vectors.")
   }
 
-  if (!is.null(matched_cw) && sum(matched_cw)== 0){
-    stop(paste0("The matched_counter is provided but the counters are all zero.",
-                " Either pass NULL to the matched_counter or use ",
-                " optimized_compile = TRUE in generating pseudo pop."))
+  if (sum(matched_cw == 0) == length(matched_cw)) {
+      matched_cw <- matched_cw + 1
+      logger::log_debug("Giving equal weight for all samples.")
   }
-
 
   if (is.null(get_options("logger_file_path"))){
     logger_file_path <- "CausalGPS.log"
