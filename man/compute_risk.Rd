@@ -4,7 +4,7 @@
 \alias{compute_risk}
 \title{Compute risk value}
 \usage{
-compute_risk(h, matched_Y, matched_w, w_vals)
+compute_risk(h, matched_Y, matched_w, matched_cw, w_vals)
 }
 \arguments{
 \item{h}{A scalar representing the bandwidth value.}
@@ -12,6 +12,8 @@ compute_risk(h, matched_Y, matched_w, w_vals)
 \item{matched_Y}{A vector of outcome variable in the matched set.}
 
 \item{matched_w}{A vector of continuous exposure variable in the matched set.}
+
+\item{matched_cw}{A vector of counter or weight variable in the matched set.}
 
 \item{w_vals}{A vector of values that you want to calculate the values of
 the ERF at.}

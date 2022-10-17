@@ -7,7 +7,7 @@
 estimate_npmetric_erf(
   matched_Y,
   matched_w,
-  matched_counter = NULL,
+  matched_cw = NULL,
   bw_seq = seq(0.2, 2, 0.2),
   w_vals,
   nthread
@@ -18,7 +18,7 @@ estimate_npmetric_erf(
 
 \item{matched_w}{A vector of continuous exposure variable in the matched set.}
 
-\item{matched_counter}{A vector of counter variable in the matched set.}
+\item{matched_cw}{A vector of counter or weight variable in the matched set.}
 
 \item{bw_seq}{A vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
@@ -45,7 +45,7 @@ Estimate smoothed exposure-response function (ERF) for matched and weighted
 data set using non-parametric models.
 }
 \details{
-Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
+Estimate Functions Using Local Polynomial kernel regression.
 }
 \examples{
 
@@ -71,7 +71,7 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
 
 erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                  pseudo_pop$pseudo_pop$w,
-                                 pseudo_pop$pseudo_pop$counter,
+                                 pseudo_pop$pseudo_pop$counter_weight,
                                  bw_seq=seq(0.2,2,0.2),
                                  w_vals = seq(2,20,0.5),
                                  nthread = 1)

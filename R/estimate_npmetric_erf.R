@@ -7,14 +7,14 @@
 #'
 #' @param matched_Y A vector of outcome variable in the matched set.
 #' @param matched_w A vector of continuous exposure variable in the matched set.
-#' @param matched_counter A vector of counter variable in the matched set.
+#' @param matched_cw A vector of counter or weight variable in the matched set.
 #' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
 #' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
 #' @param nthread The number of available cores.
 #'
 #' @details
-#' Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
+#' Estimate Functions Using Local Polynomial kernel regression.
 #'
 #' @return
 #' The function returns a gpsm_erf object. The object includes the following
@@ -54,14 +54,14 @@
 #'
 #' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
 #'                                  pseudo_pop$pseudo_pop$w,
-#'                                  pseudo_pop$pseudo_pop$counter,
+#'                                  pseudo_pop$pseudo_pop$counter_weight,
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
 #'
 estimate_npmetric_erf<-function(matched_Y,
                                 matched_w,
-                                matched_counter = NULL,
+                                matched_cw = NULL,
                                 bw_seq=seq(0.2,2,0.2),
                                 w_vals,
                                 nthread){
@@ -77,21 +77,21 @@ estimate_npmetric_erf<-function(matched_Y,
     stop("Output and treatment vectors should be double vectors.")
   }
 
-  if (!is.null(matched_counter) && sum(matched_counter)== 0){
+  if (!is.null(matched_cw) && sum(matched_cw)== 0){
     stop(paste0("The matched_counter is provided but the counters are all zero.",
                 " Either pass NULL to the matched_counter or use ",
                 " optimized_compile = TRUE in generating pseudo pop."))
   }
 
 
-  if (!is.null(matched_counter)){
-    if (length(matched_Y) != length(matched_counter)){
-      stop("Length of matched_counter should be according to other inputs.")
-    } else {
-      matched_Y <- tidyr::uncount(data.frame(matched_Y), matched_counter)[,1]
-      matched_w <- tidyr::uncount(data.frame(matched_w), matched_counter)[,1]
-    }
-  }
+  # if (!is.null(matched_counter)){
+  #   if (length(matched_Y) != length(matched_counter)){
+  #     stop("Length of matched_counter should be according to other inputs.")
+  #   } else {
+  #     matched_Y <- tidyr::uncount(data.frame(matched_Y), matched_counter)[,1]
+  #     matched_w <- tidyr::uncount(data.frame(matched_w), matched_counter)[,1]
+  #   }
+  # }
 
   if (is.null(get_options("logger_file_path"))){
     logger_file_path <- "CausalGPS.log"
@@ -113,6 +113,7 @@ estimate_npmetric_erf<-function(matched_Y,
                                      compute_risk,
                                      matched_Y = matched_Y,
                                      matched_w = matched_w,
+                                     matched_cw = matched_cw,
                                      w_vals = w_vals)
 
   parallel::stopCluster(cl)
@@ -123,8 +124,18 @@ estimate_npmetric_erf<-function(matched_Y,
 
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
-  erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y,
-                                           bandwidth=h_opt), xout=w_vals)$y
+  data <- data.frame(matched_Y = matched_Y, matched_w = matched_w)
+  tmp_loc <- locpol::locpol(formula = matched_Y~matched_w,
+                            data = data,
+                            bw = h_opt,
+                            weig = matched_cw,
+                            xeval = w_vals,
+                            kernel = locpol::gaussK)
+
+  erf <- tmp_loc$lpFit$matched_Y
+
+  # erf <- stats::approx(KernSmooth::locpoly(matched_w, matched_Y,
+  #                                          bandwidth=h_opt), xout=w_vals)$y
 
   if (sum(is.na(erf)) > 0){
     logger::log_debug("erf has {sum(is.na(erf))} missing values.")
