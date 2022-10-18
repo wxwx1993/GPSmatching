@@ -5,7 +5,7 @@ library("CausalGPS")
 source("GPSmatching.R")
 source("data_generate.R")
 
-parameters <- expand.grid(1:500,c(3:8))[(process+1),]
+parameters <- expand.grid(1:500,c(1:7))[(process+1),]
 
 spec = as.numeric(parameters[2])
 cova_spec = 1
