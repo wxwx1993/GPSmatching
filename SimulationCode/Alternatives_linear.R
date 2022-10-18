@@ -6,7 +6,8 @@ library("earth")
 library("ranger")
 library("gam")
 require(KernSmooth)
-#####including GPS as covariates
+
+##### Adjustment approach, including GPS as covariates
 GPScova.fun.dose<-function(data_set,
                            c,
                            a,
@@ -44,7 +45,7 @@ run_sim_dose_cova<-function(Y,
 }
 
 
-##############IPTW, or call MSMs
+############## IPTW approach, or call MSMs
 IPW.fun.dose<-function(a,
                        model=IPW_model){
   #p.a<-dnorm(a,mean = predict(GPS_mod,simulated.data),sd=summary(GPS_mod)$sigma)
@@ -67,11 +68,8 @@ run_sim_dose_IPTW<-function(Y,
   
   Nm<-dnorm(treat,mean=mean(treat,na.rm=T),sd=sd(treat,na.rm=T))
   IPW<-Nm/(GPS)
-  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
   
   IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), obsWeights = IPW, SL.library=c("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
-  #IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), SL.library=sl.lib)
-  #IPTW_model<-lm(Y~treat+I(treat^2)+I(treat^3),weights=IPW)
   
   IPTW_data<- sapply(a.vals,
                      IPW.fun.dose,
@@ -92,11 +90,8 @@ run_sim_dose_IPTW_trim<-function(Y,
   Nm<-dnorm(treat,mean=mean(treat,na.rm=T),sd=sd(treat,na.rm=T))
   IPW<-Nm/(GPS)
   IPW[IPW >10] <- 10
-  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
   
   IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), obsWeights = IPW, SL.library=c("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
-  #IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), SL.library=sl.lib)
-  #IPTW_model<-lm(Y~treat+I(treat^2)+I(treat^3),weights=IPW)
   
   IPTW_data<- sapply(a.vals,
                      IPW.fun.dose,
@@ -105,8 +100,7 @@ run_sim_dose_IPTW_trim<-function(Y,
   return(IPTW_data)
 }
 
-
-##############Kennedy
+############## DR approach, the following code were modified from ehkennedy/npcausal R package
 ctseff <- function(y,
                    a,
                    x, 
@@ -126,10 +120,6 @@ ctseff <- function(y,
   
   # estimate nuisance functions via super learner
   # note: other methods could be used here instead
-  #pimod <- SuperLearner(Y=a, X=data.frame(x), SL.library=sl.lib, newX=x.new)
-  #pimod.vals <- pimod$SL.predict
-  #pi2mod <- SuperLearner(Y=abs(a-pimod.vals[1:n]),X=x, SL.library=sl.lib, newX=x.new)
-  #pi2mod.vals <- pi2mod$SL.predict
   GPS_mod<-lm(a ~ cf1+cf2+cf3+cf4+cf5+cf6 , cbind(a,x))
   predict<-predict(GPS_mod,cbind(a,x))
   pihat.vals<-dnorm(xa.new$a,mean = predict,sd=summary(GPS_mod)[["sigma"]])
@@ -138,8 +128,6 @@ ctseff <- function(y,
   muhat.vals <- mumod$SL.predict
   
   # construct estimated pi/varpi and mu/m values
-  #a.std <- (xa.new$a-pimod.vals)/pi2mod.vals
-  #pihat.vals <- approx(density(a.std[1:n],na.rm = T)$x,density(a.std[1:n],na.rm = T)$y,xout=a.std,rule=2)$y
   pihat <- pihat.vals[1:n]; pihat.mat <- matrix(pihat.vals[-(1:n)], nrow=n,ncol=length(a.vals))
   varpihat <- predict(smooth.spline(a.vals, apply(pihat.mat,2,mean,na.rm=T)), x=a)$y
   varpihat.mat <- matrix( rep(apply(pihat.mat,2,mean,na.rm=T),n), byrow=T, nrow=n)
@@ -164,9 +152,6 @@ ctseff <- function(y,
   risk.est <- sapply(bw.seq,risk.fn); 
   h.opt <- bw.seq[which.min(risk.est)]
   bw.risk <- data.frame(bw=bw.seq, risk=risk.est)
-  # alternative approach:
-  #h.opt <- optimize(function(h){ hats <- hatvals(h); mean( ((pseudo.out-cts.eff.fn(pseudo.out,bw=h))/(1-hats))^2) } ,
-  #  bw.seq, tol=0.01)$minimum
   
   # estimate effect curve with optimal bandwidth
   est <- approx(locpoly(a,pseudo.out,bandwidth=h.opt),xout=a.vals)$y
@@ -227,9 +212,6 @@ ctseff_trim <- function(y,
   risk.est <- sapply(bw.seq,risk.fn); 
   h.opt <- bw.seq[which.min(risk.est)]
   bw.risk <- data.frame(bw=bw.seq, risk=risk.est)
-  # alternative approach:
-  #h.opt <- optimize(function(h){ hats <- hatvals(h); mean( ((pseudo.out-cts.eff.fn(pseudo.out,bw=h))/(1-hats))^2) } ,
-  #  bw.seq, tol=0.01)$minimum
   
   # estimate effect curve with optimal bandwidth
   est <- approx(locpoly(a,pseudo.out,bandwidth=h.opt),xout=a.vals)$y
@@ -248,19 +230,5 @@ true_model<-function(i,data.generation=data.generate,outcome_sd=50,sample_size=2
     true.noerror[(a_i-min(a.vals))+1]<-coefficients[1]+coefficients[7]+(coefficients[2]+coefficients[14])*(a_i-20)+coefficients[3]*(a_i-20)^3
   }
   return(true.noerror)
-}
-
-
-MSE_AB<-function(data.list, true.response){
-  
-  sim.diff <- lapply(1:length(data.list), function(j){
-      pred.response <- (data.list[[j]])
-      return(pred.response - true.response)
-    })
- 
-  DR.AB <- abs(rowMeans(apply(simplify2array(sim.diff), 1:2, mean)))
-  DR.MSE <- sqrt(rowMeans(apply(simplify2array(sim.diff)^2, 1:2, mean)))
-  
-  return(list(rbind(DR.AB,DR.MSE),c(mean(DR.AB),mean(DR.MSE))))
 }
 
