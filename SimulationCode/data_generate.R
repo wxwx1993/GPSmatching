@@ -26,7 +26,6 @@ data_generate<-function(sample_size=1000,seed=300,outcome_sd = 10,gps_spec= 1, c
   #produce outcome Y
   Y<-as.numeric()
   for (i in 1:size){
-    #Y[i]<- 200 + 10*treat[i] + 13.7*(2*cf[i,1] + cf[i,2] + cf[i,3] + cf[i,4])  + rnorm(1,mean=0,sd=1)
     Y[i]<-(-(1 + (sum(c(0.2, 0.2, 0.3, -0.1)*cf[i,]))*10 - 2*cf5[i]-2*cf6[i]  + (treat[i]-20)*(0.1 +0.1*cf[i,4] +0.1*cf5[i] +0.1*cf[i,3]^2 - 0.13^2*(treat[i]-20)^2)))  + rnorm(1,mean=0,sd=outcome_sd)
   }
   if (cova_spec==1){
@@ -39,7 +38,6 @@ data_generate<-function(sample_size=1000,seed=300,outcome_sd = 10,gps_spec= 1, c
     cf[,4] <- (cf[,2] + cf[,4] + 20)^2
   }
     
-  #treat<-treat+20
   simulated.data<-data.frame(cbind(Y,treat,cf, cf5, cf6))
   colnames(simulated.data)[3:8]<-c("cf1","cf2","cf3","cf4","cf5","cf6")
   return(simulated.data)
