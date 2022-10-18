@@ -19,7 +19,7 @@ This is the repository for code to reproduce simulation results in the paper tit
 [`AB_MSE`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/AB_MSE) contains the code to calculate the absolute bias and root mean squared error (RMSE) for the matching estimator and estimators from altenative approaches. It will generate Table 1, and Table S.4, 6-7.
 
 ## The R package for the manuscript "Matching on generalized propensity scores with continuous exposures".
-\textbf{CausalGPS} is an \textit{R} package that implements a collection of algorithms to provide end-to-end solutions for causal inference with continuous exposures. As the core of the \textbf{CausalGPS} package, it implements the proposed GPS matching approach.
+[`CausalGPS`](https://github.com/NSAPH-Software/CausalGPS/tree/develop) is an R package that implements a collection of algorithms to provide end-to-end solutions for causal inference with continuous exposures. As the core of the \textbf{CausalGPS} package, it implements the proposed GPS matching approach.
 
 ## Installation
 
