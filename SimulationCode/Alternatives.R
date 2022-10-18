@@ -103,11 +103,8 @@ run_sim_dose_IPTW_trim<-function(Y,
   Nm <- approx(density(treat,na.rm = TRUE)$x,density(treat,na.rm = TRUE)$y,xout=treat,rule=2)$y
   IPW<-Nm/(GPS)
   IPW[IPW >10] <- 10
-  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
   
   IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), obsWeights = IPW, SL.library=c("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
-  #IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), SL.library=sl.lib)
-  #IPTW_model<-lm(Y~treat+I(treat^2)+I(treat^3),weights=IPW)
   
   IPTW_data<- sapply(a.vals,
                      IPW.fun.dose,
@@ -118,7 +115,6 @@ run_sim_dose_IPTW_trim<-function(Y,
   
   return(IPTW_data)
 }
-
 
 ############## DR approach, the following code were modified from ehkennedy/npcausal R package
 ctseff <- function(y,
@@ -174,9 +170,6 @@ ctseff <- function(y,
   risk.est <- sapply(bw.seq,risk.fn); 
   h.opt <- bw.seq[which.min(risk.est)]
   bw.risk <- data.frame(bw=bw.seq, risk=risk.est)
-  # alternative approach:
-  #h.opt <- optimize(function(h){ hats <- hatvals(h); mean( ((pseudo.out-cts.eff.fn(pseudo.out,bw=h))/(1-hats))^2) } ,
-  #  bw.seq, tol=0.01)$minimum
   
   # estimate effect curve with optimal bandwidth
   est <- approx(locpoly(a,pseudo.out,bandwidth=h.opt),xout=a.vals)$y
@@ -239,9 +232,6 @@ ctseff_trim <- function(y,
   risk.est <- sapply(bw.seq,risk.fn); 
   h.opt <- bw.seq[which.min(risk.est)]
   bw.risk <- data.frame(bw=bw.seq, risk=risk.est)
-  # alternative approach:
-  #h.opt <- optimize(function(h){ hats <- hatvals(h); mean( ((pseudo.out-cts.eff.fn(pseudo.out,bw=h))/(1-hats))^2) } ,
-  #  bw.seq, tol=0.01)$minimum
   
   # estimate effect curve with optimal bandwidth
   est <- approx(locpoly(a,pseudo.out,bandwidth=h.opt),xout=a.vals)$y
@@ -281,7 +271,6 @@ run_sim_dose_CBPS<-function(Y,
   
   return(CBPS_data)
 }
-
 
 true_model<-function(i,data.generation=data.generate,outcome_sd=50,sample_size=2000,a.vals,gps_spec){
   simulated.data<-data.generation(sample_size=sample_size,seed=i,outcome_sd=outcome_sd,gps_spec=gps_spec)
