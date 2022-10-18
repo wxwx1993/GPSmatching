@@ -1,4 +1,3 @@
-#MAC_matched<-matrix(NA,nrow=20,ncol=6)
 process<-as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
 library("parallel")
