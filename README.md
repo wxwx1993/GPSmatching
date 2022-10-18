@@ -2,8 +2,8 @@
 
 We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
-## The Simulation Code for the manuscript "Matching on generalized propensity scores with continuous exposures".
-This is the data repository for code to reproduce simulation results in the paper titled "Matching on generalized propensity scores with continuous exposures."
+## The simulation code for the manuscript "Matching on generalized propensity scores with continuous exposures".
+This is the repository for code to reproduce simulation results in the paper titled "Matching on generalized propensity scores with continuous exposures."
 
 <b>Code: </b><br>
 [`data_generate.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/data_generate.R) includes the R function to enerate simulated dataset based on different GPS model specifications and covariates.
