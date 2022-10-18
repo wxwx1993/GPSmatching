@@ -10,17 +10,17 @@ This is the repository for code to reproduce simulation results in the paper tit
 
 [`GPSmatching_linear.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/GPSmatching_linear.R) and [`GPSmatching.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/GPSmatching.R) include the essential R functions to implement the proposed matching approaches. The former estimate the GPS using parametric linear regression models, whereas the later estimate the GPS using Super Learner models.
 
-[`Alternatives_linear.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/Alternatives_linear.R) and [`Alternatives.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/Alternatives.R) include the essential R functions to implement state-of-art alternative approaches that was used as simulation comparisons. We consider five existing approaches based on GPS which aim to estimate causal ERF of a continuous exposure in observational studies, named: 1) GPS adjustment estimator; 2) IPTW estimator; 3)  non-parametric DR estimator; 4) double machine learning (DML) estimator (implemented separately using Python code obtained from Dr. Ying-ying Lee); and 5) covariate balancing propensity score (CBPS) weighting estimator. The former estimate the GPS using parametric linear regression models, whereas the later estimate the GPS using Super Learner models.
+[`Alternatives_linear.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/Alternatives_linear.R) and [`Alternatives.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/Alternatives.R) include the essential R functions to implement state-of-art alternative approaches that were used in simulation comparisons. We consider five existing approaches based on GPS which aim to estimate causal ERF of a continuous exposure in observational studies, named: 1) GPS adjustment estimator; 2) IPTW estimator; 3)  non-parametric doubly robust (DR) estimator; 4) double machine learning (DML) estimator (implemented separately using Python code obtained from Dr. Ying-ying Lee); and 5) covariate balancing propensity score (CBPS) weighting estimator. The former estimate the GPS using parametric linear regression models, whereas the later estimate the GPS using Super Learner models.
 
-[`covariate_balance`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/covariate%20balance) includes the code to assess covariate balance via mean absolute correlation (MAC) and mean standardized mean difference (MSMD). It will generate Figure 2 and Figure S.3.
+[`covariate_balance`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/covariate%20balance) contains the code to assess covariate balance via mean absolute correlation (MAC) and mean standardized mean difference (MSMD). It will generate Figure 2 and Figure S.3.
 
-[`coverage`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/coverage) includes the code to assess the average coverage rates for the matching estimator. It will generate Table S.2 and S.3.
+[`coverage`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/coverage) contains the code to assess the average coverage rates for the matching estimator. It will generate Table S.2 and S.3.
 
 [`AB_MSE`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/AB_MSE) contains the code to calculate the absolute bias and root mean squared error (RMSE) for the matching estimator and estimators from altenative approaches. It will generate Table 1, and Table S.4, 6-7.
 
 
 ## The R package for the manuscript "Matching on generalized propensity scores with continuous exposures".
-An R package was developed afterwards for implementing matching on generalized propensity scores with continuous exposures.
+An end-to-end R package was developed afterwards for implementing matching on generalized propensity scores with continuous exposures.
 
 ## Installation
 
