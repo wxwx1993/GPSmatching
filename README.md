@@ -6,7 +6,7 @@ We developed an innovative approach for estimating causal effects using observat
 This is the repository for code to reproduce simulation results in the paper titled "Matching on generalized propensity scores with continuous exposures."
 
 <b>Code: </b><br>
-[`data_generate.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/data_generate.R) includes the R function to enerate simulated dataset based on different GPS model specifications and covariates.
+[`data_generate.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/data_generate.R) includes the R function to generate simulated dataset based on different GPS model specifications and covariates.
 
 [`GPSmatching_linear.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/GPSmatching_linear.R) and [`GPSmatching.R`](https://github.com/wxwx1993/GPSmatching/blob/master/SimulationCode/GPSmatching.R) include the essential R functions to implement the proposed matching approaches. The former estimate the GPS using parametric linear regression models, whereas the later estimate the GPS using Super Learner models.
 
@@ -19,7 +19,7 @@ This is the repository for code to reproduce simulation results in the paper tit
 [`AB_MSE`](https://github.com/wxwx1993/GPSmatching/tree/master/SimulationCode/AB_MSE) contains the code to calculate the absolute bias and root mean squared error (RMSE) for the matching estimator and estimators from altenative approaches. It will generate Table 1, and Table S.4, 6-7.
 
 ## The R package for the manuscript "Matching on generalized propensity scores with continuous exposures".
-[`CausalGPS`](https://github.com/NSAPH-Software/CausalGPS/tree/develop) is an R package that implements a collection of algorithms to provide end-to-end solutions for causal inference with continuous exposures. As the core of the \textbf{CausalGPS} package, it implements the proposed GPS matching approach.
+[`CausalGPS`](https://github.com/NSAPH-Software/CausalGPS/tree/develop) is an R package that implements a collection of algorithms to provide end-to-end solutions for causal inference with continuous exposures. As the core of the \textbf{CausalGPS} package, it provides computationally efficient implementations of the proposed GPS matching approach. Much of the simulation code has been incorporated into the CausalGPS package.
 
 ## Installation
 
