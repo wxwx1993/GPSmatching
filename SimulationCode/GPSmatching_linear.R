@@ -19,9 +19,7 @@ matching.fun.dose.l1.caliper2 <- function(dataset,
                                           scale)
 {
   ## cosmetic changes only
-  #p.a <- dnorm(a,mean = predict(GPS_mod,dataset),sd=summary(GPS_mod)[["sigma"]])
   p.a <- dnorm(a,mean = predict(GPS_mod, dataset),sd=summary(GPS_mod)[["sigma"]])
-  #p.a <- dnorm(a, mean = e_gps_pred, sd = (e_gps_std_pred))
   ## calculate min and max once, cache result
   treat.min <- min(dataset[["treat"]],na.rm=T)
   treat.max <- max(dataset[["treat"]],na.rm=T)
