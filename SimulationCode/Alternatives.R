@@ -8,7 +8,7 @@ library("gam")
 require(KernSmooth)
 library("CBPS")
 
-##### Adjustement approach, including GPS as covariates
+##### Adjustment approach, including GPS as covariates
 GPScova.fun.dose<-function(e_gps_pred,
                            e_gps_std_pred,
                            w_resid,
