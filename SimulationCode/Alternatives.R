@@ -7,7 +7,8 @@ library("ranger")
 library("gam")
 require(KernSmooth)
 library("CBPS")
-#####including GPS as covariates
+
+##### Adjustement approach, including GPS as covariates
 GPScova.fun.dose<-function(e_gps_pred,
                            e_gps_std_pred,
                            w_resid,
@@ -45,7 +46,7 @@ run_sim_dose_cova<-function(Y,
 }
 
 
-##############IPTW, or call MSMs
+############## IPTW approach, or call MSMs
 IPW.fun.dose<-function(e_gps_pred,
                        e_gps_std_pred,
                        w_resid,
@@ -56,9 +57,7 @@ IPW.fun.dose<-function(e_gps_pred,
   p.a <- approx(density(w_resid,na.rm = TRUE)$x,density(w_resid,na.rm = TRUE)$y,xout=w_new,rule=2)$y
   data.a<-data.frame(cbind(treat=a))
   E.a<-predict(model,data.a)[[1]]
-  #E.a<-predict(model,data.a)
   
-  #E.a <- predict(model,data.frame(treat=a),weights =IPW)
   return(c(mean(E.a)))
 }
 
@@ -76,11 +75,8 @@ run_sim_dose_IPTW<-function(Y,
   
   Nm <- approx(density(treat,na.rm = TRUE)$x,density(treat,na.rm = TRUE)$y,xout=treat,rule=2)$y
   IPW<-Nm/(GPS)
-  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
   
   IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), obsWeights = IPW, SL.library=c("SL.xgboost","SL.earth","SL.gam","SL.ranger"))
-  #IPTW_model<-SuperLearner(Y=Y, X= data.frame(treat), SL.library=sl.lib)
-  #IPTW_model<-lm(Y~treat+I(treat^2)+I(treat^3),weights=IPW)
   
   IPTW_data<- sapply(a.vals,
                      IPW.fun.dose,
@@ -124,7 +120,7 @@ run_sim_dose_IPTW_trim<-function(Y,
 }
 
 
-##############Kennedy
+############## DR approach, the following code were modified from ehkennedy/npcausal R package
 ctseff <- function(y,
                    a,
                    x, 
@@ -253,35 +249,7 @@ ctseff_trim <- function(y,
   return(est)
 }
 
-
-true_model<-function(i,data.generation=data.generate,outcome_sd=50,sample_size=2000,a.vals,gps_spec){
-  simulated.data<-data.generation(sample_size=sample_size,seed=i,outcome_sd=outcome_sd,gps_spec=gps_spec)
-  simulated.data$treat<-simulated.data$treat-20
-  true_model<-lm(Y~treat+I(treat^3)+(cf1 +cf4 + cf5 + I(cf3^2))*treat+cf1+cf2+cf3+cf4+cf5+cf6,simulated.data)
-  coefficients<-true_model$coefficients
-  true.noerror<-matrix(NA,nrow=length(a.vals),ncol=1)
-  for (a_i in a.vals){
-    true.noerror[(a_i-min(a.vals))+1]<-coefficients[1]+coefficients[7]+(coefficients[2]+coefficients[14])*(a_i-20)+coefficients[3]*(a_i-20)^3
-  }
-  return(true.noerror)
-}
-
-
-MSE_AB<-function(data.list, true.response){
-  
-  sim.diff <- lapply(1:length(data.list), function(j){
-      pred.response <- (data.list[[j]])
-      return(pred.response - true.response)
-    })
- 
-  DR.AB <- abs(rowMeans(apply(simplify2array(sim.diff), 1:2, mean)))
-  DR.MSE <- sqrt(rowMeans(apply(simplify2array(sim.diff)^2, 1:2, mean)))
-  
-  return(list(rbind(DR.AB,DR.MSE),c(mean(DR.AB),mean(DR.MSE))))
-}
-
-#
-##############CBPS
+############### CBPS approach
 CBPS.fun.dose<-function(a,
                         model = CBPS_model) {
   
@@ -312,4 +280,17 @@ run_sim_dose_CBPS<-function(Y,
                       model = CBPS_model)
   
   return(CBPS_data)
+}
+
+
+true_model<-function(i,data.generation=data.generate,outcome_sd=50,sample_size=2000,a.vals,gps_spec){
+  simulated.data<-data.generation(sample_size=sample_size,seed=i,outcome_sd=outcome_sd,gps_spec=gps_spec)
+  simulated.data$treat<-simulated.data$treat-20
+  true_model<-lm(Y~treat+I(treat^3)+(cf1 +cf4 + cf5 + I(cf3^2))*treat+cf1+cf2+cf3+cf4+cf5+cf6,simulated.data)
+  coefficients<-true_model$coefficients
+  true.noerror<-matrix(NA,nrow=length(a.vals),ncol=1)
+  for (a_i in a.vals){
+    true.noerror[(a_i-min(a.vals))+1]<-coefficients[1]+coefficients[7]+(coefficients[2]+coefficients[14])*(a_i-20)+coefficients[3]*(a_i-20)^3
+  }
+  return(true.noerror)
 }
