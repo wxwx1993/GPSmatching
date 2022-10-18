@@ -1,4 +1,3 @@
-#MAC_matched<-matrix(NA,nrow=20,ncol=6)
 library("parallel")
 library('wCorr')
 library("polycor")
@@ -18,10 +17,7 @@ balancing_IPTW<-function(Y,
   GPS <- approx(density(w_resid,na.rm = TRUE)$x,density(w_resid,na.rm = TRUE)$y,xout=w_resid,rule=2)$y
   
   Nm <- approx(density(treat,na.rm = TRUE)$x,density(treat,na.rm = TRUE)$y,xout=treat,rule=2)$y
-  IPW<-Nm/(GPS)
-  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
-  
-  
+  IPW<-Nm/(GPS)  
   
   IPTW_data<- cbind(treat,c,IPW)
   
@@ -115,7 +111,3 @@ cor_weighted_trim[seed_id,]<-abs(c(
 #plot(as.numeric(MAC_matched1[1,7:12]),type="l",ylim=c(0,0.5))
 #lines(as.numeric(MAC_matched1[4,1:6]),col="red")
 #lines(as.numeric(MAC_matched1[1,13:18]),col="blue")
-
-
-
-
