@@ -1,0 +1,121 @@
+#MAC_matched<-matrix(NA,nrow=20,ncol=6)
+library("parallel")
+library('wCorr')
+library("polycor")
+library(nnet)
+library("MASS")
+
+balancing_IPTW<-function(Y,
+                         treat,
+                         c,
+                         sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger")
+                         ){
+  e_gps <- SuperLearner(Y=treat, X=data.frame(c), SL.library=sl.lib)
+  e_gps_pred <- e_gps$SL.predict
+  e_gps_std <- SuperLearner(Y=abs(treat-e_gps_pred), X=c, SL.library=sl.lib)
+  e_gps_std_pred <- e_gps_std$SL.predict
+  w_resid <- (treat-e_gps_pred)/e_gps_std_pred
+  GPS <- approx(density(w_resid,na.rm = TRUE)$x,density(w_resid,na.rm = TRUE)$y,xout=w_resid,rule=2)$y
+  
+  Nm <- approx(density(treat,na.rm = TRUE)$x,density(treat,na.rm = TRUE)$y,xout=treat,rule=2)$y
+  IPW<-Nm/(GPS)
+  #if (sum(simulated.data$IPW>10)>0){simulated.data[which(simulated.data$IPW>10),]$IPW<-10}
+  
+  
+  
+  IPTW_data<- cbind(treat,c,IPW)
+  
+  return(IPTW_data)
+}
+
+MAC_matched_CV<-function(replicate, 
+                         scale, 
+                         spec=1,
+                         cova_spec=1,
+                         sample_size=1000,
+                         delta_n,
+                         sl.lib){
+cor_matched<-matrix(NA,nrow=replicate,ncol=6)
+cor_original<-matrix(NA,nrow=replicate,ncol=6)
+cor_weighted<-matrix(NA,nrow=replicate,ncol=6)
+cor_weighted_trim<-matrix(NA,nrow=replicate,ncol=6)
+for (seed_id in 1:replicate){
+  simulated_data <- data_generate(sample_size=sample_size,seed=seed_id,gps_spec= spec, cova_spec = cova_spec)
+  c <- simulated_data[,-c(1:2)]
+  treat <- as.vector(simulated_data[,"treat"])
+  treat_quantile = quantile(treat,c(0.05,0.95))
+  Y <- as.vector(simulated_data[,"Y"])
+  match_data = run_sim_dose_matching(Y=Y,
+                                     treat=treat,
+                                     c=c,
+                                     sl.lib=sl.lib,
+                                     delta_n = delta_n,
+                                     scale = scale)
+  
+  match_data<-subset(match_data, treat>= treat_quantile[1] & treat <= treat_quantile[2])
+  #matched.data$weights<-as.numeric(balancing.weights),])
+  match_data<-match_data[complete.cases(match_data),]
+  
+  simulated_data<-subset(simulated_data, treat>= treat_quantile[1] & treat <= treat_quantile[2])
+  
+  weight_data <- balancing_IPTW(Y,
+                                treat,
+                                c,
+                                sl.lib = sl.lib)
+  
+  weight_data<-subset(weight_data, treat>= treat_quantile[1] & treat <= treat_quantile[2])
+  
+  weight_data_trim <- weight_data
+  weight_data_trim$IPW[weight_data_trim$IPW>10] <- 10
+  
+  cor_original[seed_id,]<-c(abs(cor(simulated_data$treat,simulated_data$cf1,method = c("spearman"))),
+                           abs(cor(simulated_data$treat,simulated_data$cf2,method = c("spearman"))),
+                           abs(cor(simulated_data$treat,simulated_data$cf3,method = c("spearman"))),
+                           abs(polyserial(simulated_data$treat,simulated_data$cf4)),
+                           abs(cor(simulated_data$treat,simulated_data$cf5,method = c("spearman"))),
+                           abs(cor(simulated_data$treat,simulated_data$cf6,method = c("spearman"))))
+  
+  cor_matched[seed_id,]<-c(abs(cor(match_data$treat,match_data$cf1,method = c("spearman"))),
+                          abs(cor(match_data$treat,match_data$cf2,method = c("spearman"))),
+                          abs(cor(match_data$treat,match_data$cf3,method = c("spearman"))),
+                          abs(polyserial(match_data$treat,match_data$cf4)),
+                          abs(cor(match_data$treat,match_data$cf5,method = c("spearman"))),
+                          abs(cor(match_data$treat,match_data$cf6,method = c("spearman"))))
+  
+  cor_weighted[seed_id,]<-abs(c(
+    weightedCorr(weight_data$treat,weight_data$cf1,weights = weight_data$IPW,method = c("spearman")),
+    weightedCorr(weight_data$treat,weight_data$cf2,weights = weight_data$IPW,method = c("spearman")),
+    weightedCorr(weight_data$treat,weight_data$cf3,weights = weight_data$IPW,method = c("spearman")),
+    weightedCorr(weight_data$treat,weight_data$cf4,weights = weight_data$IPW,method = c("Polyserial")),
+    weightedCorr(weight_data$treat,weight_data$cf5,weights = weight_data$IPW,method = c("spearman")),
+    weightedCorr(weight_data$treat,weight_data$cf6,weights = weight_data$IPW,method = c("spearman"))))
+
+cor_weighted_trim[seed_id,]<-abs(c(
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf1,weights = weight_data_trim$IPW,method = c("spearman")),
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf2,weights = weight_data_trim$IPW,method = c("spearman")),
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf3,weights = weight_data_trim$IPW,method = c("spearman")),
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf4,weights = weight_data_trim$IPW,method = c("Polyserial")),
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf5,weights = weight_data_trim$IPW,method = c("spearman")),
+  weightedCorr(weight_data_trim$treat,weight_data_trim$cf6,weights = weight_data_trim$IPW,method = c("spearman"))))
+}
+  return(c(colMeans(cor_matched),colMeans(cor_original),colMeans(cor_weighted),colMeans(cor_weighted_trim)))
+}
+
+
+#MAC_matched1<-mclapply(seq(0.1,1,0.1),MAC_matched_CV,replicate=1,cova_spec=1,spec=6,sample_size=1000,delta_n=0.5,sl.lib = c("SL.xgboost","SL.earth","SL.gam","SL.ranger"),mc.cores=6)
+
+#MAC_matched1=do.call("rbind",MAC_matched1)
+
+#which.min(rowMeans(MAC_matched1[,1:6]))
+#rowMeans(MAC_matched1[,1:6])[which.min(rowMeans(MAC_matched1[,1:6]))]
+#rowMeans(MAC_matched1[,7:12])[which.min(rowMeans(MAC_matched1[,7:12]))]
+#rowMeans(MAC_matched1[,13:18])[which.min(rowMeans(MAC_matched1[,13:18]))]
+#
+#
+#plot(as.numeric(MAC_matched1[1,7:12]),type="l",ylim=c(0,0.5))
+#lines(as.numeric(MAC_matched1[4,1:6]),col="red")
+#lines(as.numeric(MAC_matched1[1,13:18]),col="blue")
+
+
+
+
