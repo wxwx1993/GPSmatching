@@ -85,10 +85,12 @@ plot(ps_pop_obj_1)
 set.seed(168)
 erf <- estimate_npmetric_erf(matched_Y = ps_pop_obj_1$pseudo_pop$Y,
                              matched_w = ps_pop_obj_1$pseudo_pop$w,
-                             matched_counter = NULL,
+                             matched_cw = ps_pop_obj_1$pseudo_pop$counter_weight,
                              bw_seq = seq(0.5,4,0.1),
                              w_vals = seq(7,13, 0.05),
                              nthread = 12)
+
+plot(erf)
 
 # pdf("example_1_erf.pdf")
 # plot(erf, gg_labs = c("PM2.5", "All-cause Mortality"),

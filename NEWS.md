@@ -5,6 +5,10 @@
 
 ### Changed
 
+* In `estimate_npmetric_erf`:
+  * `matched_Y` --> `m_Y`
+  * `matched_w` --> `m_w`
+  * `matched_cw` --> `counter_weight`
 * In `estimate_npmetric_erf` function, the `matched_cw` input is now mandatory. 
 * Internal kernel smoothing now uses `locpol::locpol` function.
 * The entire data set is trimmed based on trimming quantiles.

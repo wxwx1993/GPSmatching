@@ -5,20 +5,20 @@
 \title{Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.}
 \usage{
 estimate_npmetric_erf(
-  matched_Y,
-  matched_w,
-  matched_cw,
+  m_Y,
+  m_w,
+  counter_weight,
   bw_seq = seq(0.2, 2, 0.2),
   w_vals,
   nthread
 )
 }
 \arguments{
-\item{matched_Y}{A vector of outcome variable in the matched set.}
+\item{m_Y}{A vector of outcome variable in the matched set.}
 
-\item{matched_w}{A vector of continuous exposure variable in the matched set.}
+\item{m_w}{A vector of continuous exposure variable in the matched set.}
 
-\item{matched_cw}{A vector of counter or weight variable in the matched set.}
+\item{counter_weight}{A vector of counter or weight variable in the matched set.}
 
 \item{bw_seq}{A vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
@@ -32,8 +32,8 @@ The function returns a gpsm_erf object. The object includes the following
 attributes:
 \itemize{
 \item params
-\item matched_Y
-\item matched_w
+\item m_Y
+\item m_w
 \item bw_seq
 \item w_vals
 \item erf

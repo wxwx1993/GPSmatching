@@ -5,9 +5,9 @@
 #' Estimate smoothed exposure-response function (ERF) for matched and weighted
 #' data set using non-parametric models.
 #'
-#' @param matched_Y A vector of outcome variable in the matched set.
-#' @param matched_w A vector of continuous exposure variable in the matched set.
-#' @param matched_cw A vector of counter or weight variable in the matched set.
+#' @param m_Y A vector of outcome variable in the matched set.
+#' @param m_w A vector of continuous exposure variable in the matched set.
+#' @param counter_weight A vector of counter or weight variable in the matched set.
 #' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
 #' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
@@ -21,8 +21,8 @@
 #' attributes:
 #'
 #' - params
-#'  - matched_Y
-#'  - matched_w
+#'  - m_Y
+#'  - m_w
 #'  - bw_seq
 #'  - w_vals
 #' - erf
@@ -59,9 +59,9 @@
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
 #'
-estimate_npmetric_erf<-function(matched_Y,
-                                matched_w,
-                                matched_cw,
+estimate_npmetric_erf<-function(m_Y,
+                                m_w,
+                                counter_weight,
                                 bw_seq=seq(0.2,2,0.2),
                                 w_vals,
                                 nthread){
@@ -69,16 +69,16 @@ estimate_npmetric_erf<-function(matched_Y,
   # function call
   fcall <- match.call()
 
-  if (length(matched_Y) != length(matched_w)){
+  if (length(m_Y) != length(m_w)){
     stop("Length of output and treatment should be equal!")
   }
 
-  if (!is.double(matched_Y) || !is.double(matched_w)){
+  if (!is.double(m_Y) || !is.double(m_w)){
     stop("Output and treatment vectors should be double vectors.")
   }
 
-  if (sum(matched_cw == 0) == length(matched_cw)) {
-      matched_cw <- matched_cw + 1
+  if (sum(counter_weight == 0) == length(counter_weight)) {
+      counter_weight <- counter_weight + 1
       logger::log_debug("Giving equal weight for all samples.")
   }
 
@@ -100,9 +100,9 @@ estimate_npmetric_erf<-function(matched_Y,
   risk_val_1 <-  parallel::parLapply(cl,
                                      bw_seq,
                                      compute_risk,
-                                     matched_Y = matched_Y,
-                                     matched_w = matched_w,
-                                     matched_cw = matched_cw,
+                                     matched_Y = m_Y,
+                                     matched_w = m_w,
+                                     matched_cw = counter_weight,
                                      w_vals = w_vals)
 
   parallel::stopCluster(cl)
@@ -113,15 +113,15 @@ estimate_npmetric_erf<-function(matched_Y,
 
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
-  data <- data.frame(matched_Y = matched_Y, matched_w = matched_w)
-  tmp_loc <- locpol::locpol(formula = matched_Y~matched_w,
+  data <- data.frame(m_Y = m_Y, m_w = m_w)
+  tmp_loc <- locpol::locpol(formula = m_Y~m_w,
                             data = data,
                             bw = h_opt,
-                            weig = matched_cw,
+                            weig = counter_weight,
                             xeval = w_vals,
                             kernel = locpol::gaussK)
 
-  erf <- tmp_loc$lpFit$matched_Y
+  erf <- tmp_loc$lpFit$m_Y
 
   if (sum(is.na(erf)) > 0){
     logger::log_debug("erf has {sum(is.na(erf))} missing values.")
@@ -129,8 +129,8 @@ estimate_npmetric_erf<-function(matched_Y,
 
   result <- list()
   class(result) <- "gpsm_erf"
-  result$params$matched_Y <- matched_Y
-  result$params$matched_w <- matched_w
+  result$params$m_Y <- m_Y
+  result$params$m_w <- m_w
   result$params$bw_seq <- bw_seq
   result$params$w_vals <- w_vals
   result$risk_val <- risk_val
