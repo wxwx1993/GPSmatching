@@ -4,7 +4,7 @@
 \alias{smooth_erf}
 \title{Smooth exposure response function}
 \usage{
-smooth_erf(matched_Y, bw, matched_w)
+smooth_erf(matched_Y, bw, matched_w, matched_cw)
 }
 \arguments{
 \item{matched_Y}{A vector of the outcome variable in the matched set.}
@@ -12,6 +12,8 @@ smooth_erf(matched_Y, bw, matched_w)
 \item{bw}{The bandwidth value.}
 
 \item{matched_w}{A vector of continuous exposure variable in the matched set.}
+
+\item{matched_cw}{A vector of counter or weight variable in the matched set.}
 }
 \value{
 Smoothed value of ERF
