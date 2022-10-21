@@ -241,15 +241,16 @@ generate_pseudo_pop <- function(Y,
                                              optimized_compile = optimized_compile,
                                              ...)
 
+    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
     if (is.null(best_ach_covar_balance)){
-      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
     }
 
-    if (adjusted_corr_obj$corr_results$mean_absolute_corr < best_ach_covar_balance){
-      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+    if (getElement(adjusted_corr_obj$corr_results,covar_bl_t) < best_ach_covar_balance){
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
@@ -342,7 +343,7 @@ generate_pseudo_pop <- function(Y,
     message(paste('Covariate balance condition has not been met.'))
   }
 
-  message(paste("Best Mean absolute correlation: ", best_ach_covar_balance,
+  message(paste0("Best ",covar_bl_trs_type," absolute correlation: ", best_ach_covar_balance,
                 "| Covariate balance threshold: ", covar_bl_trs))
 
   result <- list()
