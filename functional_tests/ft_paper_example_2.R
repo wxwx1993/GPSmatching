@@ -49,7 +49,7 @@ data$region <- as.factor(data$region)
 
 log1 <- function(x){log(abs(x)+0.001)}
 
-set.seed(369)
+set.seed(238)
 set_logger(logger_level = "DEBUG")
 ps_pop_obj_1 <- generate_pseudo_pop(data$cms_mortality_pct,
                                     data$qd_mean_pm25,
@@ -70,7 +70,7 @@ ps_pop_obj_1 <- generate_pseudo_pop(data$cms_mortality_pct,
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type= "maximal",
-                                    max_attempt = 10,
+                                    max_attempt = 40,
                                     matching_fun = "matching_l1",
                                     delta_n = 0.1,
                                     scale = 1)
@@ -78,21 +78,21 @@ ps_pop_obj_1 <- generate_pseudo_pop(data$cms_mortality_pct,
 plot(ps_pop_obj_1)
 
 
-# pdf("example_2_1.pdf")
-# plot(ps_pop_obj_1)
-# dev.off()
+pdf("example_2_1.pdf")
+plot(ps_pop_obj_1)
+dev.off()
 
 set.seed(168)
-erf <- estimate_npmetric_erf(matched_Y = ps_pop_obj_1$pseudo_pop$Y,
-                             matched_w = ps_pop_obj_1$pseudo_pop$w,
-                             matched_cw = ps_pop_obj_1$pseudo_pop$counter_weight,
-                             bw_seq = seq(0.5,4,0.1),
+erf <- estimate_npmetric_erf(m_Y = ps_pop_obj_1$pseudo_pop$Y,
+                             m_w = ps_pop_obj_1$pseudo_pop$w,
+                             counter_weight = ps_pop_obj_1$pseudo_pop$counter_weight,
+                             bw_seq = seq(0.2,10,0.05),
                              w_vals = seq(7,13, 0.05),
                              nthread = 12)
 
-plot(erf)
+#plot(erf)
 
-# pdf("example_1_erf.pdf")
-# plot(erf, gg_labs = c("PM2.5", "All-cause Mortality"),
-#      gg_title = c("Exposure Response Curve"))
-# dev.off()
+pdf("example_2_erf.pdf")
+plot(erf, gg_labs = c("PM2.5", "All-cause Mortality"),
+     gg_title = c("Exposure Response Curve"))
+dev.off()

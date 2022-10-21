@@ -106,13 +106,16 @@ check_covar_balance <- function(w,
 
   post_process_abs <- function(abs_cor){
 
-    logger::log_debug(paste("Mean absolute correlation: ",
-                            abs_cor$mean_absolute_corr))
-    message(paste("Mean absolute correlation: ", abs_cor$mean_absolute_corr,
+    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+    logger::log_debug(paste0(covar_bl_trs_type,
+                            " absolute correlation: ",
+                            getElement(abs_cor,covar_bl_t)))
+    message(paste0(covar_bl_trs_type," absolute correlation: ",
+                  getElement(abs_cor,covar_bl_t),
                   "| Covariate balance threshold: ", covar_bl_trs))
 
     output <- list(corr_results = abs_cor)
-    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+
 
     if (getElement(abs_cor,covar_bl_t) < covar_bl_trs){
       output$pass <- TRUE
