@@ -1,10 +1,12 @@
 ## CausalGPS (development)
 
 ### Fixed
+
+* fixed a bug based on covariate balance threshold (#178, @naeemkh). 
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
-
+* The process now prints the progress message based on the selected thresholds.
 * In `estimate_npmetric_erf`:
   * `matched_Y` --> `m_Y`
   * `matched_w` --> `m_w`
