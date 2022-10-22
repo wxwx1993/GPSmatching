@@ -5,12 +5,12 @@ library("data.table")
 ########5000
 spec = 1
 
-data.name <- list.files("~/Dropbox/continuous GPS/Resubmission/Odessey/balance",
+data.name <- list.files("~/balance",
                         pattern = paste0("MAC_match5000gps_spec",spec,"cova_spec1"), full.names = FALSE)
 
 MAC5000<-list()
 for (i in 1:length(data.name)){
-  load(paste0("~/Dropbox/continuous GPS/Resubmission/Odessey/balance/",data.name[i]))
+  load(paste0("~/balance/",data.name[i]))
   MAC5000[[i]]<-MAC_matched.df
   assign( data.name[i],MAC_matched.df)
 }
@@ -35,20 +35,20 @@ num = 0
 for (i in c(1:6)){
 spec = i
 num = num + 1
-data.name <- list.files("~/Dropbox/continuous GPS/Resubmission/Odessey/balance",
+data.name <- list.files("~/balance",
                         pattern = paste0("MAC_match5000gps_spec",spec,"cova_spec1"), full.names = FALSE)
-data.name2 <- list.files("~/Dropbox/continuous GPS/JASA resubmission/Simulation/balance",
+data.name2 <- list.files("~/balance",
                         pattern = paste0("MAC_cbps5000gps_spec",spec,"cova_spec1"), full.names = FALSE)
 MAC5000<-list()
 MAC_cbps5000<-list()
 for (i in 1:length(data.name)){
-  load(paste0("~/Dropbox/continuous GPS/Resubmission/Odessey/balance/",data.name[i]))
+  load(paste0("~/balance/",data.name[i]))
   MAC5000[[i]]<-MAC_matched.df
   assign( data.name[i],MAC_matched.df)
   
 }
 
-load(paste0("~/Dropbox/continuous GPS/JASA resubmission/Simulation/balance/",data.name2))
+load(paste0("~/balance/",data.name2))
 
 MAC5000_df <- rbindlist(MAC5000)
 min.balance1<-which.min(rowMeans(MAC5000_df[,1:6]))

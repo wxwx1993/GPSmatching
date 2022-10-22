@@ -8,7 +8,7 @@ coverage5000<-NULL
 
 k = 1
 for (i in c(1:7)) {
-f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/200",
+f <- list.files("~/coverage/200",
                 pattern = paste0("\\coverage200gps_spec", i),
                 full.names = TRUE)
 
@@ -18,7 +18,7 @@ coverage200[k] <- mean(rowMeans(coverage, na.rm = TRUE))
 #median(rowMeans(coverage, na.rm = TRUE))
 
 # sim 1
-f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/1000",
+f <- list.files("~/coverage/1000",
                 pattern = paste0("\\coverage1000gps_spec", i),
                 full.names = TRUE)
 
@@ -27,7 +27,7 @@ coverage <- do.call("rbind",lapply(f, function(i) {
 coverage1000[k] <- mean(rowMeans(coverage, na.rm = TRUE))
 #median(rowMeans(coverage, na.rm = TRUE))
 
-f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/5000",
+f <- list.files("~/coverage/5000",
                 pattern = paste0("\\coverage5000gps_spec", i),
                 full.names = TRUE)
 
@@ -50,7 +50,7 @@ coverage5000<-NULL
 
 k = 1
 for (i in c(1:7)) {
-  f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/200_linear_m2",
+  f <- list.files("~/coverage/200_linear_m2",
                   pattern = paste0("\\coverage200gps_spec", i),
                   full.names = TRUE)
   
@@ -60,7 +60,7 @@ for (i in c(1:7)) {
   #median(rowMeans(coverage, na.rm = TRUE))
   
   # sim 1
-  f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/1000_linear_m2",
+  f <- list.files("~/coverage/1000_linear_m2",
                   pattern = paste0("\\coverage1000gps_spec", i),
                   full.names = TRUE)
   
@@ -69,7 +69,7 @@ for (i in c(1:7)) {
   coverage1000[k] <- mean(rowMeans(coverage, na.rm = TRUE))
   #median(rowMeans(coverage, na.rm = TRUE))
   
-  f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/5000_linear_m2",
+  f <- list.files("~/coverage/5000_linear_m2",
                   pattern = paste0("\\coverage5000gps_spec", i),
                   full.names = TRUE)
   
@@ -87,7 +87,7 @@ coverage_m<-NULL
 
 k = 1
 for (i in 1:8) {
-  f <- list.files("~/francesca dominici Dropbox/Xiao Wu/continuous GPS/JASA MajorRevision/Simulation/coverage/5000_linear_m",
+  f <- list.files("~/coverage/5000_linear_m",
                   pattern = paste0("\\coverage5000gps_spec1cova_spec1m", i),
                   full.names = TRUE)
   

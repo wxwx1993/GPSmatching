@@ -5,12 +5,12 @@ library("data.table")
 ########5000
 spec = 1
 
-data.name <- list.files("~/Dropbox/continuous GPS/JASA resubmission/Simulation/MSMD/",
+data.name <- list.files("~/MSMD/",
                         pattern = paste0("MSMD5000gps_spec",spec,"cova_spec1"), full.names = FALSE)
 
 MSMD5000<-list()
 for (i in 1:length(data.name)){
-  load(paste0("~/Dropbox/continuous GPS/JASA resubmission/Simulation/MSMD/",data.name[i]))
+  load(paste0("~/MSMD/",data.name[i]))
   MSMD5000 <- append(MSMD5000, MSMD_matched)
   #assign(data.name[i],MSMD_matched.df)
 }
@@ -38,11 +38,11 @@ num = 0
 for (i in c(1,7,3,4,5,6)){
   spec = i
   num = num + 1
-  data.name <- list.files("~/Dropbox/continuous GPS/JASA resubmission/Simulation/MSMD/",
+  data.name <- list.files("~/MSMD/",
                           pattern = paste0("MSMD5000gps_spec",spec,"cova_spec1"), full.names = FALSE)
   MSMD5000<-list()
   for (j in 1:length(data.name)){
-    load(paste0("~/Dropbox/continuous GPS/JASA resubmission/Simulation/MSMD/",data.name[j]))
+    load(paste0("~/MSMD/",data.name[j]))
     MSMD5000 <- append(MSMD5000, MSMD_matched)
     #assign(data.name[i],MSMD_matched.df)
   }
