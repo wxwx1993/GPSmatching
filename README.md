@@ -170,4 +170,4 @@ For more information about reporting bugs and contribution, please read the cont
 
 ## References
 
-1. Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018. Matching on generalized propensity scores with continuous exposures. arXiv preprint arXiv:1812.06575. (https://arxiv.org/abs/1812.06575)
+1. Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018. Matching on generalized propensity scores with continuous exposures. Journal of the American Statistical Association. (https://www.tandfonline.com/doi/full/10.1080/01621459.2022.2144737)
