@@ -10,6 +10,7 @@ library(ggplot2)
 #
 
 data("synthetic_us_2010", package = "CausalGPS")
+synthetic_us_2010$cdc_mean_bmi[synthetic_us_2010$cdc_mean_bmi > 9000] <- NA
 data <- synthetic_us_2010
 
 confounders   <- c("cs_poverty", "cs_hispanic", "cs_black", "cs_white",
@@ -68,9 +69,9 @@ ps_pop_obj_1 <- generate_pseudo_pop(data$cms_mortality_pct,
                                     delta_n = 0.1,
                                     scale = 1)
 
-pdf("example_1_1.pdf")
+#pdf("example_1_1.pdf")
 plot(ps_pop_obj_1)
-dev.off()
+#dev.off()
 
 ## Plotting GPS distribution
 
@@ -86,35 +87,28 @@ g1 <- g1 + xlab("PM2.5") + ylab("density")
 g1 <- g1 + theme_bw()
 plot(g1)
 
-pdf("example_1_1_gps_density.pdf")
+#pdf("example_1_1_gps_density.pdf")
 plot(g1)
-dev.off()
+#dev.off()
 
 ### Example 1-2: Use trimmed data and default values
 
-q1 <- stats::quantile(data$qd_mean_pm25,0.25)
-q2 <- stats::quantile(data$qd_mean_pm25,0.99)
-
-trimmed_data <- subset(data[stats::complete.cases(data) ,],
-                       qd_mean_pm25 <= q2  & qd_mean_pm25 >= q1)
-
 set.seed(172)
-ps_pop_obj_2 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
+ps_pop_obj_2 <- generate_pseudo_pop(data$cms_mortality_pct,
+                                    data$qd_mean_pm25,
+                                    data.frame(data[, confounders_s1,
                                                             drop=FALSE]),
                                     ci_appr = "matching",
-                                    pred_model = "sl",
                                     gps_model = "parametric",
                                     bin_seq = NULL,
-                                    trim_quantiles = c(0.0 ,
-                                                       1.0),
+                                    trim_quantiles = c(0.25 ,
+                                                       0.99),
                                     optimized_compile = TRUE,
                                     use_cov_transform = FALSE,
                                     sl_lib = c("m_xgboost"),
                                     params = list(xgb_nrounds=c(50),
                                                   xgb_eta=c(0.2)),
-                                    nthread = 6,
+                                    nthread = 12,
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type= "mean",
@@ -123,34 +117,33 @@ ps_pop_obj_2 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
                                     delta_n = 0.1,
                                     scale = 1)
 
-pdf("example_1_2.pdf")
+#pdf("example_1_2.pdf")
 plot(ps_pop_obj_2)
-dev.off()
+#dev.off()
 
 ### Example 1-3: Use trimmed data and search for the best params.
 # Takes 45 iteration to get 0.040 covariate balance
-set.seed(172)
-ps_pop_obj_3 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
+set.seed(637)
+ps_pop_obj_3 <- generate_pseudo_pop(data$cms_mortality_pct,
+                                    data$qd_mean_pm25,
+                                    data.frame(data[, confounders_s1,
+                                                      drop=FALSE]),
                                     ci_appr = "matching",
-                                    pred_model = "sl",
                                     gps_model = "parametric",
                                     bin_seq = NULL,
-                                    trim_quantiles = c(0.0,
-                                                       1.0),
+                                    trim_quantiles = c(0.25,
+                                                       0.99),
                                     optimized_compile = TRUE,
                                     use_cov_transform = FALSE,
                                     transformers = list("pow2","pow3"),
-                                    sl_lib = c("m_xgboost"),
+                                    sl_lib = c("m_xgboost", "m_ranger", "SL.earth"),
                                     params = list(xgb_nrounds=seq(10,50,1),
                                                   xgb_eta=seq(0.1,0.4,0.01)),
                                     nthread = 12,
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type= "maximal",
-                                    max_attempt = 100,
+                                    max_attempt = 40,
                                     matching_fun = "matching_l1",
                                     delta_n = 0.1,
                                     scale = 1)
@@ -162,80 +155,13 @@ dev.off()
 
 summary(ps_pop_obj_3)
 
-
-### Example 1-4: Similar to 1-3, but using the optimized values.
-set.seed(172)
-ps_pop_obj_4 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
-                                    ci_appr = "matching",
-                                    pred_model = "sl",
-                                    gps_model = "parametric",
-                                    bin_seq = NULL,
-                                    trim_quantiles = c(0.0,
-                                                       1.0),
-                                    optimized_compile = TRUE,
-                                    use_cov_transform = FALSE,
-                                    transformers = list("pow2","pow3"),
-                                    sl_lib = c("m_xgboost"),
-                                    params = list(xgb_nrounds=c(18),
-                                                  xgb_eta=c(0.22)),
-                                    nthread = 12,
-                                    covar_bl_method = "absolute",
-                                    covar_bl_trs = 0.1,
-                                    covar_bl_trs_type= "maximal",
-                                    max_attempt = 1,
-                                    matching_fun = "matching_l1",
-                                    delta_n = 0.1,
-                                    scale = 1)
-
-
-pdf("example_1_4.pdf")
-plot(ps_pop_obj_4)
-dev.off()
-
-summary(ps_pop_obj_4)
-
-########
-# example_1_5: Similar to the results of example_1_3 but with transformers.
-# Gets almost the same results.
-set.seed(172)
-ps_pop_obj_4 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
-                                    ci_appr = "matching",
-                                    pred_model = "sl",
-                                    gps_model = "parametric",
-                                    bin_seq = NULL,
-                                    trim_quantiles = c(0.0,
-                                                       1.0),
-                                    optimized_compile = TRUE,
-                                    use_cov_transform = TRUE,
-                                    transformers = list("pow2","pow3"),
-                                    sl_lib = c("m_xgboost"),
-                                    params = list(xgb_nrounds=seq(10,50,1),
-                                                  xgb_eta=seq(0.1,0.4,0.01)),
-                                    nthread = 12,
-                                    covar_bl_method = "absolute",
-                                    covar_bl_trs = 0.06,
-                                    covar_bl_trs_type= "maximal",
-                                    max_attempt = 100,
-                                    matching_fun = "matching_l1",
-                                    delta_n = 0.1,
-                                    scale = 1)
-
-
-
-#########
 # Exposure response function for example_1_4
 
 set.seed(168)
-erf <- estimate_npmetric_erf(matched_Y = ps_pop_obj_4$pseudo_pop$Y,
-                             matched_w = ps_pop_obj_4$pseudo_pop$w,
-                             matched_counter = ps_pop_obj_4$pseudo_pop$counter,
-                             bw_seq = seq(0.5,4,0.1),
+erf <- estimate_npmetric_erf(m_Y = ps_pop_obj_3$pseudo_pop$Y,
+                             m_w = ps_pop_obj_3$pseudo_pop$w,
+                             counter_weight = ps_pop_obj_3$pseudo_pop$counter_weight,
+                             bw_seq = seq(0.2,10,0.05),
                              w_vals = seq(7,13, 0.05),
                              nthread = 12)
 
@@ -243,3 +169,4 @@ pdf("example_1_erf.pdf")
 plot(erf, gg_labs = c("PM2.5", "All-cause Mortality"),
      gg_title = c("Exposure Response Curve"))
 dev.off()
+

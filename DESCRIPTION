@@ -30,7 +30,6 @@ Imports:
     SuperLearner,
     xgboost,
     gam,
-    KernSmooth,
     MASS,
     polycor,
     wCorr,
@@ -40,7 +39,7 @@ Imports:
     logger,
     Rcpp,
     gnm,
-    tidyr
+    locpol
 Encoding: UTF-8
 RoxygenNote: 7.2.1
 Suggests: 

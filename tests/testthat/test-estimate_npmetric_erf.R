@@ -24,6 +24,7 @@ test_that("estimate_npmetric_erf works as expected", {
 
   res <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                pseudo_pop$pseudo_pop$w,
+                               pseudo_pop$pseudo_pop$counter_weight,
                                bw_seq=seq(0.2,2,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
@@ -31,7 +32,7 @@ test_that("estimate_npmetric_erf works as expected", {
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)
   expect_equal(length(res$params$w_vals), length(res$erf))
-  expect_equal(res$risk_val[1], 44.8012, tolerance = 0.00001)
+  expect_equal(res$risk_val[1], 93.58676, tolerance = 0.00001)
 })
 
 
@@ -64,6 +65,7 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
 
   res <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                pseudo_pop$pseudo_pop$w,
+                               pseudo_pop$pseudo_pop$counter_weight,
                                bw_seq=seq(0.2,2,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
@@ -71,6 +73,6 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)
   expect_equal(length(res$params$w_vals), length(res$erf))
-  expect_equal(res$risk_val[1], 31.72577, tolerance = 0.00001)
+  expect_equal(res$risk_val[1], 80.8698, tolerance = 0.00001)
 
 })

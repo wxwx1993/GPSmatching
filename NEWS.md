@@ -1,10 +1,18 @@
 ## CausalGPS (development)
 
 ### Fixed
+
+* fixed a bug based on covariate balance threshold (#178, @naeemkh). 
 * `estimate_npmetric_erf` assigns user-defined log file.
 
 ### Changed
-
+* The process now prints the progress message based on the selected thresholds.
+* In `estimate_npmetric_erf`:
+  * `matched_Y` --> `m_Y`
+  * `matched_w` --> `m_w`
+  * `matched_cw` --> `counter_weight`
+* In `estimate_npmetric_erf` function, the `matched_cw` input is now mandatory. 
+* Internal kernel smoothing now uses `locpol::locpol` function.
 * The entire data set is trimmed based on trimming quantiles.
 * `earth` and `ranger` are not installed automatically. They can be installed manually if needed.
 * `sysdata.rda` is modified to reflect transition from `counter` and `ipw` to `counter_weight`
@@ -20,6 +28,7 @@ approaches. `counter` and `ipw` are dropped.
 
 ### Removed 
 
+* Dropped importing `KernSmooth` and `tidyr` packages. 
 * `pred_model` argument dropped. The package only predicts using SuperLearner.
 
 

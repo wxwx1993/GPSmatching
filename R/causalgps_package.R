@@ -21,7 +21,6 @@
 #' @import SuperLearner
 #' @import xgboost
 #' @import gam
-#' @import KernSmooth
 #' @import polycor
 #' @import wCorr
 #' @importFrom Rcpp sourceCpp
