@@ -50,8 +50,21 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread){
     stop('Expecting sc in [0,1] range.')
   }
 
+  if (sc != 1 ){
    c_minus_d <- abs(c-d)*(1-sc)
    wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc, nthread)
+  } else {
+   # sort b
+   original_data_index <- seq(1, length(a), 1)
+   sorted_a <- sort(a, decreasing = FALSE)
 
+   # keep the index
+   initial_a_order <- order(a, decreasing = FALSE)
+
+   # compute_closest
+   # return back index
+   sorted_value_index <- compute_closest_wgps_helper_no_sc(sorted_a, b, nthread)
+   wm <- initial_a_order[sorted_value_index]
+  }
    return(wm)
 }

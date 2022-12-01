@@ -114,6 +114,7 @@ generate_pseudo_pop <- function(Y,
   # Passing packaging check() ------------------------------
   max_attempt <- NULL
   covar_bl_trs <- NULL
+  covar_bl_trs_type <- NULL
 
   # Log system info
   log_system_info()
