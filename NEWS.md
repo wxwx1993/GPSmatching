@@ -25,6 +25,7 @@ approaches. `counter` and `ipw` are dropped.
 
 ### Added
 * `pseodo_pop` also includes covariate column names.
+* `compute_closest_wgps_helper_no_sc` is added to take care of the mostly used special case (scale = 1).
 
 ### Removed 
 

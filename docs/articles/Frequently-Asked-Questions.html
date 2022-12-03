@@ -221,6 +221,17 @@ different configurations can be considered.</p>
 <p>Yes. But any rows with missing values will be eliminated from the
 process.</p>
 </div>
+<div class="section level3">
+<h3 id="in-the-matching-approach-i-realized-computation-with-scale-1-is-faster-than-any-other-amount--is-that-correct">13) In the matching approach, I realized computation with
+<code>scale = 1</code> is faster than any other amount. Is that
+correct?<a class="anchor" aria-label="anchor" href="#in-the-matching-approach-i-realized-computation-with-scale-1-is-faster-than-any-other-amount--is-that-correct"></a>
+</h3>
+<p>That is correct. When the scale is 1, we compute the distance only
+based on GPS values. In this case, the algorithm will be simplified to a
+special case with the average time complexity of <span class="math inline">\(O(n.log(n))\)</span> instead of <span class="math inline">\(O(n^2)\)</span>. Please note that we still use the
+subset of data within the caliper boundary for matching purposes. As a
+result, the exposure level for matched data is in a valid range.</p>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
