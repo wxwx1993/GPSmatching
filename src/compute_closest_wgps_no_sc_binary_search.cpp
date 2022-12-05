@@ -25,7 +25,6 @@ IntegerVector compute_closest_wgps_no_sc_binary_search(NumericVector a,
 
   int size_a = a.size();
   int size_b = b.size();
-  int mid;
 
   IntegerVector out(size_b);
 
@@ -38,14 +37,13 @@ IntegerVector compute_closest_wgps_no_sc_binary_search(NumericVector a,
     double min_val = a[0] - b[i];
     if(min_val < 0){ min_val *= -1;}
     int min_index = 0;
-    double tmp_val;
 
     int left = 0;
     int right = size_a - 1;
 
     while (left <= right) {
-      mid = (left + right) / 2;
-      tmp_val = a[mid] - b[i];
+      int mid = (left + right) / 2;
+      double tmp_val = a[mid] - b[i];
       if (tmp_val < 0){tmp_val *= -1;}
       if (tmp_val < min_val){
         min_val = tmp_val;
