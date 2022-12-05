@@ -17,4 +17,8 @@ test_that("multiplication works", {
   expect_equal(val2[26],8)
   expect_equal(val2[30],8)
 
+
+  val3 <- compute_closest_wgps_no_sc_binary_search(a, b, nthread)
+  expect_true(identical(val2, val3))
+
 })
