@@ -121,5 +121,8 @@ summary.gpsm_pspop <- function(object, ...){
   cat("\n\n")
   cat(paste("Number of data samples: ", nrow(object$pseudo_pop), "\n"))
   cat(paste("Number of iterations: ", object$counter, "\n"))
+  cat("Effective sample size: \n")
+  cat(paste("  Achieved: ", object$ess, "\n"))
+  cat(paste("  Min recommended: ", object$ess_recommended, "\n"))
   cat("--- *** --- \n")
 }

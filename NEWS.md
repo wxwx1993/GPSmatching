@@ -24,6 +24,8 @@ approaches. `counter` and `ipw` are dropped.
 
 
 ### Added
+* `effect size` for the generated pseudo population is computed and reported.
+* Binary search approach is used when scale = 1.
 * `pseodo_pop` also includes covariate column names.
 * `compute_closest_wgps_helper_no_sc` is added to take care of the mostly used special case (scale = 1).
 

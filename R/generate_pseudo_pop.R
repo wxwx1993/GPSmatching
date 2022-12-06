@@ -70,6 +70,7 @@
 #' - original_corr_results
 #' - optimized_compile (True or False)
 #' - best_gps_used_params
+#' - effect size of generated pseudo population
 #'
 #' @export
 #' @examples
@@ -347,8 +348,27 @@ generate_pseudo_pop <- function(Y,
   message(paste0("Best ",covar_bl_trs_type," absolute correlation: ", best_ach_covar_balance,
                 "| Covariate balance threshold: ", covar_bl_trs))
 
+
+  # compute effective sample size
+  if (optimized_compile){
+  ess_recommended <- length(Y)/20
+  ess <- ((sum(best_pseudo_pop$counter_weight)^2)/
+          sum(best_pseudo_pop$counter_weight^2))
+    if (ess < ess_recommended){
+      logger::log_warn("Effective sample size is less than recommended.",
+                       "Current: {ess}, recommended min value:",
+                       " {ess_recommended}.")
+    }
+  } else {
+    ess <- NULL
+    ess_recommended <- NULL
+  }
+
+
   result <- list()
   class(result) <- "gpsm_pspop"
+
+
 
   result$params$ci_appr <- ci_appr
   result$params$params <- params
@@ -366,6 +386,8 @@ generate_pseudo_pop <- function(Y,
   result$optimized_compile <- optimized_compile
   result$best_gps_used_params <- best_gps_used_params
   result$covariate_cols_name <- unlist(covariate_cols)
+  result$ess <- ess
+  result$ess_recommended <- ess_recommended
 
   end_time_gpp <- proc.time()
 
