@@ -124,5 +124,17 @@ summary.gpsm_pspop <- function(object, ...){
   cat("Effective sample size: \n")
   cat(paste("  Achieved: ", object$ess, "\n"))
   cat(paste("  Min recommended: ", object$ess_recommended, "\n"))
+  cat("Kolmogorov-Smirnov (KS) statistics:")
+  if (is.null(object$ks_stats)){
+    cat("Was not computed.")
+  } else {
+    cat(paste("\n", " ", names(object$ks_stats$ks_stat), ":",
+              sprintf("%.3f",object$ks_stats$ks_stat)))
+    cat(paste("\n summary: \n",
+              "  mean:    ", sprintf("%.3f",object$ks_stats$stat_vals[["mean_val"]]), "\n",
+              "  median:  ", sprintf("%.3f",object$ks_stats$stat_vals[["median_val"]]), "\n",
+              "  maximal: ", sprintf("%.3f",object$ks_stats$stat_vals[["maximal_val"]]), "\n"
+    ))
+  }
   cat("--- *** --- \n")
 }

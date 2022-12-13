@@ -265,6 +265,7 @@ generate_pseudo_pop <- function(Y,
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
+      best_ks_stats <- ks_stats
     }
 
     if (getElement(adjusted_corr_obj$corr_results,covar_bl_t) < best_ach_covar_balance){
@@ -272,6 +273,7 @@ generate_pseudo_pop <- function(Y,
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
+      best_ks_stats <- ks_stats
     }
 
     if (adjusted_corr_obj$pass){
@@ -395,6 +397,7 @@ generate_pseudo_pop <- function(Y,
   result$pseudo_pop <- best_pseudo_pop
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
   result$original_corr_results <- original_corr_obj$corr_results
+  result$ks_stats <- best_ks_stats
   result$fcall <- fcall
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
@@ -404,6 +407,7 @@ generate_pseudo_pop <- function(Y,
   result$covariate_cols_name <- unlist(covariate_cols)
   result$ess <- ess
   result$ess_recommended <- ess_recommended
+
 
   end_time_gpp <- proc.time()
 
