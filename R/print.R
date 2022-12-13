@@ -126,7 +126,7 @@ summary.gpsm_pspop <- function(object, ...){
   cat(paste("  Min recommended: ", object$ess_recommended, "\n"))
   cat("Kolmogorov-Smirnov (KS) statistics:")
   if (is.null(object$ks_stats)){
-    cat("Was not computed.")
+    cat("\n  Not computed. \n")
   } else {
     cat(paste("\n", " ", names(object$ks_stats$ks_stat), ":",
               sprintf("%.3f",object$ks_stats$ks_stat)))
