@@ -1,4 +1,5 @@
 library("Ecume")
+library("CausalGPS")
 set.seed(422)
 n <- 4000
 mydata <- generate_syn_data(sample_size=n)
@@ -40,11 +41,4 @@ ks_stat <- lapply(1:(ncol(tmp_data)), function(i) {ks_test(as.numeric(tmp_data[,
                                                            w_x = rep(1, nrow(tmp_data)),
                                                            w_y = counter_weight)$statistic})
 
-for (i in seq(1, ncol(tmp_data))){
-  x_val <- as.numeric(tmp_data[,i])
-  y_val <- as.numeric(x_val)
-  ks_test(x = x_val,
-          y = y_val,
-          w_x = rep(1, nrow(tmp_data)),
-          w_y = counter_weight)$statistic
-}
+ks_stat <- unlist(ks_stat)

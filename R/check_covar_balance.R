@@ -86,13 +86,6 @@ check_covar_balance <- function(w,
   covar_bl_trs_type <- NULL
   # ------------------------------------------------------
 
-  # logger::log_debug("Expecting w to be a data.table. ",
-  #                   "type of w is: {class(w)}")
-  # logger::log_debug("Expecting c to be a data.table. ",
-  #                   "type of c is: {class(c)}")
-  # logger::log_debug("Expecting counter_weight to be a data.table.",
-  #                   "type of counter_weight is: {class(counter_weight)}")
-
   logger::log_debug("Started checking covariate balance ... ")
   s_ccb_t <- proc.time()
 
@@ -161,7 +154,6 @@ check_covar_balance <- function(w,
                                           c = c)
     return(post_process_abs(abs_cor))
   }
-
 
   stop(paste0("Input values for check_covar_balance are not correct.",
        " The code should not get here. Please inform the developers."))
