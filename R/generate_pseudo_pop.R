@@ -144,6 +144,12 @@ generate_pseudo_pop <- function(Y,
   covariate_cols <- as.list(colnames(c))
 
 
+  # Depreciation messages
+  if (!optimized_compile){
+    warning("optimized_compile = FALSE will be depreciated.",
+            call. = FALSE)
+  }
+
   # get trim quantiles and trim data
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
@@ -242,6 +248,16 @@ generate_pseudo_pop <- function(Y,
                                              nthread = nthread,
                                              optimized_compile = optimized_compile,
                                              ...)
+    # check Kolmogorov-Smirnov statistics
+    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
+                                         c = pseudo_pop[,
+                                                        unlist(covariate_cols),
+                                                        with = FALSE],
+                                         counter_weight = pseudo_pop[,
+                                                           c("counter_weight")],
+                                         ci_appr = ci_appr,
+                                         nthread = nthread,
+                                         optimized_compile = optimized_compile)
 
     covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
     if (is.null(best_ach_covar_balance)){
