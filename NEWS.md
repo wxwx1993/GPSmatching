@@ -24,6 +24,7 @@ approaches. `counter` and `ipw` are dropped.
 
 
 ### Added
+* Now `Kolmogorov-Smirnov(KS)` statistics are provided for the computed pseudo population.
 * `effect size` for the generated pseudo population is computed and reported.
 * Binary search approach is used when scale = 1.
 * `pseodo_pop` also includes covariate column names.
