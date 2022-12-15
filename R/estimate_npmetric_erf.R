@@ -7,7 +7,8 @@
 #'
 #' @param m_Y A vector of outcome variable in the matched set.
 #' @param m_w A vector of continuous exposure variable in the matched set.
-#' @param counter_weight A vector of counter or weight variable in the matched set.
+#' @param counter_weight A vector of counter or weight variable in the matched
+#' set.
 #' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
 #' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
@@ -36,7 +37,8 @@
 #' m_d <- generate_syn_data(sample_size = 200)
 #' pseudo_pop <- generate_pseudo_pop(m_d$Y,
 #'                                   m_d$treat,
-#'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                                   m_d[c("cf1","cf2","cf3",
+#'                                         "cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
 #'                                   pred_model = "sl",
 #'                                   sl_lib = c("m_xgboost"),

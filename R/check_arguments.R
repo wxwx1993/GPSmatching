@@ -6,8 +6,8 @@
 #' prediction models.
 #'
 #' @param ci_appr The causal inference approach.
-#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
-#' transforming.
+#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate
+#' balance transforming.
 #' @param transformers A list of transformers.
 #' @param ...  Additional named arguments passed.
 #'

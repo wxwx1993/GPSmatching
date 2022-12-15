@@ -17,8 +17,8 @@ check_args(
 \arguments{
 \item{ci_appr}{The causal inference approach.}
 
-\item{use_cov_transform}{A logical value (TRUE/FALSE) to use covariate balance
-transforming.}
+\item{use_cov_transform}{A logical value (TRUE/FALSE) to use covariate
+balance transforming.}
 
 \item{transformers}{A list of transformers.}
 

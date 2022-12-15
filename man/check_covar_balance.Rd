@@ -70,7 +70,8 @@ mydata$cf5 <- as.factor(mydata$cf5)
 
 pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                  mydata$treat,
-                                 mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                                 mydata[c("cf1","cf2","cf3","cf4","cf5",
+                                          "cf6","year","region")],
                                  ci_appr = "matching",
                                  pred_model = "sl",
                                  gps_model = "non-parametric",

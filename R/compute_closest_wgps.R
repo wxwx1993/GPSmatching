@@ -71,8 +71,9 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread){
                      " {(end_time_before - start_time_before)[[3]]} seconds.")
    # compute_closest
    # return back index
-   # sorted_value_index <- compute_closest_wgps_helper_no_sc(sorted_a, b, nthread)
-   sorted_value_index <- compute_closest_wgps_no_sc_binary_search(sorted_a, b, nthread)
+   sorted_value_index <- compute_closest_wgps_no_sc_binary_search(sorted_a,
+                                                                  b,
+                                                                  nthread)
    start_time_after <- proc.time()
    wm <- initial_a_order[sorted_value_index]
    end_time_after <- proc.time()
