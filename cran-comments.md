@@ -14,8 +14,12 @@ In this version upgrade we:
 - Renamed a couple of internal parameters for clarity and uniformity in the package. 
 - Fixed a bug on the covariate balance threshold.
 
-The package passes all tests and checks successfully.
+The package passes all tests and checks successfully. Here is a sample of test platforms and environments:
 
+- R version 4.2.2 (2022-10-31 ucrt), using platform: x86_64-w64-mingw32 (64-bit)
+- macOS 10.13.6 High Sierra, R-release, brewß
+- Oracle Solaris 10, x86, 32 bit, R-release
+- Debian Linux, R-devel, clang, ISO-8859-15 locale
 		
 
 Best regards,

@@ -66,6 +66,61 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.9" id="causalgps-029-2022-12-15">CausalGPS 0.2.9 (2022-12-15)<a class="anchor" aria-label="anchor" href="#causalgps-029-2022-12-15"></a></h2>
+<div class="section level3">
+<h3 id="fixed-0-2-9">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-9"></a></h3>
+<ul><li>fixed a bug based on covariate balance threshold (<a href="https://github.com/NSAPH-Software/CausalGPS/issues/178" class="external-link">#178</a>, <a href="https://github.com/naeemkh" class="external-link">@naeemkh</a>).</li>
+<li>
+<code>estimate_npmetric_erf</code> assigns user-defined log file.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-0-2-9">Changed<a class="anchor" aria-label="anchor" href="#changed-0-2-9"></a></h3>
+<ul><li>The process now prints the progress message based on the selected thresholds.</li>
+<li>In <code>estimate_npmetric_erf</code>:
+<ul><li>
+<code>matched_Y</code> –&gt; <code>m_Y</code>
+</li>
+<li>
+<code>matched_w</code> –&gt; <code>m_w</code>
+</li>
+<li>
+<code>matched_cw</code> –&gt; <code>counter_weight</code>
+</li>
+</ul></li>
+<li>In <code>estimate_npmetric_erf</code> function, the <code>matched_cw</code> input is now mandatory.</li>
+<li>Internal kernel smoothing now uses <code><a href="https://rdrr.io/pkg/locpol/man/locpol.html" class="external-link">locpol::locpol</a></code> function.</li>
+<li>The entire data set is trimmed based on trimming quantiles.</li>
+<li>
+<code>earth</code> and <code>ranger</code> are not installed automatically. They can be installed manually if needed.</li>
+<li>
+<code>sysdata.rda</code> is modified to reflect transition from <code>counter</code> and <code>ipw</code> to <code>counter_weight</code>
+</li>
+<li>
+<code>counter_weight</code> is used as a counter or weight, in <code>matching</code> or <code>weighting</code> approaches. <code>counter</code> and <code>ipw</code> are dropped.</li>
+<li>
+<code>sl_lib</code> becomes a required argument.</li>
+<li>The package has been transferred into NSAPH-Software Github account.</li>
+<li>Summary function of <code>gpsm_pspop</code> S3 object returns details of the adjusting process.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-0-2-9">Added<a class="anchor" aria-label="anchor" href="#added-0-2-9"></a></h3>
+<ul><li>Now <code>Kolmogorov-Smirnov(KS)</code> statistics are provided for the computed pseudo population.</li>
+<li>
+<code>effect size</code> for the generated pseudo population is computed and reported.</li>
+<li>Binary search approach is used when scale = 1.</li>
+<li>
+<code>pseodo_pop</code> also includes covariate column names.</li>
+<li>
+<code>compute_closest_wgps_helper_no_sc</code> is added to take care of the mostly used special case (scale = 1).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="removed-0-2-9">Removed<a class="anchor" aria-label="anchor" href="#removed-0-2-9"></a></h3>
+<ul><li>Dropped importing <code>KernSmooth</code> and <code>tidyr</code> packages.</li>
+<li>
+<code>pred_model</code> argument dropped. The package only predicts using SuperLearner.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.8" id="causalgps-028-2022-06-22">CausalGPS 0.2.8 (2022-06-22)<a class="anchor" aria-label="anchor" href="#causalgps-028-2022-06-22"></a></h2><p class="text-muted">CRAN release: 2022-06-22</p>
 <div class="section level3">
 <h3 id="fixed-0-2-8">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-2-8"></a></h3>
