@@ -369,7 +369,7 @@ generate_pseudo_pop <- function(Y,
 
   # compute effective sample size
   if (optimized_compile){
-  ess_recommended <- length(Y)/20
+  ess_recommended <- length(Y)/10
   ess <- ((sum(best_pseudo_pop$counter_weight)^2)/
           sum(best_pseudo_pop$counter_weight^2))
     if (ess < ess_recommended){
