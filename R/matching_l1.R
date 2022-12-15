@@ -79,8 +79,9 @@ matching_l1 <- function(w,
   dataset_subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n/2), ]
 
   if (nrow(dataset_subset) < 1){
-    logger:: log_warn(paste("There is no data to match with ", w, "in ", delta_n/2,
-                  " radius."))
+    logger:: log_warn(paste("There is no data to match with ", w, "in ",
+                            delta_n/2,
+                            " radius."))
     return(list())
   }
 

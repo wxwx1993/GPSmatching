@@ -77,7 +77,8 @@
 #' m_d <- generate_syn_data(sample_size = 100)
 #' pseuoo_pop <- generate_pseudo_pop(m_d$Y,
 #'                                   m_d$treat,
-#'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                                   m_d[c("cf1","cf2","cf3",
+#'                                         "cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
 #'                                   gps_model = "parametric",
 #'                                   bin_seq = NULL,
@@ -363,8 +364,9 @@ generate_pseudo_pop <- function(Y,
     message(paste('Covariate balance condition has not been met.'))
   }
 
-  message(paste0("Best ",covar_bl_trs_type," absolute correlation: ", best_ach_covar_balance,
-                "| Covariate balance threshold: ", covar_bl_trs))
+  message(paste0("Best ",covar_bl_trs_type," absolute correlation: ",
+                 best_ach_covar_balance,
+                 "| Covariate balance threshold: ", covar_bl_trs))
 
 
   # compute effective sample size

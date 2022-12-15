@@ -49,7 +49,8 @@ set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
       logger::log_threshold(logger_level)
 
     } else {
-      stop(paste("Logger level is not valid. Available levels: ", paste(available_levels, collapse = " ")))
+      stop(paste("Logger level is not valid. Available levels: ",
+                 paste(available_levels, collapse = " ")))
     }
   } else {
     logger::log_threshold(logger::INFO,index = 1)
