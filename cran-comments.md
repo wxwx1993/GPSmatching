@@ -1,3 +1,12 @@
+Re-submission (Dec 16, 2022)
+
+Thank you for taking the time to review the CausalGPS 0.2.9 package. I addressed the problem with the moved links (two cases). 
+
+Best regards, 
+Naeem Khoshnevis
+Harvard University
+Information Technology
+
 Submission (Dec 15, 2022)
 		
 Thank you for taking the time to review the CausalGPS 0.2.9 package.
