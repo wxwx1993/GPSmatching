@@ -20,9 +20,6 @@
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
-#' @param trim_quantiles A numerical vector of two. Represents the trim quantile
-#' level. Both numbers should be in the range of \[0,1] and in increasing order
-#' (default: c(0.01,0.99)).
 #' @param optimized_compile If TRUE, uses counts to keep track of number of
 #' replicated pseudo population.
 #' @param ... Additional parameters.
@@ -59,7 +56,6 @@
 #'                          gps_model = "parametric",
 #'                          bin_seq = NULL,
 #'                          nthread = 1,
-#'                          trim_quantiles = c(0.01, 0.99),
 #'                          optimized_compile=TRUE,
 #'                          matching_fun = "matching_l1",
 #'                          covar_bl_method = 'absolute',
@@ -69,12 +65,11 @@
 #'                          scale = 1)
 #'
 compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
-                               bin_seq, nthread, trim_quantiles,
+                               bin_seq, nthread,
                                optimized_compile, ...){
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr = ci_appr,
-                                trim_quantiles=trim_quantiles,
+  check_args_compile_pseudo_pop(ci_appr=ci_appr,
                                 optimized_compile=optimized_compile, ...)
 
   if (!(is.object(data_obj) && !isS4(data_obj))){
@@ -84,8 +79,6 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
   if (!(is.element("dataset",attributes(data_obj)$names))){
     stop("data_obj should have the required dataset field.")
   }
-
-
 
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(data_obj$dataset)}) ... ")
@@ -105,14 +98,9 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
                      " (Pseudo population data size: {nrow(weighted_set)})")
     return(weighted_set)
 
-  } else if (is.element(ci_appr, c('adjusting'))){
-
-    stop(paste(ci_appr, " casual inference approach is not implemented."))
-
   } else {
 
   stop(paste('The code should not get here.',
              'Something is wrong with checking arguments.'))
-
   }
 }

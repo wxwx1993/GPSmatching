@@ -8,10 +8,10 @@ estimate_gps(
   Y,
   w,
   c,
-  pred_model,
   gps_model = "parametric",
   internal_use = TRUE,
   params = list(),
+  sl_lib = c("m_xgboost"),
   nthread = 1,
   ...
 )
@@ -23,8 +23,6 @@ estimate_gps(
 
 \item{c}{A data frame of observed covariates variable.}
 
-\item{pred_model}{The selected prediction mode (e.g., "sl")}
-
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
 
@@ -34,6 +32,8 @@ will return original data + GPS values.}
 \item{params}{Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.}
 
+\item{sl_lib}{A vector of prediction algorithms.}
+
 \item{nthread}{An integer value that represents the number threads to be used
 in a shared memory system.}
 
@@ -42,8 +42,8 @@ in a shared memory system.}
 \value{
 The function returns a S3 object. Including the following:
 \itemize{
-\item Original data set + GPS, counter, row_index values (Y, w, GPS, counter,
-row_index, c)
+\item Original data set + GPS, counter, row_index values (Y, w, GPS,
+counter_weight, row_index, c)
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -62,15 +62,12 @@ be returned.
 
 The outcome variable is not used in estimating the GPS value. However, it is
 used in compiling the data set with GPS values.
-
-In case of using "sl" as prediction model, sl_lib input parameter is required.
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d$Y,
                               m_d$treat,
                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                              pred_model = "sl",
                               gps_model = "parametric",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),

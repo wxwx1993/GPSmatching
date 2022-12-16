@@ -55,4 +55,5 @@ test_that("compute_closest_wgps_helper works as expected.", {
   expect_equal(val2[13],2)
   expect_equal(val2[26],9)
   expect_equal(val2[30],7)
+
 })

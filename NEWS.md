@@ -1,3 +1,41 @@
+## CausalGPS 0.2.9 (2022-12-16)
+
+### Fixed
+
+* fixed a bug based on covariate balance threshold (#178, @naeemkh). 
+* `estimate_npmetric_erf` assigns user-defined log file.
+
+### Changed
+* The process now prints the progress message based on the selected thresholds.
+* In `estimate_npmetric_erf`:
+  * `matched_Y` --> `m_Y`
+  * `matched_w` --> `m_w`
+  * `matched_cw` --> `counter_weight`
+* In `estimate_npmetric_erf` function, the `matched_cw` input is now mandatory. 
+* Internal kernel smoothing now uses `locpol::locpol` function.
+* The entire data set is trimmed based on trimming quantiles.
+* `earth` and `ranger` are not installed automatically. They can be installed manually if needed.
+* `sysdata.rda` is modified to reflect transition from `counter` and `ipw` to `counter_weight`
+* `counter_weight` is used as a counter or weight, in `matching` or `weighting`
+approaches. `counter` and `ipw` are dropped.
+* `sl_lib` becomes a required argument.
+* The package has been transferred into NSAPH-Software Github account.
+* Summary function of `gpsm_pspop` S3 object returns details of the adjusting process. 
+
+
+### Added
+* Now `Kolmogorov-Smirnov(KS)` statistics are provided for the computed pseudo population.
+* `effect size` for the generated pseudo population is computed and reported.
+* Binary search approach is used when scale = 1.
+* `pseodo_pop` also includes covariate column names.
+* `compute_closest_wgps_helper_no_sc` is added to take care of the mostly used special case (scale = 1).
+
+### Removed 
+
+* Dropped importing `KernSmooth` and `tidyr` packages. 
+* `pred_model` argument dropped. The package only predicts using SuperLearner.
+
+
 ## CausalGPS 0.2.8 (2022-06-22)
 
 ### Fixed

@@ -54,43 +54,51 @@ generate_syn_data <- function(sample_size=1000, outcome_sd = 10,
 
   } else if (gps_spec == 2) {
 
-    treat <- ((- 0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ ,2] - 0.1 * cf[ ,3]
-              + 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + stats::rt(size,2))
+    treat <- ((- 0.8 + 0.1 * cf[ ,1] +
+                 0.1 * cf[ ,2] - 0.1 * cf[ ,3] +
+                 0.2 * cf[ ,4] + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 +
+                 stats::rt(size,2))
 
     treat[which(treat < (-5))] <- (-5)
     treat[which(treat > (25))] <- (25)
 
   } else if (gps_spec == 3) {
 
-    treat <- ((- 0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2]- 0.1 *cf[ ,3] + 0.2 * cf [ , 4]
-               + 0.1 * cf5 + 0.1 * cf6) * 9
-               + 1.5 * cf[ , 3] ^ 2 + stats::rnorm(size, mean = 0, 5) + 15)
+    treat <- ((- 0.8 + 0.1 * cf[ , 1] +
+                 0.1 * cf[ , 2]- 0.1 *cf[ ,3] +
+                 0.2 * cf [ , 4] +
+                 0.1 * cf5 + 0.1 * cf6) * 9 +
+                 1.5 * cf[ , 3] ^ 2 + stats::rnorm(size, mean = 0, 5) + 15)
 
   } else if (gps_spec == 4) {
 
     treat <- (49 * exp((-0.8 + 0.1 * cf[ ,1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))
             / (1 + exp((-0.8 + 0.1 * cf[,1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
-            + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))) - 6 + stats::rnorm(size, sd=5))
+            + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6))) - 6 +
+              stats::rnorm(size, sd=5))
 
   } else if (gps_spec == 5) {
 
-    treat <- (42 / (1 + exp((-0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2]- 0.1 * cf[ , 3]
-           + 0.2 * cf[,4] + 0.1 * cf5 + 0.1 * cf6))) - 18 + stats::rnorm(size,sd=5))
+    treat <- (42 / (1 + exp((-0.8 + 0.1 * cf[ , 1] +
+                              0.1 * cf[ , 2]- 0.1 * cf[ , 3]
+           + 0.2 * cf[,4] + 0.1 * cf5 + 0.1 * cf6))) - 18 +
+             stats::rnorm(size,sd=5))
 
   } else if (gps_spec == 6) {
 
     treat <- (log(abs(-0.8 + 0.1 * cf[ , 1] + 0.1 * cf[ , 2] - 0.1 * cf[ , 3]
-             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6)) * 7 + 13 + stats::rnorm(size,sd=4))
+             + 0.2 * cf[ , 4] + 0.1 * cf5 + 0.1 * cf6)) * 7 + 13 +
+               stats::rnorm(size,sd=4))
 
   } else if (gps_spec == 7) {
 
-    treat <- ((-0.8 + 0.1 * cf[,1] + 0.1 * cf[,2] - 0.1 * cf[,3] + 0.2 * cf[,4]
-             + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + stats::rt(size,2)) #+ rcauchy(size)
+    treat <- ((-0.8 + 0.1 * cf[,1] + 0.1 * cf[,2] - 0.1 * cf[,3] +
+                0.2 * cf[,4]
+              + 0.1 * cf5 + 0.1 * cf6) * 15 + 22 + stats::rt(size,2))
   } else {
 
     stop(paste("gps_spec: ", gps_spec, ", is not a valid value."))
-
   }
 
   #produce outcome Y

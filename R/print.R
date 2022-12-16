@@ -98,24 +98,58 @@ print.gpsm_pspop <- function(x, ...){
 #' @export
 summary.gpsm_pspop <- function(object, ...){
 
-  cat("CausalGPS pseudo population object summary\n")
-  cat_list <- function(input){
-    cat(paste("   size: ", length(input),
-              ", class: ", class(input),
-              ", missing value(s): ", sum(is.na(input)),
-              sep = ""))
-    if (is.numeric(input)){
-      cat(paste("\n   min: ", sprintf("%.3f", min(input, na.rm = TRUE)),
-                "\n   max: ", sprintf("%.3f", max(input, na.rm = TRUE)),
-                "\n   mean: ", sprintf("%.3f", mean(input, na.rm = TRUE)),
-                sep = ""))
-    }
+  cat("--- CausalGPS pseudo population object summary --- \n")
+  cat(paste("Pseudo population met the covariate balance requirement: ",
+            object$passed_covar_test, "\n"))
+  cat(paste("Absolute correlation of the original data: \n",
+            "  mean:    ", sprintf("%.3f",
+                                   object$original_corr_results$mean_absolute_corr),
+            "\n",
+            "  median:  ", sprintf("%.3f",
+                                   object$original_corr_results$median_absolute_corr),
+            "\n",
+            "  maximal: ", sprintf("%.3f",
+                                   object$original_corr_results$maximal_absolute_corr),
+            "\n"
+            ))
+  cat(paste("\n", names(object$original_corr_results$absolute_corr), ":",
+            sprintf("%.3f",object$original_corr_results$absolute_corr)))
+  cat(paste("\n\n Absolute correlation of the pseudo population: \n",
+            "  mean:    ", sprintf("%.3f",
+                                   object$adjusted_corr_results$mean_absolute_corr),
+            "\n",
+            "  median:  ", sprintf("%.3f",
+                                   object$adjusted_corr_results$median_absolute_corr),
+            "\n",
+            "  maximal: ", sprintf("%.3f",
+                                   object$adjusted_corr_results$maximal_absolute_corr),
+            "\n"
+  ))
+  cat(paste("\n", names(object$adjusted_corr_results$absolute_corr), ":",
+            sprintf("%.3f",object$adjusted_corr_results$absolute_corr)))
+  cat(paste("\n\n Hyperparameters used for the select population:"))
+  cat(paste("\n", names(object$best_gps_used_params), ":",
+            object$best_gps_used_params))
+  cat("\n\n")
+  cat(paste("Number of data samples: ", nrow(object$pseudo_pop), "\n"))
+  cat(paste("Number of iterations: ", object$counter, "\n"))
+  cat("Effective sample size: \n")
+  cat(paste("  Achieved: ", object$ess, "\n"))
+  cat(paste("  Min recommended: ", object$ess_recommended, "\n"))
+  cat("Kolmogorov-Smirnov (KS) statistics:")
+  if (is.null(object$ks_stats)){
+    cat("\n  Not computed. \n")
+  } else {
+    cat(paste("\n", " ", names(object$ks_stats$ks_stat), ":",
+              sprintf("%.3f",object$ks_stats$ks_stat)))
+    cat(paste("\n summary: \n",
+              "  mean:    ",
+              sprintf("%.3f",object$ks_stats$stat_vals[["mean_val"]]), "\n",
+              "  median:  ",
+              sprintf("%.3f",object$ks_stats$stat_vals[["median_val"]]), "\n",
+              "  maximal: ",
+              sprintf("%.3f",object$ks_stats$stat_vals[["maximal_val"]]), "\n"
+    ))
   }
-
-  object <- unclass(object)
-  for (item in names(object$pseudo_pop)){
-    cat(paste(" ", item, "\n"))
-    cat_list(object$pseudo_pop[[item]])
-    cat("\n")
-  }
+  cat("--- *** --- \n")
 }

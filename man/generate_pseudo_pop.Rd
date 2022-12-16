@@ -9,7 +9,6 @@ generate_pseudo_pop(
   w,
   c,
   ci_appr,
-  pred_model,
   gps_model = "parametric",
   use_cov_transform = FALSE,
   transformers = list("pow2", "pow3"),
@@ -17,6 +16,7 @@ generate_pseudo_pop(
   trim_quantiles = c(0.01, 0.99),
   optimized_compile = FALSE,
   params = list(),
+  sl_lib = c("m_xgboost"),
   nthread = 1,
   ...
 )
@@ -33,8 +33,6 @@ generate_pseudo_pop(
 \item "matching": Matching by GPS
 \item "weighting": Weighting by GPS
 }}
-
-\item{pred_model}{a prediction model (use "sl" for SuperLearner)}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
@@ -64,6 +62,8 @@ replicated pseudo population.}
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
 
+\item{sl_lib}{A vector of prediction algorithms.}
+
 \item{nthread}{An integer value that represents the number of threads to be
 used by internal packages.}
 
@@ -77,7 +77,6 @@ object includes the following objects:
 \item params
 \itemize{
 \item ci_appr
-\item pred_model
 \item params
 }
 \item pseudo_pop
@@ -85,6 +84,7 @@ object includes the following objects:
 \item original_corr_results
 \item optimized_compile (True or False)
 \item best_gps_used_params
+\item effect size of generated pseudo population
 }
 }
 \description{
@@ -126,33 +126,24 @@ values.
 }
 }
 
-\subsection{Prediction models (pred_model)}{
-\itemize{
-\item if pred_model = 'sl':
-\itemize{
-\item \emph{sl_lib}: A vector of prediction algorithms.
-}
-}
-}
-
 }
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
 pseuoo_pop <- generate_pseudo_pop(m_d$Y,
                                   m_d$treat,
-                                  m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                                  m_d[c("cf1","cf2","cf3",
+                                        "cf4","cf5","cf6")],
                                   ci_appr = "matching",
-                                  pred_model = "sl",
                                   gps_model = "parametric",
                                   bin_seq = NULL,
                                   trim_quantiles = c(0.01,0.99),
                                   optimized_compile = FALSE,
                                   use_cov_transform = FALSE,
                                   transformers = list(),
-                                  sl_lib = c("m_xgboost"),
                                   params = list(xgb_nrounds=c(10,20,30),
                                                 xgb_eta=c(0.1,0.2,0.3)),
+                                  sl_lib = c("m_xgboost"),
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,

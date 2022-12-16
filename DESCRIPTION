@@ -1,7 +1,7 @@
 Package: CausalGPS
 Type: Package
 Title: Matching on Generalized Propensity Scores with Continuous Exposures
-Version: 0.2.8
+Version: 0.2.9
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
@@ -21,18 +21,15 @@ Description: Provides a framework for estimating causal effects of a continuous
     arXiv preprint <arXiv:1812.06575>.
 License: GPL-3
 Language: en-US
-URL: https://github.com/fasrc/CausalGPS
-BugReports: https://github.com/fasrc/CausalGPS/issues
+URL: https://github.com/NSAPH-Software/CausalGPS
+BugReports: https://github.com/NSAPH-Software/CausalGPS/issues
 Copyright: Harvard University
 Imports: 
     parallel,
     data.table,
     SuperLearner,
     xgboost,
-    earth,
-    ranger,
     gam,
-    KernSmooth,
     MASS,
     polycor,
     wCorr,
@@ -42,13 +39,15 @@ Imports:
     logger,
     Rcpp,
     gnm,
-    tidyr
+    locpol,
+    Ecume
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Suggests: 
     covr,
     knitr,
     rmarkdown,
+    ranger,
     testthat
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

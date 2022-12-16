@@ -60,8 +60,6 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug("Started generating matched set ...")
     st_t_m <- proc.time()
 
-    #lfp <- get_options("logger_file_path")
-
     matched_set <-  lapply(bin_num,
                            matching_fun,
                            dataset=dataset$dataset,
@@ -120,7 +118,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
       added_count <- freq_table[["N"]]
       counter_tmp <- numeric(nrow(cp_original_data))
       counter_tmp[index_of_data] <- added_count
-      cp_original_data$counter <- counter_tmp
+      cp_original_data$counter_weight <- counter_tmp
     }
 
     e_comp_p <- proc.time()

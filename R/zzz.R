@@ -1,4 +1,3 @@
-
 .onLoad <- function(libname, pkgname){
 
   flogger <- logger::layout_glue_generator(format =

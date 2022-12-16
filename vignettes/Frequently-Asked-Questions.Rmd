@@ -1,0 +1,84 @@
+---
+title: "Frequently Asked Questions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{faq}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+### 1) How to define a new transformer? 
+
+Transformers are unary functions that are applied on the covariates. Here is an example of "to the power of 5".
+
+```{r, include = TRUE}
+pow5 <- function(x) {x^5}
+```
+Which you can pass it into the transformers list as `"pow5"`.
+
+### 2) Is the order of transformers important?
+
+The `gen_pseudo_pop` function tries transformers if the covariate balance test has not been met in the previous attempt. The covariate with the worst balance value will be chosen to apply a transformer. The first transformer from the list will be selected for this purpose. If the transformer has been used for this specific covariate, the next value will be selected. 
+
+### 3) How change the logger level?
+
+You can use `set_logger` function and set logger_level to one of "TRACE", "DEBUG", "INFO", "SUCCESS", "WARN", "ERROR", or"FATAL". In this package most of the internal information are logged in INFO and DEBUG level. If you need to see a new information in the .log file, please consider opening and issue [here](https://github.com/NSAPH-Software/CausalGPS/issues/).
+
+### 4) Is there any trade-off between number of CPU cores (nthread) and memory usage?
+
+We are using a spawning mechanism in multicore processing. Each worker processor gets a copy of the required data and libraries. In case of limited available memory and a large dataset, you can reduce the number of CPU cores (nthread) to fit the processing into your system. Following this recommendation, the processing time will increase; however, the memory usage will decrease.
+
+### 5) I am using macOS, however, I cannot see any performance increase with increasing number of threads (nthread).
+
+Many internal libraries (e.g., `XGBoost`) are dependent on OpenMP library for parallel computation. Please make sure that you have installed OpenMP library and configured it correctly. Please see the following links for more details:
+
+- [Installing data.table on macOS](https://github.com/Rdatatable/data.table/wiki/Installation/)  
+- [Installing XGBoost on macOS ](https://xgboost.readthedocs.io/en/latest/install.html#r/)  
+ 
+### 6) I am running the package on HPC; however, I think the package is using only one core. 
+
+In order to activate OpenMP on HPC, you need to load the required modules. For example, if you are using SLURM on Cannon at Harvard University, you need to load the intel module.
+
+```sh
+module load intel/19.0.5-fasrc01
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+```
+
+Please read more [here](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP/).
+
+### 7) What is the `counter_weight` column in the pseudo population? 
+
+Both matching and weighting approaches find a combination of the original data set to pass the covariate balance test. In the case of matching, the package uses a different number of data samples. Some data samples are never used; hence their `counter_weight` value is 0. These data samples are probably far from the common support area, or the resolution for `w` is not fine enough. In the case of weighting, this is the inverse probability of getting exposure. In the old versions (before `ver0.2.9`), this column was counter in the matching approach and `ipw` in the weighting approach, respectively.  
+
+### 8) Is there a public data set that I can test my model?
+
+One can either generate synthetic data using `generate_syn_data()` function, or use `synthetic_us_2010` data that comes with the package. Other datasets are mostly L3 data and cannot be shared with the public. 
+
+### 9) Can a data sample match with itself?
+
+This question is commonly asked by researchers coming from matching with binary exposures. In the CausalGPS package (and the algorithm), for each exposure level and for each data sample, we generate a new data sample that poses the requested exposure level; however, it has a different GPS value. We find the closest original data (in terms of w and GPS) to the generated pseudo-data sample. So data are matched for the requested exposure level, not based on each original data sample. Therefore in the context of the CausalGPS package, it is not a correct question.
+
+### 10) Where can I get the code?
+
+The most updated version is under `NSAPH-Software/develop` branch and the latest release is under `NSAPH-Software/master` branch.
+
+### 11) How does trimming work?
+
+The `generate_pseudo_pop()` function trims the entire data based on the trimming quantiles. All other processes (e.g., estimating gps, compiling pseudo population, matching, weighting, ...) use the trimmed data. Trimming data is an open research question, and many different configurations can be considered. 
+
+### 12) Can I use a data with missing value?
+
+Yes. But any rows with missing values will be eliminated from the process. 
+
+### 13) In the matching approach, I realized computation with `scale = 1` is faster than any other amount. Is that correct?
+
+That is correct. When the scale is 1, we compute the distance only based on GPS values.   In this case, the algorithm will be simplified to a special case with the average time complexity of $O(n.log(n))$ instead of $O(n^2)$. Please note that we still use the subset of data within the caliper boundary for matching purposes. As a result, the exposure level for matched data is in a valid range.
+
+

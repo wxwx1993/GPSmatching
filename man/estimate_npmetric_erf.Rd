@@ -5,20 +5,21 @@
 \title{Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.}
 \usage{
 estimate_npmetric_erf(
-  matched_Y,
-  matched_w,
-  matched_counter = NULL,
+  m_Y,
+  m_w,
+  counter_weight,
   bw_seq = seq(0.2, 2, 0.2),
   w_vals,
   nthread
 )
 }
 \arguments{
-\item{matched_Y}{A vector of outcome variable in the matched set.}
+\item{m_Y}{A vector of outcome variable in the matched set.}
 
-\item{matched_w}{A vector of continuous exposure variable in the matched set.}
+\item{m_w}{A vector of continuous exposure variable in the matched set.}
 
-\item{matched_counter}{A vector of counter variable in the matched set.}
+\item{counter_weight}{A vector of counter or weight variable in the matched
+set.}
 
 \item{bw_seq}{A vector of bandwidth values (Default is seq(0.2,2,0.2)).}
 
@@ -32,8 +33,8 @@ The function returns a gpsm_erf object. The object includes the following
 attributes:
 \itemize{
 \item params
-\item matched_Y
-\item matched_w
+\item m_Y
+\item m_w
 \item bw_seq
 \item w_vals
 \item erf
@@ -45,7 +46,7 @@ Estimate smoothed exposure-response function (ERF) for matched and weighted
 data set using non-parametric models.
 }
 \details{
-Estimate Functions Using Local Polynomial kernel regression Package: ‘KernSmooth’.
+Estimate Functions Using Local Polynomial kernel regression.
 }
 \examples{
 
@@ -53,7 +54,8 @@ set.seed(697)
 m_d <- generate_syn_data(sample_size = 200)
 pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                   m_d$treat,
-                                  m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+                                  m_d[c("cf1","cf2","cf3",
+                                        "cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   pred_model = "sl",
                                   sl_lib = c("m_xgboost"),
@@ -71,7 +73,7 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
 
 erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
                                  pseudo_pop$pseudo_pop$w,
-                                 pseudo_pop$pseudo_pop$counter,
+                                 pseudo_pop$pseudo_pop$counter_weight,
                                  bw_seq=seq(0.2,2,0.2),
                                  w_vals = seq(2,20,0.5),
                                  nthread = 1)

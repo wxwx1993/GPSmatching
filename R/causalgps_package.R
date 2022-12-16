@@ -20,10 +20,7 @@
 #' @import data.table
 #' @import SuperLearner
 #' @import xgboost
-#' @import earth
-#' @import ranger
 #' @import gam
-#' @import KernSmooth
 #' @import polycor
 #' @import wCorr
 #' @importFrom Rcpp sourceCpp

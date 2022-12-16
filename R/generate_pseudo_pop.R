@@ -14,7 +14,6 @@
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#' @param pred_model a prediction model (use "sl" for SuperLearner)
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
@@ -34,6 +33,7 @@
 #' replicated pseudo population.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
+#' @param sl_lib A vector of prediction algorithms.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
 #' @param ...  Additional arguments passed to different models.
@@ -57,9 +57,6 @@
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
-#' ### Prediction models (pred_model)
-#' - if pred_model = 'sl':
-#'   - *sl_lib*: A vector of prediction algorithms.
 #'
 #' @return
 #' Returns a pseudo population (gpsm_pspop) object that is generated
@@ -67,31 +64,31 @@
 #' object includes the following objects:
 #' - params
 #'   - ci_appr
-#'   - pred_model
 #'   - params
 #' - pseudo_pop
 #' - adjusted_corr_results
 #' - original_corr_results
 #' - optimized_compile (True or False)
 #' - best_gps_used_params
+#' - effect size of generated pseudo population
 #'
 #' @export
 #' @examples
 #' m_d <- generate_syn_data(sample_size = 100)
 #' pseuoo_pop <- generate_pseudo_pop(m_d$Y,
 #'                                   m_d$treat,
-#'                                   m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                                   m_d[c("cf1","cf2","cf3",
+#'                                         "cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
-#'                                   pred_model = "sl",
 #'                                   gps_model = "parametric",
 #'                                   bin_seq = NULL,
 #'                                   trim_quantiles = c(0.01,0.99),
 #'                                   optimized_compile = FALSE,
 #'                                   use_cov_transform = FALSE,
 #'                                   transformers = list(),
-#'                                   sl_lib = c("m_xgboost"),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                                 xgb_eta=c(0.1,0.2,0.3)),
+#'                                   sl_lib = c("m_xgboost"),
 #'                                   nthread = 1,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
@@ -105,7 +102,6 @@ generate_pseudo_pop <- function(Y,
                                 w,
                                 c,
                                 ci_appr,
-                                pred_model,
                                 gps_model = "parametric",
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
@@ -113,13 +109,14 @@ generate_pseudo_pop <- function(Y,
                                 trim_quantiles = c(0.01,0.99),
                                 optimized_compile = FALSE,
                                 params = list(),
+                                sl_lib = c("m_xgboost"),
                                 nthread = 1,
                                 ...){
 
   # Passing packaging check() ------------------------------
   max_attempt <- NULL
   covar_bl_trs <- NULL
-  # --------------------------------------------------------
+  covar_bl_trs_type <- NULL
 
   # Log system info
   log_system_info()
@@ -131,7 +128,7 @@ generate_pseudo_pop <- function(Y,
   fcall <- match.call()
 
   # Check arguments ----------------------------------------
-  check_args(pred_model,ci_appr, use_cov_transform, transformers,
+  check_args(ci_appr, use_cov_transform, transformers,
              gps_model, trim_quantiles, optimized_compile, ...)
 
   # Generate output set ------------------------------------
@@ -145,32 +142,53 @@ generate_pseudo_pop <- function(Y,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  # Compute original data absolute correlation
-  # The third column is reserved for gps, however, in covariate balance test we
-  # do not use gps values.
-  # The forth column is reserved for counter.
-  # The fifth column is reserved for row_index
-  # TODO: find a better place to the following code also see issue #67.
+  covariate_cols <- as.list(colnames(c))
 
+
+  # Depreciation messages
+  if (!optimized_compile){
+    warning("optimized_compile = FALSE will be depreciated.",
+            call. = FALSE)
+  }
+
+  # get trim quantiles and trim data
   q1 <- stats::quantile(w,trim_quantiles[1])
   q2 <- stats::quantile(w,trim_quantiles[2])
 
-  logger::log_debug("{trim_quantiles[1]*100}% qauntile for trim: {q1}")
+  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
-  tmp_data <- convert_data_into_standard_format(Y, w, c, q1, q2, ci_appr)
+  # Drop data with missing values
+  # Trim data based on quantiles.
+  tmp_data <- cbind(Y, w, c)
+  tmp_data <- tmp_data[stats::complete.cases(tmp_data),]
+  tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
 
-  original_corr_obj <- check_covar_balance(tmp_data, ci_appr, nthread,
-                                           optimized_compile, ...)
+  # Retrieve data.
+  Y <- tmp_data$Y
+  w <- tmp_data$w
+  c <- tmp_data[, unlist(covariate_cols)]
+
+  # generating temporal data to compute covariate
+  # balance based on trimmed data.
+  # tmp_data <- cbind(w, c)
+  # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
+  #                    w <= q2  & w >= q1)
+  tmp_data <- data.table(tmp_data)
+  original_corr_obj <- check_covar_balance(w = tmp_data[, c("w")],
+                                           c = tmp_data[, unlist(covariate_cols),
+                                                          with = FALSE],
+                                           counter_weight = NULL,
+                                           ci_appr = ci_appr,
+                                           nthread = nthread,
+                                           optimized_compile = optimized_compile,
+                                           ...)
   tmp_data <- NULL
+
+  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
-
-  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
-  #internal_use = TRUE
-
-  covariate_cols <- as.list(colnames(c))
 
   # transformed_vals is a list of lists. Each internal list's first element is
   # the column name and the rest is operands that is applied to it.
@@ -188,8 +206,10 @@ generate_pseudo_pop <- function(Y,
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
-                                     pred_model, gps_model,
-                                     params = params, nthread = nthread,
+                                     gps_model,
+                                     params = params,
+                                     sl_lib = sl_lib,
+                                     nthread = nthread,
                                      internal_use = internal_use, ...)
     gps_used_params <- estimate_gps_out$used_params
     logger::log_debug("Finished estimating gps.")
@@ -207,40 +227,54 @@ generate_pseudo_pop <- function(Y,
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
-    ## Compile data ---------
+    ## Compile data -------------------------------
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
                                      ci_appr = ci_appr,
                                      gps_model = gps_model,
                                      bin_seq = bin_seq,
                                      nthread = nthread,
-                                     trim_quantiles = trim_quantiles,
                                      optimized_compile = optimized_compile,...)
     # trim pseudo population
-    pseudo_pop <- subset(pseudo_pop[stats::complete.cases(pseudo_pop) ,],
-                         w <= q2  & w >= q1)
     logger::log_debug("Finished compiling pseudo population.")
 
-    if (ci_appr == 'adjust'){
-      # No covariate balance test for the 'adjust' causal inference approach.
-      break
-    }
     # check covariate balance
-    adjusted_corr_obj <- check_covar_balance(pseudo_pop, ci_appr, nthread,
-                                             optimized_compile, ...)
+    adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
+                                             c = pseudo_pop[,
+                                                            unlist(covariate_cols),
+                                                            with = FALSE],
+                                             counter_weight = pseudo_pop[,
+                                                           c("counter_weight")],
+                                             ci_appr = ci_appr,
+                                             nthread = nthread,
+                                             optimized_compile = optimized_compile,
+                                             ...)
+    # check Kolmogorov-Smirnov statistics
+    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
+                                         c = pseudo_pop[,
+                                                        unlist(covariate_cols),
+                                                        with = FALSE],
+                                         counter_weight = pseudo_pop[,
+                                                           c("counter_weight")],
+                                         ci_appr = ci_appr,
+                                         nthread = nthread,
+                                         optimized_compile = optimized_compile)
 
+    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
     if (is.null(best_ach_covar_balance)){
-      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
+      best_ks_stats <- ks_stats
     }
 
-    if (adjusted_corr_obj$corr_results$mean_absolute_corr < best_ach_covar_balance){
-      best_ach_covar_balance <- adjusted_corr_obj$corr_results$mean_absolute_corr
+    if (getElement(adjusted_corr_obj$corr_results,covar_bl_t) < best_ach_covar_balance){
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
+      best_ks_stats <- ks_stats
     }
 
     if (adjusted_corr_obj$pass){
@@ -330,14 +364,33 @@ generate_pseudo_pop <- function(Y,
     message(paste('Covariate balance condition has not been met.'))
   }
 
-  message(paste("Best Mean absolute correlation: ", best_ach_covar_balance,
-                "| Covariate balance threshold: ", covar_bl_trs))
+  message(paste0("Best ",covar_bl_trs_type," absolute correlation: ",
+                 best_ach_covar_balance,
+                 "| Covariate balance threshold: ", covar_bl_trs))
+
+
+  # compute effective sample size
+  if (optimized_compile){
+  ess_recommended <- length(Y)/10
+  ess <- ((sum(best_pseudo_pop$counter_weight)^2)/
+          sum(best_pseudo_pop$counter_weight^2))
+    if (ess < ess_recommended){
+      logger::log_warn("Effective sample size is less than recommended.",
+                       "Current: {ess}, recommended min value:",
+                       " {ess_recommended}.")
+    }
+  } else {
+    ess <- NULL
+    ess_recommended <- NULL
+  }
+
 
   result <- list()
   class(result) <- "gpsm_pspop"
 
+
+
   result$params$ci_appr <- ci_appr
-  result$params$pred_model <- pred_model
   result$params$params <- params
   for (item in arg_names){
     result$params[[item]] <- get(item)
@@ -346,12 +399,17 @@ generate_pseudo_pop <- function(Y,
   result$pseudo_pop <- best_pseudo_pop
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
   result$original_corr_results <- original_corr_obj$corr_results
+  result$ks_stats <- best_ks_stats
   result$fcall <- fcall
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
   result$optimized_compile <- optimized_compile
   result$best_gps_used_params <- best_gps_used_params
+  result$covariate_cols_name <- unlist(covariate_cols)
+  result$ess <- ess
+  result$ess_recommended <- ess_recommended
+
 
   end_time_gpp <- proc.time()
 

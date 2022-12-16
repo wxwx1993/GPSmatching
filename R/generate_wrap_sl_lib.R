@@ -77,6 +77,15 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                       " min_child_weight: {xgb_min_child_weight}.")
 
   } else if (lib_name == "m_ranger"){
+
+    if (!requireNamespace("ranger", quietly = TRUE)) {
+      stop(
+        "Package \"ranger\" must be installed to use this function.",
+        call. = FALSE
+      )
+    }
+
+
     rgr_default_params = list("rgr_num.trees"=500,
                               "rgr_write.forest"=TRUE,
                               "rgr_replace"=TRUE,
@@ -124,7 +133,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     )
 
   } else {
-    message(paste(lib_name, " will be used by SuperLearner's default arguements."))
+    message(paste(lib_name, " will be used by SuperLearner's default arguments."))
     return(list(FALSE))
   }
 

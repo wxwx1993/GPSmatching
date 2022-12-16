@@ -1,10 +1,10 @@
-# CausalGPS  <a href="https://fasrc.github.io/CausalGPS/"><img src="man/figures/png/causalgps_logo_01.png" align="right" width="120" /></a>
+# CausalGPS  <a href="https://NSAPH-Software.github.io/CausalGPS/"><img src="man/figures/png/causalgps_logo_01.png" align="right" width="120" /></a>
 
 <!-- badges: start -->
-[![R build status](https://github.com/fasrc/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions)
+[![R build status](https://github.com/NSAPH-Software/CausalGPS/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/NSAPH-Software/CausalGPS/actions)
 [![](https://www.r-pkg.org/badges/version-last-release/CausalGPS)](https://cran.r-project.org/package=CausalGPS)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/CausalGPS)](http://www.r-pkg.org/pkg/causalgps)
-[![codecov](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/fasrc/CausalGPS/)
+[![codecov](https://codecov.io/gh/NSAPH-Software/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/NSAPH-Software/CausalGPS/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/NSAPH/R_project_binder/master?urlpath=rstudio)
 <!-- badges: end -->
 

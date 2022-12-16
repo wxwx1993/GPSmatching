@@ -50,8 +50,35 @@ compute_closest_wgps <- function(a, b, c, d, sc, nthread){
     stop('Expecting sc in [0,1] range.')
   }
 
+  logger::log_trace("Size of subset of data: {length(a)}")
+
+  if (sc != 1 ){
    c_minus_d <- abs(c-d)*(1-sc)
    wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc, nthread)
+  } else {
+   logger::log_trace("Simplified approach was selected in matching.")
 
+   start_time_before <- proc.time()
+
+   # sort b
+   original_data_index <- seq(1, length(a), 1)
+   sorted_a <- sort(a, decreasing = FALSE)
+
+   # keep the index
+   initial_a_order <- order(a, decreasing = FALSE)
+   end_time_before <- proc.time()
+   logger::log_trace("Wall clock time to sort and order:",
+                     " {(end_time_before - start_time_before)[[3]]} seconds.")
+   # compute_closest
+   # return back index
+   sorted_value_index <- compute_closest_wgps_no_sc_binary_search(sorted_a,
+                                                                  b,
+                                                                  nthread)
+   start_time_after <- proc.time()
+   wm <- initial_a_order[sorted_value_index]
+   end_time_after <- proc.time()
+   logger::log_trace("Wall clock time to reproduce original index:",
+                     " {(end_time_after - start_time_after)[[3]]} seconds.")
+  }
    return(wm)
 }

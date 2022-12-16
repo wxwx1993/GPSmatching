@@ -4,7 +4,7 @@ This folder documents the required steps in working with Docker and Singularity 
 
 ## Singularity
 
-Topics related to the Singularity image are documented under [Singularity](https://fasrc.github.io/CausalGPS/articles/Singularity-Image.html) vignette. 
+Topics related to the Singularity image are documented under [Singularity](https://NSAPH-Software.github.io/CausalGPS/articles/Singularity-Image.html) vignette. 
 
 ## Docker
 

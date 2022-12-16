@@ -4,7 +4,7 @@
 | Resource    |  Github Actions      |  Code Coverage  |
 | ----------  | -------------------- |-----------------|
 | Platforms   | Windows, macOS, Linux|  codecov        |
-| R CMD check | [![R build status](https://github.com/FASRC/CausalGPS/workflows/R-CMD-check/badge.svg)](https://github.com/fasrc/CausalGPS/actions) | [![codecov](https://codecov.io/gh/fasrc/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/fasrc/CausalGPS/) |
+| R CMD check | [![R build status](https://github.com/NSAPH-Software/CausalGPS/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/NSAPH-Software/CausalGPS/actions) | [![codecov](https://codecov.io/gh/NSAPH-Software/CausalGPS/branch/develop/graph/badge.svg?token=97PCUXRGXH)](https://app.codecov.io/gh/NSAPH-Software/CausalGPS/) |
 
 Matching on generalized propensity scores with continuous exposures
 
@@ -18,7 +18,7 @@ An R package for implementing matching on generalized propensity scores with con
 
 ```r
 library("devtools")
-install_github("fasrc/CausalGPS")
+install_github("NSAPH-Software/CausalGPS")
 library("CausalGPS")
 ```
 
@@ -42,7 +42,6 @@ Input parameters:
  **`ci_appr`** The causal inference approach. Possible values are:   
    - "matching": Matching by GPS   
    - "weighting": Weighting by GPS   
- **`pred_model`** a prediction model (use "sl" for SuperLearner)   
  **`gps_model`** Model type which is used for estimating GPS value, including
  parametric (default) and non-parametric.   
  **`use_cov_transform`** If TRUE, the function uses transformer to meet the
@@ -62,6 +61,7 @@ Input parameters:
  replicated pseudo population.   
  **`params`** Includes list of params that is used internally. Unrelated
   parameters will be ignored.   
+ **`sl_lib`**: A vector of prediction algorithms. 
  **`nthread`** An integer value that represents the number of threads to be
  used by internal packages.   
  **`...`**  Additional arguments passed to different models.
@@ -87,10 +87,6 @@ Input parameters:
    - *covar_bl_trs*: Covariate balance threshold   
    - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
    
-#### Prediction models (pred_model)   
- - if pred_model = 'sl':   
-   - *sl_lib*: A vector of prediction algorithms.   
-
 - Generating Pseudo Population
 
 ```r
@@ -98,7 +94,6 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   w,
                                   c,
                                   ci_appr = "matching",
-                                  pred_model = "sl",
                                   gps_model = "parametric",
                                   use_cov_transform = TRUE,
                                   transformers = list("pow2", "pow3"),
@@ -118,7 +113,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   scale = 1)
 
 ```
-`matching_l1` is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. User need to pass `sl` as `pred_model` to use SuperLearner package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+`matching_l1` is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
 
 | Package name | `sl_lib` name | prefix| available hyperparameters |
 |:------------:|:-------------:|:-----:|:-------------------------:|
@@ -133,7 +128,6 @@ pseudo_pop <- generate_pseudo_pop(Y,
 data_with_gps <- estimate_gps(Y,
                               w,
                               c,
-                              pred_model = "sl",
                               gps_model = "parametric",
                               internal_use = FALSE,
                               params = list(xgb_nrounds = 50,

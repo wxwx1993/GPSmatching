@@ -5,3 +5,11 @@ compute_closest_wgps_helper <- function(a, b, cd, sc, nthread) {
     .Call(`_CausalGPS_compute_closest_wgps_helper`, a, b, cd, sc, nthread)
 }
 
+compute_closest_wgps_helper_no_sc <- function(a, b, nthread) {
+    .Call(`_CausalGPS_compute_closest_wgps_helper_no_sc`, a, b, nthread)
+}
+
+compute_closest_wgps_no_sc_binary_search <- function(a, b, nthread) {
+    .Call(`_CausalGPS_compute_closest_wgps_no_sc_binary_search`, a, b, nthread)
+}
+

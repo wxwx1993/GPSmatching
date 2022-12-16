@@ -5,10 +5,9 @@
 #' Checks additional arguments that user needs to provide for different
 #' prediction models.
 #'
-#' @param pred_model The prediction model.
 #' @param ci_appr The causal inference approach.
-#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate balance
-#' transforming.
+#' @param use_cov_transform A logical value (TRUE/FALSE) to use covariate
+#' balance transforming.
 #' @param transformers A list of transformers.
 #' @param ...  Additional named arguments passed.
 #'
@@ -18,7 +17,7 @@
 #' @keywords internal
 #'
 #'
-check_args <- function(pred_model, ci_appr,
+check_args <- function(ci_appr,
                        use_cov_transform, transformers,
                        gps_model, trim_quantiles,
                        optimized_compile, ...){
@@ -39,10 +38,21 @@ check_args <- function(pred_model, ci_appr,
     assign(i,unlist(dot_args[i],use.names = FALSE))
   }
 
-  check_args_estimate_gps(pred_model, gps_model, ...)
+  # check for trimming values
+  if (!is.numeric(trim_quantiles)){
+    stop("trim_quantiles should be numeric values.")
+  }
+
+  if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
+      (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
+      (trim_quantiles[1] > trim_quantiles[2])){
+    stop(paste("trim_quntiles should be in the [0,1] range,",
+               " and the first quantile should be less than the second one."))
+  }
+
+  check_args_estimate_gps(gps_model, ...)
   check_args_generate_pseudo_pop(max_attempt = max_attempt)
   check_args_compile_pseudo_pop(ci_appr,
-                                trim_quantiles,
                                 optimized_compile, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
@@ -57,22 +67,23 @@ check_args <- function(pred_model, ci_appr,
 #' Checks estimate_gps function arguments to make sure that the required
 #' additional arguments are provided.
 #'
-#' @param pred_model The selected prediction model.
-#' @param ... Additional arguments to successfully run the selected pred_model.
+#' @param gps_model Model type which is used for estimating GPS value, including
+#' `parametric` and `non-parametric`.
+#' @param ... Additional arguments to successfully run the process.
 #'
 #' @return
 #' Returns True if passes all checks, successfully. Otherwise raises ERROR.
 #'
 #' @keywords internal
 #'
-check_args_estimate_gps <- function(pred_model, gps_model, ...){
+check_args_estimate_gps <- function(gps_model, ...){
 
   required_args <- NULL
 
   # checkpoint 1 -----------------------------------------
-  if (!is.element(pred_model, c('sl'))){
-    stop(paste(pred_model, " is not a valid prediction model."))
-  }
+  # if (!is.element(pred_model, c('sl'))){
+  #   stop(paste(pred_model, " is not a valid prediction model."))
+  # }
 
   if (!is.element(gps_model, c('parametric','non-parametric'))){
     stop(paste(gps_model, " is not a valide gps_model.",
@@ -80,9 +91,7 @@ check_args_estimate_gps <- function(pred_model, gps_model, ...){
   }
 
   # checkpoint 2 ------------------------------------------
-  if (pred_model == 'sl'){
-    required_args <- c(required_args, 'sl_lib')
-  }
+  # None
 
   # checkpoint 3 ------------------------------------------
   dot_args <- list(...)
@@ -129,7 +138,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #'
 #' @keywords internal
 #'
-check_args_compile_pseudo_pop <- function(ci_appr, trim_quantiles,
+check_args_compile_pseudo_pop <- function(ci_appr,
                                           optimized_compile, ...){
 
   # Passing packaging check() ----------------------------
@@ -144,17 +153,6 @@ check_args_compile_pseudo_pop <- function(ci_appr, trim_quantiles,
   #if (!is.element(ci_appr, c('matching','weighting','adjusting'))){
   if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
-  }
-
-  if (!is.numeric(trim_quantiles)){
-    stop("trim_quantiles should be numeric values.")
-  }
-
-  if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
-      (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
-      (trim_quantiles[1] > trim_quantiles[2])){
-    stop(paste("trim_quntiles should be in the [0,1] range,",
-               " and the first quantile should be less than the second one."))
   }
 
   if (!is.logical(optimized_compile)){

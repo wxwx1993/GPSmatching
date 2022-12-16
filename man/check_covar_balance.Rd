@@ -4,22 +4,30 @@
 \alias{check_covar_balance}
 \title{Check Covariate Balance}
 \usage{
-check_covar_balance(pseudo_pop, ci_appr, nthread = 1, optimized_compile, ...)
+check_covar_balance(
+  w,
+  c,
+  ci_appr,
+  optimized_compile,
+  counter_weight = NULL,
+  nthread = 1,
+  ...
+)
 }
 \arguments{
-\item{pseudo_pop}{The generated pseudo population. In the following format:
-\itemize{
-\item 1st column: outcome (Y)
-\item 2nd column: exposure (w)
-\item 3rd column: gps
-\item 4th column to the end: covariates (c)
-}}
+\item{w}{A vector of observed continuous exposure variable.}
+
+\item{c}{A data.frame of observed covariates variable.}
 
 \item{ci_appr}{The causal inference approach.}
 
-\item{nthread}{The number of available threads.}
-
 \item{optimized_compile}{If TRUE, use optimized compile approach.}
+
+\item{counter_weight}{A weight vector in different situations. If the
+matching approach is selected, it is an integer data.table of counters.
+In the case of the weighting approach, it is weight data.table.}
+
+\item{nthread}{The number of available threads.}
 
 \item{...}{Additional arguments passed to different models.}
 }
@@ -58,9 +66,12 @@ mydata$year <- as.factor(year)
 mydata$region <- as.factor(region)
 mydata$cf5 <- as.factor(mydata$cf5)
 
+
+
 pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                  mydata$treat,
-                                 mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+                                 mydata[c("cf1","cf2","cf3","cf4","cf5",
+                                          "cf6","year","region")],
                                  ci_appr = "matching",
                                  pred_model = "sl",
                                  gps_model = "non-parametric",
@@ -76,12 +87,16 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                  scale = 0.5,
                                  nthread = 1)
 
-adjusted_corr_obj <- check_covar_balance(pseudo_pop$pseudo_pop,
+adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
+                                        c = pseudo_pop$pseudo_pop[ ,
+                                        pseudo_pop$covariate_cols_name,
+                                         with=FALSE],
+                                        counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
                                         ci_appr="matching",
                                         nthread=1,
                                         covar_bl_method = "absolute",
                                         covar_bl_trs = 0.1,
                                         covar_bl_trs_type = "mean",
-                                        optimized_compile=FALSE)
+                                        optimized_compile=TRUE)
 
 }

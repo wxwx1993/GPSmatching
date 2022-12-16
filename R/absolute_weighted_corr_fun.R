@@ -21,8 +21,10 @@
 #' set.seed(639)
 #' n <- 100
 #' mydata <- generate_syn_data(sample_size=100)
-#' year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
-#' region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+#' year <- sample(x=c("2001","2002","2003","2004","2005"),size = n,
+#'  replace = TRUE)
+#' region <- sample(x=c("North", "South", "East", "West"),size = n,
+#'  replace = TRUE)
 #' mydata$year <- as.factor(year)
 #' mydata$region <- as.factor(region)
 #' mydata$cf5 <- as.factor(mydata$cf5)
@@ -35,7 +37,6 @@
 absolute_weighted_corr_fun <- function(w,
                                        vw,
                                        c){
-
 
   if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
   if (class(vw)[1] != "data.table"){stop("vw should be a data.table.")}

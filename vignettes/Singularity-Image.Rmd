@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 A Singularity image is an essential part of creating a reproducible container and, eventually, reproducible research. This section explains the steps to create a singularity definition file, build an image, and run a container. The two primary sources for further discussion and details include:
 
 - [Singularity Definition Files](https://docs.sylabs.io/guides/3.0/user-guide/definition_files.html)
-- [Rocker Project (Singularity)](https://www.rocker-project.org/use/singularity/)
+- [Rocker Project (Singularity)](https://rocker-project.org/use/singularity/)
 
 
 ### Setting up the environment
@@ -93,7 +93,7 @@ Now, you can run an R command. For example:
 
 ### Run a Rstudio Session
 
-You can also open an RStudio session in your browser by following these steps mentioned in [Rocker Project (Singularity)](https://www.rocker-project.org/use/singularity/).
+You can also open an RStudio session in your browser by following these steps mentioned in [Rocker Project (Singularity)](https://rocker-project.org/use/singularity/).
 
 ```r
 mkdir -p run var-lib-rstudio-server
