@@ -48,6 +48,7 @@ Suggests:
     knitr,
     rmarkdown,
     ranger,
+    earth,
     testthat
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
