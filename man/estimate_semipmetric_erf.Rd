@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_semipmetric_erf.R
 \name{estimate_semipmetric_erf}
 \alias{estimate_semipmetric_erf}
-\title{Estimate Semi-exposure-response Function (semi-ERF).}
+\title{Estimate semi-exposure-response function (semi-ERF).}
 \usage{
 estimate_semipmetric_erf(formula, family, data, ci_appr)
 }

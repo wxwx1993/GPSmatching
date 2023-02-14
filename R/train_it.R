@@ -14,8 +14,10 @@
 #'
 #' @keywords internal
 #'
-train_it <- function(target, input,
-                     sl_lib_internal=NULL, ...) {
+train_it <- function(target,
+                     input,
+                     sl_lib_internal = NULL,
+                     ...) {
 
   # Passing packaging check() ----------------------------
   sl_lib <- NULL
@@ -25,14 +27,13 @@ train_it <- function(target, input,
   arg_names <- names(dot_args)
 
   for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
   platform_os <- .Platform$OS.type
 
-  pr_mdl <- SuperLearner::SuperLearner(Y=target,
-                                       X=data.frame(input),
-                                       SL.library=sl_lib_internal)
+  pr_mdl <- SuperLearner::SuperLearner(Y = target,
+                                       X = data.frame(input),
+                                       SL.library = sl_lib_internal)
   return(pr_mdl)
-
 }

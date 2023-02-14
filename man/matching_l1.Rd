@@ -16,7 +16,7 @@ matching_l1(
   delta_n = 1,
   scale = 0.5,
   nthread = 1,
-  optimized_compile
+  optimized_compile = TRUE
 )
 }
 \arguments{

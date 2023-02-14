@@ -1,5 +1,5 @@
 #' @title
-#' Check Additional Arguments
+#' Check additional arguments
 #'
 #' @description
 #' Checks additional arguments that user needs to provide for different
@@ -16,11 +16,10 @@
 #'
 #' @keywords internal
 #'
-#'
 check_args <- function(ci_appr,
                        use_cov_transform, transformers,
                        gps_model, trim_quantiles,
-                       optimized_compile, ...){
+                       optimized_compile, ...) {
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -34,18 +33,18 @@ check_args <- function(ci_appr,
   dot_args <- list(...)
   arg_names <- names(dot_args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg_names) {
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
   # check for trimming values
-  if (!is.numeric(trim_quantiles)){
+  if (!is.numeric(trim_quantiles)) {
     stop("trim_quantiles should be numeric values.")
   }
 
   if ((trim_quantiles[1] < 0 || trim_quantiles[1] > 1) ||
       (trim_quantiles[2] < 0 || trim_quantiles[2] > 1) ||
-      (trim_quantiles[1] > trim_quantiles[2])){
+      (trim_quantiles[1] > trim_quantiles[2])) {
     stop(paste("trim_quntiles should be in the [0,1] range,",
                " and the first quantile should be less than the second one."))
   }

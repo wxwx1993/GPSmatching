@@ -1,5 +1,5 @@
 #' @title
-#' Generate Pseudo Population
+#' Generate pseudo population
 #'
 #' @description
 #' Generates pseudo population data set based on user-defined causal inference
@@ -139,7 +139,7 @@ generate_pseudo_pop <- function(Y,
   arg_names <- names(dot_args)
 
   for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
   covariate_cols <- as.list(colnames(c))
@@ -152,8 +152,8 @@ generate_pseudo_pop <- function(Y,
   }
 
   # get trim quantiles and trim data
-  q1 <- stats::quantile(w,trim_quantiles[1])
-  q2 <- stats::quantile(w,trim_quantiles[2])
+  q1 <- stats::quantile(w, trim_quantiles[1])
+  q2 <- stats::quantile(w, trim_quantiles[2])
 
   logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
@@ -161,7 +161,7 @@ generate_pseudo_pop <- function(Y,
   # Drop data with missing values
   # Trim data based on quantiles.
   tmp_data <- cbind(Y, w, c)
-  tmp_data <- tmp_data[stats::complete.cases(tmp_data),]
+  tmp_data <- tmp_data[stats::complete.cases(tmp_data), ]
   tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
 
   # Retrieve data.
@@ -175,17 +175,18 @@ generate_pseudo_pop <- function(Y,
   # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
   #                    w <= q2  & w >= q1)
   tmp_data <- data.table(tmp_data)
-  original_corr_obj <- check_covar_balance(w = tmp_data[, c("w")],
-                                           c = tmp_data[, unlist(covariate_cols),
-                                                          with = FALSE],
-                                           counter_weight = NULL,
-                                           ci_appr = ci_appr,
-                                           nthread = nthread,
-                                           optimized_compile = optimized_compile,
-                                           ...)
+  original_corr_obj <- check_covar_balance(
+                          w = tmp_data[, c("w")],
+                          c = tmp_data[, unlist(covariate_cols),
+                                         with = FALSE],
+                          counter_weight = NULL,
+                          ci_appr = ci_appr,
+                          nthread = nthread,
+                          optimized_compile = optimized_compile,
+                          ...)
   tmp_data <- NULL
 
-  if (ci_appr == "matching") internal_use=TRUE else internal_use=FALSE
+  if (ci_appr == "matching") internal_use = TRUE else internal_use = FALSE
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
@@ -199,7 +200,7 @@ generate_pseudo_pop <- function(Y,
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
 
-  while (counter < max_attempt){
+  while (counter < max_attempt) {
 
     counter <- counter + 1
 
@@ -218,7 +219,7 @@ generate_pseudo_pop <- function(Y,
     if (!is.null(recent_swap)){
       # first element is old_col name
       # second element is new_col name
-      new_col_ind <- which(covariate_cols==recent_swap[2])
+      new_col_ind <- which(covariate_cols == recent_swap[2])
       covariate_cols[[new_col_ind]] <- NULL
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
@@ -239,16 +240,18 @@ generate_pseudo_pop <- function(Y,
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance
-    adjusted_corr_obj <- check_covar_balance(w = pseudo_pop[, c("w")],
-                                             c = pseudo_pop[,
-                                                            unlist(covariate_cols),
-                                                            with = FALSE],
-                                             counter_weight = pseudo_pop[,
-                                                           c("counter_weight")],
-                                             ci_appr = ci_appr,
-                                             nthread = nthread,
-                                             optimized_compile = optimized_compile,
-                                             ...)
+    adjusted_corr_obj <- check_covar_balance(
+                           w = pseudo_pop[, c("w")],
+                           c = pseudo_pop[,
+                                          unlist(covariate_cols),
+                                          with = FALSE],
+                           counter_weight = pseudo_pop[,
+                                         c("counter_weight")],
+                           ci_appr = ci_appr,
+                           nthread = nthread,
+                           optimized_compile = optimized_compile,
+                           ...)
+
     # check Kolmogorov-Smirnov statistics
     ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
                                          c = pseudo_pop[,
@@ -260,30 +263,34 @@ generate_pseudo_pop <- function(Y,
                                          nthread = nthread,
                                          optimized_compile = optimized_compile)
 
-    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+    covar_bl_t <- paste0(covar_bl_trs_type, "_absolute_corr")
+
     if (is.null(best_ach_covar_balance)){
-      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,
+                                           covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
       best_ks_stats <- ks_stats
     }
 
-    if (getElement(adjusted_corr_obj$corr_results,covar_bl_t) < best_ach_covar_balance){
-      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,covar_bl_t)
+    if (getElement(adjusted_corr_obj$corr_results,covar_bl_t) <
+        best_ach_covar_balance) {
+      best_ach_covar_balance <- getElement(adjusted_corr_obj$corr_results,
+                                           covar_bl_t)
       best_pseudo_pop <- pseudo_pop
       best_adjusted_corr_obj <- adjusted_corr_obj
       best_gps_used_params <- gps_used_params
       best_ks_stats <- ks_stats
     }
 
-    if (adjusted_corr_obj$pass){
+    if (adjusted_corr_obj$pass) {
       message(paste('Covariate balance condition has been met (iteration: ',
-                    counter,'/', max_attempt,')', sep = ""))
+                    counter, '/', max_attempt, ')', sep = ""))
       break
     }
 
-    if (use_cov_transform){
+    if (use_cov_transform) {
 
       logger::log_debug("------------ Started conducting covariate transform ...")
 
@@ -291,18 +298,18 @@ generate_pseudo_pop <- function(Y,
                             decreasing = TRUE)
 
       value_found = FALSE
-      for (c_name in names(sort_by_covar)){
+      for (c_name in names(sort_by_covar)) {
         # find the element index in the transformed_vals list
         el_ind <- which(unlist(lapply(transformed_vals,
                                       function(x){ x[1] == c_name })))
 
-        if (length(el_ind)==0){
+        if (length(el_ind) == 0) {
           # wants to choose a transformed column, which indicates that the
           # the transformation was not helpful. Move to the next worst covariate balance.
           next
         }
 
-        if (is.factor(c_extended[[c_name]])){
+        if (is.factor(c_extended[[c_name]])) {
           # Only numerical values are considered for transformation.
           next
         }
@@ -310,10 +317,11 @@ generate_pseudo_pop <- function(Y,
         logger::log_debug("Feature with the worst covariate balance: {c_name}.",
                           " Located at index {el_ind}.")
 
-        for (operand in transformers){
-          if(length(transformed_vals[[el_ind]])>1){
+        for (operand in transformers) {
+          if(length(transformed_vals[[el_ind]]) > 1) {
             if (!is.element(operand,
-                            transformed_vals[[el_ind]][2:length(transformed_vals[[el_ind]])])){
+                            transformed_vals[[el_ind]][
+                              2:length(transformed_vals[[el_ind]])])){
                 new_c <- c_name
                 new_op <- operand
                 value_found = TRUE
@@ -336,7 +344,7 @@ generate_pseudo_pop <- function(Y,
         # removed used transformers on covariate balance.
         transformed_vals <- covariate_cols
         recent_swap <- NULL
-        if (sum(sort(colnames(c)) != sort(colnames(c_extended)))>0){
+        if (sum(sort(colnames(c)) != sort(colnames(c_extended))) > 0) {
           logger::log_error("At this step, c and c_extended should be the same, doublecheck.")
           c_extended <- c
         }
@@ -350,9 +358,9 @@ generate_pseudo_pop <- function(Y,
 
       c_extended <- cbind(c_extended, t_dataframe)
       recent_swap <- c(new_c, unlist(colnames(t_dataframe)))
-      index_to_remove <- which(unlist(covariate_cols)==new_c)
+      index_to_remove <- which(unlist(covariate_cols) == new_c)
       covariate_cols[[index_to_remove]] <- NULL
-      covariate_cols[length(covariate_cols)+1] <- unlist(colnames(t_dataframe))
+      covariate_cols[length(covariate_cols) + 1] <- unlist(colnames(t_dataframe))
       logger::log_debug("In the next iteration (if any) feature {c_name}",
                         " will be replaced by {unlist(colnames(t_dataframe))}.")
       }
@@ -370,10 +378,10 @@ generate_pseudo_pop <- function(Y,
 
 
   # compute effective sample size
-  if (optimized_compile){
-  ess_recommended <- length(Y)/10
-  ess <- ((sum(best_pseudo_pop$counter_weight)^2)/
-          sum(best_pseudo_pop$counter_weight^2))
+  if (optimized_compile) {
+  ess_recommended <- length(Y) / 10
+  ess <- ((sum(best_pseudo_pop$counter_weight) ^ 2) /
+          sum(best_pseudo_pop$counter_weight ^ 2))
     if (ess < ess_recommended){
       logger::log_warn("Effective sample size is less than recommended.",
                        "Current: {ess}, recommended min value:",
@@ -387,8 +395,6 @@ generate_pseudo_pop <- function(Y,
 
   result <- list()
   class(result) <- "gpsm_pspop"
-
-
 
   result$params$ci_appr <- ci_appr
   result$params$params <- params
@@ -410,7 +416,6 @@ generate_pseudo_pop <- function(Y,
   result$ess <- ess
   result$ess_recommended <- ess_recommended
 
-
   end_time_gpp <- proc.time()
 
   logger::log_debug("Wall clock time to run generate_pseudo_pop:",
@@ -422,8 +427,8 @@ generate_pseudo_pop <- function(Y,
 }
 
 # transformers
-pow2 <- function(x) {x^2}
-pow3 <- function(x) {x^3}
+pow2 <- function(x) {x ^ 2}
+pow3 <- function(x) {x ^ 3}
 
 #' @title
 #' Transform data
@@ -439,9 +444,9 @@ pow3 <- function(x) {x^3}
 #'
 #' @return
 #'  Returns transformed data.frame.
-transform_it <- function(c_name, c_val, transformer){
+transform_it <- function(c_name, c_val, transformer) {
 
-  t_c_name <- paste(c_name,"_",transformer, sep = "")
+  t_c_name <- paste(c_name, "_", transformer, sep = "")
   t_data <- do.call(transformer, list(c_val))
   t_data <- data.frame(t_data)
   colnames(t_data) <- t_c_name

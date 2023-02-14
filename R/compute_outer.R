@@ -3,8 +3,8 @@
 #'
 #' @description
 #' Computes the distance between all combination of elements in two vector. a is
-#' vector of size n, and b is a vector of size m, the result, will be a matrix of
-#' size(n,m)
+#' vector of size n, and b is a vector of size m, the result, will be a matrix
+#' of size(n,m)
 #'
 #' @param a first vector (size n)
 #' @param b second vector (size m)
@@ -15,6 +15,6 @@
 #'
 #' @keywords internal
 #'
-compute_outer <- function(a,b,op){
+compute_outer <- function(a, b , op) {
   return(abs(outer(a, b, op)))
 }

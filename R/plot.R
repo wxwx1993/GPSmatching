@@ -16,7 +16,7 @@
 #' @importFrom ggplot2 autoplot
 #' @importFrom rlang .data
 #'
-autoplot.gpsm_erf <- function(object, ...){
+autoplot.gpsm_erf <- function(object, ...) {
 
   gg_labs <- gg_title <- NULL
 
@@ -24,15 +24,15 @@ autoplot.gpsm_erf <- function(object, ...){
   dot_args <- list(...)
   arg_names <- names(dot_args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg_names) {
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
-  if (is.null(gg_labs)){
+  if (is.null(gg_labs)) {
     gg_labs <- c("Exposure Level", "Outcome Rate")
   }
 
-  if (is.null(gg_title)){
+  if (is.null(gg_title)) {
     gg_title <- "Exposure Response Curve"
   }
 
@@ -44,10 +44,10 @@ autoplot.gpsm_erf <- function(object, ...){
        ggplot2::theme_bw() +
        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)) +
        ggplot2::geom_line(ggplot2::aes(.data$w.vals, .data$erf),
-                          color="red", size=1)
+                          color = "red", size = 1)
 
 
-  g <- g + ggplot2::labs(x=gg_labs[1], y=gg_labs[2])
+  g <- g + ggplot2::labs(x = gg_labs[1], y = gg_labs[2])
   g <- g + ggplot2::ggtitle(gg_title)
 
 
@@ -69,7 +69,7 @@ autoplot.gpsm_erf <- function(object, ...){
 #'
 #' @export
 #'
-plot.gpsm_erf <- function(x, ...){
+plot.gpsm_erf <- function(x, ...) {
   g <- ggplot2::autoplot(x, ...)
   print(g)
   invisible(g)
@@ -99,9 +99,9 @@ autoplot.gpsm_pspop <- function(object, ...){
   gg_labs <- gg_title <- NULL
 
   if (object$params$ci_appr == "matching"){
-    default_gg_labs <- list(x="Absolute Correlation", y="Covariates")
+    default_gg_labs <- list(x = "Absolute Correlation", y = "Covariates")
   } else if (object$params$ci_appr == "weighting"){
-    default_gg_labs <- list(x="Absolute Weighted Correlation", y="Covariates")
+    default_gg_labs <- list(x = "Absolute Weighted Correlation", y="Covariates")
   }
 
   default_gg_title <- "Covariate Balance Test"
@@ -111,7 +111,7 @@ autoplot.gpsm_pspop <- function(object, ...){
   arg_names <- names(dot_args)
 
   for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+    assign(i,unlist(dot_args[i], use.names = FALSE))
   }
 
   # create a data.frame from two data.
@@ -122,20 +122,22 @@ autoplot.gpsm_pspop <- function(object, ...){
   balance$covar_label <- row.names(balance)
 
   # sort data.frame based on original data correlation values
-  balance <- balance[order(balance$original),]
+  balance <- balance[order(balance$original), ]
   covar_label <- balance$covar_label
   row.names(balance) <- NULL
 
   n_cov <- length(balance$original)
-  m_balance <- melt(as.data.table(balance), measure.vars = c("original","adjusted"))
-  m_balance$covariates <- rep(seq(1,n_cov,1),2)
+  m_balance <- melt(as.data.table(balance), measure.vars = c("original",
+                                                             "adjusted"))
+  m_balance$covariates <- rep(seq(1, n_cov, 1), 2)
 
   g <- ggplot2::ggplot(data = m_balance,
                        ggplot2::aes(x=.data$value,
-                                    y=.data$covariates, color=.data$variable)) +
+                                    y=.data$covariates,
+                                    color=.data$variable)) +
     ggplot2::geom_point() +
     ggplot2::geom_path() +
-    ggplot2::scale_y_discrete(limit=factor(1:n_cov),labels = covar_label) +
+    ggplot2::scale_y_discrete(limit = factor(1:n_cov),labels = covar_label) +
     ggplot2::theme_bw() +
     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)) +
     ggplot2::geom_vline(xintercept = object$params$covar_bl_trs) +
@@ -144,11 +146,11 @@ autoplot.gpsm_pspop <- function(object, ...){
     ggplot2::labs(x = default_gg_labs$x, y = default_gg_labs$y) +
     ggplot2::ggtitle(default_gg_title)
 
-  if (!is.null(gg_labs)){
+  if (!is.null(gg_labs)) {
     g <- g + ggplot2::labs(x=gg_labs[1], y=gg_labs[2])
   }
 
-  if (!is.null(gg_title)){
+  if (!is.null(gg_title)) {
     g <- g + ggplot2::ggtitle(gg_title)
   }
 
@@ -169,7 +171,7 @@ autoplot.gpsm_pspop <- function(object, ...){
 #'
 #' @export
 #'
-plot.gpsm_pspop <- function(x, ...){
+plot.gpsm_pspop <- function(x, ...) {
   g <- ggplot2::autoplot(x, ...)
   print(g)
   invisible(g)

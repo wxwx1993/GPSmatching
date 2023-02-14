@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute_resid.R
 \name{compute_resid}
 \alias{compute_resid}
-\title{Compute Residual}
+\title{Compute residual}
 \usage{
 compute_resid(a, b, c)
 }

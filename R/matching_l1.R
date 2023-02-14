@@ -38,10 +38,10 @@ matching_l1 <- function(w,
                         gps_mx,
                         w_mx,
                         gps_model = "parametric",
-                        delta_n=1,
-                        scale=0.5,
-                        nthread=1,
-                        optimized_compile)
+                        delta_n = 1,
+                        scale = 0.5,
+                        nthread = 1,
+                        optimized_compile = TRUE)
 {
 
   if (length(w)!=1){
@@ -52,7 +52,7 @@ matching_l1 <- function(w,
   st_ml_t <- proc.time()
 
   if (gps_model == "parametric"){
-    p_w <- stats::dnorm(w, mean = e_gps_pred, sd=e_gps_std_pred)
+    p_w <- stats::dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
   } else if (gps_model == "non-parametric") {
     w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
     p_w <- compute_density(w_resid, w_new)
@@ -76,11 +76,11 @@ matching_l1 <- function(w,
   std_w <- (w - w_min) / (w_max - w_min)
   std_p_w <- (p_w - gps_min) / (gps_max - gps_min)
 
-  dataset_subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n/2), ]
+  dataset_subset <- dataset[abs(dataset[["w"]] - w) <= (delta_n / 2), ]
 
   if (nrow(dataset_subset) < 1){
     logger:: log_warn(paste("There is no data to match with ", w, "in ",
-                            delta_n/2,
+                            delta_n / 2,
                             " radius."))
     return(list())
   }
@@ -93,7 +93,7 @@ matching_l1 <- function(w,
                              nthread)
 
 
-  dp <- dataset_subset[wm,]
+  dp <- dataset_subset[wm, ]
 
   dp["std_w"] <- NULL
   dp["std_gps"] <- NULL

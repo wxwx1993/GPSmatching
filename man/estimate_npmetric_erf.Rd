@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_npmetric_erf.R
 \name{estimate_npmetric_erf}
 \alias{estimate_npmetric_erf}
-\title{Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.}
+\title{Estimate smoothed exposure-response function (ERF) for pseudo population}
 \usage{
 estimate_npmetric_erf(
   m_Y,

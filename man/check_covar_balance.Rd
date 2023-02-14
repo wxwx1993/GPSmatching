@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_covar_balance.R
 \name{check_covar_balance}
 \alias{check_covar_balance}
-\title{Check Covariate Balance}
+\title{Check covariate balance}
 \usage{
 check_covar_balance(
   w,

@@ -1,5 +1,5 @@
 #' @title
-#' Check Covariate Balance Using Absolute Approach
+#' Check covariate balance using absolute approach
 #'
 #' @description
 #' Checks covariate balance based on absolute correlations for given data sets.
@@ -30,10 +30,10 @@
 #' cor_val <- absolute_corr_fun(mydata[,2], mydata[, 3:length(mydata)])
 #' print(cor_val$mean_absolute_corr)
 #'
-absolute_corr_fun <- function(w, c){
+absolute_corr_fun <- function(w, c) {
 
-  if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
-  if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
+  if (class(w)[1] != "data.table") {stop("w should be a data.table.")}
+  if (class(c)[1] != "data.table") {stop("c should be a data.table.")}
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
@@ -43,17 +43,17 @@ absolute_corr_fun <- function(w, c){
 
   absolute_corr_n <- absolute_corr_f <- NULL
 
-  if (length(col_n) > 0){
-      absolute_corr_n <- lapply(col_n,function(i){
-        abs(stats::cor(w,c[[i]],method = c("spearman")))})
+  if (length(col_n) > 0) {
+      absolute_corr_n <- lapply(col_n, function(i){
+        abs(stats::cor(w,c[[i]], method = c("spearman")))})
       absolute_corr_n <- unlist(absolute_corr_n)
       names(absolute_corr_n) <- col_n
   }
 
   if (length(col_f) > 0) {
-      w_numeric <- as.list(w[,1])[[colnames(w[,1])[1]]]
-      absolute_corr_f <- lapply(col_f,function(i){
-        abs(polycor::polyserial(w_numeric,c[[i]]))})
+      w_numeric <- as.list(w[, 1])[[colnames(w[, 1])[1]]]
+      absolute_corr_f <- lapply(col_f, function(i){
+        abs(polycor::polyserial(w_numeric, c[[i]]))})
       absolute_corr_f <- unlist(absolute_corr_f)
       names(absolute_corr_f) <- col_f
   }
@@ -63,9 +63,10 @@ absolute_corr_fun <- function(w, c){
                     "absolute_corr, collapse = ', ', sep = ' : ')}"))
 
   if (sum(is.na(absolute_corr)) > 0){
-    warning(paste("The following features generated missing values: ",
-                  names(absolute_corr)[is.na(absolute_corr)],
-                  "\n In computing mean covariate balance, they will be ignored."))
+    warning(paste(
+      "The following features generated missing values: ",
+      names(absolute_corr)[is.na(absolute_corr)],
+      "\n In computing mean covariate balance, they will be ignored."))
   }
 
   # compute mean value

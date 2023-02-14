@@ -2,7 +2,7 @@
 % Please edit documentation in R/compile_pseudo_pop.R
 \name{compile_pseudo_pop}
 \alias{compile_pseudo_pop}
-\title{Compile Pseudo Population}
+\title{Compile pseudo population}
 \usage{
 compile_pseudo_pop(
   data_obj,

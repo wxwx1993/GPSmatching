@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_arguments.R
 \name{check_args}
 \alias{check_args}
-\title{Check Additional Arguments}
+\title{Check additional arguments}
 \usage{
 check_args(
   ci_appr,

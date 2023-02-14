@@ -38,9 +38,9 @@ absolute_weighted_corr_fun <- function(w,
                                        vw,
                                        c){
 
-  if (class(w)[1] != "data.table"){stop("w should be a data.table.")}
-  if (class(vw)[1] != "data.table"){stop("vw should be a data.table.")}
-  if (class(c)[1] != "data.table"){stop("c should be a data.table.")}
+  if (class(w)[1] != "data.table") {stop("w should be a data.table.")}
+  if (class(vw)[1] != "data.table") {stop("vw should be a data.table.")}
+  if (class(c)[1] != "data.table") {stop("c should be a data.table.")}
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
@@ -51,7 +51,7 @@ absolute_weighted_corr_fun <- function(w,
   absolute_corr_n <- absolute_corr_f <- NULL
 
   if (length(col_n) > 0) {
-    absolute_corr_n<- sapply(col_n,function(i){
+    absolute_corr_n <- sapply(col_n,function(i){
       abs(wCorr::weightedCorr(as.list(w)[[colnames(w)[1]]],
                               c[[i]],
                               weights = as.list(vw)[[colnames(vw)[1]]],
@@ -75,8 +75,6 @@ absolute_weighted_corr_fun <- function(w,
         absolute_corr_f <- c(absolute_corr_f, internal_fun(item))
       }
     }
-    # absolute_corr_f<- sapply(col_f,)
-    # absolute_corr_f <- unlist(absolute_corr_f)
     names(absolute_corr_f) <- col_f
   }
 
@@ -85,10 +83,11 @@ absolute_weighted_corr_fun <- function(w,
   logger::log_trace(paste0("absolute_corr value: {paste(names(absolute_corr), ",
                            "absolute_corr, collapse = ', ', sep = ' : ')}"))
 
-  if (sum(is.na(absolute_corr)) > 0){
-    warning(paste("The following features generated missing values: ",
-                  names(absolute_corr)[is.na(absolute_corr)],
-                  "\nIn computing mean covariate balance, they will be ignored."))
+  if (sum(is.na(absolute_corr)) > 0) {
+    warning(paste(
+      "The following features generated missing values: ",
+      names(absolute_corr)[is.na(absolute_corr)],
+      "\nIn computing mean covariate balance, they will be ignored."))
   }
 
 

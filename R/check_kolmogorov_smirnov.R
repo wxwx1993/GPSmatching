@@ -28,7 +28,7 @@ check_kolmogorov_smirnov <- function(w,
                                      ci_appr,
                                      optimized_compile,
                                      counter_weight = NULL,
-                                     nthread=1){
+                                     nthread = 1) {
 
   logger::log_debug("Started checking Kolmogorov-Smirnov (KS) statistics ... ")
   s_ks_t <- proc.time()
@@ -38,19 +38,20 @@ check_kolmogorov_smirnov <- function(w,
   data.table::setDF(counter_weight)
   tmp_data <- cbind(w, c)
 
-  if (!(ci_appr %in% c("matching", "weighting"))){
+  if (!(ci_appr %in% c("matching", "weighting"))) {
     stop(paste (ci_appr, " is not a valid causal inference approach."))
   }
 
   name_vals <- names(tmp_data)
 
-  if (optimized_compile){
+  if (optimized_compile) {
     ks_stat <- lapply(name_vals,
                       function(i) {
-                        Ecume::ks_test(x = as.numeric(tmp_data[[i]]),
-                                       y = as.numeric(tmp_data[[i]]),
-                                       w_x = rep(1, nrow(tmp_data)),
-                                       w_y = counter_weight$counter_weight)$statistic})
+                        Ecume::ks_test(
+                          x = as.numeric(tmp_data[[i]]),
+                          y = as.numeric(tmp_data[[i]]),
+                          w_x = rep(1, nrow(tmp_data)),
+                          w_y = counter_weight$counter_weight)$statistic})
     ks_stat <- unlist(ks_stat)
     names(ks_stat) <- name_vals
     stat_vals <- list(maximal_val = max(ks_stat, na.rm = TRUE),
@@ -70,11 +71,8 @@ check_kolmogorov_smirnov <- function(w,
     output <- NULL
   }
 
-
-
   e_ks_t <- proc.time()
   logger::log_debug("Finished KS (Wall clock time:  ",
                     " {(e_ks_t - s_ks_t)[[3]]} seconds).")
-
    return(output)
 }
