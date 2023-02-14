@@ -10,7 +10,7 @@
 
 ### Added
 
-* 
+* The `earth` package is part of suggested packages. 
 
 ### Removed 
 
