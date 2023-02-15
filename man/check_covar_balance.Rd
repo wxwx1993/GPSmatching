@@ -2,17 +2,9 @@
 % Please edit documentation in R/check_covar_balance.R
 \name{check_covar_balance}
 \alias{check_covar_balance}
-\title{Check Covariate Balance}
+\title{Check covariate balance}
 \usage{
-check_covar_balance(
-  w,
-  c,
-  ci_appr,
-  optimized_compile,
-  counter_weight = NULL,
-  nthread = 1,
-  ...
-)
+check_covar_balance(w, c, ci_appr, counter_weight = NULL, nthread = 1, ...)
 }
 \arguments{
 \item{w}{A vector of observed continuous exposure variable.}
@@ -20,8 +12,6 @@ check_covar_balance(
 \item{c}{A data.frame of observed covariates variable.}
 
 \item{ci_appr}{The causal inference approach.}
-
-\item{optimized_compile}{If TRUE, use optimized compile approach.}
 
 \item{counter_weight}{A weight vector in different situations. If the
 matching approach is selected, it is an integer data.table of counters.
@@ -76,7 +66,6 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
                                  pred_model = "sl",
                                  gps_model = "non-parametric",
                                  trim_quantiles = c(0.01,0.99),
-                                 optimized_compile = TRUE,
                                  sl_lib = c("m_xgboost"),
                                  covar_bl_method = "absolute",
                                  covar_bl_trs = 0.1,
@@ -96,7 +85,6 @@ adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
                                         nthread=1,
                                         covar_bl_method = "absolute",
                                         covar_bl_trs = 0.1,
-                                        covar_bl_trs_type = "mean",
-                                        optimized_compile=TRUE)
+                                        covar_bl_trs_type = "mean")
 
 }

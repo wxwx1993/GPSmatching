@@ -2,17 +2,9 @@
 % Please edit documentation in R/compile_pseudo_pop.R
 \name{compile_pseudo_pop}
 \alias{compile_pseudo_pop}
-\title{Compile Pseudo Population}
+\title{Compile pseudo population}
 \usage{
-compile_pseudo_pop(
-  data_obj,
-  ci_appr,
-  gps_model,
-  bin_seq,
-  nthread,
-  optimized_compile,
-  ...
-)
+compile_pseudo_pop(data_obj, ci_appr, gps_model, bin_seq, nthread, ...)
 }
 \arguments{
 \item{data_obj}{A S3 object including the following:
@@ -36,9 +28,6 @@ NULL is passed the default value will be used, which is
 
 \item{nthread}{An integer value that represents the number of threads to be
 used by internal packages.}
-
-\item{optimized_compile}{If TRUE, uses counts to keep track of number of
-replicated pseudo population.}
 
 \item{...}{Additional parameters.}
 }
@@ -76,7 +65,6 @@ pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          gps_model = "parametric",
                          bin_seq = NULL,
                          nthread = 1,
-                         optimized_compile=TRUE,
                          matching_fun = "matching_l1",
                          covar_bl_method = 'absolute',
                          covar_bl_trs = 0.1,

@@ -9,7 +9,6 @@ create_matching(
   bin_seq = NULL,
   gps_model = "parametric",
   nthread = 1,
-  optimized_compile,
   ...
 )
 }
@@ -26,8 +25,6 @@ NULL is passed the default value will be used, which is
 parametric (default) and non-parametric.}
 
 \item{nthread}{Number of available cores.}
-
-\item{optimized_compile}{Option to activate optimized compilation.}
 
 \item{...}{Additional arguments passed to the function.}
 }

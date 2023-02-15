@@ -1,5 +1,5 @@
 #' @title
-#' Estimate GPS Values
+#' Estimate generalized propensity score (GPS) values
 #'
 #' @description
 #' Estimates GPS value for each observation using parametric or non-parametric
@@ -62,7 +62,7 @@ estimate_gps <- function(Y,
                          params = list(),
                          sl_lib = c("m_xgboost"),
                          nthread = 1,
-                         ...){
+                         ...) {
 
   start_time <- proc.time()
 
@@ -73,7 +73,7 @@ estimate_gps <- function(Y,
   arg_names <- names(dot_args)
 
   for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
   # Check if data has missing value(s) -----------------------------------------
@@ -93,7 +93,7 @@ estimate_gps <- function(Y,
     wrapper_generated_res <- gen_wrap_sl_lib(lib_name = item, params,
                                              nthread = nthread)
     if (wrapper_generated_res[[1]]){
-      sl_lib_internal <- c(sl_lib_internal,paste(item,"_internal", sep=""))
+      sl_lib_internal <- c(sl_lib_internal, paste(item, "_internal", sep=""))
       used_params <- c(used_params, wrapper_generated_res[[2]])
     } else {
       sl_lib_internal <- c(sl_lib_internal, item)
@@ -106,7 +106,7 @@ estimate_gps <- function(Y,
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
     e_gps_std_pred <- stats::sd(w - e_gps_pred)
-    w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
+    w_resid <- compute_resid(w, e_gps_pred,e_gps_std_pred)
     gps <- stats::dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
 
   } else if (gps_model == "non-parametric"){
@@ -114,7 +114,7 @@ estimate_gps <- function(Y,
     e_gps <- train_it(target = w, input = c,
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std <- train_it(target = abs(w-e_gps_pred), input = c,
+    e_gps_std <- train_it(target = abs(w - e_gps_pred), input = c,
                            sl_lib_internal = sl_lib_internal, ...)
     e_gps_std_pred <- e_gps_std$SL.predict
     w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
@@ -129,9 +129,9 @@ estimate_gps <- function(Y,
 
   w_mx <- compute_min_max(w)
   gps_mx <- compute_min_max(gps)
-  counter_weight <- (w*0)+0 # initialize counter.
-  row_index <- seq(1,length(w),1) # initialize row index.
-  dataset <- cbind(Y,w,gps,counter_weight,row_index, c)
+  counter_weight <- (w * 0) + 0 # initialize counter.
+  row_index <- seq(1, length(w), 1) # initialize row index.
+  dataset <- cbind(Y, w, gps, counter_weight, row_index, c)
 
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")
@@ -169,6 +169,5 @@ estimate_gps <- function(Y,
     result$gps_mx <- gps_mx
     result$w_mx <- w_mx
   }
-
   invisible(result)
 }

@@ -13,7 +13,6 @@
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param nthread Number of available cores.
-#' @param optimized_compile Option to activate optimized compilation.
 #' @param ...  Additional arguments passed to the function.
 #'
 #' @return
@@ -22,7 +21,7 @@
 #' @keywords internal
 #'
 create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
-                            nthread = 1, optimized_compile, ...){
+                            nthread = 1, ...) {
 
   # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
@@ -33,8 +32,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
   dot_args <- list(...)
   arg_names <- names(dot_args)
 
-  for (i in arg_names){
-    assign(i,unlist(dot_args[i],use.names = FALSE))
+  for (i in arg_names) {
+    assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
   matching_fun <- get(matching_fun)
@@ -42,9 +41,9 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
   gps_mx <- dataset$gps_mx
   w_mx <- dataset$w_mx
 
-  if (is.null(bin_seq)){
+  if (is.null(bin_seq)) {
 
-    bin_num<-seq(w_mx[1]+delta_n/2, w_mx[2], by = delta_n)
+    bin_num<-seq(w_mx[1] + delta_n / 2, w_mx[2], by = delta_n)
     used_bin <- "Default"
 
   } else {
@@ -71,16 +70,11 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                            gps_model = gps_model,
                            delta_n = delta_n,
                            scale = scale,
-                           nthread = nthread,
-                           optimized_compile = optimized_compile)
+                           nthread = nthread)
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
                     " {(e_t_m - st_t_m)[[3]]} seconds).")
-
-  if (!optimized_compile){
-    return(data.table(do.call(rbind,matched_set)))
-  } else {
 
     logger::log_debug("Started working on compiling  ... ")
 
@@ -100,8 +94,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
         next
       }
       freq_table <- merge(freq_table, matched_set[[i]],
-                          by="row_index",
-                          all=TRUE)
+                          by = "row_index",
+                          all = TRUE)
       row.names(freq_table) <- NULL
       freq_table[is.na(freq_table)] <- 0
       freq_table[, N:= N.x + N.y]
@@ -113,7 +107,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                              "(Wall clock time:  ",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
-    if (nrow(freq_table) != 0){
+    if (nrow(freq_table) != 0) {
       index_of_data <- freq_table[["row_index"]]
       added_count <- freq_table[["N"]]
       counter_tmp <- numeric(nrow(cp_original_data))
@@ -127,5 +121,4 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                       " {(e_comp_p - s_comp_p)[[3]]} seconds).")
 
     return(data.table(cp_original_data))
-  }
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_npmetric_erf.R
 \name{estimate_npmetric_erf}
 \alias{estimate_npmetric_erf}
-\title{Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.}
+\title{Estimate smoothed exposure-response function (ERF) for pseudo population}
 \usage{
 estimate_npmetric_erf(
   m_Y,
@@ -62,7 +62,6 @@ pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                   params = list(xgb_nrounds=c(10,20,30),
                                    xgb_eta=c(0.1,0.2,0.3)),
                                   nthread = 1,
-                                  optimized_compile = TRUE,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type="mean",

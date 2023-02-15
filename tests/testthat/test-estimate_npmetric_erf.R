@@ -1,7 +1,7 @@
 test_that("estimate_npmetric_erf works as expected", {
 
   set.seed(347)
-  m_d <- generate_syn_data(sample_size = 200)
+  m_d <- generate_syn_data(sample_size = 400)
 
   pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                     m_d$treat,
@@ -9,7 +9,6 @@ test_that("estimate_npmetric_erf works as expected", {
                                     ci_appr = "matching",
                                     gps_model = "non-parametric",
                                     trim_quantiles = c(0.01,0.99),
-                                    optimized_compile = FALSE,
                                     sl_lib = c("SL.xgboost", "SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
@@ -32,7 +31,7 @@ test_that("estimate_npmetric_erf works as expected", {
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)
   expect_equal(length(res$params$w_vals), length(res$erf))
-  expect_equal(res$risk_val[1], 93.58676, tolerance = 0.00001)
+  expect_equal(res$risk_val[1], 1305125, tolerance = 0.00001)
 })
 
 
@@ -41,7 +40,7 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   skip_if_not_installed("earth")
 
   set.seed(347)
-  m_d <- generate_syn_data(sample_size = 100)
+  m_d <- generate_syn_data(sample_size = 400)
 
   pseudo_pop <- generate_pseudo_pop(m_d$Y,
                                     m_d$treat,
@@ -50,7 +49,6 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
                                     pred_model = "sl",
                                     gps_model = "non-parametric",
                                     trim_quantiles = c(0.01,0.99),
-                                    optimized_compile = FALSE,
                                     sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
@@ -73,6 +71,6 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   expect_equal(class(res),"gpsm_erf")
   expect_equal(length(res$params$bw_seq), 10)
   expect_equal(length(res$params$w_vals), length(res$erf))
-  expect_equal(res$risk_val[1], 80.8698, tolerance = 0.00001)
+  expect_equal(res$risk_val[1], 1305125, tolerance = 0.00001)
 
 })

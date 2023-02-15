@@ -18,7 +18,7 @@
 #' the given library is implemented; otherwise, it returns a list of FALSE.
 #' This function is also called for side effects.
 #'
-gen_wrap_sl_lib <- function(lib_name, params, nthread){
+gen_wrap_sl_lib <- function(lib_name, params, nthread) {
 
   # ------------------------------------------------------
   xgb_nrounds <- xgb_eta <- xgb_max_depth <- xgb_min_child_weight <- NULL
@@ -28,22 +28,22 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
   # ------------------------------------------------------
 
 
-  if (lib_name == "m_xgboost"){
-    xgb_default_params = list("xgb_nrounds"=100,
-                              "xgb_max_depth"=6,
-                              "xgb_eta"=0.3,
-                              "xgb_min_child_weight"=1,
-                              "xgb_verbose"=0
+  if (lib_name == "m_xgboost") {
+    xgb_default_params = list("xgb_nrounds" = 100,
+                              "xgb_max_depth" = 6,
+                              "xgb_eta" = 0.3,
+                              "xgb_min_child_weight" = 1,
+                              "xgb_verbose" = 0
                              )
-    for (item in names(params)){
+    for (item in names(params)) {
 
-      if (!is.null(xgb_default_params[[item]])){
+      if (!is.null(xgb_default_params[[item]])) {
         # the parameter belongs to xgboost family
         # choose one value at random
-        if (length(params[[item]])==1) {
+        if (length(params[[item]]) == 1) {
           new_val <- params[[item]]
         } else {
-          new_val <- sample(params[[item]],1)
+          new_val <- sample(params[[item]], 1)
         }
         # assign that value to the default list
         xgb_default_params[[item]] <- new_val
@@ -76,7 +76,7 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                       " eta: {xgb_eta}, max_depth: {xgb_max_depth}, ",
                       " min_child_weight: {xgb_min_child_weight}.")
 
-  } else if (lib_name == "m_ranger"){
+  } else if (lib_name == "m_ranger") {
 
     if (!requireNamespace("ranger", quietly = TRUE)) {
       stop(
@@ -86,22 +86,22 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
     }
 
 
-    rgr_default_params = list("rgr_num.trees"=500,
-                              "rgr_write.forest"=TRUE,
-                              "rgr_replace"=TRUE,
-                              "rgr_verbose"=FALSE,
-                              "rgr_family"= "Gaussian"
+    rgr_default_params = list("rgr_num.trees" = 500,
+                              "rgr_write.forest" = TRUE,
+                              "rgr_replace" = TRUE,
+                              "rgr_verbose" = FALSE,
+                              "rgr_family" = "Gaussian"
     )
 
     for (item in names(params)){
 
-      if (!is.null(rgr_default_params[[item]])){
+      if (!is.null(rgr_default_params[[item]])) {
         # the parameter belongs to ranger family
         # choose one value at random
-        if (length(params[[item]])==1) {
+        if (length(params[[item]]) == 1) {
           new_val <- params[[item]]
         } else {
-          new_val <- sample(params[[item]],1)
+          new_val <- sample(params[[item]], 1)
         }
         # assign that value to the default list
         rgr_default_params[[item]] <- new_val
@@ -125,13 +125,12 @@ gen_wrap_sl_lib <- function(lib_name, params, nthread){
                       " write.forest: {rgr_write.forest}, replace: {rgr_replace}, ",
                       " verbose: {rgr_verbose}, family: {rgr_family}.")
 
-    used_params <- list("rgr_num.trees"=rgr_num.trees,
-                        "rgr_write.forest"=rgr_write.forest,
-                        "rgr_replace"=rgr_replace,
-                        "rgr_verbose"=rgr_verbose,
-                        "rgr_family"= rgr_family
+    used_params <- list("rgr_num.trees" = rgr_num.trees,
+                        "rgr_write.forest" = rgr_write.forest,
+                        "rgr_replace" = rgr_replace,
+                        "rgr_verbose" = rgr_verbose,
+                        "rgr_family" = rgr_family
     )
-
   } else {
     message(paste(lib_name, " will be used by SuperLearner's default arguments."))
     return(list(FALSE))

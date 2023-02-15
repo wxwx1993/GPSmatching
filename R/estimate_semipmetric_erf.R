@@ -1,5 +1,5 @@
 #' @title
-#' Estimate Semi-exposure-response Function (semi-ERF).
+#' Estimate semi-exposure-response function (semi-ERF).
 #'
 #' @description
 #' Estimates the smoothed exposure-response function using a generalized
@@ -43,7 +43,7 @@
 #'                                        ci_appr = "matching")
 #'
 #'
-estimate_semipmetric_erf <- function(formula, family, data, ci_appr){
+estimate_semipmetric_erf <- function(formula, family, data, ci_appr) {
 
   counter_weight <- NULL
 

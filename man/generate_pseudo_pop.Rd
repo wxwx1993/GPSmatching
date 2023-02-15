@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_pseudo_pop.R
 \name{generate_pseudo_pop}
 \alias{generate_pseudo_pop}
-\title{Generate Pseudo Population}
+\title{Generate pseudo population}
 \usage{
 generate_pseudo_pop(
   Y,
@@ -14,7 +14,6 @@ generate_pseudo_pop(
   transformers = list("pow2", "pow3"),
   bin_seq = NULL,
   trim_quantiles = c(0.01, 0.99),
-  optimized_compile = FALSE,
   params = list(),
   sl_lib = c("m_xgboost"),
   nthread = 1,
@@ -56,9 +55,6 @@ NULL is passed the default value will be used, which is
 level. Both numbers should be in the range of [0,1] and in increasing order
 (default: c(0.01,0.99)).}
 
-\item{optimized_compile}{If TRUE, uses counts to keep track of number of
-replicated pseudo population.}
-
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
 
@@ -82,7 +78,6 @@ object includes the following objects:
 \item pseudo_pop
 \item adjusted_corr_results
 \item original_corr_results
-\item optimized_compile (True or False)
 \item best_gps_used_params
 \item effect size of generated pseudo population
 }
@@ -138,7 +133,6 @@ pseuoo_pop <- generate_pseudo_pop(m_d$Y,
                                   gps_model = "parametric",
                                   bin_seq = NULL,
                                   trim_quantiles = c(0.01,0.99),
-                                  optimized_compile = FALSE,
                                   use_cov_transform = FALSE,
                                   transformers = list(),
                                   params = list(xgb_nrounds=c(10,20,30),

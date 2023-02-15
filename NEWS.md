@@ -6,11 +6,11 @@
 
 ### Changed
 
-* 
+* Only optimized compilation is supported. In the previous versions, this approach is known as `optimzied_compile == TRUE`.
 
 ### Added
 
-* 
+* The `earth` package is part of suggested packages. 
 
 ### Removed 
 

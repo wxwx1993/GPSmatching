@@ -1,5 +1,5 @@
 #' @title
-#' Compute Residual
+#' Compute residual
 #'
 #' @description
 #' Function to compute residual
@@ -13,9 +13,10 @@
 #'
 #' @keywords internal
 #'
-compute_resid <- function(a, b, c){
+compute_resid <- function(a, b, c) {
 
-  val_1 <- mapply('-',a,b)
-  val_2 <- mapply('/',val_1,c)
+  val_1 <- mapply('-', a, b)
+  val_2 <- mapply('/', val_1, c)
+
   return(val_2)
 }
