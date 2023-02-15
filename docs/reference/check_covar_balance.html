@@ -72,15 +72,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_covar_balance</span><span class="op">(</span></span>
-<span>  <span class="va">w</span>,</span>
-<span>  <span class="va">c</span>,</span>
-<span>  <span class="va">ci_appr</span>,</span>
-<span>  <span class="va">optimized_compile</span>,</span>
-<span>  counter_weight <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_covar_balance</span><span class="op">(</span><span class="va">w</span>, <span class="va">c</span>, <span class="va">ci_appr</span>, counter_weight <span class="op">=</span> <span class="cn">NULL</span>, nthread <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -95,10 +87,6 @@
 
 <dt>ci_appr</dt>
 <dd><p>The causal inference approach.</p></dd>
-
-
-<dt>optimized_compile</dt>
-<dd><p>If TRUE, use optimized compile approach.</p></dd>
 
 
 <dt>counter_weight</dt>
@@ -158,7 +146,6 @@ In the case of the weighting approach, it is weight data.table.</p></dd>
 <span class="r-in"><span>                                 pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span></span>
 <span class="r-in"><span>                                 gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span></span>
 <span class="r-in"><span>                                 trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                 optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                                 sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                 covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span></span>
 <span class="r-in"><span>                                 covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
@@ -183,8 +170,7 @@ In the case of the weighting approach, it is weight data.table.</p></dd>
 <span class="r-in"><span>                                        nthread<span class="op">=</span><span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                                        covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span></span>
 <span class="r-in"><span>                                        covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
-<span class="r-in"><span>                                        covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span></span>
-<span class="r-in"><span>                                        optimized_compile<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                        covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean absolute correlation: 0.329695962727922| Covariate balance threshold: 0.1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

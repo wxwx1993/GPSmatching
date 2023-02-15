@@ -94,7 +94,6 @@ first.</p>
 <span>  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span><span class="op">)</span>,</span>
 <span>  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span><span class="op">)</span>,</span>
-<span>  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span>  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -152,11 +151,6 @@ level. Both numbers should be in the range of [0,1] and in increasing order
 (default: c(0.01,0.99)).</p></dd>
 
 
-<dt>optimized_compile</dt>
-<dd><p>If TRUE, uses counts to keep track of number of
-replicated pseudo population.</p></dd>
-
-
 <dt>params</dt>
 <dd><p>Includes list of params that is used internally. Unrelated
 parameters will be ignored.</p></dd>
@@ -187,7 +181,6 @@ object includes the following objects:</p><ul><li><p>params</p><ul><li><p>ci_app
 <li><p>pseudo_pop</p></li>
 <li><p>adjusted_corr_results</p></li>
 <li><p>original_corr_results</p></li>
-<li><p>optimized_compile (True or False)</p></li>
 <li><p>best_gps_used_params</p></li>
 <li><p>effect size of generated pseudo population</p></li>
 </ul></div>
@@ -235,7 +228,6 @@ values.</p></li>
 <span class="r-in"><span>                                  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span></span>
 <span class="r-in"><span>                                  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>                                  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                  optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,</span></span>
@@ -249,7 +241,6 @@ values.</p></li>
 <span class="r-in"><span>                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span></span>
 <span class="r-in"><span>                                  delta_n <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>optimized_compile = FALSE will be depreciated.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean absolute correlation: 0.187874919634512| Covariate balance threshold: 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean absolute correlation: 0.259346434375271| Covariate balance threshold: 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Covariate balance condition has not been met.</span>
