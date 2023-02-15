@@ -1,20 +1,13 @@
-## CausalGPS (development)
-
-### Fixed
-
-* 
+## CausalGPS 0.3.0 (2023-02-15)
 
 ### Changed
 
+* Unit tests support new `wCorr` release (#193).
 * Only optimized compilation is supported. In the previous versions, this approach is known as `optimzied_compile == TRUE`.
 
 ### Added
 
 * The `earth` package is part of suggested packages. 
-
-### Removed 
-
-* 
 
 
 ## CausalGPS 0.2.9 (2022-12-16)
