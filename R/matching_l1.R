@@ -20,7 +20,6 @@
 #'  (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @param nthread Number of available cores.
-#' @param optimized_compile An option to activate optimized compilation.
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @return
@@ -40,9 +39,7 @@ matching_l1 <- function(w,
                         gps_model = "parametric",
                         delta_n = 1,
                         scale = 0.5,
-                        nthread = 1,
-                        optimized_compile = TRUE)
-{
+                        nthread = 1) {
 
   if (length(w)!=1){
     stop("w should be a vector of size 1.")
@@ -102,18 +99,16 @@ matching_l1 <- function(w,
   logger::log_debug("Finished matching on single w value (w = {w}), ",
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
-  if (!optimized_compile){
-    return(dp)
-  } else {
-    row_index <- NULL
-    row_index_data <- dp["row_index"]
-    row.names(row_index_data) <- NULL
-    data.table::setDT(row_index_data)
-    freq_table <- row_index_data[ , .N, by=row_index]
-    freq_table <- freq_table[order(row_index)]
-    row.names(freq_table) <- NULL
-    row_index_data <- NULL
 
-    return(freq_table)
-  }
+  row_index <- NULL
+  row_index_data <- dp["row_index"]
+  row.names(row_index_data) <- NULL
+  data.table::setDT(row_index_data)
+  freq_table <- row_index_data[ , .N, by=row_index]
+  freq_table <- freq_table[order(row_index)]
+  row.names(freq_table) <- NULL
+  row_index_data <- NULL
+
+  return(freq_table)
+
 }

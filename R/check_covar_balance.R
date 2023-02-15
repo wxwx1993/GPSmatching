@@ -7,7 +7,6 @@
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach.
-#' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param counter_weight A weight vector in different situations. If the
 #' matching approach is selected, it is an integer data.table of counters.
 #' In the case of the weighting approach, it is weight data.table.
@@ -49,7 +48,6 @@
 #'                                  pred_model = "sl",
 #'                                  gps_model = "non-parametric",
 #'                                  trim_quantiles = c(0.01,0.99),
-#'                                  optimized_compile = TRUE,
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,
@@ -69,14 +67,12 @@
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
-#'                                         covar_bl_trs_type = "mean",
-#'                                         optimized_compile=TRUE)
+#'                                         covar_bl_trs_type = "mean")
 #'
 
 check_covar_balance <- function(w,
                                 c,
                                 ci_appr,
-                                optimized_compile,
                                 counter_weight = NULL,
                                 nthread = 1,
                                 ...){
@@ -139,14 +135,11 @@ check_covar_balance <- function(w,
   }
 
   if (ci_appr == "matching"){
-    if (optimized_compile){
       abs_cor <- absolute_weighted_corr_fun(w = w,
                                             vw = counter_weight,
                                             c = c)
-    } else {
-      abs_cor <- absolute_corr_fun(w, c)
-    }
-    return(post_process_abs(abs_cor))
+
+      return(post_process_abs(abs_cor))
   }
 
   if (ci_appr == "weighting"){

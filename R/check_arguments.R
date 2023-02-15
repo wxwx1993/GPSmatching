@@ -19,7 +19,7 @@
 check_args <- function(ci_appr,
                        use_cov_transform, transformers,
                        gps_model, trim_quantiles,
-                       optimized_compile, ...) {
+                       ...) {
 
   # 1) Check if the main arguments are correct.
   # 2) Generate required arguments based on main arguments.
@@ -51,8 +51,7 @@ check_args <- function(ci_appr,
 
   check_args_estimate_gps(gps_model, ...)
   check_args_generate_pseudo_pop(max_attempt = max_attempt)
-  check_args_compile_pseudo_pop(ci_appr,
-                                optimized_compile, ...)
+  check_args_compile_pseudo_pop(ci_appr, ...)
   check_args_use_cov_transformers(use_cov_transform, transformers)
 
   invisible(TRUE)
@@ -137,8 +136,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #'
 #' @keywords internal
 #'
-check_args_compile_pseudo_pop <- function(ci_appr,
-                                          optimized_compile, ...){
+check_args_compile_pseudo_pop <- function(ci_appr, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -153,12 +151,6 @@ check_args_compile_pseudo_pop <- function(ci_appr,
   if (!is.element(ci_appr, c('matching', 'weighting'))){
     stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
-
-  if (!is.logical(optimized_compile)){
-    stop(paste("optimized_compile: ", optimized_compile," is not valid.",
-    "It should be a logical value."))
-  }
-
 
   # checkpoint 2 ------------------------------------------
   if (ci_appr == 'matching'){

@@ -15,7 +15,6 @@ test_that("check_kolmogorov_smirnov works as expected.", {
                                     pred_model = "sl",
                                     gps_model = "non-parametric",
                                     trim_quantiles = c(0.01,0.99),
-                                    optimized_compile = TRUE,
                                     sl_lib = c("m_xgboost"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
@@ -32,8 +31,7 @@ test_that("check_kolmogorov_smirnov works as expected.", {
                                                                             with=FALSE],
                                                  counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
                                                  ci_appr="matching",
-                                                 nthread=1,
-                                                 optimized_compile=TRUE)
+                                                 nthread=1)
 
   expect_equal(length(output), 2L)
   expect_equal(length(output$ks_stat),9L)

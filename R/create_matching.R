@@ -13,7 +13,6 @@
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param nthread Number of available cores.
-#' @param optimized_compile Option to activate optimized compilation.
 #' @param ...  Additional arguments passed to the function.
 #'
 #' @return
@@ -22,7 +21,7 @@
 #' @keywords internal
 #'
 create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
-                            nthread = 1, optimized_compile, ...) {
+                            nthread = 1, ...) {
 
   # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
@@ -71,16 +70,11 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                            gps_model = gps_model,
                            delta_n = delta_n,
                            scale = scale,
-                           nthread = nthread,
-                           optimized_compile = optimized_compile)
+                           nthread = nthread)
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
                     " {(e_t_m - st_t_m)[[3]]} seconds).")
-
-  if (!optimized_compile){
-    return(data.table(do.call(rbind, matched_set)))
-  } else {
 
     logger::log_debug("Started working on compiling  ... ")
 
@@ -127,5 +121,4 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                       " {(e_comp_p - s_comp_p)[[3]]} seconds).")
 
     return(data.table(cp_original_data))
-  }
 }

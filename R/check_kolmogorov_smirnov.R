@@ -8,7 +8,6 @@
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach.
-#' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param counter_weight A weight vector in different situations. If the
 #' matching approach is selected, it is an integer data.table of counters.
 #' In the case of the weighting approach, it is weight data.table.
@@ -26,7 +25,6 @@
 check_kolmogorov_smirnov <- function(w,
                                      c,
                                      ci_appr,
-                                     optimized_compile,
                                      counter_weight = NULL,
                                      nthread = 1) {
 
@@ -44,7 +42,6 @@ check_kolmogorov_smirnov <- function(w,
 
   name_vals <- names(tmp_data)
 
-  if (optimized_compile) {
     ks_stat <- lapply(name_vals,
                       function(i) {
                         Ecume::ks_test(
@@ -67,9 +64,6 @@ check_kolmogorov_smirnov <- function(w,
     logger::log_trace(paste0("{paste(names(stat_vals), ",
                              "stat_vals, collapse = ', ', sep = ' : ')}"))
 
-  } else {
-    output <- NULL
-  }
 
   e_ks_t <- proc.time()
   logger::log_debug("Finished KS (Wall clock time:  ",

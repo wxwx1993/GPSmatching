@@ -57,8 +57,6 @@ Input parameters:
  **`trim_quantiles`** A numerical vector of two. Represents the trim quantile
  level. Both numbers should be in the range of [0,1] and in increasing order
  (default: c(0.01,0.99)).   
- **`optimized_compile`** If TRUE, uses counts to keep track of number of
- replicated pseudo population.   
  **`params`** Includes list of params that is used internally. Unrelated
   parameters will be ignored.   
  **`sl_lib`**: A vector of prediction algorithms. 
@@ -106,7 +104,6 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   trim_quantiles = c(0.01,0.99),
-                                  optimized_compile = TRUE,
                                   max_attempt = 1,
                                   matching_fun = "matching_l1",
                                   delta_n = 1,

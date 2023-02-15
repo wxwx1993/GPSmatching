@@ -45,7 +45,6 @@
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                    xgb_eta=c(0.1,0.2,0.3)),
 #'                                   nthread = 1,
-#'                                   optimized_compile = TRUE,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type="mean",

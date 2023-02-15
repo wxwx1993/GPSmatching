@@ -29,8 +29,6 @@
 #' @param trim_quantiles A numerical vector of two. Represents the trim quantile
 #' level. Both numbers should be in the range of \[0,1] and in increasing order
 #' (default: c(0.01,0.99)).
-#' @param optimized_compile If TRUE, uses counts to keep track of number of
-#' replicated pseudo population.
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
 #' @param sl_lib A vector of prediction algorithms.
@@ -68,7 +66,6 @@
 #' - pseudo_pop
 #' - adjusted_corr_results
 #' - original_corr_results
-#' - optimized_compile (True or False)
 #' - best_gps_used_params
 #' - effect size of generated pseudo population
 #'
@@ -83,7 +80,6 @@
 #'                                   gps_model = "parametric",
 #'                                   bin_seq = NULL,
 #'                                   trim_quantiles = c(0.01,0.99),
-#'                                   optimized_compile = FALSE,
 #'                                   use_cov_transform = FALSE,
 #'                                   transformers = list(),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
@@ -107,7 +103,6 @@ generate_pseudo_pop <- function(Y,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
                                 trim_quantiles = c(0.01,0.99),
-                                optimized_compile = FALSE,
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
@@ -129,7 +124,7 @@ generate_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(ci_appr, use_cov_transform, transformers,
-             gps_model, trim_quantiles, optimized_compile, ...)
+             gps_model, trim_quantiles, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -143,13 +138,6 @@ generate_pseudo_pop <- function(Y,
   }
 
   covariate_cols <- as.list(colnames(c))
-
-
-  # Depreciation messages
-  if (!optimized_compile){
-    warning("optimized_compile = FALSE will be depreciated.",
-            call. = FALSE)
-  }
 
   # get trim quantiles and trim data
   q1 <- stats::quantile(w, trim_quantiles[1])
@@ -182,7 +170,6 @@ generate_pseudo_pop <- function(Y,
                           counter_weight = NULL,
                           ci_appr = ci_appr,
                           nthread = nthread,
-                          optimized_compile = optimized_compile,
                           ...)
   tmp_data <- NULL
 
@@ -235,7 +222,7 @@ generate_pseudo_pop <- function(Y,
                                      gps_model = gps_model,
                                      bin_seq = bin_seq,
                                      nthread = nthread,
-                                     optimized_compile = optimized_compile,...)
+                                     ...)
     # trim pseudo population
     logger::log_debug("Finished compiling pseudo population.")
 
@@ -249,7 +236,6 @@ generate_pseudo_pop <- function(Y,
                                          c("counter_weight")],
                            ci_appr = ci_appr,
                            nthread = nthread,
-                           optimized_compile = optimized_compile,
                            ...)
 
     # check Kolmogorov-Smirnov statistics
@@ -260,8 +246,7 @@ generate_pseudo_pop <- function(Y,
                                          counter_weight = pseudo_pop[,
                                                            c("counter_weight")],
                                          ci_appr = ci_appr,
-                                         nthread = nthread,
-                                         optimized_compile = optimized_compile)
+                                         nthread = nthread)
 
     covar_bl_t <- paste0(covar_bl_trs_type, "_absolute_corr")
 
@@ -378,18 +363,13 @@ generate_pseudo_pop <- function(Y,
 
 
   # compute effective sample size
-  if (optimized_compile) {
   ess_recommended <- length(Y) / 10
   ess <- ((sum(best_pseudo_pop$counter_weight) ^ 2) /
           sum(best_pseudo_pop$counter_weight ^ 2))
-    if (ess < ess_recommended){
+  if (ess < ess_recommended){
       logger::log_warn("Effective sample size is less than recommended.",
                        "Current: {ess}, recommended min value:",
                        " {ess_recommended}.")
-    }
-  } else {
-    ess <- NULL
-    ess_recommended <- NULL
   }
 
 
@@ -410,7 +390,6 @@ generate_pseudo_pop <- function(Y,
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
-  result$optimized_compile <- optimized_compile
   result$best_gps_used_params <- best_gps_used_params
   result$covariate_cols_name <- unlist(covariate_cols)
   result$ess <- ess
