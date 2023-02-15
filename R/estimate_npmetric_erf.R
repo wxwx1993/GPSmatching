@@ -1,5 +1,5 @@
 #' @title
-#' Estimate Smoothed Exposure-Response Function (ERF) for Matched Data Set.
+#' Estimate smoothed exposure-response function (ERF) for pseudo population
 #'
 #' @description
 #' Estimate smoothed exposure-response function (ERF) for matched and weighted
@@ -45,7 +45,6 @@
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                    xgb_eta=c(0.1,0.2,0.3)),
 #'                                   nthread = 1,
-#'                                   optimized_compile = TRUE,
 #'                                   covar_bl_method = "absolute",
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type="mean",
@@ -66,16 +65,16 @@ estimate_npmetric_erf<-function(m_Y,
                                 counter_weight,
                                 bw_seq=seq(0.2,2,0.2),
                                 w_vals,
-                                nthread){
+                                nthread) {
 
   # function call
   fcall <- match.call()
 
-  if (length(m_Y) != length(m_w)){
+  if (length(m_Y) != length(m_w)) {
     stop("Length of output and treatment should be equal!")
   }
 
-  if (!is.double(m_Y) || !is.double(m_w)){
+  if (!is.double(m_Y) || !is.double(m_w)) {
     stop("Output and treatment vectors should be double vectors.")
   }
 
@@ -84,7 +83,7 @@ estimate_npmetric_erf<-function(m_Y,
       logger::log_debug("Giving equal weight for all samples.")
   }
 
-  if (is.null(get_options("logger_file_path"))){
+  if (is.null(get_options("logger_file_path"))) {
     logger_file_path <- "CausalGPS.log"
   } else {
     logger_file_path <- get_options("logger_file_path")
@@ -93,11 +92,11 @@ estimate_npmetric_erf<-function(m_Y,
   cl <- parallel::makeCluster(nthread, type="PSOCK",
                               outfile=logger_file_path)
 
-  parallel::clusterExport(cl=cl,
+  parallel::clusterExport(cl = cl,
                           varlist = c("estimate_hat_vals", "w_fun",
                                       "generate_kernel", "smooth_erf"
                                       ),
-                          envir=environment())
+                          envir = environment())
 
   risk_val_1 <-  parallel::parLapply(cl,
                                      bw_seq,
@@ -109,14 +108,14 @@ estimate_npmetric_erf<-function(m_Y,
 
   parallel::stopCluster(cl)
 
-  risk_val <- do.call(rbind, risk_val_1)[,1]
+  risk_val <- do.call(rbind, risk_val_1)[, 1]
 
   h_opt <- bw_seq[which.min(risk_val)]
 
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
   data <- data.frame(m_Y = m_Y, m_w = m_w)
-  tmp_loc <- locpol::locpol(formula = m_Y~m_w,
+  tmp_loc <- locpol::locpol(formula = m_Y ~ m_w,
                             data = data,
                             bw = h_opt,
                             weig = counter_weight,

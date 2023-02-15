@@ -1,5 +1,5 @@
 #' @title
-#' Compile Pseudo Population
+#' Compile pseudo population
 #'
 #' @description
 #' Compiles pseudo population based on the original population and estimated GPS
@@ -20,8 +20,6 @@
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
-#' @param optimized_compile If TRUE, uses counts to keep track of number of
-#' replicated pseudo population.
 #' @param ... Additional parameters.
 #'
 #' @note
@@ -56,7 +54,6 @@
 #'                          gps_model = "parametric",
 #'                          bin_seq = NULL,
 #'                          nthread = 1,
-#'                          optimized_compile=TRUE,
 #'                          matching_fun = "matching_l1",
 #'                          covar_bl_method = 'absolute',
 #'                          covar_bl_trs = 0.1,
@@ -66,17 +63,16 @@
 #'
 compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
                                bin_seq, nthread,
-                               optimized_compile, ...){
+                               ...) {
 
   # Checking arguments
-  check_args_compile_pseudo_pop(ci_appr=ci_appr,
-                                optimized_compile=optimized_compile, ...)
+  check_args_compile_pseudo_pop(ci_appr = ci_appr, ...)
 
-  if (!(is.object(data_obj) && !isS4(data_obj))){
+  if (!(is.object(data_obj) && !isS4(data_obj))) {
     stop("data_obj should be a S3 object.")
   }
 
-  if (!(is.element("dataset",attributes(data_obj)$names))){
+  if (!(is.element("dataset", attributes(data_obj)$names))) {
     stop("data_obj should have the required dataset field.")
   }
 
@@ -84,9 +80,11 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
                     " (original data size: {nrow(data_obj$dataset)}) ... ")
 
   if (ci_appr == 'matching'){
-
-      matched_set <- create_matching(data_obj, bin_seq, gps_model, nthread,
-                                     optimized_compile,...)
+      matched_set <- create_matching(data_obj,
+                                     bin_seq,
+                                     gps_model,
+                                     nthread,
+                                     ...)
       logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
       return(matched_set)

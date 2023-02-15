@@ -1,5 +1,5 @@
 #' @title
-#' Check Covariate Balance
+#' Check covariate balance
 #'
 #' @description
 #' Checks the covariate balance of original population or pseudo population.
@@ -7,7 +7,6 @@
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data.frame of observed covariates variable.
 #' @param ci_appr The causal inference approach.
-#' @param optimized_compile If TRUE, use optimized compile approach.
 #' @param counter_weight A weight vector in different situations. If the
 #' matching approach is selected, it is an integer data.table of counters.
 #' In the case of the weighting approach, it is weight data.table.
@@ -49,7 +48,6 @@
 #'                                  pred_model = "sl",
 #'                                  gps_model = "non-parametric",
 #'                                  trim_quantiles = c(0.01,0.99),
-#'                                  optimized_compile = TRUE,
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,
@@ -69,17 +67,15 @@
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
-#'                                         covar_bl_trs_type = "mean",
-#'                                         optimized_compile=TRUE)
+#'                                         covar_bl_trs_type = "mean")
 #'
 
 check_covar_balance <- function(w,
                                 c,
                                 ci_appr,
-                                optimized_compile,
                                 counter_weight = NULL,
-                                nthread=1,
-                                  ...){
+                                nthread = 1,
+                                ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
@@ -98,20 +94,20 @@ check_covar_balance <- function(w,
     assign(i,unlist(dot_args[i], use.names = FALSE))
   }
 
-  post_process_abs <- function(abs_cor){
+  post_process_abs <- function(abs_cor) {
 
-    covar_bl_t <- paste0(covar_bl_trs_type,"_absolute_corr")
+    covar_bl_t <- paste0(covar_bl_trs_type, "_absolute_corr")
     logger::log_debug(paste0(covar_bl_trs_type,
                             " absolute correlation: ",
-                            getElement(abs_cor,covar_bl_t)))
-    message(paste0(covar_bl_trs_type," absolute correlation: ",
-                  getElement(abs_cor,covar_bl_t),
+                            getElement(abs_cor, covar_bl_t)))
+    message(paste0(covar_bl_trs_type, " absolute correlation: ",
+                  getElement(abs_cor, covar_bl_t),
                   "| Covariate balance threshold: ", covar_bl_trs))
 
     output <- list(corr_results = abs_cor)
 
 
-    if (getElement(abs_cor,covar_bl_t) < covar_bl_trs){
+    if (getElement(abs_cor,covar_bl_t) < covar_bl_trs) {
       output$pass <- TRUE
     } else {
       output$pass <- FALSE
@@ -124,29 +120,26 @@ check_covar_balance <- function(w,
 
   }
 
-  if (covar_bl_method != "absolute"){
+  if (covar_bl_method != "absolute") {
     stop(paste(covar_bl_method, " method for covariate balance is not a valid
                option or not implemented."))
   }
 
-  if (!(ci_appr %in% c("matching", "weighting"))){
-    stop(paste (ci_appr, " is not a valid causal inference approach."))
+  if (!(ci_appr %in% c("matching", "weighting"))) {
+    stop(paste(ci_appr, " is not a valid causal inference approach."))
   }
 
-  if (is.null(counter_weight)){
+  if (is.null(counter_weight)) {
     abs_cor <- absolute_corr_fun(w, c)
     return(post_process_abs(abs_cor))
   }
 
   if (ci_appr == "matching"){
-    if (optimized_compile){
       abs_cor <- absolute_weighted_corr_fun(w = w,
                                             vw = counter_weight,
                                             c = c)
-    } else {
-      abs_cor <- absolute_corr_fun(w, c)
-    }
-    return(post_process_abs(abs_cor))
+
+      return(post_process_abs(abs_cor))
   }
 
   if (ci_appr == "weighting"){
@@ -158,5 +151,4 @@ check_covar_balance <- function(w,
 
   stop(paste0("Input values for check_covar_balance are not correct.",
        " The code should not get here. Please inform the developers."))
-
 }

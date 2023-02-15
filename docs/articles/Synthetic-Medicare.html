@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -555,7 +555,6 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                    optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
 <span>                                    sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
@@ -571,9 +570,9 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Loading required package: nnls</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.046174492691644| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.046627261136326| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Covariate balance condition has been met (iteration: 1/1)</span></span>
-<span><span class="co">#&gt; Best mean absolute correlation: 0.046174492691644| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; Best mean absolute correlation: 0.046627261136326| Covariate balance threshold: 0.1</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
@@ -598,7 +597,6 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                    optimized_compile <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
 <span>                                    sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
@@ -612,18 +610,13 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
 <span>                                    delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                                    scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: optimized_compile = FALSE will be depreciated.</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.0468679750728689| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.046627261136326| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Covariate balance condition has been met (iteration: 1/1)</span></span>
-<span><span class="co">#&gt; Best mean absolute correlation: 0.0468679750728689| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; Best mean absolute correlation: 0.046627261136326| Covariate balance threshold: 0.1</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>By activating <code>optimized_compile</code> flag, we keep track of
-number of data samples, instead of aggregating them. Both approach
-should result in the same values, however,
-<code>optimized_compile</code> version will consume less memory.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">optimized_data_1</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_1</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">nonoptimized_data_2</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_2</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
@@ -635,14 +628,14 @@ should result in the same values, however,
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of rows of data in the non-optimized approach: "</span>,</span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">nonoptimized_data_2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Number of rows of data in the non-optimized approach:  140300"</span></span>
+<span><span class="co">#&gt; [1] "Number of rows of data in the non-optimized approach:  2300"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Sum of data samples in the optimized approach: "</span>,</span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">optimized_data_1</span><span class="op">$</span><span class="va">counter_weight</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sum of data samples in the optimized approach:  140300"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of data in the non-optimized approach: "</span>,</span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nonoptimized_data_2</span><span class="op">$</span><span class="va">w</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Number of data in the non-optimized approach:  140300"</span></span>
+<span><span class="co">#&gt; [1] "Number of data in the non-optimized approach:  2300"</span></span>
 <span></span>
 <span><span class="co"># Replicate gps values of optimized approach</span></span>
 <span><span class="va">expanded_opt_data_1</span> <span class="op">&lt;-</span> <span class="va">optimized_data_1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">optimized_data_1</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -656,7 +649,7 @@ should result in the same values, however,
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Sum of differences in gps values between optimized and "</span>, </span>
 <span>            <span class="st">"non-optimized approaches is: "</span>,</span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">differences</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Sum of differences in gps values between optimized and  non-optimized approaches is:  0"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Sum of differences in gps values between optimized and  non-optimized approaches is:  38958.9033869061"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scenario-3">Scenario 3<a class="anchor" aria-label="anchor" href="#scenario-3"></a>
@@ -681,7 +674,6 @@ should result in the same values, however,
 <span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
 <span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
@@ -696,9 +688,9 @@ should result in the same values, however,
 <span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.0524109107056938| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.0521458538948437| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Covariate balance condition has been met (iteration: 1/1)</span></span>
-<span><span class="co">#&gt; Best mean absolute correlation: 0.0524109107056938| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; Best mean absolute correlation: 0.0521458538948437| Covariate balance threshold: 0.1</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
@@ -728,7 +720,6 @@ should result in the same values, however,
 <span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
 <span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
@@ -743,9 +734,9 @@ should result in the same values, however,
 <span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.0552116564078729| Covariate balance threshold: 0.1</span></span>
-<span><span class="co">#&gt; Covariate balance condition has been met (iteration: 1/1)</span></span>
-<span><span class="co">#&gt; Best mean absolute correlation: 0.0552116564078729| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.532572233294604| Covariate balance threshold: 0.1</span></span>
+<span><span class="co">#&gt; Covariate balance condition has not been met.</span></span>
+<span><span class="co">#&gt; Best mean absolute correlation: 0.532572233294604| Covariate balance threshold: 0.1</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
@@ -826,7 +817,6 @@ balance</p></li>
 <span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
 <span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
@@ -841,13 +831,13 @@ balance</p></li>
 <span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.08</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.123384745637948| Covariate balance threshold: 0.08</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.200329942130683| Covariate balance threshold: 0.08</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.165235822265409| Covariate balance threshold: 0.08</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.160530585591875| Covariate balance threshold: 0.08</span></span>
-<span><span class="co">#&gt; mean absolute correlation: 0.180224262686973| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.123983603260004| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.20034674112753| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.165910759386322| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.160872521798447| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; mean absolute correlation: 0.180468747869532| Covariate balance threshold: 0.08</span></span>
 <span><span class="co">#&gt; Covariate balance condition has not been met.</span></span>
-<span><span class="co">#&gt; Best mean absolute correlation: 0.123384745637948| Covariate balance threshold: 0.08</span></span>
+<span><span class="co">#&gt; Best mean absolute correlation: 0.123983603260004| Covariate balance threshold: 0.08</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>

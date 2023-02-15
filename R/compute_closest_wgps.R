@@ -18,42 +18,42 @@
 #'
 #' @keywords internal
 #'
-compute_closest_wgps <- function(a, b, c, d, sc, nthread){
+compute_closest_wgps <- function(a, b, c, d, sc, nthread) {
 
   if (!is.numeric(a) ||
       !is.numeric(b) ||
       !is.numeric(c) ||
       !is.numeric(d) ||
-      !is.numeric(sc)){
+      !is.numeric(sc)) {
     stop('Input values for compute_closest_wgps should be numeric.')
   }
 
   if (length(a) < 1 ||
       length(b) < 1 ||
-      length(c) < 1 ){
+      length(c) < 1 ) {
     stop('Input values for compute_closest_wgps cannot be empty values.')
   }
 
-  if (length(d) != 1){
+  if (length(d) != 1) {
     stop('Expecting a scaler number for d.')
   }
 
-  if (length(sc) != 1){
+  if (length(sc) != 1) {
     stop('Expecting a scaler number for sc(scale).')
   }
 
-  if (length(a) != length(c)){
+  if (length(a) != length(c)) {
     stop('Expecting equal length for a and c.')
   }
 
-  if (sc < 0 || sc > 1 ){
+  if (sc < 0 || sc > 1 ) {
     stop('Expecting sc in [0,1] range.')
   }
 
   logger::log_trace("Size of subset of data: {length(a)}")
 
-  if (sc != 1 ){
-   c_minus_d <- abs(c-d)*(1-sc)
+  if (sc != 1 ) {
+   c_minus_d <- abs(c - d) * (1 - sc)
    wm <- compute_closest_wgps_helper(a, b, c_minus_d, sc, nthread)
   } else {
    logger::log_trace("Simplified approach was selected in matching.")

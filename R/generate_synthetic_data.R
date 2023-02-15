@@ -1,5 +1,5 @@
 #' @title
-#' Generate Synthetic Data for CausalGPS Package
+#' Generate synthetic data for the CausalGPS package
 #'
 #' @description
 #' Generates synthetic data set based on different GPS models and covariates.
@@ -26,10 +26,12 @@
 #'                                   outcome_sd = 10, gps_spec = 1,
 #'                                   cova_spec = 1)
 #'
-generate_syn_data <- function(sample_size=1000, outcome_sd = 10,
-                              gps_spec = 1, cova_spec = 1) {
+generate_syn_data <- function(sample_size = 1000,
+                              outcome_sd = 10,
+                              gps_spec = 1,
+                              cova_spec = 1) {
 
-  if (sample_size < 0 || !is.numeric(sample_size)){
+  if (sample_size < 0 || !is.numeric(sample_size)) {
     stop("'sample_size' should be a positive ineteger numer.")
    }
 
@@ -106,10 +108,10 @@ generate_syn_data <- function(sample_size=1000, outcome_sd = 10,
 
   for (i in 1:size) {
     Y[i] <- ((-(1 + (sum(c(0.2, 0.2, 0.3, -0.1) * cf[i, ]))
-                  * 10 - 2 * cf5[i] - 2*cf6[i] + (treat[i]-20)
+                  * 10 - 2 * cf5[i] - 2 * cf6[i] + (treat[i] - 20)
                   * (0.1 + 0.1 * cf[i,4] + 0.1 * cf5[i]
-                  + 0.1 * cf[i,3] ^ 2 - 0.13 ^ 2 * (treat[i] - 20) ^2)))
-                  + stats::rnorm(1, mean=0, sd=outcome_sd))
+                  + 0.1 * cf[i,3] ^ 2 - 0.13 ^ 2 * (treat[i] - 20) ^ 2)))
+                  + stats::rnorm(1, mean = 0, sd = outcome_sd))
   }
   if (cova_spec == 1) {
 
@@ -126,7 +128,7 @@ generate_syn_data <- function(sample_size=1000, outcome_sd = 10,
     stop(paste("cova_spec: ", cova_spec, ", is not a valid value."))
   }
 
-  simulated_data<-data.frame(cbind(Y,treat,cf, cf5, cf6))
-  colnames(simulated_data)[3:8]<-c("cf1","cf2","cf3","cf4","cf5","cf6")
+  simulated_data <- data.frame(cbind(Y, treat, cf, cf5, cf6))
+  colnames(simulated_data)[3:8]<-c("cf1", "cf2", "cf3", "cf4", "cf5", "cf6")
   return(simulated_data)
 }

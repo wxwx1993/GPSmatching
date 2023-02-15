@@ -1,3 +1,15 @@
+## CausalGPS 0.3.0 (2023-02-15)
+
+### Changed
+
+* Unit tests support new `wCorr` release (#193).
+* Only optimized compilation is supported. In the previous versions, this approach is known as `optimzied_compile == TRUE`.
+
+### Added
+
+* The `earth` package is part of suggested packages. 
+
+
 ## CausalGPS 0.2.9 (2022-12-16)
 
 ### Fixed
@@ -40,7 +52,7 @@ approaches. `counter` and `ipw` are dropped.
 
 ### Fixed
 * Message for not implemented methods changed to reduce misunderstanding.
-* Empty counter will raise error in estimating non-parameteric response function. 
+* Empty counter will raise error in estimating non-parametric response function. 
 
 ### Changed
 * matching_l1 returns frequency table instead of entire vector. 

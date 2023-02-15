@@ -24,7 +24,7 @@ create_weighting <- function(dataset, ...){
   # data set content: Y, w, gps, counter_weight, row_index, c
 
   if (sum(!is.element(c("Y","w","gps","counter_weight","row_index"),
-                      colnames(dataset)))> 0){
+                      colnames(dataset))) > 0) {
     stop("Dataset does not include all required columns.")
   }
 

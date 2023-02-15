@@ -27,13 +27,13 @@
 #' @useDynLib CausalGPS, .registration = TRUE
 #'
 #' @references
-#' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.
+#' Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2022.
 #'  Matching on generalized propensity scores with continuous exposures.
-#'  arXiv preprint arXiv:1812.06575.
+#'  Journal of the American Statistical Association, pp.1-29.
 #'
 #' Kennedy, E.H., Ma, Z., McHugh, M.D. and Small, D.S., 2017. Non-parametric
 #'  methods for doubly robust estimation of continuous treatment effects.
-#'  Journal of the Royal Statistical Society: Series B (Statistical Methodology),
+#'  Journal of the Royal Statistical Society. Series B (Statistical Methodology),
 #'  79(4), pp.1229-1245.
 #'
 NULL

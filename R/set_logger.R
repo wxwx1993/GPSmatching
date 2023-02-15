@@ -24,12 +24,13 @@
 #'
 #' set_logger("Debug")
 #'
-set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
+set_logger <- function(logger_file_path = "CausalGPS.log",
+                       logger_level = "INFO") {
 
   available_levels <- c("TRACE", "DEBUG", "INFO", "SUCCESS", "WARN",
                         "ERROR", "FATAL")
 
-  if (!is.element(logger_level, available_levels)){
+  if (!is.element(logger_level, available_levels)) {
     stop(paste("logger_level: ", logger_level, " is not valid."))
   }
 
@@ -43,8 +44,8 @@ set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
 
   #create_matching$logger_file_path <- logger_file_path
 
-  if (!is.null(logger_level)){
-    if (is.element(logger_level, available_levels)){
+  if (!is.null(logger_level)) {
+    if (is.element(logger_level, available_levels)) {
 
       logger::log_threshold(logger_level)
 
@@ -53,7 +54,7 @@ set_logger <- function(logger_file_path= "CausalGPS.log", logger_level="INFO"){
                  paste(available_levels, collapse = " ")))
     }
   } else {
-    logger::log_threshold(logger::INFO,index = 1)
+    logger::log_threshold(logger::INFO, index = 1)
   }
 }
 

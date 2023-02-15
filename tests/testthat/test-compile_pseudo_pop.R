@@ -14,8 +14,7 @@ test_that("Compiling pseudo pop works as expected.", {
   expect_error(compile_pseudo_pop(dataset=gps_obj$dataset, ci_appr="grounding",
                                    gps_model = "parametric", bin_seq,
                                    nthread = 1,
-                                   trim_quantiles = c(0.01, 0.99),
-                                   optimized_compile = TRUE))
+                                   trim_quantiles = c(0.01, 0.99)))
 
 
   #
@@ -26,7 +25,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      bin_seq = NULL,
                                      nthread = 1,
                                      trim_quantiles = c(0.01, 0.99),
-                                     optimized_compile = TRUE,
                                      covar_bl_method = "absolute",
                                      covar_bl_trs = 0.1,
                                      covar_bl_trs_type = "mean",
@@ -54,7 +52,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      bin_seq = NULL,
                                      nthread = 1,
                                      trim_quantiles = c(0.01, 0.99),
-                                     optimized_compile = TRUE,
                                      covar_bl_method = "absolute",
                                      covar_bl_trs = 0.1,
                                      covar_bl_trs_type = "mean",
@@ -67,6 +64,4 @@ test_that("Compiling pseudo pop works as expected.", {
   expect_equal(length(pseudo_pop_2),13)
   expect_equal(mean(pseudo_pop_2$counter_weight),
                0.7465975, tolerance = 0.00001)
-
-
 })

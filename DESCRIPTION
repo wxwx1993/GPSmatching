@@ -1,11 +1,11 @@
 Package: CausalGPS
 Type: Package
 Title: Matching on Generalized Propensity Scores with Continuous Exposures
-Version: 0.2.9
+Version: 0.3.0
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
-           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="FASRC")),
+           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="HUIT")),
     person("Xiao", "Wu", email = "wuxiao@g.harvard.edu",
            role= c("aut"),            
            comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION="HSPH")),
@@ -16,9 +16,9 @@ Maintainer: Naeem Khoshnevis <nkhoshnevis@g.harvard.edu>
 Description: Provides a framework for estimating causal effects of a continuous 
     exposure using observational data, and implementing matching and weighting 
     on the generalized propensity score.
-    Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 
-    2018. Matching on generalized propensity scores with continuous exposures. 
-    arXiv preprint <arXiv:1812.06575>.
+    Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2022. 
+    Matching on generalized propensity scores with continuous exposures. Journal 
+    of the American Statistical Association, pp.1-29.
 License: GPL-3
 Language: en-US
 URL: https://github.com/NSAPH-Software/CausalGPS
@@ -48,6 +48,7 @@ Suggests:
     knitr,
     rmarkdown,
     ranger,
+    earth,
     testthat
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

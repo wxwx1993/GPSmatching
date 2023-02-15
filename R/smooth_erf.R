@@ -13,9 +13,9 @@
 #' Smoothed value of ERF
 #' @keywords internal
 #'
-smooth_erf <- function(matched_Y,bw,matched_w, matched_cw){
+smooth_erf <- function(matched_Y, bw, matched_w, matched_cw) {
 
-  if (length(bw)!=1){
+  if (length(bw) != 1) {
     stop("bw should be of length 1.")
   }
 
@@ -25,7 +25,7 @@ smooth_erf <- function(matched_Y,bw,matched_w, matched_cw){
   }
 
   data <- data.frame(matched_Y = matched_Y, matched_w = matched_w)
-  val <- locpol::locpol(formula = matched_Y~matched_w,
+  val <- locpol::locpol(formula = matched_Y ~ matched_w,
                         data = data,
                         bw = bw,
                         weig = matched_cw,

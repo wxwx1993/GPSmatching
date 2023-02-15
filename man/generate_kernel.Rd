@@ -7,12 +7,12 @@
 generate_kernel(t)
 }
 \arguments{
-\item{t}{standardized vector (z-score)}
+\item{t}{A standardized vector (z-score)}
 }
 \value{
 probability distribution
 }
 \description{
-Generates kernel function
+Generates a kernel function
 }
 \keyword{internal}

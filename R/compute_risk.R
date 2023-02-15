@@ -16,11 +16,12 @@
 #' returns a cross-validated risk value for the input bandwidth
 #' @keywords internal
 #'
-compute_risk <- function(h, matched_Y,matched_w, matched_cw, w_vals){
-  hats <- estimate_hat_vals(h,matched_w,w_vals)
-  tmp_mean <- mean(((matched_Y - smooth_erf(matched_Y,
-                                            bw=h,
-                                            matched_w = matched_w,
-                                            matched_cw = matched_cw))/(1-hats))^2)
+compute_risk <- function(h, matched_Y, matched_w, matched_cw, w_vals) {
+  hats <- estimate_hat_vals(h, matched_w, w_vals)
+  tmp_mean <- mean(((matched_Y - smooth_erf(
+                                    matched_Y,
+                                    bw = h,
+                                    matched_w = matched_w,
+                                    matched_cw = matched_cw)) / (1 - hats)) ^ 2)
   return(tmp_mean)
 }

@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,8 +126,7 @@ generate pseudo population. If NULL is passed the default value will be
 used, which is
 <code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>.<br><strong><code>trim_quantiles</code></strong> A numerical vector of two.
 Represents the trim quantile level. Both numbers should be in the range
-of [0,1] and in increasing order (default: c(0.01,0.99)).<br><strong><code>optimized_compile</code></strong> If TRUE, uses counts to
-keep track of number of replicated pseudo population.<br><strong><code>params</code></strong> Includes list of params that is
+of [0,1] and in increasing order (default: c(0.01,0.99)).<br><strong><code>params</code></strong> Includes list of params that is
 used internally. Unrelated parameters will be ignored.<br><strong><code>sl_lib</code></strong>: A vector of prediction algorithms.
 <strong><code>nthread</code></strong> An integer value that represents
 the number of threads to be used by internal packages.<br><strong><code>...</code></strong> Additional arguments passed to
@@ -212,7 +211,6 @@ balance.</li>
 <span>                             use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
 <span>                             trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span>
-<span>                             optimized_compile <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span>                             covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
 <span>                             covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>

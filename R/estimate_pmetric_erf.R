@@ -43,11 +43,11 @@
 #'                                     data = pseudo_pop$pseudo_pop,
 #'                                     ci_appr = "matching")
 #'
-estimate_pmetric_erf <- function(formula, family, data, ci_appr){
+estimate_pmetric_erf <- function(formula, family, data, ci_appr) {
 
   counter_weight <- NULL
 
-  if (ci_appr == "matching"){
+  if (ci_appr == "matching") {
 
     # If the approach is not optimized, the counter will be zero, which causes
     # problem in generating prediction model.
@@ -61,7 +61,7 @@ estimate_pmetric_erf <- function(formula, family, data, ci_appr){
                                            data = data,
                                            weights = counter_weight,
                                            verbose = FALSE, model = FALSE))
-  } else if (ci_appr == "weighting"){
+  } else if (ci_appr == "weighting") {
     suppressWarnings(gnm_model <- gnm::gnm(formula = formula,
                                            family = family,
                                            data = data,

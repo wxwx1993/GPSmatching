@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_synthetic_data.R
 \name{generate_syn_data}
 \alias{generate_syn_data}
-\title{Generate Synthetic Data for CausalGPS Package}
+\title{Generate synthetic data for the CausalGPS package}
 \usage{
 generate_syn_data(
   sample_size = 1000,

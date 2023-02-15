@@ -79,7 +79,7 @@
 #'   \item{gmet_mean_tmmn}{Annual mean of daily minimum temperature (K)}
 #'   \item{gmet_mean_summer_tmmn}{The mean of daily minimum temperature during summer (K)}
 #'   \item{gmet_mean_winter_tmmn}{The mean of daily minimum temperature during winter (K)}
-#'   \item{gmet_mean_tmmx}{Annual mean of daily maximum temprature (K)}
+#'   \item{gmet_mean_tmmx}{Annual mean of daily maximum temperature (K)}
 #'   \item{gmet_mean_summer_tmmx}{The mean of daily maximum temperature during summer (K)}
 #'   \item{gmet_mean_winter_tmmx}{The mean of daily maximum temperature during winter (K)}
 #'   \item{gmet_mean_rmn}{Annual mean of daily minimum relative humidity (%)}

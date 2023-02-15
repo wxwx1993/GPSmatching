@@ -8,7 +8,7 @@
 #' No return value. This function is called for side effects.
 #'
 #'@keywords internal
-log_system_info <- function(){
+log_system_info <- function() {
 
   sys_info <- Sys.info()
 
@@ -24,14 +24,14 @@ log_system_info <- function(){
 # Keeping logger options
 my_options <- new.env(parent = emptyenv())
 
-get_options <- function(k, v){
+get_options <- function(k, v) {
   my_options[[k]]
 }
 
-set_options <- function(k, v){
+set_options <- function(k, v) {
   my_options[[k]] <- v
 }
 
-list_options <- function(){
+list_options <- function() {
   names(my_options)
 }
