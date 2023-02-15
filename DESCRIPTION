@@ -5,7 +5,7 @@ Version: 0.2.9.9000
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
-           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="FASRC")),
+           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="HUIT")),
     person("Xiao", "Wu", email = "wuxiao@g.harvard.edu",
            role= c("aut"),            
            comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION="HSPH")),
