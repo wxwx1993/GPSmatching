@@ -372,7 +372,6 @@ generate_pseudo_pop <- function(Y,
                        " {ess_recommended}.")
   }
 
-
   result <- list()
   class(result) <- "gpsm_pspop"
 
