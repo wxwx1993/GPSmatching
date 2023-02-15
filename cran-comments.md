@@ -1,3 +1,16 @@
+Re-submission (Feb 15, 2023)
+
+Thank you for taking the time to review the CausalGPS ver 0.3.0 package. 
+
+I fixed the issue with the citation. 
+
+Best regards,   
+
+Naeem Khoshnevis   
+Harvard University   
+Information Technology   
+
+
 Submission (Feb 15, 2023)
 
 Thank you for taking the time to review the CausalGPS ver 0.3.0 package. 

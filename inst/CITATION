@@ -1,20 +1,21 @@
-citHeader("References")
-
-citEntry(entry = "Article",
-  title = "{Matching on generalized propensity scores with continuous exposures}",
-  author = personList(
-             as.person("Xiao Wu"),
-             as.person("Fabrizia Mealli"),
-             as.person("Marianthi-Anna Kioumourtzoglou"),
-             as.person("Francesca Dominici"),
-             as.person("Danielle Braun")
-
-  ),
-  year = "2018",
-  journal = "arXiv preprint arXiv:1812.06575",
-  url = "https://arxiv.org/abs/1812.06575",
-  textVersion  =
-  paste("Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2018.",
-        "Matching on generalized propensity scores with continuous exposures.",
-        "arXiv preprint arXiv:1812.06575.")
-)
+bibentry(bibtype = "Manual",
+         header = "To cite package ‘CausalGPS’ in publications use:",
+         title = "CausalGPS: Matching on Generalized Propensity Scores with Continuous Exposures",
+         author = c(person(given = "Naeem",
+                           family = "Khoshnevis",
+                           role = c("aut", "cre"),
+                           email = "nkhoshnevis@g.harvard.edu",
+                           comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION = "HUIT")),
+                    person(given = "Xiao",
+                           family = "Wu",
+                           role = "aut",
+                           email = "wuxiao@g.harvard.edu",
+                           comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION = "HSPH")),
+                    person(given = "Danielle",
+                           family = "Braun",
+                           role = "aut",
+                           email = "dbraun@hsph.harvard.edu",
+                           comment = c(ORCID = "0000-0002-5177-8598", AFFILIATION = "HSPH"))),
+         note = "R package version 0.3.0",
+         year = "2023",
+         url = "https://CRAN.R-project.org/package=CausalGPS")
