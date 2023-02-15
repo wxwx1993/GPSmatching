@@ -59,7 +59,7 @@ approaches. `counter` and `ipw` are dropped.
 
 ### Fixed
 * Message for not implemented methods changed to reduce misunderstanding.
-* Empty counter will raise error in estimating non-parameteric response function. 
+* Empty counter will raise error in estimating non-parametric response function. 
 
 ### Changed
 * matching_l1 returns frequency table instead of entire vector. 
