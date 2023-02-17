@@ -13,9 +13,9 @@
 #' Returns fitted values, or the prediction made by the model for each observation.
 #' @keywords internal
 #'
-estimate_hat_vals <- function(bw, matched_w, w_vals) {
+estimate_hat_vals <- function(bw, matched_w, matched_cw, w_vals) {
   stats::approx(w_vals,
-                w_fun(bw, matched_w, w_vals),
+                w_fun(bw, matched_w, matched_cw, w_vals),
                 xout = matched_w,
                 rule=2)$y
 }
