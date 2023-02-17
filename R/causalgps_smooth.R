@@ -28,7 +28,7 @@ generate_kernel <- function(t) {
 #' return value (TODO)
 #' @keywords internal
 #'
-w_fun <- function(bw, matched_w, w_vals){
+w_fun <- function(bw, matched_w, matched_cw, w_vals){
     w_avals <- NULL
     for (w_val in w_vals) {
     w_std <- (matched_w - w_val) / bw
