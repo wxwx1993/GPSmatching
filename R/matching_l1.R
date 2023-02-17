@@ -56,6 +56,8 @@ matching_l1 <- function(w,
   } else if (gps_model == "non-parametric") {
     w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
     p_w <- compute_density(w_resid, w_new)
+  } else if (gps_model == "LinCDE") {
+    p_w <- predict(e_gps_pred, X = data.frame(dataset[,6:ncol(dataset)]), y = w,  densityOnly = TRUE)
   } else {
     stop(paste("Invalid gps model: ", gps_model,
                ". Valide options: parametric, non-parametric"))

@@ -85,7 +85,7 @@ check_args_estimate_gps <- function(gps_model, ...){
   #   stop(paste(pred_model, " is not a valid prediction model."))
   # }
 
-  if (!is.element(gps_model, c('parametric','non-parametric'))){
+  if (!is.element(gps_model, c('parametric','non-parametric','LinCDE'))){
     stop(paste(gps_model, " is not a valide gps_model.",
                "Valid options: parametric, non-parametric."))
   }

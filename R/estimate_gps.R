@@ -120,6 +120,15 @@ estimate_gps <- function(Y,
     w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
     gps <- compute_density(w_resid, w_resid)
 
+  } else if (gps_model == "LinCDE"){
+    e_gps <- LinCDE.boost(X = c,
+                          y = w,
+                          verbose = F)
+    gps <- predict(e_gps, X = c, y = w,  densityOnly = TRUE)
+    e_gps_pred <- e_gps
+    e_gps_std_pred <- e_gps
+    w_resid <- e_gps
+
   } else {
 
     logger::log_error("Code should nevet get here. Doublecheck check_arguments.")
