@@ -34,6 +34,20 @@ test_that("Check arguments works as expected.", {
                                         delta_n=1,
                                         scale=0.5)
   expect_true(val3)
+  expect_error(
+    check_args_compile_pseudo_pop(ci_appr = "matching",
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 1,
+                                  covar_bl_trs_type = "mean",
+                                  max_attempt = 10,
+                                  trim_quantiles = c(0.01, 0.99),
+                                  matching_fun = "matching_l1",
+                                  delta_n = NULL,
+                                  scale = 0.5)
+  )
+
+  # returns error when delta_n is NULL:
+
 
   # trim_quantiles should be in [0,1] range and first element less than
   # the second element.

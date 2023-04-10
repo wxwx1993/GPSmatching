@@ -190,12 +190,24 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
       stop(paste("scale shoule be in [0,1] range. Current provided value: ",
                  scale))
     }
+
+    if (!is.numeric(delta_n)){
+      if (is.null(delta_n)){
+        current_val <- "NULL"
+      } else {
+        current_val <- delta_n
+      }
+      stop(paste("The caliper size (delta_n) should be a numerical value. ",
+                 "Current value: ", current_val))
+    }
   }
 
   if (!is.element(covar_bl_trs_type, c('mean', 'median', 'maximal'))){
     stop(paste(covar_bl_method, " is not a valid covar balance type.",
                " Available options: mean, median, maximal."))
   }
+
+
 
   invisible(TRUE)
 }
