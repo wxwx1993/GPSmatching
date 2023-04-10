@@ -6,7 +6,7 @@
 
 ### Added
 
-* 
+* Now users can also collect the original data in the pseudo population object.
 
 
 

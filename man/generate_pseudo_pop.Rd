@@ -17,6 +17,7 @@ generate_pseudo_pop(
   params = list(),
   sl_lib = c("m_xgboost"),
   nthread = 1,
+  include_original_data = FALSE,
   ...
 )
 }
@@ -62,6 +63,9 @@ parameters will be ignored.}
 
 \item{nthread}{An integer value that represents the number of threads to be
 used by internal packages.}
+
+\item{include_original_data}{If TRUE, includes the original data in the
+outcome.}
 
 \item{...}{Additional arguments passed to different models.}
 }
