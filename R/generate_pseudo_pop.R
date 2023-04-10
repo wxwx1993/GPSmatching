@@ -34,6 +34,8 @@
 #' @param sl_lib A vector of prediction algorithms.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
+#' @param include_original_data If TRUE, includes the original data in the
+#' outcome.
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
@@ -55,6 +57,7 @@
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
+#'
 #'
 #' @return
 #' Returns a pseudo population (gpsm_pspop) object that is generated
@@ -106,6 +109,7 @@ generate_pseudo_pop <- function(Y,
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
+                                include_original_data = FALSE,
                                 ...){
 
   # Passing packaging check() ------------------------------
@@ -149,6 +153,12 @@ generate_pseudo_pop <- function(Y,
   # Drop data with missing values
   # Trim data based on quantiles.
   tmp_data <- cbind(Y, w, c)
+
+  if (include_original_data){
+    original_data <- tmp_data
+  }
+
+
   tmp_data <- tmp_data[stats::complete.cases(tmp_data), ]
   tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
 
@@ -380,6 +390,12 @@ generate_pseudo_pop <- function(Y,
   for (item in arg_names){
     result$params[[item]] <- get(item)
   }
+
+
+  if (include_original_data){
+    result$original_data <- original_data
+  }
+
 
   result$pseudo_pop <- best_pseudo_pop
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results

@@ -301,4 +301,30 @@ test_that("generate_pseudo_pop works as expected.", {
                0.1076907,
                tolerance = 0.000001)
 
+
+  set.seed(382)
+  ps_pop6 <- generate_pseudo_pop(mydata$Y,
+                                 mydata$treat,
+                                 mydata[c("cf1","cf2","cf3","cf4","cf5",
+                                          "cf6","year","region")],
+                                 ci_appr = "matching",
+                                 gps_model = "non-parametric",
+                                 trim_quantiles = c(0.01,0.99),
+                                 sl_lib = c("m_xgboost"),
+                                 covar_bl_method = "absolute",
+                                 covar_bl_trs = 0.1,
+                                 covar_bl_trs_type = "mean",
+                                 max_attempt = 1,
+                                 matching_fun = "matching_l1",
+                                 delta_n = 1,
+                                 scale = 0.5,
+                                 nthread = 1,
+                                 include_original_data = TRUE)
+
+
+  expect_equal(length(ps_pop6$original_data), 10)
+  expect_equal(nrow(ps_pop6$original_data), 500)
+
+
+
 })
