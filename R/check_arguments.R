@@ -143,6 +143,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
   matching_fun <- NULL
   max_attempt <- NULL
   covar_bl_trs_type <- NULL
+  delta_n <- NULL
 
   required_args <- NULL
 

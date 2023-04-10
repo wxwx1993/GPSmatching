@@ -143,24 +143,9 @@ generate_pseudo_pop <- function(Y,
 
   covariate_cols <- as.list(colnames(c))
 
-  # get trim quantiles and trim data
-  q1 <- stats::quantile(w, trim_quantiles[1])
-  q2 <- stats::quantile(w, trim_quantiles[2])
-
-  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
-  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
-
-  # Drop data with missing values
-  # Trim data based on quantiles.
-  tmp_data <- cbind(Y, w, c)
-
-  if (include_original_data){
-    original_data <- tmp_data
-  }
-
-
-  tmp_data <- tmp_data[stats::complete.cases(tmp_data), ]
-  tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
+  prep_results <- preprocess_data(Y, w, c, trim_quantiles)
+  tmp_data <- prep_results$preprocessed_data
+  original_data <- prep_results$original_data
 
   # Retrieve data.
   Y <- tmp_data$Y
@@ -447,3 +432,47 @@ transform_it <- function(c_name, c_val, transformer) {
 
   return(data.frame(t_data))
 }
+
+
+#' @title
+#' Preprocess data
+#'
+#' @description
+#' Preprocess data to isolate extra details
+#'
+#' @inheritParams generate_pseudo_pop
+#'
+#' @return
+#' A list with preprocessed and original data.
+#'
+#' @keywords internal
+preprocess_data <- function(Y, w, c, trim_quantiles){
+
+  df1 <- cbind(Y, w, c)
+
+  id_exists <- any(colnames(df1) %in% "cgps_id")
+  if (id_exists){
+    stop("Data should not include cgps_id, it is a reserved column name.")
+  }
+
+  df1$cgps_id <- 1:nrow(df1)
+  original_data <- df1
+
+  # get trim quantiles and trim data
+  q1 <- stats::quantile(w, trim_quantiles[1])
+  q2 <- stats::quantile(w, trim_quantiles[2])
+
+  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
+  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
+
+  df1 <- df1[stats::complete.cases(df1), ]
+  df1 <- df1[df1$w <= q2  & df1$w >= q1, ]
+
+  result = list()
+  result$preprocessed_data <- df1
+  result$original_data <- original_data
+
+  return(result)
+}
+
+
