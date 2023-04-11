@@ -11,8 +11,8 @@ set_logger(logger_level = "DEBUG")
 
 id <- seq_along(1:nrow(mydata))
 
-Y <- data.frame(id = id, Y = mydata$Y)
-w <- data.frame(id = id, w = mydata$w)
+Y <- data.frame(id = id, out = mydata$Y)
+w <- data.frame(id = id, treatment = mydata$w)
 c <- data.frame(id = id, mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")])
 
 pseudo_pop <- generate_pseudo_pop(Y,
@@ -21,7 +21,8 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   ci_appr = "matching",
                                   gps_model = "non-parametric",
                                   use_cov_transform = TRUE,
-                                  transformers = list("pow2", "pow3", "abs", "scale"),
+                                  transformers = list("pow2", "pow3",
+                                                      "abs", "scale"),
                                   trim_quantiles = c(0.01,0.99),
                                   optimized_compile = TRUE,
                                   sl_lib = c("m_xgboost"),

@@ -20,7 +20,8 @@
 #'
 #' @keywords internal
 #'
-create_matching <- function(data_obj, bin_seq = NULL, gps_model = "parametric",
+create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
+                            gps_model = "parametric",
                             nthread = 1, ...) {
 
   # data_obj content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
@@ -62,6 +63,7 @@ create_matching <- function(data_obj, bin_seq = NULL, gps_model = "parametric",
     matched_set <-  lapply(bin_num,
                            matching_fun,
                            dataset=data_obj$dataset,
+                           exposure_col_name = exposure_col_name,
                            e_gps_pred = data_obj$e_gps_pred,
                            e_gps_std_pred = data_obj$e_gps_std_pred,
                            w_resid=data_obj$w_resid,

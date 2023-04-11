@@ -4,7 +4,7 @@
 \alias{preprocess_data}
 \title{Preprocess data}
 \usage{
-preprocess_data(Y, w, c, trim_quantiles)
+preprocess_data(Y, w, c, trim_quantiles, exposure_col)
 }
 \arguments{
 \item{Y}{A data.frame of observed outcome variable:
@@ -25,6 +25,8 @@ id column.}
 \item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
 level. Both numbers should be in the range of [0,1] and in increasing order
 (default: c(0.01,0.99)).}
+
+\item{exposure_col}{Column name that is used for exposure.}
 }
 \value{
 A list with preprocessed and original data.

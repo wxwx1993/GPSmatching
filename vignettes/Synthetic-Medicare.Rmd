@@ -65,22 +65,27 @@ confounders_s1 <- c("cs_poverty","cs_hispanic",
 )
 
 study_data <- data[, c("qd_mean_pm25", confounders, "cms_mortality_pct")]
+study_data$id <- seq_along(1:nrow(study_data))
 study_data$region <- as.factor(study_data$region)
 study_data$cs_PIR <- study_data$cs_median_house_value/study_data$cs_household_income
 
 # Choose subset of data
-q1 <- stats::quantile(study_data$qd_mean_pm25,0.25)
-q2 <- stats::quantile(study_data$qd_mean_pm25,0.99)
+q1 <- stats::quantile(study_data$qd_mean_pm25, 0.25)
+q2 <- stats::quantile(study_data$qd_mean_pm25, 0.99)
 trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
                        qd_mean_pm25 <= q2  & qd_mean_pm25 >= q1)
 
 trimmed_data$gmet_mean_summer_sph <- pow2(trimmed_data$gmet_mean_summer_sph)
 
+
+
 set.seed(172)
-pseudo_pop_1 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
+pseudo_pop_1 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", 
+                                                     confounders_s1)],
                                     ci_appr = "matching",
                                     gps_model = "parametric",
                                     bin_seq = NULL,

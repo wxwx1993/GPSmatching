@@ -5,7 +5,7 @@
 #' Checks covariate balance based on absolute correlations for given data sets.
 #'
 #' @param w A vector of observed continuous exposure variable.
-#' @param c A data table of observed covariates variable.
+#' @param c A data.frame of observed covariates variable.
 #' @return
 #' The function returns a list including:
 #' - \code{absolute_corr}: the absolute correlations for each pre-exposure
@@ -32,8 +32,8 @@
 #'
 absolute_corr_fun <- function(w, c) {
 
-  if (class(w)[1] != "data.table") {stop("w should be a data.table.")}
-  if (class(c)[1] != "data.table") {stop("c should be a data.table.")}
+  # if (class(w)[1] != "data.table") {stop("w should be a data.table.")}
+  # if (class(c)[1] != "data.table") {stop("c should be a data.table.")}
 
   # detect numeric columns
   col_n <- colnames(c)[unlist(lapply(c, is.numeric))]
@@ -51,7 +51,7 @@ absolute_corr_fun <- function(w, c) {
   }
 
   if (length(col_f) > 0) {
-      w_numeric <- as.list(w[, 1])[[colnames(w[, 1])[1]]]
+      w_numeric <- w
       absolute_corr_f <- lapply(col_f, function(i){
         abs(polycor::polyserial(w_numeric, c[[i]]))})
       absolute_corr_f <- unlist(absolute_corr_f)

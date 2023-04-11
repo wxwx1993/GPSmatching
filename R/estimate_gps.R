@@ -100,35 +100,36 @@ estimate_gps <- function(w,
   }
 
   merged_data <- merge(w, c, by = "id")
-  covariate_cols <- Filter(function(x) !(x %in% c("id", "w")), colnames(c))
+  exposure_col <- Filter(function(x) !(x %in% c("id")), colnames(w))
+  covariate_cols <- Filter(function(x) !(x %in% c("id")), colnames(c))
 
 
   if (gps_model == "parametric"){
-    e_gps <- train_it(target = merged_data[,c("w")],
+    e_gps <- train_it(target = merged_data[,c(exposure_col)],
                       input = merged_data[, covariate_cols],
                       sl_lib_internal = sl_lib_internal,
                       ...)
 
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std_pred <- stats::sd(merged_data[,c("w")] - e_gps_pred)
-    w_resid <- compute_resid(merged_data[,c("w")],
+    e_gps_std_pred <- stats::sd(merged_data[,c(exposure_col)] - e_gps_pred)
+    w_resid <- compute_resid(merged_data[,c(exposure_col)],
                              e_gps_pred,
                              e_gps_std_pred)
-    gps <- stats::dnorm(merged_data[,c("w")],
+    gps <- stats::dnorm(merged_data[,c(exposure_col)],
                         mean = e_gps_pred,
                         sd = e_gps_std_pred)
 
   } else if (gps_model == "non-parametric"){
 
-    e_gps <- train_it(target = merged_data[,c("w")],
+    e_gps <- train_it(target = merged_data[,c(exposure_col)],
                       input = merged_data[, covariate_cols],
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std <- train_it(target = abs(merged_data[,c("w")] - e_gps_pred),
+    e_gps_std <- train_it(target = abs(merged_data[,c(exposure_col)] - e_gps_pred),
                           input = merged_data[, covariate_cols],
                           sl_lib_internal = sl_lib_internal, ...)
     e_gps_std_pred <- e_gps_std$SL.predict
-    w_resid <- compute_resid(merged_data[,c("w")],
+    w_resid <- compute_resid(merged_data[,c(exposure_col)],
                              e_gps_pred,e_gps_std_pred)
     gps <- compute_density(w_resid, w_resid)
 
@@ -139,7 +140,7 @@ estimate_gps <- function(w,
                ". Use parametric or non-parametric."))
   }
 
-  w_mx <- compute_min_max(merged_data[,c("w")])
+  w_mx <- compute_min_max(merged_data[,c(exposure_col)])
   gps_mx <- compute_min_max(gps)
   # counter_weight <- (w * 0) + 0 # initialize counter.
   # row_index <- seq(1, length(w), 1) # initialize row index.

@@ -147,21 +147,23 @@ generate_pseudo_pop <- function(Y,
   }
 
   covariate_cols <- Filter(function(x) x != "id", colnames(c))
+  exposure_col <- Filter(function(x) x != "id", colnames(w))
+  outcome_col <- Filter(function(x) x != "id", colnames(Y))
 
-  prep_results <- preprocess_data(Y, w, c, trim_quantiles)
+  # TODO: check for data quality.
+
+  prep_results <- preprocess_data(Y, w, c, trim_quantiles, exposure_col)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
 
   # Retrieve data.
-  Y <- tmp_data[, c("id", "Y")]
-  w <- tmp_data[, c("id", "w")]
+  Y <- tmp_data[, c("id", outcome_col)]
+  w <- tmp_data[, c("id", exposure_col)]
   c <- tmp_data[, c("id", covariate_cols)]
 
-  tmp_data <- data.table(tmp_data)
   original_corr_obj <- check_covar_balance(
-                          w = tmp_data[, c("w")],
-                          c = tmp_data[, unlist(covariate_cols),
-                                         with = FALSE],
+                          w = tmp_data[, c(exposure_col)],
+                          c = tmp_data[, c(covariate_cols)],
                           counter_weight = NULL,
                           ci_appr = ci_appr,
                           nthread = nthread,
@@ -219,6 +221,7 @@ generate_pseudo_pop <- function(Y,
                                      ci_appr = ci_appr,
                                      gps_model = gps_model,
                                      bin_seq = bin_seq,
+                                     exposure_col_name = exposure_col,
                                      nthread = nthread,
                                      ...)
 
@@ -227,7 +230,7 @@ generate_pseudo_pop <- function(Y,
 
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(
-                           w = pseudo_pop[, c("w")],
+                           w = pseudo_pop[, c(exposure_col)],
                            c = pseudo_pop[, covariate_cols],
                            counter_weight = pseudo_pop[,
                                          c("counter_weight")],
@@ -236,7 +239,7 @@ generate_pseudo_pop <- function(Y,
                            ...)
 
     # check Kolmogorov-Smirnov statistics
-    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
+    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c(exposure_col)],
                                          c = pseudo_pop[, covariate_cols],
                                          counter_weight = pseudo_pop[,
                                                            c("counter_weight")],
@@ -441,12 +444,12 @@ transform_it <- function(c_name, c_val, transformer) {
 #' Preprocess data to isolate extra details
 #'
 #' @inheritParams generate_pseudo_pop
-#'
+#' @param exposure_col Column name that is used for exposure.
 #' @return
 #' A list with preprocessed and original data.
 #'
 #' @keywords internal
-preprocess_data <- function(Y, w, c, trim_quantiles){
+preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
 
   id_exist_Y <- any(colnames(Y) %in% "id")
   if (!id_exist_Y) stop("Y should include id column.")
@@ -464,14 +467,14 @@ preprocess_data <- function(Y, w, c, trim_quantiles){
   original_data <- df1
 
   # get trim quantiles and trim data
-  q1 <- stats::quantile(df1$w, trim_quantiles[1])
-  q2 <- stats::quantile(df1$w, trim_quantiles[2])
+  q1 <- stats::quantile(df1[[exposure_col]], trim_quantiles[1])
+  q2 <- stats::quantile(df1[[exposure_col]], trim_quantiles[2])
 
   logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
 
   df1 <- df1[stats::complete.cases(df1), ]
-  df1 <- df1[df1$w <= q2  & df1$w >= q1, ]
+  df1 <- df1[df1[[exposure_col]] <= q2  & df1[[exposure_col]] >= q1, ]
 
   result = list()
   result$preprocessed_data <- df1

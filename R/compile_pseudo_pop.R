@@ -61,7 +61,7 @@
 #'                          scale = 1)
 #'
 compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
-                               bin_seq, nthread,
+                               bin_seq, exposure_col_name, nthread,
                                ...) {
 
   # Checking arguments
@@ -80,6 +80,7 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
 
   if (ci_appr == 'matching'){
       matched_set <- create_matching(data_obj,
+                                     exposure_col_name,
                                      bin_seq,
                                      gps_model,
                                      nthread,

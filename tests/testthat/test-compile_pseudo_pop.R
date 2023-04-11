@@ -8,22 +8,27 @@ test_that("Compiling pseudo pop works as expected.", {
                           internal_use = TRUE,
                           sl_lib = c("m_xgboost"))
 
-
   # Wrong ci_appr
-  expect_error(compile_pseudo_pop(dataset=gps_obj$dataset,
-                                  ci_appr="grounding",
+  expect_error(compile_pseudo_pop(data_obj = gps_obj,
+                                  ci_appr = "grounding",
                                   gps_model = "parametric",
-                                  bin_seq,
+                                  bin_seq = NULL,
+                                  exposure_col_name = c("w"),
                                   nthread = 1,
-                                  trim_quantiles = c(0.01, 0.99)))
+                                  matching_fun = "matching_l1",
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  covar_bl_trs_type = "mean",
+                                  trim_quantiles = c(0.01, 0.99),
+                                  delta_n = 1,
+                                  scale = 1))
 
-
-  #
   set.seed(509)
   pseudo_pop_1 <- compile_pseudo_pop(data_obj = gps_obj,
                                      ci_appr = "matching",
                                      gps_model = "parametric",
                                      bin_seq = NULL,
+                                     exposure_col_name = c("w"),
                                      nthread = 1,
                                      trim_quantiles = c(0.01, 0.99),
                                      covar_bl_method = "absolute",
@@ -38,9 +43,6 @@ test_that("Compiling pseudo pop works as expected.", {
   expect_equal(nrow(pseudo_pop_1),100)
   expect_equal(length(pseudo_pop_1),10)
 
-
-
-
   set.seed(934)
   #data <- list(pseudo_pop_weight_test[, !c("counter_weight")])
   data <- list(pseudo_pop_weight_test)
@@ -52,6 +54,7 @@ test_that("Compiling pseudo pop works as expected.", {
                                      ci_appr="weighting",
                                      gps_model="parametric",
                                      bin_seq = NULL,
+                                     exposure_col_name = c("w"),
                                      nthread = 1,
                                      trim_quantiles = c(0.01, 0.99),
                                      covar_bl_method = "absolute",
@@ -59,8 +62,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      covar_bl_trs_type = "mean",
                                      delta_n = 1,
                                      scale = 0.5)
-
-
 
   expect_equal(nrow(pseudo_pop_2),1000)
   expect_equal(length(pseudo_pop_2),14)
