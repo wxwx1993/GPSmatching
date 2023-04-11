@@ -82,7 +82,7 @@
 
 
 <dt>c</dt>
-<dd><p>A data table of observed covariates variable.</p></dd>
+<dd><p>A data.frame of observed covariates variable.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -107,10 +107,9 @@ pre-exposure covariates.</p></li>
 <span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cor_val</span> <span class="op">&lt;-</span> <span class="fu">absolute_corr_fun</span><span class="op">(</span><span class="va">mydata</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, <span class="va">mydata</span><span class="op">[</span>, <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cor_val</span><span class="op">$</span><span class="va">mean_absolute_corr</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1909401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1760572</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
