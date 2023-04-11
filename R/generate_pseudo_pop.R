@@ -8,9 +8,14 @@
 #' balance or completing the requested number of iteration, whichever comes
 #' first.
 #'
-#' @param Y A vector of observed outcome variable.
-#' @param w A vector of observed continuous exposure variable.
-#' @param c A data.frame of observed covariates variable.
+#' @param Y A data.frame of observed outcome variable:
+#'   - id: Row id column.
+#'   - Y: Outcome data.
+#' @param w A data.frame of observed continuous exposure variable.
+#'   - id: Row id column.
+#'   - w: Exposure data.
+#' @param c A data.frame of observed covariates variable. Also should include
+#' id column.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
@@ -141,22 +146,17 @@ generate_pseudo_pop <- function(Y,
     assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
-  covariate_cols <- as.list(colnames(c))
+  covariate_cols <- Filter(function(x) x != "id", colnames(c))
 
   prep_results <- preprocess_data(Y, w, c, trim_quantiles)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
 
   # Retrieve data.
-  Y <- tmp_data$Y
-  w <- tmp_data$w
-  c <- tmp_data[, unlist(covariate_cols)]
+  Y <- tmp_data[, c("id", "Y")]
+  w <- tmp_data[, c("id", "w")]
+  c <- tmp_data[, c("id", covariate_cols)]
 
-  # generating temporal data to compute covariate
-  # balance based on trimmed data.
-  # tmp_data <- cbind(w, c)
-  # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
-  #                    w <= q2  & w >= q1)
   tmp_data <- data.table(tmp_data)
   original_corr_obj <- check_covar_balance(
                           w = tmp_data[, c("w")],
@@ -177,7 +177,7 @@ generate_pseudo_pop <- function(Y,
   # the column name and the rest is operands that is applied to it.
   # TODO: this needs a dictionary style data structure.
 
-  transformed_vals <- covariate_cols
+  transformed_vals <- lapply(covariate_cols, function(x) c(x))
   c_extended <- c
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
@@ -188,13 +188,16 @@ generate_pseudo_pop <- function(Y,
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
+    estimate_gps_out <- estimate_gps(w,
+                                     c_extended[, c("id", covariate_cols)],
                                      gps_model,
                                      params = params,
                                      sl_lib = sl_lib,
                                      nthread = nthread,
                                      internal_use = internal_use, ...)
     gps_used_params <- estimate_gps_out$used_params
+    zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
+    estimate_gps_out$dataset$counter_weight <- zero_initialize
     logger::log_debug("Finished estimating gps.")
 
     # Dropping the transformed column ------------
@@ -202,7 +205,7 @@ generate_pseudo_pop <- function(Y,
       # first element is old_col name
       # second element is new_col name
       new_col_ind <- which(covariate_cols == recent_swap[2])
-      covariate_cols[[new_col_ind]] <- NULL
+      covariate_cols <- covariate_cols[-new_col_ind]
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
       estimate_gps_out$dataset[recent_swap[2]] <- NULL
@@ -224,8 +227,7 @@ generate_pseudo_pop <- function(Y,
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(
                            w = pseudo_pop[, c("w")],
-                           c = pseudo_pop[,
-                                          unlist(covariate_cols),
+                           c = pseudo_pop[, covariate_cols,
                                           with = FALSE],
                            counter_weight = pseudo_pop[,
                                          c("counter_weight")],
@@ -235,9 +237,8 @@ generate_pseudo_pop <- function(Y,
 
     # check Kolmogorov-Smirnov statistics
     ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
-                                         c = pseudo_pop[,
-                                                        unlist(covariate_cols),
-                                                        with = FALSE],
+                                         c = pseudo_pop[, covariate_cols,
+                                                          with = FALSE],
                                          counter_weight = pseudo_pop[,
                                                            c("counter_weight")],
                                          ci_appr = ci_appr,
@@ -339,7 +340,7 @@ generate_pseudo_pop <- function(Y,
       c_extended <- cbind(c_extended, t_dataframe)
       recent_swap <- c(new_c, unlist(colnames(t_dataframe)))
       index_to_remove <- which(unlist(covariate_cols) == new_c)
-      covariate_cols[[index_to_remove]] <- NULL
+      covariate_cols <- covariate_cols[-index_to_remove]
       covariate_cols[length(covariate_cols) + 1] <- unlist(colnames(t_dataframe))
       logger::log_debug("In the next iteration (if any) feature {c_name}",
                         " will be replaced by {unlist(colnames(t_dataframe))}.")
@@ -448,19 +449,24 @@ transform_it <- function(c_name, c_val, transformer) {
 #' @keywords internal
 preprocess_data <- function(Y, w, c, trim_quantiles){
 
-  df1 <- cbind(Y, w, c)
+  id_exist_Y <- any(colnames(Y) %in% "id")
+  if (!id_exist_Y) stop("Y should include id column.")
 
-  id_exists <- any(colnames(df1) %in% "cgps_id")
-  if (id_exists){
-    stop("Data should not include cgps_id, it is a reserved column name.")
-  }
+  id_exist_w <- any(colnames(w) %in% "id")
+  if (!id_exist_w) stop("w should include id column.")
 
-  df1$cgps_id <- 1:nrow(df1)
+  id_exist_c <- any(colnames(c) %in% "id")
+  if (!id_exist_c) stop("c should include id column.")
+
+  merged_12 <- merge(Y, w, by = "id")
+  merged_data <- merge(merged_12, c, by = "id")
+
+  df1 <- merged_data
   original_data <- df1
 
   # get trim quantiles and trim data
-  q1 <- stats::quantile(w, trim_quantiles[1])
-  q2 <- stats::quantile(w, trim_quantiles[2])
+  q1 <- stats::quantile(df1$w, trim_quantiles[1])
+  q2 <- stats::quantile(df1$w, trim_quantiles[2])
 
   logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
   logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")

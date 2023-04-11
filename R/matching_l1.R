@@ -100,12 +100,12 @@ matching_l1 <- function(w,
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
 
-  row_index <- NULL
-  row_index_data <- dp["row_index"]
+  id <- NULL
+  row_index_data <- dp["id"]
   row.names(row_index_data) <- NULL
   data.table::setDT(row_index_data)
-  freq_table <- row_index_data[ , .N, by=row_index]
-  freq_table <- freq_table[order(row_index)]
+  freq_table <- row_index_data[ , .N, by=id]
+  freq_table <- freq_table[order(id)]
   row.names(freq_table) <- NULL
   row_index_data <- NULL
 

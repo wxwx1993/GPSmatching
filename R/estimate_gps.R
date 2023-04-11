@@ -43,8 +43,7 @@
 #'
 #' @examples
 #' m_d <- generate_syn_data(sample_size = 100)
-#' data_with_gps <- estimate_gps(m_d$Y,
-#'                               m_d$treat,
+#' data_with_gps <- estimate_gps(m_d$treat,
 #'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                               gps_model = "parametric",
 #'                               internal_use = FALSE,
@@ -54,8 +53,7 @@
 #'                               sl_lib = c("m_xgboost")
 #'                              )
 #'
-estimate_gps <- function(Y,
-                         w,
+estimate_gps <- function(w,
                          c,
                          gps_model = "parametric",
                          internal_use = TRUE,
@@ -100,24 +98,37 @@ estimate_gps <- function(Y,
     }
   }
 
-  if (gps_model == "parametric"){
+  merged_data <- merge(w, c, by = "id")
+  covariate_cols <- Filter(function(x) !(x %in% c("id", "w")), colnames(c))
 
-    e_gps <- train_it(target = w, input = c,
-                      sl_lib_internal = sl_lib_internal, ...)
+
+  if (gps_model == "parametric"){
+    e_gps <- train_it(target = merged_data[,c("w")],
+                      input = merged_data[, covariate_cols],
+                      sl_lib_internal = sl_lib_internal,
+                      ...)
+
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std_pred <- stats::sd(w - e_gps_pred)
-    w_resid <- compute_resid(w, e_gps_pred,e_gps_std_pred)
-    gps <- stats::dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
+    e_gps_std_pred <- stats::sd(merged_data[,c("w")] - e_gps_pred)
+    w_resid <- compute_resid(merged_data[,c("w")],
+                             e_gps_pred,
+                             e_gps_std_pred)
+    gps <- stats::dnorm(merged_data[,c("w")],
+                        mean = e_gps_pred,
+                        sd = e_gps_std_pred)
 
   } else if (gps_model == "non-parametric"){
 
-    e_gps <- train_it(target = w, input = c,
+    e_gps <- train_it(target = merged_data[,c("w")],
+                      input = merged_data[, covariate_cols],
                       sl_lib_internal = sl_lib_internal, ...)
     e_gps_pred <- e_gps$SL.predict
-    e_gps_std <- train_it(target = abs(w - e_gps_pred), input = c,
-                           sl_lib_internal = sl_lib_internal, ...)
+    e_gps_std <- train_it(target = abs(merged_data[,c("w")] - e_gps_pred),
+                          input = merged_data[, covariate_cols],
+                          sl_lib_internal = sl_lib_internal, ...)
     e_gps_std_pred <- e_gps_std$SL.predict
-    w_resid <- compute_resid(w,e_gps_pred,e_gps_std_pred)
+    w_resid <- compute_resid(merged_data[,c("w")],
+                             e_gps_pred,e_gps_std_pred)
     gps <- compute_density(w_resid, w_resid)
 
   } else {
@@ -127,11 +138,13 @@ estimate_gps <- function(Y,
                ". Use parametric or non-parametric."))
   }
 
-  w_mx <- compute_min_max(w)
+  w_mx <- compute_min_max(merged_data[,c("w")])
   gps_mx <- compute_min_max(gps)
-  counter_weight <- (w * 0) + 0 # initialize counter.
-  row_index <- seq(1, length(w), 1) # initialize row index.
-  dataset <- cbind(Y, w, gps, counter_weight, row_index, c)
+  # counter_weight <- (w * 0) + 0 # initialize counter.
+  # row_index <- seq(1, length(w), 1) # initialize row index.
+  merged_data$gps <- gps
+  dataset <- merged_data
+  #row_index <- merged_data[,c("id")]
 
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")

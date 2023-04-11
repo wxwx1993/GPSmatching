@@ -85,8 +85,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     # create initial freq_table
     logger::log_debug("Started working on merging the frequency table  ... ")
     s_bindlist <- proc.time()
-    N <- N.x <- N.y <- row_index <- NULL
-    freq_table <- data.table(row_index=numeric(), N=integer())
+    N <- N.x <- N.y <- id <- NULL
+    freq_table <- data.table(id=numeric(), N=integer())
     for (i in seq(1, length(matched_set))){
 
       if (length(matched_set[[i]]) == 0){
@@ -94,7 +94,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
         next
       }
       freq_table <- merge(freq_table, matched_set[[i]],
-                          by = "row_index",
+                          by = "id",
                           all = TRUE)
       row.names(freq_table) <- NULL
       freq_table[is.na(freq_table)] <- 0
@@ -108,11 +108,15 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
     if (nrow(freq_table) != 0) {
-      index_of_data <- freq_table[["row_index"]]
-      added_count <- freq_table[["N"]]
-      counter_tmp <- numeric(nrow(cp_original_data))
-      counter_tmp[index_of_data] <- added_count
-      cp_original_data$counter_weight <- counter_tmp
+      c_w <- cp_original_data[, c("id", "counter_weight")]
+      data.table::setDT(c_w)
+      merged_dt <- merge(c_w, freq_table, by="id", all.x = TRUE)
+      merged_dt[is.na(N), N := 0]
+      merged_dt[, counter_weight := counter_weight + N]
+      c_w[merged_dt, counter_weight := i.counter_weight, on = "id"]
+      data.table::setDF(c_w)
+      cp_original_data$counter_weight <- NULL
+      cp_original_data <- merge(cp_original_data, c_w, by = "id")
     }
 
     e_comp_p <- proc.time()
