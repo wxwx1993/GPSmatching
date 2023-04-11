@@ -18,6 +18,7 @@
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
+#' @param exposure_col_name Exposure data column name.
 #' @param nthread An integer value that represents the number of threads to be
 #' used by internal packages.
 #' @param ... Additional parameters.
@@ -36,9 +37,9 @@
 #'
 #' set.seed(112)
 #' m_d <- generate_syn_data(sample_size = 100)
-#' data_with_gps <- estimate_gps(m_d$Y,
-#'                               m_d$treat,
-#'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+#' data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
+#'                               m_d[, c("id", "w")],
+#'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                               gps_model = "parametric",
 #'                               internal_use = TRUE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
@@ -52,6 +53,7 @@
 #'                          ci_appr = "matching",
 #'                          gps_model = "parametric",
 #'                          bin_seq = NULL,
+#'                          exposure_col_name = c("w"),
 #'                          nthread = 1,
 #'                          matching_fun = "matching_l1",
 #'                          covar_bl_method = 'absolute',

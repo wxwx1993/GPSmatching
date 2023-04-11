@@ -6,6 +6,7 @@
 \usage{
 create_matching(
   data_obj,
+  exposure_col_name,
   bin_seq = NULL,
   gps_model = "parametric",
   nthread = 1,

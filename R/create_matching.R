@@ -28,6 +28,8 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
 
   # Passing packaging check() ----------------------------
   delta_n <- NULL
+  counter_weight <- NULL
+  i.counter_weight <- NULL
   # ------------------------------------------------------
 
   dot_args <- list(...)
