@@ -6,7 +6,7 @@
 #' value.
 #'
 #' @param data_obj A S3 object including the following:
-#'   - Original data set + GPS values (Y, w, GPS, counter, row_index, c)
+#'   - Original data set + GPS values
 #'   - e_gps_pred
 #'   - e_gps_std_pred
 #'   - w_resid
@@ -39,7 +39,6 @@
 #' data_with_gps <- estimate_gps(m_d$Y,
 #'                               m_d$treat,
 #'                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                               pred_model = "sl",
 #'                               gps_model = "parametric",
 #'                               internal_use = TRUE,
 #'                               params = list(xgb_max_depth = c(3,4,5),

@@ -7,11 +7,20 @@
 preprocess_data(Y, w, c, trim_quantiles)
 }
 \arguments{
-\item{Y}{A vector of observed outcome variable.}
+\item{Y}{A data.frame of observed outcome variable:
+\itemize{
+\item id: Row id column.
+\item Y: Outcome data.
+}}
 
-\item{w}{A vector of observed continuous exposure variable.}
+\item{w}{A data.frame of observed continuous exposure variable.
+\itemize{
+\item id: Row id column.
+\item w: Exposure data.
+}}
 
-\item{c}{A data.frame of observed covariates variable.}
+\item{c}{A data.frame of observed covariates variable. Also should include
+id column.}
 
 \item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
 level. Both numbers should be in the range of [0,1] and in increasing order

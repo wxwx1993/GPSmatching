@@ -130,5 +130,6 @@ generate_syn_data <- function(sample_size = 1000,
   w <- treat
   simulated_data <- data.frame(cbind(Y, w, cf, cf5, cf6))
   colnames(simulated_data)[3:8]<-c("cf1", "cf2", "cf3", "cf4", "cf5", "cf6")
+  simulated_data$id <- seq_along(1:nrow(simulated_data))
   return(simulated_data)
 }

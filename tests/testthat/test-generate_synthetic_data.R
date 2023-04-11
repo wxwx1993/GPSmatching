@@ -3,7 +3,7 @@ test_that("generate_synthetic_data works as expected.", {
   # length is correct
   s_data <- generate_syn_data()
   expect_equal(nrow(s_data), 1000)
-  expect_equal(length(s_data), 8)
+  expect_equal(length(s_data), 9)
   expect_true(is.data.frame(s_data))
 
   # Datatype is correct
@@ -33,7 +33,7 @@ test_that("generate_synthetic_data works as expected.", {
   expect_equal(data_1$cf5[79] , 0, tolerance = 0.0001)
   expect_equal(data_2$cf3[900], -0.7703616, tolerance = 0.0001)
   expect_equal(data_2$Y[121], -56.27454, tolerance = 0.0001)
-  expect_equal(data_3$treat[73], 8.480214, tolerance = 0.0001)
+  expect_equal(data_3$w[73], 8.480214, tolerance = 0.0001)
   expect_equal(data_3$cf4[11], 0.1851389, tolerance = 0.0001)
   expect_equal(data_4$cf1[112], data_4$cf1[113])
   expect_equal(data_4$cf2[14],-0.682732, tolerance = 0.0001)

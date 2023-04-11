@@ -5,7 +5,6 @@
 \title{Estimate generalized propensity score (GPS) values}
 \usage{
 estimate_gps(
-  Y,
   w,
   c,
   gps_model = "parametric",
@@ -17,11 +16,11 @@ estimate_gps(
 )
 }
 \arguments{
-\item{Y}{A vector of observed outcome variable.}
+\item{w}{A data frame of observed continuous exposure variable. Including
+\code{id} and \code{w} columns.}
 
-\item{w}{A vector of observed continuous exposure variable.}
-
-\item{c}{A data frame of observed covariates variable.}
+\item{c}{A data frame of observed covariates variable. Also includes \code{id}
+column.}
 
 \item{gps_model}{Model type which is used for estimating GPS value, including
 parametric (default) and non-parametric.}
@@ -65,8 +64,7 @@ used in compiling the data set with GPS values.
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
-data_with_gps <- estimate_gps(m_d$Y,
-                              m_d$treat,
+data_with_gps <- estimate_gps(m_d$treat,
                               m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
                               gps_model = "parametric",
                               internal_use = FALSE,
