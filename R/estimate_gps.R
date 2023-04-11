@@ -6,9 +6,10 @@
 #' approaches.
 #'
 #'
-#' @param Y A vector of observed outcome variable.
-#' @param w A vector of observed continuous exposure variable.
-#' @param c A data frame of observed covariates variable.
+#' @param w A data frame of observed continuous exposure variable. Including
+#' `id` and `w` columns.
+#' @param c A data frame of observed covariates variable. Also includes `id`
+#' column.
 #' @param gps_model Model type which is used for estimating GPS value, including
 #' parametric (default) and non-parametric.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,

@@ -221,14 +221,14 @@ generate_pseudo_pop <- function(Y,
                                      bin_seq = bin_seq,
                                      nthread = nthread,
                                      ...)
-    # trim pseudo population
+
+    pseudo_pop <- merge(Y, pseudo_pop, by = "id")
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(
                            w = pseudo_pop[, c("w")],
-                           c = pseudo_pop[, covariate_cols,
-                                          with = FALSE],
+                           c = pseudo_pop[, covariate_cols],
                            counter_weight = pseudo_pop[,
                                          c("counter_weight")],
                            ci_appr = ci_appr,
@@ -237,8 +237,7 @@ generate_pseudo_pop <- function(Y,
 
     # check Kolmogorov-Smirnov statistics
     ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
-                                         c = pseudo_pop[, covariate_cols,
-                                                          with = FALSE],
+                                         c = pseudo_pop[, covariate_cols],
                                          counter_weight = pseudo_pop[,
                                                            c("counter_weight")],
                                          ci_appr = ci_appr,
