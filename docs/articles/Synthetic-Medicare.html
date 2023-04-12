@@ -556,7 +556,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
 <span>                                                     <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
@@ -598,8 +598,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                    pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
-<span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
@@ -676,7 +675,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                    gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
+<span>                                    gps_density <span class="op">=</span> <span class="st">"kernel"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
@@ -722,7 +721,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,</span>
-<span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
@@ -819,7 +818,7 @@ balance</p></li>
 <span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                    gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
+<span>                                    gps_density <span class="op">=</span> <span class="st">"kernel"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
