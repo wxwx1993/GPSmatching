@@ -89,7 +89,7 @@ first.</p>
 <span>  <span class="va">w</span>,</span>
 <span>  <span class="va">c</span>,</span>
 <span>  <span class="va">ci_appr</span>,</span>
-<span>  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>  gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span><span class="op">)</span>,</span>
 <span>  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -127,9 +127,9 @@ id column.</p></dd>
 </ul></dd>
 
 
-<dt>gps_model</dt>
-<dd><p>Model type which is used for estimating GPS value, including
-parametric (default) and non-parametric.</p></dd>
+<dt>gps_density</dt>
+<dd><p>Model type which is used for estimating GPS value,
+including <code>normal</code> (default) and <code>kernel</code>.</p></dd>
 
 
 <dt>use_cov_transform</dt>
@@ -235,7 +235,7 @@ values.</p></li>
 <span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span></span>
-<span class="r-in"><span>                                  gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span></span>
+<span class="r-in"><span>                                  gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span></span>
 <span class="r-in"><span>                                  bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>                                  trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                  use_cov_transform <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>

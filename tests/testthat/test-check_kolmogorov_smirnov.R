@@ -14,7 +14,7 @@ test_that("check_kolmogorov_smirnov works as expected.", {
                                                "cf4","cf5","cf6",
                                                "year","region")],
                                     ci_appr = "matching",
-                                    gps_model = "non-parametric",
+                                    gps_density = "kernel",
                                     trim_quantiles = c(0.01,0.99),
                                     sl_lib = c("m_xgboost"),
                                     covar_bl_method = "absolute",

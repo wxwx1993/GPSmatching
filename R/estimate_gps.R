@@ -2,7 +2,7 @@
 #' Estimate generalized propensity score (GPS) values
 #'
 #' @description
-#' Estimates GPS value for each observation using parametric or non-parametric
+#' Estimates GPS value for each observation using normal or kernel
 #' approaches.
 #'
 #'
@@ -10,8 +10,8 @@
 #' `id` and `w` columns.
 #' @param c A data frame of observed covariates variable. Also includes `id`
 #' column.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value, including
+#' `normal` (default) and `kernel`.
 #' @param internal_use If TRUE will return helper vectors as well. Otherwise,
 #'  will return original data + GPS values.
 #' @param params Includes list of parameters that are used internally. Unrelated
@@ -46,7 +46,7 @@
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d[, c("id", "w")],
 #'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                               gps_model = "parametric",
+#'                               gps_density = "normal",
 #'                               internal_use = FALSE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
 #'                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -56,7 +56,7 @@
 #'
 estimate_gps <- function(w,
                          c,
-                         gps_model = "parametric",
+                         gps_density = "normal",
                          internal_use = TRUE,
                          params = list(),
                          sl_lib = c("m_xgboost"),
@@ -66,7 +66,7 @@ estimate_gps <- function(w,
   start_time <- proc.time()
 
   # Check passed arguments -----------------------------------------------------
-  check_args_estimate_gps(gps_model, ...)
+  check_args_estimate_gps(gps_density, ...)
 
   dot_args <- list(...)
   arg_names <- names(dot_args)
@@ -104,7 +104,7 @@ estimate_gps <- function(w,
   covariate_cols <- Filter(function(x) !(x %in% c("id")), colnames(c))
 
 
-  if (gps_model == "parametric"){
+  if (gps_density == "normal"){
     e_gps <- train_it(target = merged_data[,c(exposure_col)],
                       input = merged_data[, covariate_cols],
                       sl_lib_internal = sl_lib_internal,
@@ -119,7 +119,7 @@ estimate_gps <- function(w,
                         mean = e_gps_pred,
                         sd = e_gps_std_pred)
 
-  } else if (gps_model == "non-parametric"){
+  } else if (gps_density == "kernel"){
 
     e_gps <- train_it(target = merged_data[,c(exposure_col)],
                       input = merged_data[, covariate_cols],
@@ -136,8 +136,8 @@ estimate_gps <- function(w,
   } else {
 
     logger::log_error("Code should nevet get here. Doublecheck check_arguments.")
-    stop(paste("Invalide gps_model: ", gps_model,
-               ". Use parametric or non-parametric."))
+    stop(paste("Invalide gps_density: ", gps_density,
+               ". Use normal or kernel."))
   }
 
   w_mx <- compute_min_max(merged_data[,c(exposure_col)])
@@ -157,7 +157,7 @@ estimate_gps <- function(w,
           " | Overal Risk: {sum(e_gps$coef * e_gps$cvRisk)/length(e_gps$coef)}")
   logger::log_debug("Wall clock time to estimate e_gps:",
                     " {e_gps$times$everything[3]} seconds.")
-  if (gps_model == "non-parametric"){
+  if (gps_density == "kernel"){
     logger::log_debug("Weights for the select libraries in predicting residuals:",
             " {paste(names(e_gps_std$coef), collapse = ', ')}",
             " {paste(e_gps_std$coef, collapse = ', ')} | Overal risk:",

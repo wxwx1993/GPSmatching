@@ -8,7 +8,7 @@ create_matching(
   data_obj,
   exposure_col_name,
   bin_seq = NULL,
-  gps_model = "parametric",
+  gps_density = "normal",
   nthread = 1,
   ...
 )
@@ -22,8 +22,8 @@ details.}
 NULL is passed the default value will be used, which is
 \code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
 
-\item{gps_model}{Model type which is used for estimating GPS value, including
-parametric (default) and non-parametric.}
+\item{gps_density}{Model type which is used for estimating GPS value, including
+\code{normal} (default) and \code{kernel}.}
 
 \item{nthread}{Number of available cores.}
 

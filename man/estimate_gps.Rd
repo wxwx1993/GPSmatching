@@ -7,7 +7,7 @@
 estimate_gps(
   w,
   c,
-  gps_model = "parametric",
+  gps_density = "normal",
   internal_use = TRUE,
   params = list(),
   sl_lib = c("m_xgboost"),
@@ -22,8 +22,8 @@ estimate_gps(
 \item{c}{A data frame of observed covariates variable. Also includes \code{id}
 column.}
 
-\item{gps_model}{Model type which is used for estimating GPS value, including
-parametric (default) and non-parametric.}
+\item{gps_density}{Model type which is used for estimating GPS value, including
+\code{normal} (default) and \code{kernel}.}
 
 \item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
 will return original data + GPS values.}
@@ -52,7 +52,7 @@ counter_weight, row_index, c)
 }
 }
 \description{
-Estimates GPS value for each observation using parametric or non-parametric
+Estimates GPS value for each observation using normal or kernel
 approaches.
 }
 \note{
@@ -66,7 +66,7 @@ used in compiling the data set with GPS values.
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d[, c("id", "w")],
                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
-                              gps_model = "parametric",
+                              gps_density = "normal",
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),

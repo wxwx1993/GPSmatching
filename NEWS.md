@@ -2,7 +2,9 @@
 
 ### Changed
 
-* 
+* Now the design and analysis phases are explicitly separated.
+* `gps_model` --> `gps_density`. Now it takes, `normal` and `kernel` options instead of `parametric` and `non-parametric` options.
+
 
 ### Added
 

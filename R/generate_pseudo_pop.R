@@ -19,8 +19,8 @@
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value,
+#' including `normal` (default) and `kernel`.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
 #'  covariate balance.
 #' @param transformers A list of transformers. Each transformer should be a
@@ -84,7 +84,7 @@
 #'                                   m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
-#'                                   gps_model = "parametric",
+#'                                   gps_density = "normal",
 #'                                   bin_seq = NULL,
 #'                                   trim_quantiles = c(0.01,0.99),
 #'                                   use_cov_transform = FALSE,
@@ -105,7 +105,7 @@ generate_pseudo_pop <- function(Y,
                                 w,
                                 c,
                                 ci_appr,
-                                gps_model = "parametric",
+                                gps_density = "normal",
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
@@ -132,7 +132,7 @@ generate_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(ci_appr, use_cov_transform, transformers,
-             gps_model, trim_quantiles, ...)
+             gps_density, trim_quantiles, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -191,7 +191,7 @@ generate_pseudo_pop <- function(Y,
     logger::log_debug("Started to estimate gps ... ")
     estimate_gps_out <- estimate_gps(w,
                                      c_extended[, c("id", covariate_cols)],
-                                     gps_model,
+                                     gps_density,
                                      params = params,
                                      sl_lib = sl_lib,
                                      nthread = nthread,
@@ -218,7 +218,7 @@ generate_pseudo_pop <- function(Y,
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
                                      ci_appr = ci_appr,
-                                     gps_model = gps_model,
+                                     gps_density = gps_density,
                                      bin_seq = bin_seq,
                                      exposure_col_name = exposure_col,
                                      nthread = nthread,

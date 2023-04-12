@@ -42,8 +42,8 @@ Input parameters:
  **`ci_appr`** The causal inference approach. Possible values are:   
    - "matching": Matching by GPS   
    - "weighting": Weighting by GPS   
- **`gps_model`** Model type which is used for estimating GPS value, including
- parametric (default) and non-parametric.   
+ **`gps_density`** Model type which is used for estimating GPS value, including
+ normal (default) and kernel.   
  **`use_cov_transform`** If TRUE, the function uses transformer to meet the
   covariate balance.   
  **`transformers`** A list of transformers. Each transformer should be a
@@ -92,7 +92,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   w,
                                   c,
                                   ci_appr = "matching",
-                                  gps_model = "parametric",
+                                  gps_density = "normal",
                                   use_cov_transform = TRUE,
                                   transformers = list("pow2", "pow3"),
                                   sl_lib = c("m_xgboost"),
@@ -125,7 +125,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
 data_with_gps <- estimate_gps(Y,
                               w,
                               c,
-                              gps_model = "parametric",
+                              gps_density = "normal",
                               internal_use = FALSE,
                               params = list(xgb_nrounds = 50,
                                             xgb_max_depth = 6,

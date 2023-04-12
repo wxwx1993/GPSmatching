@@ -10,8 +10,8 @@
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value, including
+#' `normal` (default) and `kernel`.
 #' @param nthread Number of available cores.
 #' @param ...  Additional arguments passed to the function.
 #'
@@ -21,7 +21,7 @@
 #' @keywords internal
 #'
 create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
-                            gps_model = "parametric",
+                            gps_density = "normal",
                             nthread = 1, ...) {
 
   # data_obj content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
@@ -71,7 +71,7 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
                            w_resid=data_obj$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
-                           gps_model = gps_model,
+                           gps_density = gps_density,
                            delta_n = delta_n,
                            scale = scale,
                            nthread = nthread)
