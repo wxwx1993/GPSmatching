@@ -534,22 +534,27 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">study_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qd_mean_pm25"</span>, <span class="va">confounders</span>, <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">study_data</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">study_data</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span>
 <span><span class="va">study_data</span><span class="op">$</span><span class="va">cs_PIR</span> <span class="op">&lt;-</span> <span class="va">study_data</span><span class="op">$</span><span class="va">cs_median_house_value</span><span class="op">/</span><span class="va">study_data</span><span class="op">$</span><span class="va">cs_household_income</span></span>
 <span></span>
 <span><span class="co"># Choose subset of data</span></span>
-<span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,<span class="fl">0.25</span><span class="op">)</span></span>
-<span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,<span class="fl">0.99</span><span class="op">)</span></span>
+<span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>, <span class="fl">0.25</span><span class="op">)</span></span>
+<span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>, <span class="fl">0.99</span><span class="op">)</span></span>
 <span><span class="va">trimmed_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">[</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">study_data</span><span class="op">)</span> ,<span class="op">]</span>,</span>
 <span>                       <span class="va">qd_mean_pm25</span> <span class="op">&lt;=</span> <span class="va">q2</span>  <span class="op">&amp;</span> <span class="va">qd_mean_pm25</span> <span class="op">&gt;=</span> <span class="va">q1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">gmet_mean_summer_sph</span> <span class="op">&lt;-</span> <span class="fu">pow2</span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">gmet_mean_summer_sph</span><span class="op">)</span></span>
 <span></span>
+<span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">172</span><span class="op">)</span></span>
-<span><span class="va">pseudo_pop_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cms_mortality_pct</span>,</span>
-<span>                                    <span class="va">trimmed_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,</span>
-<span>                                    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="va">confounders_s1</span>,</span>
-<span>                                                            drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>,</span>
+<span><span class="va">pseudo_pop_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -587,10 +592,11 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">172</span><span class="op">)</span></span>
-<span><span class="va">pseudo_pop_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cms_mortality_pct</span>,</span>
-<span>                                    <span class="va">trimmed_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,</span>
-<span>                                    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="va">confounders_s1</span>,</span>
-<span>                                                            drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>,</span>
+<span><span class="va">pseudo_pop_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
 <span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
@@ -618,8 +624,8 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pseudo_pop_2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Synthetic-Medicare_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">optimized_data_1</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_1</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">nonoptimized_data_2</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_2</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"w"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">optimized_data_1</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_1</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qd_mean_pm25"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">nonoptimized_data_2</span> <span class="op">&lt;-</span> <span class="va">pseudo_pop_2</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qd_mean_pm25"</span>,<span class="st">"gps"</span>,<span class="st">"counter_weight"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of rows of data in the optimized approach: "</span>,</span>
@@ -634,7 +640,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">optimized_data_1</span><span class="op">$</span><span class="va">counter_weight</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sum of data samples in the optimized approach:  140300"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Number of data in the non-optimized approach: "</span>,</span>
-<span>            <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nonoptimized_data_2</span><span class="op">$</span><span class="va">w</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">nonoptimized_data_2</span><span class="op">$</span><span class="va">qd_mean_pm25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Number of data in the non-optimized approach:  2300"</span></span>
 <span></span>
 <span><span class="co"># Replicate gps values of optimized approach</span></span>
@@ -664,29 +670,29 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                       <span class="va">qd_mean_pm25</span> <span class="op">&lt;=</span> <span class="va">q2</span>  <span class="op">&amp;</span> <span class="va">qd_mean_pm25</span> <span class="op">&gt;=</span> <span class="va">q1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">8967</span><span class="op">)</span></span>
-<span><span class="va">pseudo_pop_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cms_mortality_pct</span>,</span>
-<span>                                      <span class="va">trimmed_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,</span>
-<span>                                      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="va">confounders_s1</span>,</span>
-<span>                                                              drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                                      ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                      pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
-<span>                                      gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
-<span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
-<span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
-<span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
-<span>                                      params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>,</span>
-<span>                                                    xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                                      nthread <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                                      covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
-<span>                                      covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                                      covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
-<span>                                      max_attempt <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                                      matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
-<span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">pseudo_pop_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
+<span>                                    gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
+<span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
+<span>                                    sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
+<span>                                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>,</span>
+<span>                                                  xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                    nthread <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                    covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
+<span>                                    covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                                    covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
+<span>                                    max_attempt <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                    matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
+<span>                                    delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                                    scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.0521458538948437| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Covariate balance condition has been met (iteration: 1/1)</span></span>
@@ -710,29 +716,29 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cs_poverty</span> <span class="op">&lt;-</span> <span class="fu">pow2</span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cs_poverty</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">672</span><span class="op">)</span></span>
-<span><span class="va">pseudo_pop_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cms_mortality_pct</span>,</span>
-<span>                                      <span class="va">trimmed_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,</span>
-<span>                                      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="va">confounders_s1</span>,</span>
-<span>                                                              drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                                      ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,</span>
-<span>                                      pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
-<span>                                      gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
-<span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
-<span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
-<span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
-<span>                                      params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span>,</span>
-<span>                                                    xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.14</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                                      nthread <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                                      covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
-<span>                                      covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                                      covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
-<span>                                      max_attempt <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                                      matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
-<span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">pseudo_pop_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,</span>
+<span>                                    gps_model <span class="op">=</span> <span class="st">"parametric"</span>,</span>
+<span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
+<span>                                    sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
+<span>                                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span><span class="op">)</span>,</span>
+<span>                                                  xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.14</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                    nthread <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                    covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
+<span>                                    covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                                    covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
+<span>                                    max_attempt <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                    matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
+<span>                                    delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                                    scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.532572233294604| Covariate balance threshold: 0.1</span></span>
 <span><span class="co">#&gt; Covariate balance condition has not been met.</span></span>
@@ -807,29 +813,29 @@ balance</p></li>
 <span>                       <span class="va">qd_mean_pm25</span> <span class="op">&lt;=</span> <span class="va">q2</span>  <span class="op">&amp;</span> <span class="va">qd_mean_pm25</span> <span class="op">&gt;=</span> <span class="va">q1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">328</span><span class="op">)</span></span>
-<span><span class="va">pseudo_pop_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">$</span><span class="va">cms_mortality_pct</span>,</span>
-<span>                                      <span class="va">trimmed_data</span><span class="op">$</span><span class="va">qd_mean_pm25</span>,</span>
-<span>                                      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="va">confounders_s1</span>,</span>
-<span>                                                              drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                                      ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                                      pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span>
-<span>                                      gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
-<span>                                      bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                      trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
-<span>                                                         <span class="fl">1.0</span><span class="op">)</span>,</span>
-<span>                                      use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                      transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
-<span>                                      sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
-<span>                                      params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>                                                    xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                                      nthread <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                                      covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
-<span>                                      covar_bl_trs <span class="op">=</span> <span class="fl">0.08</span>,</span>
-<span>                                      covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
-<span>                                      max_attempt <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>                                      matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
-<span>                                      delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                                      scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">pseudo_pop_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"cms_mortality_pct"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, </span>
+<span>                                                     <span class="st">"qd_mean_pm25"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    <span class="va">trimmed_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="va">confounders_s1</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
+<span>                                    gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
+<span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
+<span>                                    sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
+<span>                                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                                                  xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                    nthread <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                    covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
+<span>                                    covar_bl_trs <span class="op">=</span> <span class="fl">0.08</span>,</span>
+<span>                                    covar_bl_trs_type <span class="op">=</span> <span class="st">"mean"</span>,</span>
+<span>                                    max_attempt <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                                    matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span>
+<span>                                    delta_n <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>                                    scale <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.150596118336646| Covariate balance threshold: 0.08</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.123983603260004| Covariate balance threshold: 0.08</span></span>
 <span><span class="co">#&gt; mean absolute correlation: 0.20034674112753| Covariate balance threshold: 0.08</span></span>

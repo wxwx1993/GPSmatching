@@ -4,7 +4,7 @@
 #' @description
 #' Generates pseudo population based on matching casual inference method.
 #'
-#' @param dataset A list with 6 elements. Including An original dataset as well
+#' @param data_obj A list with 6 elements. Including An original dataset as well
 #'  as helper vectors from estimating GPS. See [compile_pseudo_pop()] for more
 #'  details.
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
@@ -20,13 +20,16 @@
 #'
 #' @keywords internal
 #'
-create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
+create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
+                            gps_model = "parametric",
                             nthread = 1, ...) {
 
-  # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
+  # data_obj content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
   # Passing packaging check() ----------------------------
   delta_n <- NULL
+  counter_weight <- NULL
+  i.counter_weight <- NULL
   # ------------------------------------------------------
 
   dot_args <- list(...)
@@ -38,8 +41,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   matching_fun <- get(matching_fun)
 
-  gps_mx <- dataset$gps_mx
-  w_mx <- dataset$w_mx
+  gps_mx <- data_obj$gps_mx
+  w_mx <- data_obj$w_mx
 
   if (is.null(bin_seq)) {
 
@@ -61,10 +64,11 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     matched_set <-  lapply(bin_num,
                            matching_fun,
-                           dataset=dataset$dataset,
-                           e_gps_pred = dataset$e_gps_pred,
-                           e_gps_std_pred = dataset$e_gps_std_pred,
-                           w_resid=dataset$w_resid,
+                           dataset=data_obj$dataset,
+                           exposure_col_name = exposure_col_name,
+                           e_gps_pred = data_obj$e_gps_pred,
+                           e_gps_std_pred = data_obj$e_gps_std_pred,
+                           w_resid=data_obj$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
                            gps_model = gps_model,
@@ -80,7 +84,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     s_comp_p <- proc.time()
 
-    cp_original_data <- dataset[[1]]
+    cp_original_data <- data_obj$dataset
 
     # create initial freq_table
     logger::log_debug("Started working on merging the frequency table  ... ")
@@ -106,6 +110,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
     logger::log_debug(paste0("Finished binding the frequency table ",
                              "(Wall clock time:  ",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
+
+    cp_original_data["counter_weight"] <- rep(0, nrow(cp_original_data))
 
     if (nrow(freq_table) != 0) {
       c_w <- cp_original_data[, c("id", "counter_weight")]

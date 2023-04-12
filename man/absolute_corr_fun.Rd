@@ -9,7 +9,7 @@ absolute_corr_fun(w, c)
 \arguments{
 \item{w}{A vector of observed continuous exposure variable.}
 
-\item{c}{A data table of observed covariates variable.}
+\item{c}{A data.frame of observed covariates variable.}
 }
 \value{
 The function returns a list including:
@@ -34,7 +34,6 @@ region <- sample(x=c("North", "South", "East", "West"),size = n,
 mydata$year <- as.factor(year)
 mydata$region <- as.factor(region)
 mydata$cf5 <- as.factor(mydata$cf5)
-data.table::setDT(mydata)
 cor_val <- absolute_corr_fun(mydata[,2], mydata[, 3:length(mydata)])
 print(cor_val$mean_absolute_corr)
 

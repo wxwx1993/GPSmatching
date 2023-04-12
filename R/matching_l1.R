@@ -31,6 +31,7 @@
 #'
 matching_l1 <- function(w,
                         dataset,
+                        exposure_col_name,
                         e_gps_pred,
                         e_gps_std_pred,
                         w_resid,
@@ -44,6 +45,8 @@ matching_l1 <- function(w,
   if (length(w)!=1){
     stop("w should be a vector of size 1.")
   }
+
+  dataset$w <- dataset[[exposure_col_name]]
 
   logger::log_debug("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()

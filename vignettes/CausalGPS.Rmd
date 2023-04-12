@@ -74,20 +74,25 @@ See create_matching() for more details about the parameters and default values.
 ```r
  set.seed(422)
  n <- 10000
- mydata <- generate_syn_data(sample_size=n)
- year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
- region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+ mydata <- generate_syn_data(sample_size = n)
+ year <- sample(x=c("2001", "2002", "2003", "2004", "2005"), size = n, 
+                replace = TRUE)
+ region <- sample(x=c("North", "South", "East", "West"),size = n,
+                replace = TRUE)
  mydata$year <- as.factor(year)
  mydata$region <- as.factor(region)
  mydata$cf5 <- as.factor(mydata$cf5)
                              
- pseudo_pop <- generate_pseudo_pop(mydata$Y,
-                             mydata$treat,
-                             mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+ pseudo_pop <- generate_pseudo_pop(
+                             mydata[, c("id", "Y")],
+                             mydata[, c("id", "w")],
+                             mydata[, c("id", "cf1", "cf2", "cf3", "cf4", 
+                                        "cf5", "cf6","year","region")],
                              ci_appr = "matching",
                              gps_model = "non-parametric",
                              use_cov_transform = TRUE,
-                             transformers = list("pow2", "pow3", "abs", "scale"),
+                             transformers = list("pow2", "pow3", "abs", 
+                                                 "scale"),
                              trim_quantiles = c(0.01,0.99),
                              sl_lib = c("m_xgboost"),
                              covar_bl_method = "absolute",
@@ -118,8 +123,7 @@ The following table shows the external package names, their equivalent name that
 - Estimating GPS
 
 ```r
-data_with_gps <- estimate_gps(Y,
-                              w,
+data_with_gps <- estimate_gps(w,
                               c,
                               internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),

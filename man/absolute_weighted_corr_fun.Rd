@@ -25,19 +25,19 @@ Checks covariate balance based on absolute weighted correlations for
 given data sets.
 }
 \examples{
+
 set.seed(639)
 n <- 100
 mydata <- generate_syn_data(sample_size=100)
 year <- sample(x=c("2001","2002","2003","2004","2005"),size = n,
- replace = TRUE)
+               replace = TRUE)
 region <- sample(x=c("North", "South", "East", "West"),size = n,
- replace = TRUE)
+                 replace = TRUE)
 mydata$year <- as.factor(year)
 mydata$region <- as.factor(region)
 mydata$cf5 <- as.factor(mydata$cf5)
-data.table::setDT(mydata)
 cor_val <- absolute_weighted_corr_fun(mydata[,2],
-                                      data.table::data.table(runif(n)),
+                                      runif(n),
                                       mydata[, 3:length(mydata)])
 print(cor_val$mean_absolute_corr)
 

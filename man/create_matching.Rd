@@ -5,7 +5,8 @@
 \title{Create pseudo population using matching casual inference approach}
 \usage{
 create_matching(
-  dataset,
+  data_obj,
+  exposure_col_name,
   bin_seq = NULL,
   gps_model = "parametric",
   nthread = 1,
@@ -13,7 +14,7 @@ create_matching(
 )
 }
 \arguments{
-\item{dataset}{A list with 6 elements. Including An original dataset as well
+\item{data_obj}{A list with 6 elements. Including An original dataset as well
 as helper vectors from estimating GPS. See \code{\link[=compile_pseudo_pop]{compile_pseudo_pop()}} for more
 details.}
 

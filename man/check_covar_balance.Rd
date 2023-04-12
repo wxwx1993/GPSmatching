@@ -58,10 +58,9 @@ mydata$cf5 <- as.factor(mydata$cf5)
 
 
 
-pseudo_pop <- generate_pseudo_pop(mydata$Y,
-                                 mydata$treat,
-                                 mydata[c("cf1","cf2","cf3","cf4","cf5",
-                                          "cf6","year","region")],
+pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "Y")],
+                                 mydata[, c("id", "w")],
+                                 mydata[, c("id", "cf1", "cf2", "cf3", "cf4","cf5", "cf6","year","region")],
                                  ci_appr = "matching",
                                  pred_model = "sl",
                                  gps_model = "non-parametric",
@@ -78,8 +77,7 @@ pseudo_pop <- generate_pseudo_pop(mydata$Y,
 
 adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
                                         c = pseudo_pop$pseudo_pop[ ,
-                                        pseudo_pop$covariate_cols_name,
-                                         with=FALSE],
+                                        pseudo_pop$covariate_cols_name],
                                         counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
                                         ci_appr="matching",
                                         nthread=1,

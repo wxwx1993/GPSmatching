@@ -7,6 +7,7 @@
 matching_l1(
   w,
   dataset,
+  exposure_col_name,
   e_gps_pred,
   e_gps_std_pred,
   w_resid,

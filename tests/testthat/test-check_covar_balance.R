@@ -8,10 +8,10 @@ s_data <- generate_syn_data(sample_size = 200,
                             cova_spec = 1)
 
 covar_test <- generate_pseudo_pop(
-                           s_data$Y,
-                           s_data$treat,
-                           s_data[c("cf1","cf2","cf3",
-                                  "cf4","cf5","cf6")],
+                           s_data[, c("id", "Y")],
+                           s_data[, c("id", "w")],
+                           s_data[,c("id","cf1","cf2","cf3",
+                                     "cf4","cf5","cf6")],
                            ci_appr = "matching",
                            gps_model = "parametric",
                            use_cov_transform = TRUE,
@@ -33,7 +33,7 @@ covar_test <- generate_pseudo_pop(
 
 confounders <- paste0("cf", seq(1,6))
 val1 <- check_covar_balance(w = covar_test$pseudo_pop[, c("w")],
-                            c = covar_test$pseudo_pop[, confounders, with=FALSE],
+                            c = covar_test$pseudo_pop[, confounders],
                             counter_weight = covar_test$pseudo_pop[, c("counter_weight")],
                             ci_appr = "matching",
                             nthread = 1,
@@ -44,7 +44,7 @@ expect_true(val1$pass)
 
 
 val2 <- check_covar_balance(w = covar_test$pseudo_pop[, c("w")],
-                            c = covar_test$pseudo_pop[, confounders, with=FALSE],
+                            c = covar_test$pseudo_pop[, confounders],
                             counter_weight = covar_test$pseudo_pop[, c("counter_weight")],
                             ci_appr = "matching",
                             nthread = 1,
@@ -76,10 +76,10 @@ s_data$year <- as.factor(year)
 s_data$region <- as.factor(region)
 
 weight_test <- generate_pseudo_pop(
-  s_data$Y,
-  s_data$treat,
-  s_data[c("cf1","cf2","cf3",
-           "cf4","cf5","cf6", "year", "region")],
+  s_data[, c("id", "Y")],
+  s_data[, c("id", "w")],
+  s_data[, c("id", "cf1", "cf2", "cf3",
+             "cf4","cf5","cf6", "year", "region")],
   ci_appr = "weighting",
   gps_model = "parametric",
   use_cov_transform = TRUE,
@@ -100,11 +100,11 @@ weight_test <- generate_pseudo_pop(
 
 
 
-  w_1 <- data.table::data.table(weight_test$pseudo_pop[, c("w")])
-  c_1 <- data.table::data.table(weight_test$pseudo_pop[, c("cf1", "cf2", "cf3",
-                                                           "cf4", "cf5", "cf6",
-                                                           "year", "region")])
-  cw <- data.table::data.table(weight_test$pseudo_pop[, c("counter_weight")])
+  w_1 <- weight_test$pseudo_pop[, c("w")]
+  c_1 <- weight_test$pseudo_pop[, c("cf1", "cf2", "cf3",
+                                    "cf4", "cf5", "cf6",
+                                    "year", "region")]
+  cw <- weight_test$pseudo_pop[, c("counter_weight")]
 
   val3 <- check_covar_balance(w = w_1,
                               c = c_1,

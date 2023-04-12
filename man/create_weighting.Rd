@@ -4,7 +4,7 @@
 \alias{create_weighting}
 \title{Create pseudo population using weighting casual inference approach}
 \usage{
-create_weighting(dataset, ...)
+create_weighting(dataset, exposure_col_name, ...)
 }
 \arguments{
 \item{dataset}{The study data set.}
