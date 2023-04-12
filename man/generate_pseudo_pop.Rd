@@ -9,7 +9,7 @@ generate_pseudo_pop(
   w,
   c,
   ci_appr,
-  gps_model = "parametric",
+  gps_density = "normal",
   use_cov_transform = FALSE,
   transformers = list("pow2", "pow3"),
   bin_seq = NULL,
@@ -43,8 +43,8 @@ id column.}
 \item "weighting": Weighting by GPS
 }}
 
-\item{gps_model}{Model type which is used for estimating GPS value, including
-parametric (default) and non-parametric.}
+\item{gps_density}{Model type which is used for estimating GPS value,
+including \code{normal} (default) and \code{kernel}.}
 
 \item{use_cov_transform}{If TRUE, the function uses transformer to meet the
 covariate balance.}
@@ -142,7 +142,7 @@ pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                                   ci_appr = "matching",
-                                  gps_model = "parametric",
+                                  gps_density = "normal",
                                   bin_seq = NULL,
                                   trim_quantiles = c(0.01,0.99),
                                   use_cov_transform = FALSE,

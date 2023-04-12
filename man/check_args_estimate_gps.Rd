@@ -4,11 +4,11 @@
 \alias{check_args_estimate_gps}
 \title{Check estimate_gps function arguments}
 \usage{
-check_args_estimate_gps(gps_model, ...)
+check_args_estimate_gps(gps_density, ...)
 }
 \arguments{
-\item{gps_model}{Model type which is used for estimating GPS value, including
-\code{parametric} and \code{non-parametric}.}
+\item{gps_density}{Model type which is used for estimating GPS value, including
+\code{normal} and \code{kernel}.}
 
 \item{...}{Additional arguments to successfully run the process.}
 }

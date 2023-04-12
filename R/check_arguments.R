@@ -85,7 +85,7 @@ check_args_estimate_gps <- function(gps_density, ...){
 
   if (!is.element(gps_density, c('normal','kernel'))){
     stop(paste(gps_density, " is not a valide gps_density.",
-               "Valid options: normal, kernelß."))
+               "Valid options: normal, kernel."))
   }
 
   # checkpoint 2 ------------------------------------------

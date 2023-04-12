@@ -7,7 +7,7 @@
 compile_pseudo_pop(
   data_obj,
   ci_appr,
-  gps_model,
+  gps_density,
   bin_seq,
   exposure_col_name,
   nthread,
@@ -27,8 +27,8 @@ compile_pseudo_pop(
 
 \item{ci_appr}{Causal inference approach.}
 
-\item{gps_model}{Model type which is used for estimating GPS value, including
-parametric and non-parametric.}
+\item{gps_density}{Model type which is used for estimating GPS value,
+including \code{normal} and \code{kernel}.}
 
 \item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
 NULL is passed the default value will be used, which is
@@ -60,7 +60,7 @@ m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
                               m_d[, c("id", "w")],
                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
-                              gps_model = "parametric",
+                              gps_density = "normal",
                               internal_use = TRUE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -71,7 +71,7 @@ data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
 
 pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          ci_appr = "matching",
-                         gps_model = "parametric",
+                         gps_density = "normal",
                          bin_seq = NULL,
                          exposure_col_name = c("w"),
                          nthread = 1,

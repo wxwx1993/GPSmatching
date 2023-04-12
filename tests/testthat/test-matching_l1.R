@@ -26,7 +26,7 @@ test_that("matching_l1 functions as expected.", {
                      w_resid = m_d$w_resid,
                      gps_mx = m_d$gps_mx,
                      w_mx = m_d$w_mx,
-                     gps_model = "non-parametric",
+                     gps_density = "kernel",
                      delta_n = 1,
                      scale = 0.5,
                      nthread = 1)
@@ -35,7 +35,4 @@ test_that("matching_l1 functions as expected.", {
 
    expect_equal(nrow(val), 6)
    expect_equal(length(val), 2)
-   #expect_equal(val$row_index[2], 86, tolerance=0.00001)
-   #expect_equal(val$N[4], 1, tolerance=0.00001)
-
 })
