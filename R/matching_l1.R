@@ -20,8 +20,8 @@
 #'  (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @param nthread Number of available cores.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value, including
+#' `normal` (default) and `kernel`.
 #' @return
 #' \code{dp}: The function returns a data.table saved the matched points on
 #'  by single exposure
@@ -37,7 +37,7 @@ matching_l1 <- function(w,
                         w_resid,
                         gps_mx,
                         w_mx,
-                        gps_model = "parametric",
+                        gps_density = "normal",
                         delta_n = 1,
                         scale = 0.5,
                         nthread = 1) {
@@ -51,14 +51,14 @@ matching_l1 <- function(w,
   logger::log_debug("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()
 
-  if (gps_model == "parametric"){
+  if (gps_density == "normal"){
     p_w <- stats::dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
-  } else if (gps_model == "non-parametric") {
+  } else if (gps_density == "kernel") {
     w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
     p_w <- compute_density(w_resid, w_new)
   } else {
-    stop(paste("Invalid gps model: ", gps_model,
-               ". Valide options: parametric, non-parametric"))
+    stop(paste("Invalid gps density: ", gps_density,
+               ". Valide options: normal, kernel."))
   }
 
   w_min <- w_mx[1]

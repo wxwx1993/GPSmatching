@@ -13,8 +13,8 @@
 #'   - gps_mx (min and max of gps)
 #'   - w_mx (min and max of w).
 #' @param ci_appr Causal inference approach.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value,
+#' including `normal` and `kernel`.
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
@@ -40,7 +40,7 @@
 #' data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
 #'                               m_d[, c("id", "w")],
 #'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
-#'                               gps_model = "parametric",
+#'                               gps_density = "normal",
 #'                               internal_use = TRUE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
 #'                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -51,7 +51,7 @@
 #'
 #' pd <- compile_pseudo_pop(data_obj = data_with_gps,
 #'                          ci_appr = "matching",
-#'                          gps_model = "parametric",
+#'                          gps_density = "normal",
 #'                          bin_seq = NULL,
 #'                          exposure_col_name = c("w"),
 #'                          nthread = 1,
@@ -62,7 +62,7 @@
 #'                          delta_n = 0.5,
 #'                          scale = 1)
 #'
-compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
+compile_pseudo_pop <- function(data_obj, ci_appr, gps_density,
                                bin_seq, exposure_col_name, nthread,
                                ...) {
 
@@ -84,7 +84,7 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_model,
       matched_set <- create_matching(data_obj,
                                      exposure_col_name,
                                      bin_seq,
-                                     gps_model,
+                                     gps_density,
                                      nthread,
                                      ...)
       logger::log_info("Finished compiling pseudo population ",
