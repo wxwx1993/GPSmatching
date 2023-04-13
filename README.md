@@ -122,11 +122,9 @@ pseudo_pop <- generate_pseudo_pop(Y,
 - Estimating GPS
 
 ```r
-data_with_gps <- estimate_gps(Y,
-                              w,
+data_with_gps <- estimate_gps(w,
                               c,
                               gps_density = "normal",
-                              internal_use = FALSE,
                               params = list(xgb_nrounds = 50,
                                             xgb_max_depth = 6,
                                             xgb_eta = 0.3,
@@ -136,8 +134,6 @@ data_with_gps <- estimate_gps(Y,
                               )
 
 ```
-
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
 
 - Estimating Exposure Rate Function
 

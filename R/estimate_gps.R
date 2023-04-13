@@ -12,8 +12,6 @@
 #' column.
 #' @param gps_density Model type which is used for estimating GPS value, including
 #' `normal` (default) and `kernel`.
-#' @param internal_use If TRUE will return helper vectors as well. Otherwise,
-#'  will return original data + GPS values.
 #' @param params Includes list of parameters that are used internally. Unrelated
 #'  parameters will be ignored.
 #' @param sl_lib A vector of prediction algorithms.
@@ -23,8 +21,7 @@
 #'
 #' @return
 #' The function returns a S3 object. Including the following:
-#'   - Original data set + GPS, counter, row_index values (Y, w, GPS,
-#'   counter_weight, row_index, c)
+#'   - `dataset `: `id`, `w`, `gps`
 #'   - e_gps_pred
 #'   - e_gps_std_pred
 #'   - w_resid
@@ -47,7 +44,6 @@
 #' data_with_gps <- estimate_gps(m_d[, c("id", "w")],
 #'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                               gps_density = "normal",
-#'                               internal_use = FALSE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
 #'                                        xgb_nrounds=c(10,20,30,40,50,60)),
 #'                               nthread = 1,
@@ -57,7 +53,6 @@
 estimate_gps <- function(w,
                          c,
                          gps_density = "normal",
-                         internal_use = TRUE,
                          params = list(),
                          sl_lib = c("m_xgboost"),
                          nthread = 1,
@@ -176,13 +171,11 @@ estimate_gps <- function(w,
   class(result) <- "cgps_gps"
   result$dataset <- dataset
   result$used_params <- used_params
+  result$e_gps_pred <- e_gps_pred
+  result$e_gps_std_pred <- e_gps_std_pred
+  result$w_resid <- w_resid
+  result$gps_mx <- gps_mx
+  result$w_mx <- w_mx
 
-  if (internal_use){
-    result$e_gps_pred <- e_gps_pred
-    result$e_gps_std_pred <- e_gps_std_pred
-    result$w_resid <- w_resid
-    result$gps_mx <- gps_mx
-    result$w_mx <- w_mx
-  }
   invisible(result)
 }

@@ -5,7 +5,6 @@ test_that("Compiling pseudo pop works as expected.", {
   gps_obj <- estimate_gps(m_d[, c("id", "w")],
                           m_d[, c("id", "cf1", "cf2", "cf3",
                                   "cf4","cf5","cf6")],
-                          internal_use = TRUE,
                           sl_lib = c("m_xgboost"))
 
   # Wrong ci_appr
@@ -41,7 +40,7 @@ test_that("Compiling pseudo pop works as expected.", {
 
   expect_equal(sum(pseudo_pop_1$counter_weight), 2500)
   expect_equal(nrow(pseudo_pop_1),100)
-  expect_equal(length(pseudo_pop_1),10)
+  expect_equal(length(pseudo_pop_1),4)
 
   set.seed(934)
   #data <- list(pseudo_pop_weight_test[, !c("counter_weight")])
