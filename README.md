@@ -122,11 +122,9 @@ pseudo_pop <- generate_pseudo_pop(Y,
 - Estimating GPS
 
 ```r
-data_with_gps <- estimate_gps(Y,
-                              w,
+data_with_gps <- estimate_gps(w,
                               c,
                               gps_density = "normal",
-                              internal_use = FALSE,
                               params = list(xgb_nrounds = 50,
                                             xgb_max_depth = 6,
                                             xgb_eta = 0.3,
@@ -137,7 +135,35 @@ data_with_gps <- estimate_gps(Y,
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
+- Generating Pseudo Population with an available GPS object
+
+```r
+gps_obj <- estimate_gps(w,
+                        c,
+                        gps_density = "normal",
+                        params = list(xgb_max_depth = c(3,4,5),
+                                      xgb_nrounds=c(10,20,30,40,50,60)),
+                        nthread = 1,
+                        sl_lib = c("m_xgboost")
+                        )
+
+pseudo_pop <- generate_pseudo_pop(Y,
+                                  w,
+                                  c,
+                                  ci_appr = "matching",
+                                  gps_obj = gps_obj,
+                                  use_cov_transform = TRUE,
+                                  trim_quantiles = c(0.01,0.99),
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  covar_bl_trs_type = "mean",
+                                  matching_fun = "matching_l1",
+                                  max_attempt = 1,
+                                  delta_n = 1,
+                                  scale = 0.5,
+                                  nthread = 12)
+
+```
 
 - Estimating Exposure Rate Function
 

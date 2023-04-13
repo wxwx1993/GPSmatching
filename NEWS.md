@@ -2,6 +2,9 @@
 
 ### Changed
 
+* `generate_pseudo_pop` function accepts `gps_obj` as an optional input.
+* `internal_use` is not part of parameters for `estimate_gps` function. 
+* `estimate_gps` function only returns `id`, `w`, and computed `gps` as part of dataset.
 * Now the design and analysis phases are explicitly separated.
 * `gps_model` --> `gps_density`. Now it takes, `normal` and `kernel` options instead of `parametric` and `non-parametric` options.
 

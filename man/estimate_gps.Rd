@@ -8,7 +8,6 @@ estimate_gps(
   w,
   c,
   gps_density = "normal",
-  internal_use = TRUE,
   params = list(),
   sl_lib = c("m_xgboost"),
   nthread = 1,
@@ -25,9 +24,6 @@ column.}
 \item{gps_density}{Model type which is used for estimating GPS value, including
 \code{normal} (default) and \code{kernel}.}
 
-\item{internal_use}{If TRUE will return helper vectors as well. Otherwise,
-will return original data + GPS values.}
-
 \item{params}{Includes list of parameters that are used internally. Unrelated
 parameters will be ignored.}
 
@@ -41,8 +37,7 @@ in a shared memory system.}
 \value{
 The function returns a S3 object. Including the following:
 \itemize{
-\item Original data set + GPS, counter, row_index values (Y, w, GPS,
-counter_weight, row_index, c)
+\item \code{dataset }: \code{id}, \code{w}, \code{gps}
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -67,7 +62,6 @@ m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d[, c("id", "w")],
                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                               gps_density = "normal",
-                              internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),
                               nthread = 1,

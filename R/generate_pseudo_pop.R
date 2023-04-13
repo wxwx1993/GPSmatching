@@ -41,6 +41,8 @@
 #' used by internal packages.
 #' @param include_original_data If TRUE, includes the original data in the
 #' outcome.
+#' @param gps_obj A gps object that is generated with `estimate_gps` function.
+#' If it is provided, the number of iteration will forced to 1 (Default: NULL).
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
@@ -114,6 +116,7 @@ generate_pseudo_pop <- function(Y,
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
                                 include_original_data = FALSE,
+                                gps_obj = NULL,
                                 ...){
 
   # Passing packaging check() ------------------------------
@@ -169,8 +172,6 @@ generate_pseudo_pop <- function(Y,
                           ...)
   tmp_data <- NULL
 
-  if (ci_appr == "matching") internal_use = TRUE else internal_use = FALSE
-
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
 
@@ -180,8 +181,17 @@ generate_pseudo_pop <- function(Y,
 
   transformed_vals <- lapply(covariate_cols, function(x) c(x))
   c_extended <- c
+  c_original <- c
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
+
+  if (!is.null(gps_obj)){
+    if (!inherits(gps_obj, "cgps_gps")){
+      stop("Provided gps_obj is not an standard gps object.")
+    }
+    max_attempt <- 1
+    logger::log_info("Maximum attemp was forced to 1 (gps_obj is provided).")
+  }
 
   while (counter < max_attempt) {
 
@@ -189,13 +199,17 @@ generate_pseudo_pop <- function(Y,
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(w,
-                                     c_extended[, c("id", covariate_cols)],
-                                     gps_density,
-                                     params = params,
-                                     sl_lib = sl_lib,
-                                     nthread = nthread,
-                                     internal_use = internal_use, ...)
+    if (is.null(gps_obj)) {
+      estimate_gps_out <- estimate_gps(w,
+                                       c_extended[, c("id", covariate_cols)],
+                                       gps_density,
+                                       params = params,
+                                       sl_lib = sl_lib,
+                                       nthread = nthread,
+                                       ...)
+    } else {
+      estimate_gps_out <- gps_obj
+    }
     gps_used_params <- estimate_gps_out$used_params
     zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
     estimate_gps_out$dataset$counter_weight <- zero_initialize
@@ -209,8 +223,8 @@ generate_pseudo_pop <- function(Y,
       covariate_cols <- covariate_cols[-new_col_ind]
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      estimate_gps_out$dataset[recent_swap[2]] <- NULL
-      estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
+      #estimate_gps_out$dataset[recent_swap[2]] <- NULL
+      #estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
@@ -224,7 +238,8 @@ generate_pseudo_pop <- function(Y,
                                      nthread = nthread,
                                      ...)
 
-    pseudo_pop <- merge(Y, pseudo_pop, by = "id")
+    pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
+    pseudo_pop <- merge(pseudo_pop_y, c, by = "id")
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance

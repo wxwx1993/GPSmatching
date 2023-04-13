@@ -18,6 +18,7 @@ generate_pseudo_pop(
   sl_lib = c("m_xgboost"),
   nthread = 1,
   include_original_data = FALSE,
+  gps_obj = NULL,
   ...
 )
 }
@@ -75,6 +76,9 @@ used by internal packages.}
 
 \item{include_original_data}{If TRUE, includes the original data in the
 outcome.}
+
+\item{gps_obj}{A gps object that is generated with \code{estimate_gps} function.
+If it is provided, the number of iteration will forced to 1 (Default: NULL).}
 
 \item{...}{Additional arguments passed to different models.}
 }

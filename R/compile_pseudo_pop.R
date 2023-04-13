@@ -23,9 +23,6 @@
 #' used by internal packages.
 #' @param ... Additional parameters.
 #'
-#' @note
-#' The input data set should be output of estimate_gps function with
-#' internal_use flag activated.
 #'
 #' @export
 #'
@@ -41,7 +38,6 @@
 #'                               m_d[, c("id", "w")],
 #'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                               gps_density = "normal",
-#'                               internal_use = TRUE,
 #'                               params = list(xgb_max_depth = c(3,4,5),
 #'                                        xgb_nrounds=c(10,20,30,40,50,60)),
 #'                               nthread = 1,

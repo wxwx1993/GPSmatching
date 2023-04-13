@@ -98,6 +98,7 @@ first.</p>
 <span>  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span>  nthread <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  include_original_data <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gps_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -174,6 +175,11 @@ used by internal packages.</p></dd>
 <dt>include_original_data</dt>
 <dd><p>If TRUE, includes the original data in the
 outcome.</p></dd>
+
+
+<dt>gps_obj</dt>
+<dd><p>A gps object that is generated with <code>estimate_gps</code> function.
+If it is provided, the number of iteration will forced to 1 (Default: NULL).</p></dd>
 
 
 <dt>...</dt>
