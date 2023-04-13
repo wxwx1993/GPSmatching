@@ -278,16 +278,11 @@ parallelize the processing.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">w</span>,</span>
 <span>                              <span class="va">c</span>,</span>
-<span>                              internal_use <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,</span>
 <span>                                            xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                              nthread <span class="op">=</span> <span class="fl">1</span>,                                </span>
 <span>                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span></span>
 <span>                              <span class="op">)</span></span></code></pre></div>
-<p>If <strong><code>internal_use</code></strong> is set to be TRUE, the
-program will return additional vectors to be used by the selected causal
-inference approach to generate a pseudo population. See
-<strong><code><a href="../reference/estimate_gps.html">?estimate_gps</a></code></strong> for more details.</p>
 <ul>
 <li>Estimating Exposure Rate Function</li>
 </ul>
