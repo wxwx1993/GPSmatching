@@ -180,6 +180,7 @@ generate_pseudo_pop <- function(Y,
 
   transformed_vals <- lapply(covariate_cols, function(x) c(x))
   c_extended <- c
+  c_original <- c
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
 

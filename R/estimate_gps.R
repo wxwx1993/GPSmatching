@@ -142,11 +142,11 @@ estimate_gps <- function(w,
 
   w_mx <- compute_min_max(merged_data[,c(exposure_col)])
   gps_mx <- compute_min_max(gps)
-  # counter_weight <- (w * 0) + 0 # initialize counter.
-  # row_index <- seq(1, length(w), 1) # initialize row index.
   merged_data$gps <- gps
+
+  # Drop covariates
+  merged_data[covariate_cols] <- NULL
   dataset <- merged_data
-  #row_index <- merged_data[,c("id")]
 
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")
