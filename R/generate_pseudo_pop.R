@@ -41,6 +41,8 @@
 #' used by internal packages.
 #' @param include_original_data If TRUE, includes the original data in the
 #' outcome.
+#' @param gps_obj A gps object that is generated with `estimate_gps` function.
+#' If it is provided, the number of iteration will forced to 1 (Default: NULL).
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
@@ -114,6 +116,7 @@ generate_pseudo_pop <- function(Y,
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
                                 include_original_data = FALSE,
+                                gps_obj = NULL,
                                 ...){
 
   # Passing packaging check() ------------------------------
@@ -182,19 +185,31 @@ generate_pseudo_pop <- function(Y,
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
 
+  if (!is.null(gps_obj)){
+    if (!inherits(gps_obj, "cgps_gps")){
+      stop("Provided gps_obj is not an standard gps object.")
+    }
+    max_attempt <- 1
+    logger::log_info("Maximum attemp was forced to 1 (gps_obj is provided).")
+  }
+
   while (counter < max_attempt) {
 
     counter <- counter + 1
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(w,
-                                     c_extended[, c("id", covariate_cols)],
-                                     gps_density,
-                                     params = params,
-                                     sl_lib = sl_lib,
-                                     nthread = nthread,
-                                     ...)
+    if (is.null(gps_obj)) {
+      estimate_gps_out <- estimate_gps(w,
+                                       c_extended[, c("id", covariate_cols)],
+                                       gps_density,
+                                       params = params,
+                                       sl_lib = sl_lib,
+                                       nthread = nthread,
+                                       ...)
+    } else {
+      estimate_gps_out <- gps_obj
+    }
     gps_used_params <- estimate_gps_out$used_params
     zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
     estimate_gps_out$dataset$counter_weight <- zero_initialize

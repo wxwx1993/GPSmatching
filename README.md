@@ -135,6 +135,36 @@ data_with_gps <- estimate_gps(w,
 
 ```
 
+- Generating Pseudo Population with an available GPS object
+
+```r
+gps_obj <- estimate_gps(w,
+                        c,
+                        gps_density = "normal",
+                        params = list(xgb_max_depth = c(3,4,5),
+                                      xgb_nrounds=c(10,20,30,40,50,60)),
+                        nthread = 1,
+                        sl_lib = c("m_xgboost")
+                        )
+
+pseudo_pop <- generate_pseudo_pop(Y,
+                                  w,
+                                  c,
+                                  ci_appr = "matching",
+                                  gps_obj = gps_obj,
+                                  use_cov_transform = TRUE,
+                                  trim_quantiles = c(0.01,0.99),
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  covar_bl_trs_type = "mean",
+                                  matching_fun = "matching_l1",
+                                  max_attempt = 1,
+                                  delta_n = 1,
+                                  scale = 0.5,
+                                  nthread = 12)
+
+```
+
 - Estimating Exposure Rate Function
 
 ```r
