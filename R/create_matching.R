@@ -4,7 +4,7 @@
 #' @description
 #' Generates pseudo population based on matching casual inference method.
 #'
-#' @param data_obj A list with 6 elements. Including An original dataset as well
+#' @param data_obj A list of elements. Including An original dataset as well
 #'  as helper vectors from estimating GPS. See [compile_pseudo_pop()] for more
 #'  details.
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
@@ -23,8 +23,6 @@
 create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
                             gps_density = "normal",
                             nthread = 1, ...) {
-
-  # data_obj content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
   # Passing packaging check() ----------------------------
   delta_n <- NULL
@@ -66,9 +64,9 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
                            matching_fun,
                            dataset=data_obj$dataset,
                            exposure_col_name = exposure_col_name,
-                           e_gps_pred = data_obj$e_gps_pred,
-                           e_gps_std_pred = data_obj$e_gps_std_pred,
-                           w_resid=data_obj$w_resid,
+                           e_gps_pred = data_obj$dataset$e_gps_pred,
+                           e_gps_std_pred = data_obj$dataset$e_gps_std_pred,
+                           w_resid=data_obj$dataset$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
                            gps_density = gps_density,

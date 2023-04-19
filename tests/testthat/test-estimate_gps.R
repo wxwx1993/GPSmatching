@@ -10,7 +10,7 @@ test_that("estimate_gps works as expected.", {
                                   sl_lib = c("m_xgboost")
   )
 
-  expect_equal(length(data_with_gps_1$dataset), 3)
+  expect_equal(length(data_with_gps_1$dataset), 6)
   expect_equal(nrow(data_with_gps_1$dataset), 100)
   expect_equal(data_with_gps_1$dataset$gps[2], 20.991916, tolerance = 0.00001)
 
@@ -22,14 +22,11 @@ test_that("estimate_gps works as expected.", {
   )
 
   required_elements <- c( "dataset",
-                          "e_gps_pred",
-                          "e_gps_std_pred",
-                          "w_resid",
                           "gps_mx",
                           "w_mx" )
   expect_equal(length(intersect(c(attributes(data_with_gps_2)$names),
-                                required_elements)), 6L)
-  expect_equal(data_with_gps_2$e_gps_pred[58,], 19.07269287,
+                                required_elements)), 3L)
+  expect_equal(data_with_gps_2$dataset$e_gps_pred[58,], 19.07269287,
                tolerance = 0.00001)
 
   # Missing values

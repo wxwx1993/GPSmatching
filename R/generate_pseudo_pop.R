@@ -112,6 +112,7 @@ generate_pseudo_pop <- function(Y,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
                                 trim_quantiles = c(0.01,0.99),
+                                gps_trim_qtls = c(0.01,0.99),
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
@@ -210,6 +211,9 @@ generate_pseudo_pop <- function(Y,
     } else {
       estimate_gps_out <- gps_obj
     }
+    # trim gps -----------------------------------
+    estimate_gps_out <- trim_gps(estimate_gps_out, gps_trim_qtls)
+
     gps_used_params <- estimate_gps_out$used_params
     zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
     estimate_gps_out$dataset$counter_weight <- zero_initialize
