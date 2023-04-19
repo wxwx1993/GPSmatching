@@ -31,7 +31,7 @@
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
-#' @param trim_quantiles A numerical vector of two. Represents the trim quantile
+#' @param exposure_trim_qtls A numerical vector of two. Represents the trim quantile
 #' level for exposure values. Both numbers should be in the range of \[0,1] and
 #' in increasing order (default: c(0.01, 0.99)).
 #' @param gps_trim_qtls A numerical vector of two. Represents the trim quantile
@@ -91,7 +91,8 @@
 #'                                   ci_appr = "matching",
 #'                                   gps_density = "normal",
 #'                                   bin_seq = NULL,
-#'                                   trim_quantiles = c(0.01,0.99),
+#'                                   expos_trim_qlts = c(0.01,0.99),
+#'                                   gps_trim_qlts = c(0.01,0.99),
 #'                                   use_cov_transform = FALSE,
 #'                                   transformers = list(),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
@@ -114,7 +115,7 @@ generate_pseudo_pop <- function(Y,
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
-                                trim_quantiles = c(0.01, 0.99),
+                                exposure_trim_qtls = c(0.01, 0.99),
                                 gps_trim_qtls = c(0.0, 1.0),
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
@@ -139,7 +140,7 @@ generate_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(ci_appr, use_cov_transform, transformers,
-             gps_density, trim_quantiles, ...)
+             gps_density, exposure_trim_qtls, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -158,7 +159,7 @@ generate_pseudo_pop <- function(Y,
 
   # TODO: check for data quality.
 
-  prep_results <- preprocess_data(Y, w, c, trim_quantiles, exposure_col)
+  prep_results <- preprocess_data(Y, w, c, exposure_trim_qtls, exposure_col)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
 

@@ -1,6 +1,5 @@
 test_that("Covariate balance check works as expected", {
 
-
 set.seed(532)
 s_data <- generate_syn_data(sample_size = 200,
                             outcome_sd = 10,
@@ -25,7 +24,8 @@ covar_test <- generate_pseudo_pop(
                            covar_bl_method = "absolute",
                            covar_bl_trs = 0.1,
                            covar_bl_trs_type = "mean",
-                           trim_quantiles = c(0.01,0.99),
+                           exposure_trim_qtls = c(0.01,0.99),
+                           gps_trim_qtls = c(0, 1),
                            max_attempt = 1,
                            matching_fun = "matching_l1",
                            delta_n = 1,
@@ -93,12 +93,11 @@ weight_test <- generate_pseudo_pop(
   covar_bl_method = "absolute",
   covar_bl_trs = 0.1,
   covar_bl_trs_type = "mean",
-  trim_quantiles = c(0.01,0.99),
+  exposure_trim_qtls = c(0.01, 0.99),
+  gps_trim_qtls = c(0.0, 1.0),
   max_attempt = 1,
   delta_n = 1,
   scale = 0.5)
-
-
 
   w_1 <- weight_test$pseudo_pop[, c("w")]
   c_1 <- weight_test$pseudo_pop[, c("cf1", "cf2", "cf3",

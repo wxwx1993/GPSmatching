@@ -18,7 +18,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type = "mean",
-                                  trim_quantiles = c(0.01, 0.99),
                                   delta_n = 1,
                                   scale = 1))
 
@@ -29,7 +28,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      bin_seq = NULL,
                                      exposure_col_name = c("w"),
                                      nthread = 1,
-                                     trim_quantiles = c(0.01, 0.99),
                                      covar_bl_method = "absolute",
                                      covar_bl_trs = 0.1,
                                      covar_bl_trs_type = "mean",
@@ -55,7 +53,6 @@ test_that("Compiling pseudo pop works as expected.", {
                                      bin_seq = NULL,
                                      exposure_col_name = c("w"),
                                      nthread = 1,
-                                     trim_quantiles = c(0.01, 0.99),
                                      covar_bl_method = "absolute",
                                      covar_bl_trs = 0.1,
                                      covar_bl_trs_type = "mean",
