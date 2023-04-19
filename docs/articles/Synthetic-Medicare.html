@@ -558,7 +558,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                    exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
@@ -600,7 +600,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                    exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
@@ -677,7 +677,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    gps_density <span class="op">=</span> <span class="st">"kernel"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                    exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
@@ -723,7 +723,7 @@ confounders. The dataset is hosted on Harvard Dataverse <span class="citation">(
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"weighting"</span>,</span>
 <span>                                    gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                    exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
@@ -820,7 +820,7 @@ balance</p></li>
 <span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
 <span>                                    gps_density <span class="op">=</span> <span class="st">"kernel"</span>,</span>
 <span>                                    bin_seq <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                                    trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
+<span>                                    exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span> ,</span>
 <span>                                                       <span class="fl">1.0</span><span class="op">)</span>,</span>
 <span>                                    use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                    transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>,<span class="st">"pow3"</span>,<span class="st">"clog"</span><span class="op">)</span>,</span>
