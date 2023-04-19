@@ -32,8 +32,11 @@
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
 #' @param trim_quantiles A numerical vector of two. Represents the trim quantile
-#' level. Both numbers should be in the range of \[0,1] and in increasing order
-#' (default: c(0.01,0.99)).
+#' level for exposure values. Both numbers should be in the range of \[0,1] and
+#' in increasing order (default: c(0.01, 0.99)).
+#' @param gps_trim_qtls A numerical vector of two. Represents the trim quantile
+#' level for the gps values. Both numbers should be in the range of \[0,1] and
+#' in increasing order (default: c(0.0, 1.0)).
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
 #' @param sl_lib A vector of prediction algorithms.
@@ -111,7 +114,8 @@ generate_pseudo_pop <- function(Y,
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
-                                trim_quantiles = c(0.01,0.99),
+                                trim_quantiles = c(0.01, 0.99),
+                                gps_trim_qtls = c(0.0, 1.0),
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
@@ -210,6 +214,9 @@ generate_pseudo_pop <- function(Y,
     } else {
       estimate_gps_out <- gps_obj
     }
+    # trim gps -----------------------------------
+    estimate_gps_out <- trim_gps(estimate_gps_out, gps_trim_qtls)
+
     gps_used_params <- estimate_gps_out$used_params
     zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
     estimate_gps_out$dataset$counter_weight <- zero_initialize

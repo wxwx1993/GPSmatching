@@ -11,6 +11,7 @@
 
 ### Added
 
+* There is `gps_trim_qtls` input parameter to trim data samples based on gps values.
 * Now users can also collect the original data in the pseudo population object.
 
 

@@ -14,7 +14,7 @@ create_matching(
 )
 }
 \arguments{
-\item{data_obj}{A list with 6 elements. Including An original dataset as well
+\item{data_obj}{A list of elements. Including An original dataset as well
 as helper vectors from estimating GPS. See \code{\link[=compile_pseudo_pop]{compile_pseudo_pop()}} for more
 details.}
 

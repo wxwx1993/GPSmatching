@@ -76,6 +76,7 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_density,
   logger::log_info("Starting compiling pseudo population ",
                     " (original data size: {nrow(data_obj$dataset)}) ... ")
 
+  auxilary_columns <- c("e_gps_pred", "e_gps_std_pred", "w_resid")
   if (ci_appr == 'matching'){
       matched_set <- create_matching(data_obj,
                                      exposure_col_name,
@@ -85,12 +86,14 @@ compile_pseudo_pop <- function(data_obj, ci_appr, gps_density,
                                      ...)
       logger::log_info("Finished compiling pseudo population ",
                       " (Pseudo population data size: {nrow(matched_set)})")
+      matched_set[, (auxilary_columns) := NULL]
       return(matched_set)
 
   } else if (ci_appr == 'weighting'){
     weighted_set <- create_weighting(data_obj$dataset, exposure_col_name, ...)
     logger::log_info("Finished compiling pseudo population ",
                      " (Pseudo population data size: {nrow(weighted_set)})")
+    weighted_set[, (auxilary_columns) := NULL]
     return(weighted_set)
 
   } else {
