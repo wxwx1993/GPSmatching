@@ -23,8 +23,8 @@ preprocess_data(Y, w, c, trim_quantiles, exposure_col)
 id column.}
 
 \item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
-level. Both numbers should be in the range of [0,1] and in increasing order
-(default: c(0.01,0.99)).}
+level for exposure values. Both numbers should be in the range of [0,1] and
+in increasing order (default: c(0.01, 0.99)).}
 
 \item{exposure_col}{Column name that is used for exposure.}
 }

@@ -14,6 +14,7 @@ generate_pseudo_pop(
   transformers = list("pow2", "pow3"),
   bin_seq = NULL,
   trim_quantiles = c(0.01, 0.99),
+  gps_trim_qtls = c(0, 1),
   params = list(),
   sl_lib = c("m_xgboost"),
   nthread = 1,
@@ -63,8 +64,12 @@ NULL is passed the default value will be used, which is
 \code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
 
 \item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
-level. Both numbers should be in the range of [0,1] and in increasing order
-(default: c(0.01,0.99)).}
+level for exposure values. Both numbers should be in the range of [0,1] and
+in increasing order (default: c(0.01, 0.99)).}
+
+\item{gps_trim_qtls}{A numerical vector of two. Represents the trim quantile
+level for the gps values. Both numbers should be in the range of [0,1] and
+in increasing order (default: c(0.0, 1.0)).}
 
 \item{params}{Includes list of params that is used internally. Unrelated
 parameters will be ignored.}
