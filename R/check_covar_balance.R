@@ -49,7 +49,7 @@
 #'                                             "region")],
 #'                                  ci_appr = "matching",
 #'                                  gps_density = "kernel",
-#'                                  trim_quantiles = c(0.01,0.99),
+#'                                  exposure_trim_qtls = c(0.01,0.99),
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,

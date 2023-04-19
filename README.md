@@ -54,7 +54,7 @@ Input parameters:
  **`bin_seq`** Sequence of w (treatment) to generate pseudo population. If
  NULL is passed the default value will be used, which is
  `seq(min(w)+delta_n/2,max(w), by=delta_n)`.   
- **`trim_quantiles`** A numerical vector of two. Represents the trim quantile
+ **`exposure_trim_qtls`** A numerical vector of two. Represents the trim quantile
  level. Both numbers should be in the range of [0,1] and in increasing order
  (default: c(0.01,0.99)).   
  **`params`** Includes list of params that is used internally. Unrelated
@@ -103,7 +103,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
-                                  trim_quantiles = c(0.01,0.99),
+                                  exposure_trim_qtls = c(0.01,0.99),
                                   max_attempt = 1,
                                   matching_fun = "matching_l1",
                                   delta_n = 1,

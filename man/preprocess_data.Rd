@@ -22,10 +22,6 @@ preprocess_data(Y, w, c, trim_quantiles, exposure_col)
 \item{c}{A data.frame of observed covariates variable. Also should include
 id column.}
 
-\item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
-level for exposure values. Both numbers should be in the range of [0,1] and
-in increasing order (default: c(0.01, 0.99)).}
-
 \item{exposure_col}{Column name that is used for exposure.}
 }
 \value{

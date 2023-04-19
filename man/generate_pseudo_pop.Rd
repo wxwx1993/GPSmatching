@@ -13,7 +13,7 @@ generate_pseudo_pop(
   use_cov_transform = FALSE,
   transformers = list("pow2", "pow3"),
   bin_seq = NULL,
-  trim_quantiles = c(0.01, 0.99),
+  exposure_trim_qtls = c(0.01, 0.99),
   gps_trim_qtls = c(0, 1),
   params = list(),
   sl_lib = c("m_xgboost"),
@@ -63,7 +63,7 @@ Available transformers:
 NULL is passed the default value will be used, which is
 \code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
 
-\item{trim_quantiles}{A numerical vector of two. Represents the trim quantile
+\item{exposure_trim_qtls}{A numerical vector of two. Represents the trim quantile
 level for exposure values. Both numbers should be in the range of [0,1] and
 in increasing order (default: c(0.01, 0.99)).}
 
@@ -153,7 +153,8 @@ pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   ci_appr = "matching",
                                   gps_density = "normal",
                                   bin_seq = NULL,
-                                  trim_quantiles = c(0.01,0.99),
+                                  expos_trim_qlts = c(0.01,0.99),
+                                  gps_trim_qlts = c(0.01,0.99),
                                   use_cov_transform = FALSE,
                                   transformers = list(),
                                   params = list(xgb_nrounds=c(10,20,30),

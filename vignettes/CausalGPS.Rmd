@@ -43,7 +43,8 @@ Available transformers:
 - pow3: to the power of 3   
 **`bin_seq`** Sequence of w (treatment) to generate pseudo population. If
  NULL is passed the default value will be used, which is `seq(min(w)+delta_n/2,max(w), by=delta_n)`.   
-**`trim_quantiles`** A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.01,0.99)).   
+**`exposure_trim_qtls`** A numerical vector of two. Represents the trim quantile level for exposure value. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.01,0.99)).
+**`gps_trim_qtls`** A numerical vector of two. Represents the trim quantile level for gps value. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.0, 1.0)).   
 **`params`** Includes list of params that is used internally. Unrelated parameters will be ignored.  
 **`sl_lib`**: A vector of prediction algorithms.
 **`nthread`** An integer value that represents the number of threads to be used by internal packages.   
@@ -93,7 +94,7 @@ See create_matching() for more details about the parameters and default values.
                              use_cov_transform = TRUE,
                              transformers = list("pow2", "pow3", "abs", 
                                                  "scale"),
-                             trim_quantiles = c(0.01,0.99),
+                             exposure_trim_qtls = c(0.01,0.99),
                              sl_lib = c("m_xgboost"),
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
