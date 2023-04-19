@@ -142,6 +142,12 @@ estimate_gps <- function(w,
   # Drop covariates
   merged_data[covariate_cols] <- NULL
   dataset <- merged_data
+  dataset$e_gps_pred <- e_gps_pred
+  if (length(e_gps_std_pred) == 1){
+    e_gps_std_pred <- rep(e_gps_std_pred, nrow(dataset))
+  }
+  dataset$e_gps_std_pred <- e_gps_std_pred
+  dataset$w_resid <- w_resid
 
   # Logging for debugging purposes
   logger::log_debug("Min Max of treatment: {paste(w_mx, collapse = ', ')}")
@@ -171,9 +177,9 @@ estimate_gps <- function(w,
   class(result) <- "cgps_gps"
   result$dataset <- dataset
   result$used_params <- used_params
-  result$e_gps_pred <- e_gps_pred
-  result$e_gps_std_pred <- e_gps_std_pred
-  result$w_resid <- w_resid
+  #result$e_gps_pred <- e_gps_pred
+  #result$e_gps_std_pred <- e_gps_std_pred
+  #result$w_resid <- w_resid
   result$gps_mx <- gps_mx
   result$w_mx <- w_mx
 
