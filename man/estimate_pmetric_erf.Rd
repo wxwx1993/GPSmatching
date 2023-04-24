@@ -14,8 +14,6 @@ estimate_pmetric_erf(formula, family, data, ...)
 \item{data}{dataset that formula is build upon}
 
 \item{...}{Additional parameters for further fine tuning the gnm model.}
-
-\item{ci_appr}{causal inference approach (matching or weighting).}
 }
 \value{
 returns an object of class gnm

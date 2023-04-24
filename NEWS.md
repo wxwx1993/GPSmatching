@@ -2,6 +2,7 @@
 
 ### Changed
 
+* `estimate_semipmetric_erf` now takes the `gam` models optional arguments.
 * `estimate_pmetric_erf` now takes the `gnm` models optional arguments.
 * `trim_quantiles` --> `exposure_trim_qtls`
 * `generate_pseudo_pop` function accepts `gps_obj` as an optional input.

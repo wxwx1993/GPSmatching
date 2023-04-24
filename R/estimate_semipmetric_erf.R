@@ -8,7 +8,7 @@
 #' @param formula a vector of outcome variable in matched set.
 #' @param family a description of the error distribution (see ?gam).
 #' @param data dataset that formula is build upon.
-#' @param ci_appr causal inference approach (matching or weighting).
+#' @param ... Additional parameters for further fine tuning the gam model.
 #'
 #' @details
 #' This approach uses Generalized Additive Model (gam) using mgcv package.
@@ -39,36 +39,30 @@
 #'
 #' outcome_m <- estimate_semipmetric_erf (formula = Y ~ w,
 #'                                        family = gaussian,
-#'                                        data = pseudo_pop$pseudo_pop,
-#'                                        ci_appr = "matching")
+#'                                        data = pseudo_pop$pseudo_pop)
 #'
 #'
-estimate_semipmetric_erf <- function(formula, family, data, ci_appr) {
+estimate_semipmetric_erf <- function(formula, family, data, ...) {
 
-  counter_weight <- NULL
 
-  if (ci_appr == "matching"){
+  ## collect additional arguments
+  dot_args <- list(...)
+  named_args <- stats::setNames(dot_args, names(dot_args))
 
-    # If the approach is not optimized, the counter will be zero, which causes
-    # problem in generating prediction model.
-    if (sum(data$counter_weight) == 0) {
-      data$counter_weight <- data$counter_weight + 1
-      logger::log_debug("Giving equal weight for all samples.")
-    }
-
-    suppressWarnings(gam_model <- gam::gam(formula = formula,
-                                           family = family,
-                                           data = data,
-                                           weights = counter_weight))
-  } else if (ci_appr == "weighting"){
-    suppressWarnings(gam_model <- gam::gam(formula = formula,
-                                           family = family,
-                                           data = data,
-                                           weights = counter_weight))
-  } else {
-    stop(paste("ci_appr: ", ci_appr, " is not a valid causal inference."))
+  if (any(data$counter_weight < 0)){
+    stop("Negative weights are not allowed.")
   }
 
+  if (sum(data$counter_weight) == 0) {
+    data$counter_weight <- data$counter_weight + 1
+    logger::log_debug("Giving equal weight for all samples.")
+  }
+
+  gam_model <- do.call(gam::gam, c(list("formula" = formula,
+                                        "family" = family,
+                                        "data" = data,
+                                        "weights" = data$counter_weight),
+                                   named_args))
 
   if (is.null(gam_model)) {
     stop("gam model is null. Did not converge.")
