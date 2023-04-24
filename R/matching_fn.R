@@ -37,6 +37,7 @@ matching_fn <- function(w,
                         w_resid,
                         gps_mx,
                         w_mx,
+                        dist_measure = "l1",
                         gps_density = "normal",
                         delta_n = 1,
                         scale = 0.5,
@@ -85,12 +86,16 @@ matching_fn <- function(w,
     return(list())
   }
 
-  wm <- compute_closest_wgps(dataset_subset[["std_gps"]],
-                             std_p_w,
-                             dataset_subset[["std_w"]],
-                             std_w,
-                             scale,
-                             nthread)
+  if (dist_measure == "l1"){
+    wm <- compute_closest_wgps(dataset_subset[["std_gps"]],
+                               std_p_w,
+                               dataset_subset[["std_w"]],
+                               std_w,
+                               scale,
+                               nthread)
+  } else {
+    stop(paste0("dist_measure = ", {dist_measure}, " is not implemented!"))
+  }
 
 
   dp <- dataset_subset[wm, ]

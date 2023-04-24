@@ -51,8 +51,8 @@
 #' ## Additional parameters
 #' ### Causal Inference Approach (ci.appr)
 #' - if ci.appr = 'matching':
-#'   - *matching_fun*: Matching function. Available options:
-#'     - matching_fn: Manhattan distance matching
+#'   - *dist_measure*: Matching function. Available options:
+#'     - l1: Manhattan distance matching
 #'   - *delta_n*: caliper parameter.
 #'   - *scale*: a specified scale parameter to control the relative weight that
 #'  is attributed to the distance measures of the exposure versus the GPS.
@@ -103,7 +103,7 @@
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type= "mean",
 #'                                   max_attempt = 1,
-#'                                   matching_fun = "matching_fn",
+#'                                   dist_measure = "l1",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'
@@ -231,8 +231,6 @@ generate_pseudo_pop <- function(Y,
       covariate_cols <- covariate_cols[-new_col_ind]
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      #estimate_gps_out$dataset[recent_swap[2]] <- NULL
-      #estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 

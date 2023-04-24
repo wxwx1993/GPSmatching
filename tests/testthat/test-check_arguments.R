@@ -14,7 +14,7 @@ test_that("Check arguments works as expected.", {
                      covar_bl_trs=0.1,
                      covar_bl_trs_type="mean",
                      max_attempt=2,
-                     matching_fun="matching_fn",
+                     dist_measure = "l1",
                      delta_n=0.2,
                      scale=0.5)
   expect_true(val1)
@@ -29,7 +29,7 @@ test_that("Check arguments works as expected.", {
                                         covar_bl_trs_type="mean",
                                         max_attempt=10,
                                         trim_quantiles = c(0.01,0.99),
-                                        matching_fun="matching_fn",
+                                        dist_measure="l1",
                                         delta_n=1,
                                         scale=0.5)
   expect_true(val3)
@@ -40,7 +40,7 @@ test_that("Check arguments works as expected.", {
                                   covar_bl_trs_type = "mean",
                                   max_attempt = 10,
                                   trim_quantiles = c(0.01, 0.99),
-                                  matching_fun = "matching_fn",
+                                  dist_measure = "l1",
                                   delta_n = NULL,
                                   scale = 0.5)
   )
@@ -61,7 +61,7 @@ test_that("Check arguments works as expected.", {
                        covar_bl_trs=0.1,
                        covar_bl_trs_type="mean",
                        max_attempt=2,
-                       matching_fun="matching_fn",
+                       dist_measure="l1",
                        delta_n=0.2,
                        scale=0.5)
   )
@@ -78,7 +78,7 @@ test_that("Check arguments works as expected.", {
                        covar_bl_trs=0.1,
                        covar_bl_trs_type="mean",
                        max_attempt=2,
-                       matching_fun="matching_fn",
+                       dist_measure="l1",
                        delta_n=0.2,
                        scale=0.5)
   )
@@ -91,7 +91,7 @@ test_that("Check arguments works as expected.", {
                                   covar_bl_trs_type="min",
                                   max_attempt=10,
                                   trim_quantiles = c("a","b"),
-                                  matching_fun="matching_fn",
+                                  dist_measure="l1",
                                   delta_n=1,
                                   scale=0.5)
 

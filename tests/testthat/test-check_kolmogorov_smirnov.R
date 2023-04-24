@@ -21,7 +21,7 @@ test_that("check_kolmogorov_smirnov works as expected.", {
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 1,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 1,
                                     scale = 0.5,
                                     nthread = 1)
@@ -34,7 +34,7 @@ test_that("check_kolmogorov_smirnov works as expected.", {
                                                  nthread=1)
 
   expect_equal(length(output), 2L)
-  expect_equal(length(output$ks_stat),9L)
+  expect_equal(length(output$ks_stat), 9L)
   expect_equal(length(output$stat_vals), 3L)
   expect_equal(output$ks_stat[["w"]], 0.1098639, tolerance = 0.000001)
   expect_equal(output$ks_stat[["cf3"]], 0.1319728, tolerance = 0.000001)

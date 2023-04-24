@@ -55,7 +55,7 @@
 #'                                  covar_bl_trs = 0.1,
 #'                                  covar_bl_trs_type = "mean",
 #'                                  max_attempt = 1,
-#'                                  matching_fun = "matching_fn",
+#'                                  dist_measure = "l1",
 #'                                  delta_n = 1,
 #'                                  scale = 0.5,
 #'                                  nthread = 1)
@@ -65,8 +65,8 @@
 #'                                         pseudo_pop$covariate_cols_name],
 #'                                         counter = pseudo_pop$pseudo_pop[,
 #'                                                     c("counter_weight")],
-#'                                         ci_appr="matching",
-#'                                         nthread=1,
+#'                                         ci_appr = "matching",
+#'                                         nthread = 1,
 #'                                         covar_bl_method = "absolute",
 #'                                         covar_bl_trs = 0.1,
 #'                                         covar_bl_trs_type = "mean")

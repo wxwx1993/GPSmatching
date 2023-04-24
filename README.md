@@ -68,8 +68,8 @@ Input parameters:
 #### Causal Inference Approach (`ci.appr`)   
  
  - if ci.appr = 'matching':   
-   - *matching_fun*: Matching function. Available options:   
-     - matching_fn: Manhattan distance matching   
+   - *dist_measure*: Distance measuring function. Available options:   
+     - l1: Manhattan distance matching   
    - *delta_n*: caliper parameter.   
    - *scale*: a specified scale parameter to control the relative weight that
   is attributed to the distance measures of the exposure versus the GPS.   
@@ -105,7 +105,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_trs = 0.1,
                                   exposure_trim_qtls = c(0.01,0.99),
                                   max_attempt = 1,
-                                  matching_fun = "matching_fn",
+                                  dist_measure = "l1",
                                   delta_n = 1,
                                   scale = 1)
 
@@ -157,7 +157,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type = "mean",
-                                  matching_fun = "matching_fn",
+                                  dist_measure = "l1",
                                   max_attempt = 1,
                                   delta_n = 1,
                                   scale = 0.5,

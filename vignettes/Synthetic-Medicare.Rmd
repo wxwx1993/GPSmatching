@@ -101,7 +101,7 @@ pseudo_pop_1 <- generate_pseudo_pop(trimmed_data[, c("id",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 1,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 0.1,
                                     scale = 1)
 
@@ -136,7 +136,7 @@ pseudo_pop_2 <- generate_pseudo_pop(trimmed_data[, c("id",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 1,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 0.1,
                                     scale = 1)
 
@@ -208,7 +208,7 @@ pseudo_pop_3 <- generate_pseudo_pop(trimmed_data[, c("id",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 1,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 0.1,
                                     scale = 1)
 
@@ -250,7 +250,7 @@ pseudo_pop_4 <- generate_pseudo_pop(trimmed_data[, c("id",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 1,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 0.1,
                                     scale = 1)
 
@@ -307,7 +307,7 @@ pseudo_pop_5 <- generate_pseudo_pop(trimmed_data[, c("id",
                                     covar_bl_trs = 0.08,
                                     covar_bl_trs_type = "mean",
                                     max_attempt = 5,
-                                    matching_fun = "matching_fn",
+                                    dist_measure = "l1",
                                     delta_n = 0.1,
                                     scale = 1)
 

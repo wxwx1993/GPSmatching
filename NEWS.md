@@ -2,6 +2,8 @@
 
 ### Changed
 
+* `matching_fun` --> `dist_measure`
+* `matching_l1` --> `matching_fn`
 * `estimate_semipmetric_erf` now takes the `gam` models optional arguments.
 * `estimate_pmetric_erf` now takes the `gnm` models optional arguments.
 * `trim_quantiles` --> `exposure_trim_qtls`
