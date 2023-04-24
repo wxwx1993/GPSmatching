@@ -2,6 +2,7 @@
 
 ### Changed
 
+* `estimate_pmetric_erf` now takes the `gnm` models optional arguments.
 * `trim_quantiles` --> `exposure_trim_qtls`
 * `generate_pseudo_pop` function accepts `gps_obj` as an optional input.
 * `internal_use` is not part of parameters for `estimate_gps` function. 

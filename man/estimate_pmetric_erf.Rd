@@ -4,7 +4,7 @@
 \alias{estimate_pmetric_erf}
 \title{Estimate Parametric Exposure Response Function}
 \usage{
-estimate_pmetric_erf(formula, family, data, ci_appr, ...)
+estimate_pmetric_erf(formula, family, data, ...)
 }
 \arguments{
 \item{formula}{a vector of outcome variable in matched set.}
@@ -13,9 +13,9 @@ estimate_pmetric_erf(formula, family, data, ci_appr, ...)
 
 \item{data}{dataset that formula is build upon}
 
-\item{ci_appr}{causal inference approach (matching or weighting).}
+\item{...}{Additional parameters for further fine tuning the gnm model.}
 
-\item{...}{Aditional parameters.}
+\item{ci_appr}{causal inference approach (matching or weighting).}
 }
 \value{
 returns an object of class gnm
@@ -34,10 +34,9 @@ pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                                   ci_appr = "matching",
-                                  pred_model = "sl",
                                   sl_lib = c("m_xgboost"),
                                   params = list(xgb_nrounds=c(10,20,30),
-                                   xgb_eta=c(0.1,0.2,0.3)),
+                                  xgb_eta=c(0.1,0.2,0.3)),
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
@@ -48,8 +47,7 @@ pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   scale = 0.5)
 
  outcome_m <- estimate_pmetric_erf(formula = Y ~ w,
-                                    family = gaussian,
-                                    data = pseudo_pop$pseudo_pop,
-                                    ci_appr = "matching")
+                                   family = gaussian,
+                                   data = pseudo_pop$pseudo_pop)
 
 }
