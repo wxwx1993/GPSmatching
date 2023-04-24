@@ -182,9 +182,9 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
   }
 
   if (is.element(ci_appr, c('matching'))){
-    if (!is.element(matching_fun, c('matching_l1'))){
-      stop(paste(matching_fun, " is not a valid matching function."))
-    }
+    # if (!is.element(matching_fun, c('matching_fn'))){
+    #   stop(paste(matching_fun, " is not a valid matching function."))
+    # }
 
     if (scale < 0 || scale > 1){
       stop(paste("scale shoule be in [0,1] range. Current provided value: ",

@@ -119,7 +119,7 @@ first.
 \itemize{
 \item \emph{matching_fun}: Matching function. Available options:
 \itemize{
-\item matching_l1: Manhattan distance matching
+\item matching_fn: Manhattan distance matching
 }
 \item \emph{delta_n}: caliper parameter.
 \item \emph{scale}: a specified scale parameter to control the relative weight that
@@ -165,7 +165,7 @@ pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type= "mean",
                                   max_attempt = 1,
-                                  matching_fun = "matching_l1",
+                                  matching_fun = "matching_fn",
                                   delta_n = 1,
                                   scale = 0.5)
 

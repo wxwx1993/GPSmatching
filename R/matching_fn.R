@@ -29,7 +29,7 @@
 #'
 #' @keywords internal
 #'
-matching_l1 <- function(w,
+matching_fn <- function(w,
                         dataset,
                         exposure_col_name,
                         e_gps_pred,

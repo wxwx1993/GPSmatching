@@ -52,7 +52,7 @@
 #' ### Causal Inference Approach (ci.appr)
 #' - if ci.appr = 'matching':
 #'   - *matching_fun*: Matching function. Available options:
-#'     - matching_l1: Manhattan distance matching
+#'     - matching_fn: Manhattan distance matching
 #'   - *delta_n*: caliper parameter.
 #'   - *scale*: a specified scale parameter to control the relative weight that
 #'  is attributed to the distance measures of the exposure versus the GPS.
@@ -103,7 +103,7 @@
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type= "mean",
 #'                                   max_attempt = 1,
-#'                                   matching_fun = "matching_l1",
+#'                                   matching_fun = "matching_fn",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'

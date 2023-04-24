@@ -24,7 +24,6 @@
 #'                                   m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
-#'                                   pred_model = "sl",
 #'                                   sl_lib = c("m_xgboost"),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
 #'                                    xgb_eta=c(0.1,0.2,0.3)),
@@ -33,7 +32,7 @@
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type = "mean",
 #'                                   max_attempt = 1,
-#'                                   matching_fun = "matching_l1",
+#'                                   matching_fun = "matching_fn",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'
