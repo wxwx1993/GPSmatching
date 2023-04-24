@@ -110,8 +110,8 @@ including <code>id</code> and <code>Y</code> columns.<br><strong><code>w</code><
 exposure, including <code>id</code> and <code>w</code> columns.
 <strong><code>c</code></strong> A data frame or matrix of observed
 baseline covariates, also includes <code>id</code> column,<br><strong><code>ci_appr</code></strong> The causal inference approach.
-Options are “matching”, “weighting”, and “adjusting”.<br><strong><code>matching_fun</code></strong> specified matching
-function<br><strong><code>scale</code></strong> specified scale parameter to control
+Options are “matching” and “weighting”.<br><strong><code>dist_measure</code></strong> Distance measuring
+function.<br><strong><code>scale</code></strong> specified scale parameter to control
 the relative weight that is attributed to the distance measures of the
 exposure versus the GPS estimates<br><strong><code>delta_n</code></strong> specified caliper parameter on the
 exposure<br><strong><code>covar_bl_method</code></strong> specified covariate
@@ -159,7 +159,7 @@ j_{{gps}}(e^{(l)}_{j'},w^{(l)})=\text{arg} \ \underset{j: w_j \in
 [w^{(l)}-\delta_n,w^{(l)}+\delta_n]}{\text{min}} \ \mid\mid( \lambda
 \hat{e}^{*}(w_j,\mathbf{c}_j), (1-\lambda)w^{*}_j) -(\lambda
 e_{j'}^{(l)*}, (1-\lambda) w^{(l)*})\mid\mid,
-\]</span> where <strong><code>matching_fun</code></strong> (<span class="math inline">\(||.||\)</span>) is a pre-specified two-dimensional
+\]</span> where <strong><code>dist_measure</code></strong> (<span class="math inline">\(||.||\)</span>) is a pre-specified two-dimensional
 metric, <strong><code>scale</code></strong> (<span class="math inline">\(\lambda\)</span>) is the scale parameter assigning
 weights to the corresponding two dimensions (i.e., the GPS and
 exposure), and <span class="math inline">\(\delta\)</span> is the
