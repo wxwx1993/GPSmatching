@@ -6,7 +6,8 @@ test_that("estimate_pmetric_erf works as expected", {
   gnm_model <-  estimate_pmetric_erf(Y ~ w + cf5,
                             family = gaussian,
                             data = pseudo_pop_weight_test,
-                            ci_appr = "weighting")
+                            verbose = FALSE,
+                            model = FALSE)
   expect_equal(gnm_model$coefficients[3][[1]], 1.341568, tolerance = 0.00001)
 
 
@@ -17,15 +18,10 @@ test_that("estimate_pmetric_erf works as expected", {
   data_1$counter_weight <- (pseudo_pop_weight_test$counter_weight)*0
   gnm_model <-  estimate_pmetric_erf(Y ~ w + cf5,
                                      family = gaussian,
-                                     data = data_1,
-                                     ci_appr = "matching")
+                                     data = data_1)
   expect_equal(gnm_model$coefficients[3][[1]], 2.789947, tolerance = 0.00001)
 
 
-  # Wrong ci_appr.
-  expect_error(estimate_pmetric_erf(Y ~ s(w) + cf5,
-                                    family = gaussian,
-                                    data = pseudo_pop_weight_test,
-                                    ci_appr = "grounding"))
+
 
 })

@@ -4,7 +4,7 @@
 \alias{estimate_semipmetric_erf}
 \title{Estimate semi-exposure-response function (semi-ERF).}
 \usage{
-estimate_semipmetric_erf(formula, family, data, ci_appr)
+estimate_semipmetric_erf(formula, family, data, ...)
 }
 \arguments{
 \item{formula}{a vector of outcome variable in matched set.}
@@ -13,7 +13,7 @@ estimate_semipmetric_erf(formula, family, data, ci_appr)
 
 \item{data}{dataset that formula is build upon.}
 
-\item{ci_appr}{causal inference approach (matching or weighting).}
+\item{...}{Additional parameters for further fine tuning the gam model.}
 }
 \value{
 returns an object of class gam
@@ -46,8 +46,7 @@ pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
 
 outcome_m <- estimate_semipmetric_erf (formula = Y ~ w,
                                        family = gaussian,
-                                       data = pseudo_pop$pseudo_pop,
-                                       ci_appr = "matching")
+                                       data = pseudo_pop$pseudo_pop)
 
 
 }

@@ -75,7 +75,7 @@ parametric models</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">estimate_pmetric_erf</span><span class="op">(</span><span class="va">formula</span>, <span class="va">family</span>, <span class="va">data</span>, <span class="va">ci_appr</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">estimate_pmetric_erf</span><span class="op">(</span><span class="va">formula</span>, <span class="va">family</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -92,8 +92,8 @@ parametric models</p>
 <dd><p>dataset that formula is build upon</p></dd>
 
 
-<dt>ci_appr</dt>
-<dd><p>causal inference approach (matching or weighting).</p></dd>
+<dt>...</dt>
+<dd><p>Additional parameters for further fine tuning the gnm model.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -115,10 +115,9 @@ parametric models</p>
 <span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span></span>
-<span class="r-in"><span>                                  pred_model <span class="op">=</span> <span class="st">"sl"</span>,</span></span>
 <span class="r-in"><span>                                  sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_nrounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                   xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  xgb_eta<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                  nthread <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                                  covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span></span>
 <span class="r-in"><span>                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
@@ -133,9 +132,8 @@ parametric models</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Best mean absolute correlation: 0.149674153889077| Covariate balance threshold: 0.1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> <span class="va">outcome_m</span> <span class="op">&lt;-</span> <span class="fu">estimate_pmetric_erf</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">Y</span> <span class="op">~</span> <span class="va">w</span>,</span></span>
-<span class="r-in"><span>                                    family <span class="op">=</span> <span class="va">gaussian</span>,</span></span>
-<span class="r-in"><span>                                    data <span class="op">=</span> <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span>,</span></span>
-<span class="r-in"><span>                                    ci_appr <span class="op">=</span> <span class="st">"matching"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                   family <span class="op">=</span> <span class="va">gaussian</span>,</span></span>
+<span class="r-in"><span>                                   data <span class="op">=</span> <span class="va">pseudo_pop</span><span class="op">$</span><span class="va">pseudo_pop</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
