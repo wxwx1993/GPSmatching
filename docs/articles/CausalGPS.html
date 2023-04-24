@@ -113,9 +113,9 @@ variable.<br><strong><code>c</code></strong> A data.frame or matrix of observed
 covariates variable.<br><strong><code>ci_appr</code></strong> The causal inference approach.
 Possible values are:<br>
 - “matching”: Matching by GPS<br>
-- “weighting”: Weighting by GPS<br><strong><code>gps_model</code></strong> Model type which is used for
-estimating GPS value, including parametric (default) and
-non-parametric.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function
+- “weighting”: Weighting by GPS<br><strong><code>gps_density</code></strong> Model density type which is
+used for estimating GPS value, including normal (default) and
+kernel.<br><strong><code>use_cov_transform</code></strong> If TRUE, the function
 uses transformer to meet the covariate balance.<br><strong><code>transformers</code></strong> A list of transformers. Each
 transformer should be a unary function. You can pass name of customized
 function in the quotes.<br>
@@ -124,9 +124,13 @@ Available transformers:<br>
 - pow3: to the power of 3<br><strong><code>bin_seq</code></strong> Sequence of w (treatment) to
 generate pseudo population. If NULL is passed the default value will be
 used, which is
-<code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>.<br><strong><code>trim_quantiles</code></strong> A numerical vector of two.
-Represents the trim quantile level. Both numbers should be in the range
-of [0,1] and in increasing order (default: c(0.01,0.99)).<br><strong><code>params</code></strong> Includes list of params that is
+<code>seq(min(w)+delta_n/2,max(w), by=delta_n)</code>.<br><strong><code>exposure_trim_qtls</code></strong> A numerical vector of
+two. Represents the trim quantile level for exposure value. Both numbers
+should be in the range of [0,1] and in increasing order (default:
+c(0.01,0.99)). <strong><code>gps_trim_qtls</code></strong> A numerical
+vector of two. Represents the trim quantile level for gps value. Both
+numbers should be in the range of [0,1] and in increasing order
+(default: c(0.0, 1.0)).<br><strong><code>params</code></strong> Includes list of params that is
 used internally. Unrelated parameters will be ignored.<br><strong><code>sl_lib</code></strong>: A vector of prediction algorithms.
 <strong><code>nthread</code></strong> An integer value that represents
 the number of threads to be used by internal packages.<br><strong><code>...</code></strong> Additional arguments passed to
@@ -196,21 +200,26 @@ balance.</li>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">422</span><span class="op">)</span></span>
 <span> <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
-<span> <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size<span class="op">=</span><span class="va">n</span><span class="op">)</span></span>
-<span> <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2001"</span>,<span class="st">"2002"</span>,<span class="st">"2003"</span>,<span class="st">"2004"</span>,<span class="st">"2005"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span> <span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span> <span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span> <span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2001"</span>, <span class="st">"2002"</span>, <span class="st">"2003"</span>, <span class="st">"2004"</span>, <span class="st">"2005"</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">n</span>, </span>
+<span>                replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span> <span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span><span class="op">)</span>,size <span class="op">=</span> <span class="va">n</span>,</span>
+<span>                replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span> <span class="va">mydata</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span>
 <span> <span class="va">mydata</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span></span>
 <span> <span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">cf5</span><span class="op">)</span></span>
 <span>                             </span>
-<span> <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">Y</span>,</span>
-<span>                             <span class="va">mydata</span><span class="op">$</span><span class="va">treat</span>,</span>
-<span>                             <span class="va">mydata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span> <span class="va">pseudo_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_pseudo_pop.html">generate_pseudo_pop</a></span><span class="op">(</span></span>
+<span>                             <span class="va">mydata</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"Y"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                             <span class="va">mydata</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                             <span class="va">mydata</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"cf1"</span>, <span class="st">"cf2"</span>, <span class="st">"cf3"</span>, <span class="st">"cf4"</span>, </span>
+<span>                                        <span class="st">"cf5"</span>, <span class="st">"cf6"</span>,<span class="st">"year"</span>,<span class="st">"region"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                             ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span>
-<span>                             gps_model <span class="op">=</span> <span class="st">"non-parametric"</span>,</span>
+<span>                             gps_density <span class="op">=</span> <span class="st">"kernel"</span>,</span>
 <span>                             use_cov_transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, <span class="st">"scale"</span><span class="op">)</span>,</span>
-<span>                             trim_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span>
+<span>                             transformers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"pow2"</span>, <span class="st">"pow3"</span>, <span class="st">"abs"</span>, </span>
+<span>                                                 <span class="st">"scale"</span><span class="op">)</span>,</span>
+<span>                             exposure_trim_qtls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.99</span><span class="op">)</span>,</span>
 <span>                             sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span>,</span>
 <span>                             covar_bl_method <span class="op">=</span> <span class="st">"absolute"</span>,</span>
 <span>                             covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span>
@@ -271,19 +280,13 @@ parallelize the processing.</p>
 <li>Estimating GPS</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">Y</span>,</span>
-<span>                              <span class="va">w</span>,</span>
+<code class="sourceCode R"><span><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate_gps.html">estimate_gps</a></span><span class="op">(</span><span class="va">w</span>,</span>
 <span>                              <span class="va">c</span>,</span>
-<span>                              internal_use <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                              params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>xgb_max_depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>,</span>
 <span>                                            xgb_rounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">40</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                              nthread <span class="op">=</span> <span class="fl">1</span>,                                </span>
 <span>                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span></span>
 <span>                              <span class="op">)</span></span></code></pre></div>
-<p>If <strong><code>internal_use</code></strong> is set to be TRUE, the
-program will return additional vectors to be used by the selected causal
-inference approach to generate a pseudo population. See
-<strong><code><a href="../reference/estimate_gps.html">?estimate_gps</a></code></strong> for more details.</p>
 <ul>
 <li>Estimating Exposure Rate Function</li>
 </ul>

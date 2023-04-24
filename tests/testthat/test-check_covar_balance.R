@@ -1,6 +1,5 @@
 test_that("Covariate balance check works as expected", {
 
-
 set.seed(532)
 s_data <- generate_syn_data(sample_size = 200,
                             outcome_sd = 10,
@@ -8,12 +7,12 @@ s_data <- generate_syn_data(sample_size = 200,
                             cova_spec = 1)
 
 covar_test <- generate_pseudo_pop(
-                           s_data$Y,
-                           s_data$treat,
-                           s_data[c("cf1","cf2","cf3",
-                                  "cf4","cf5","cf6")],
+                           s_data[, c("id", "Y")],
+                           s_data[, c("id", "w")],
+                           s_data[,c("id","cf1","cf2","cf3",
+                                     "cf4","cf5","cf6")],
                            ci_appr = "matching",
-                           gps_model = "parametric",
+                           gps_density = "normal",
                            use_cov_transform = TRUE,
                            transformers = list("pow2", "pow3"),
                            sl_lib = c("SL.xgboost"),
@@ -25,7 +24,8 @@ covar_test <- generate_pseudo_pop(
                            covar_bl_method = "absolute",
                            covar_bl_trs = 0.1,
                            covar_bl_trs_type = "mean",
-                           trim_quantiles = c(0.01,0.99),
+                           exposure_trim_qtls = c(0.01,0.99),
+                           gps_trim_qtls = c(0, 1),
                            max_attempt = 1,
                            matching_fun = "matching_l1",
                            delta_n = 1,
@@ -33,7 +33,7 @@ covar_test <- generate_pseudo_pop(
 
 confounders <- paste0("cf", seq(1,6))
 val1 <- check_covar_balance(w = covar_test$pseudo_pop[, c("w")],
-                            c = covar_test$pseudo_pop[, confounders, with=FALSE],
+                            c = covar_test$pseudo_pop[, confounders],
                             counter_weight = covar_test$pseudo_pop[, c("counter_weight")],
                             ci_appr = "matching",
                             nthread = 1,
@@ -44,7 +44,7 @@ expect_true(val1$pass)
 
 
 val2 <- check_covar_balance(w = covar_test$pseudo_pop[, c("w")],
-                            c = covar_test$pseudo_pop[, confounders, with=FALSE],
+                            c = covar_test$pseudo_pop[, confounders],
                             counter_weight = covar_test$pseudo_pop[, c("counter_weight")],
                             ci_appr = "matching",
                             nthread = 1,
@@ -76,12 +76,12 @@ s_data$year <- as.factor(year)
 s_data$region <- as.factor(region)
 
 weight_test <- generate_pseudo_pop(
-  s_data$Y,
-  s_data$treat,
-  s_data[c("cf1","cf2","cf3",
-           "cf4","cf5","cf6", "year", "region")],
+  s_data[, c("id", "Y")],
+  s_data[, c("id", "w")],
+  s_data[, c("id", "cf1", "cf2", "cf3",
+             "cf4","cf5","cf6", "year", "region")],
   ci_appr = "weighting",
-  gps_model = "parametric",
+  gps_density = "normal",
   use_cov_transform = TRUE,
   transformers = list("pow2", "pow3"),
   sl_lib = c("SL.xgboost"),
@@ -93,18 +93,17 @@ weight_test <- generate_pseudo_pop(
   covar_bl_method = "absolute",
   covar_bl_trs = 0.1,
   covar_bl_trs_type = "mean",
-  trim_quantiles = c(0.01,0.99),
+  exposure_trim_qtls = c(0.01, 0.99),
+  gps_trim_qtls = c(0.0, 1.0),
   max_attempt = 1,
   delta_n = 1,
   scale = 0.5)
 
-
-
-  w_1 <- data.table::data.table(weight_test$pseudo_pop[, c("w")])
-  c_1 <- data.table::data.table(weight_test$pseudo_pop[, c("cf1", "cf2", "cf3",
-                                                           "cf4", "cf5", "cf6",
-                                                           "year", "region")])
-  cw <- data.table::data.table(weight_test$pseudo_pop[, c("counter_weight")])
+  w_1 <- weight_test$pseudo_pop[, c("w")]
+  c_1 <- weight_test$pseudo_pop[, c("cf1", "cf2", "cf3",
+                                    "cf4", "cf5", "cf6",
+                                    "year", "region")]
+  cw <- weight_test$pseudo_pop[, c("counter_weight")]
 
   val3 <- check_covar_balance(w = w_1,
                               c = c_1,

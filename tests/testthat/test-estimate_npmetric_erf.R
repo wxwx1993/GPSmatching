@@ -2,13 +2,15 @@ test_that("estimate_npmetric_erf works as expected", {
 
   set.seed(347)
   m_d <- generate_syn_data(sample_size = 400)
+  m_d$id <- seq_along(1:nrow(m_d))
 
-  pseudo_pop <- generate_pseudo_pop(m_d$Y,
-                                    m_d$treat,
-                                    m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
+                                    m_d[, c("id", "w")],
+                                    m_d[, c("id", "cf1", "cf2", "cf3",
+                                            "cf4", "cf5", "cf6")],
                                     ci_appr = "matching",
-                                    gps_model = "non-parametric",
-                                    trim_quantiles = c(0.01,0.99),
+                                    gps_density = "kernel",
+                                    exposure_trim_qtls = c(0.01,0.99),
                                     sl_lib = c("SL.xgboost", "SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
@@ -41,14 +43,16 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
 
   set.seed(347)
   m_d <- generate_syn_data(sample_size = 400)
+  m_d$id <- seq_along(1:nrow(m_d))
 
-  pseudo_pop <- generate_pseudo_pop(m_d$Y,
-                                    m_d$treat,
-                                    m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
+                                    m_d[, c("id", "w")],
+                                    m_d[, c("id", "cf1", "cf2", "cf3", "cf4",
+                                            "cf5", "cf6")],
                                     ci_appr = "matching",
                                     pred_model = "sl",
-                                    gps_model = "non-parametric",
-                                    trim_quantiles = c(0.01,0.99),
+                                    gps_density = "kernel",
+                                    exposure_trim_qtls = c(0.01,0.99),
                                     sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,

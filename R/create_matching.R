@@ -4,14 +4,14 @@
 #' @description
 #' Generates pseudo population based on matching casual inference method.
 #'
-#' @param dataset A list with 6 elements. Including An original dataset as well
+#' @param data_obj A list of elements. Including An original dataset as well
 #'  as helper vectors from estimating GPS. See [compile_pseudo_pop()] for more
 #'  details.
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value, including
+#' `normal` (default) and `kernel`.
 #' @param nthread Number of available cores.
 #' @param ...  Additional arguments passed to the function.
 #'
@@ -20,13 +20,14 @@
 #'
 #' @keywords internal
 #'
-create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
+create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
+                            gps_density = "normal",
                             nthread = 1, ...) {
-
-  # dataset content: dataset, e_gps_pred, e_gps_std_pred, w_resid, gps_mx, w_mx
 
   # Passing packaging check() ----------------------------
   delta_n <- NULL
+  counter_weight <- NULL
+  i.counter_weight <- NULL
   # ------------------------------------------------------
 
   dot_args <- list(...)
@@ -38,8 +39,8 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
   matching_fun <- get(matching_fun)
 
-  gps_mx <- dataset$gps_mx
-  w_mx <- dataset$w_mx
+  gps_mx <- data_obj$gps_mx
+  w_mx <- data_obj$w_mx
 
   if (is.null(bin_seq)) {
 
@@ -61,13 +62,14 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     matched_set <-  lapply(bin_num,
                            matching_fun,
-                           dataset=dataset$dataset,
-                           e_gps_pred = dataset$e_gps_pred,
-                           e_gps_std_pred = dataset$e_gps_std_pred,
-                           w_resid=dataset$w_resid,
+                           dataset=data_obj$dataset,
+                           exposure_col_name = exposure_col_name,
+                           e_gps_pred = data_obj$dataset$e_gps_pred,
+                           e_gps_std_pred = data_obj$dataset$e_gps_std_pred,
+                           w_resid=data_obj$dataset$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
-                           gps_model = gps_model,
+                           gps_density = gps_density,
                            delta_n = delta_n,
                            scale = scale,
                            nthread = nthread)
@@ -80,13 +82,13 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
 
     s_comp_p <- proc.time()
 
-    cp_original_data <- dataset[[1]]
+    cp_original_data <- data_obj$dataset
 
     # create initial freq_table
     logger::log_debug("Started working on merging the frequency table  ... ")
     s_bindlist <- proc.time()
-    N <- N.x <- N.y <- row_index <- NULL
-    freq_table <- data.table(row_index=numeric(), N=integer())
+    N <- N.x <- N.y <- id <- NULL
+    freq_table <- data.table(id=numeric(), N=integer())
     for (i in seq(1, length(matched_set))){
 
       if (length(matched_set[[i]]) == 0){
@@ -94,7 +96,7 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
         next
       }
       freq_table <- merge(freq_table, matched_set[[i]],
-                          by = "row_index",
+                          by = "id",
                           all = TRUE)
       row.names(freq_table) <- NULL
       freq_table[is.na(freq_table)] <- 0
@@ -107,12 +109,18 @@ create_matching <- function(dataset, bin_seq = NULL, gps_model = "parametric",
                              "(Wall clock time:  ",
                              (e_bindlist - s_bindlist)[[3]]," seconds)."))
 
+    cp_original_data["counter_weight"] <- rep(0, nrow(cp_original_data))
+
     if (nrow(freq_table) != 0) {
-      index_of_data <- freq_table[["row_index"]]
-      added_count <- freq_table[["N"]]
-      counter_tmp <- numeric(nrow(cp_original_data))
-      counter_tmp[index_of_data] <- added_count
-      cp_original_data$counter_weight <- counter_tmp
+      c_w <- cp_original_data[, c("id", "counter_weight")]
+      data.table::setDT(c_w)
+      merged_dt <- merge(c_w, freq_table, by="id", all.x = TRUE)
+      merged_dt[is.na(N), N := 0]
+      merged_dt[, counter_weight := counter_weight + N]
+      c_w[merged_dt, counter_weight := i.counter_weight, on = "id"]
+      data.table::setDF(c_w)
+      cp_original_data$counter_weight <- NULL
+      cp_original_data <- merge(cp_original_data, c_w, by = "id")
     }
 
     e_comp_p <- proc.time()

@@ -19,16 +19,15 @@
 #'
 #' @keywords internal
 #'
-create_weighting <- function(dataset, ...){
+create_weighting <- function(dataset, exposure_col_name, ...){
 
-  # data set content: Y, w, gps, counter_weight, row_index, c
-
-  if (sum(!is.element(c("Y","w","gps","counter_weight","row_index"),
+  if (sum(!is.element(c(exposure_col_name, "gps", "counter_weight", "id"),
                       colnames(dataset))) > 0) {
     stop("Dataset does not include all required columns.")
   }
 
-  Nm <- compute_density(dataset[["w"]], dataset[["w"]])
+  Nm <- compute_density(dataset[[exposure_col_name]],
+                        dataset[[exposure_col_name]])
   ipw <- Nm / (dataset[["gps"]])
   dataset$counter_weight <- ipw
   return(data.table::data.table(dataset))

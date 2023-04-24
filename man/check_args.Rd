@@ -8,7 +8,7 @@ check_args(
   ci_appr,
   use_cov_transform,
   transformers,
-  gps_model,
+  gps_density,
   trim_quantiles,
   ...
 )

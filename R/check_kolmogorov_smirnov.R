@@ -30,10 +30,10 @@ check_kolmogorov_smirnov <- function(w,
 
   logger::log_debug("Started checking Kolmogorov-Smirnov (KS) statistics ... ")
   s_ks_t <- proc.time()
-
-  data.table::setDF(w)
-  data.table::setDF(c)
-  data.table::setDF(counter_weight)
+#
+#   data.table::setDF(w)
+#   data.table::setDF(c)
+#   data.table::setDF(counter_weight)
   tmp_data <- cbind(w, c)
 
   if (!(ci_appr %in% c("matching", "weighting"))) {
@@ -48,7 +48,7 @@ check_kolmogorov_smirnov <- function(w,
                           x = as.numeric(tmp_data[[i]]),
                           y = as.numeric(tmp_data[[i]]),
                           w_x = rep(1, nrow(tmp_data)),
-                          w_y = counter_weight$counter_weight)$statistic})
+                          w_y = counter_weight)$statistic})
     ks_stat <- unlist(ks_stat)
     names(ks_stat) <- name_vals
     stat_vals <- list(maximal_val = max(ks_stat, na.rm = TRUE),

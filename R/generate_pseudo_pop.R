@@ -8,14 +8,19 @@
 #' balance or completing the requested number of iteration, whichever comes
 #' first.
 #'
-#' @param Y A vector of observed outcome variable.
-#' @param w A vector of observed continuous exposure variable.
-#' @param c A data.frame of observed covariates variable.
+#' @param Y A data.frame of observed outcome variable:
+#'   - id: Row id column.
+#'   - Y: Outcome data.
+#' @param w A data.frame of observed continuous exposure variable.
+#'   - id: Row id column.
+#'   - w: Exposure data.
+#' @param c A data.frame of observed covariates variable. Also should include
+#' id column.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value,
+#' including `normal` (default) and `kernel`.
 #' @param use_cov_transform If TRUE, the function uses transformer to meet the
 #'  covariate balance.
 #' @param transformers A list of transformers. Each transformer should be a
@@ -26,9 +31,12 @@
 #' @param bin_seq Sequence of w (treatment) to generate pseudo population. If
 #' NULL is passed the default value will be used, which is
 #' `seq(min(w)+delta_n/2,max(w), by=delta_n)`.
-#' @param trim_quantiles A numerical vector of two. Represents the trim quantile
-#' level. Both numbers should be in the range of \[0,1] and in increasing order
-#' (default: c(0.01,0.99)).
+#' @param exposure_trim_qtls A numerical vector of two. Represents the trim quantile
+#' level for exposure values. Both numbers should be in the range of \[0,1] and
+#' in increasing order (default: c(0.01, 0.99)).
+#' @param gps_trim_qtls A numerical vector of two. Represents the trim quantile
+#' level for the gps values. Both numbers should be in the range of \[0,1] and
+#' in increasing order (default: c(0.0, 1.0)).
 #' @param params Includes list of params that is used internally. Unrelated
 #'  parameters will be ignored.
 #' @param sl_lib A vector of prediction algorithms.
@@ -36,6 +44,8 @@
 #' used by internal packages.
 #' @param include_original_data If TRUE, includes the original data in the
 #' outcome.
+#' @param gps_obj A gps object that is generated with `estimate_gps` function.
+#' If it is provided, the number of iteration will forced to 1 (Default: NULL).
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
@@ -75,14 +85,14 @@
 #' @export
 #' @examples
 #' m_d <- generate_syn_data(sample_size = 100)
-#' pseuoo_pop <- generate_pseudo_pop(m_d$Y,
-#'                                   m_d$treat,
-#'                                   m_d[c("cf1","cf2","cf3",
-#'                                         "cf4","cf5","cf6")],
+#' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
+#'                                   m_d[, c("id", "w")],
+#'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
-#'                                   gps_model = "parametric",
+#'                                   gps_density = "normal",
 #'                                   bin_seq = NULL,
-#'                                   trim_quantiles = c(0.01,0.99),
+#'                                   expos_trim_qlts = c(0.01,0.99),
+#'                                   gps_trim_qlts = c(0.01,0.99),
 #'                                   use_cov_transform = FALSE,
 #'                                   transformers = list(),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
@@ -101,15 +111,17 @@ generate_pseudo_pop <- function(Y,
                                 w,
                                 c,
                                 ci_appr,
-                                gps_model = "parametric",
+                                gps_density = "normal",
                                 use_cov_transform = FALSE,
                                 transformers = list("pow2","pow3"),
                                 bin_seq = NULL,
-                                trim_quantiles = c(0.01,0.99),
+                                exposure_trim_qtls = c(0.01, 0.99),
+                                gps_trim_qtls = c(0.0, 1.0),
                                 params = list(),
                                 sl_lib = c("m_xgboost"),
                                 nthread = 1,
                                 include_original_data = FALSE,
+                                gps_obj = NULL,
                                 ...){
 
   # Passing packaging check() ------------------------------
@@ -128,7 +140,7 @@ generate_pseudo_pop <- function(Y,
 
   # Check arguments ----------------------------------------
   check_args(ci_appr, use_cov_transform, transformers,
-             gps_model, trim_quantiles, ...)
+             gps_density, exposure_trim_qtls, ...)
 
   # Generate output set ------------------------------------
   counter <- 0
@@ -141,49 +153,29 @@ generate_pseudo_pop <- function(Y,
     assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
-  covariate_cols <- as.list(colnames(c))
+  covariate_cols <- Filter(function(x) x != "id", colnames(c))
+  exposure_col <- Filter(function(x) x != "id", colnames(w))
+  outcome_col <- Filter(function(x) x != "id", colnames(Y))
 
-  # get trim quantiles and trim data
-  q1 <- stats::quantile(w, trim_quantiles[1])
-  q2 <- stats::quantile(w, trim_quantiles[2])
+  # TODO: check for data quality.
 
-  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
-  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
-
-  # Drop data with missing values
-  # Trim data based on quantiles.
-  tmp_data <- cbind(Y, w, c)
-
-  if (include_original_data){
-    original_data <- tmp_data
-  }
-
-
-  tmp_data <- tmp_data[stats::complete.cases(tmp_data), ]
-  tmp_data <- tmp_data[tmp_data$w <= q2  & tmp_data$w >= q1, ]
+  prep_results <- preprocess_data(Y, w, c, exposure_trim_qtls, exposure_col)
+  tmp_data <- prep_results$preprocessed_data
+  original_data <- prep_results$original_data
 
   # Retrieve data.
-  Y <- tmp_data$Y
-  w <- tmp_data$w
-  c <- tmp_data[, unlist(covariate_cols)]
+  Y <- tmp_data[, c("id", outcome_col)]
+  w <- tmp_data[, c("id", exposure_col)]
+  c <- tmp_data[, c("id", covariate_cols)]
 
-  # generating temporal data to compute covariate
-  # balance based on trimmed data.
-  # tmp_data <- cbind(w, c)
-  # tmp_data <- subset(tmp_data[stats::complete.cases(tmp_data) ,],
-  #                    w <= q2  & w >= q1)
-  tmp_data <- data.table(tmp_data)
   original_corr_obj <- check_covar_balance(
-                          w = tmp_data[, c("w")],
-                          c = tmp_data[, unlist(covariate_cols),
-                                         with = FALSE],
+                          w = tmp_data[, c(exposure_col)],
+                          c = tmp_data[, c(covariate_cols)],
                           counter_weight = NULL,
                           ci_appr = ci_appr,
                           nthread = nthread,
                           ...)
   tmp_data <- NULL
-
-  if (ci_appr == "matching") internal_use = TRUE else internal_use = FALSE
 
   # loop until the generated pseudo population is acceptable or reach maximum
   # allowed iteration.
@@ -192,10 +184,19 @@ generate_pseudo_pop <- function(Y,
   # the column name and the rest is operands that is applied to it.
   # TODO: this needs a dictionary style data structure.
 
-  transformed_vals <- covariate_cols
+  transformed_vals <- lapply(covariate_cols, function(x) c(x))
   c_extended <- c
+  c_original <- c
   recent_swap <- NULL
   best_ach_covar_balance <- NULL
+
+  if (!is.null(gps_obj)){
+    if (!inherits(gps_obj, "cgps_gps")){
+      stop("Provided gps_obj is not an standard gps object.")
+    }
+    max_attempt <- 1
+    logger::log_info("Maximum attemp was forced to 1 (gps_obj is provided).")
+  }
 
   while (counter < max_attempt) {
 
@@ -203,13 +204,23 @@ generate_pseudo_pop <- function(Y,
 
     ## Estimate GPS -----------------------------
     logger::log_debug("Started to estimate gps ... ")
-    estimate_gps_out <- estimate_gps(Y, w, c_extended[unlist(covariate_cols)],
-                                     gps_model,
-                                     params = params,
-                                     sl_lib = sl_lib,
-                                     nthread = nthread,
-                                     internal_use = internal_use, ...)
+    if (is.null(gps_obj)) {
+      estimate_gps_out <- estimate_gps(w,
+                                       c_extended[, c("id", covariate_cols)],
+                                       gps_density,
+                                       params = params,
+                                       sl_lib = sl_lib,
+                                       nthread = nthread,
+                                       ...)
+    } else {
+      estimate_gps_out <- gps_obj
+    }
+    # trim gps -----------------------------------
+    estimate_gps_out <- trim_gps(estimate_gps_out, gps_trim_qtls)
+
     gps_used_params <- estimate_gps_out$used_params
+    zero_initialize <- rep(0, nrow(estimate_gps_out$dataset))
+    estimate_gps_out$dataset$counter_weight <- zero_initialize
     logger::log_debug("Finished estimating gps.")
 
     # Dropping the transformed column ------------
@@ -217,11 +228,11 @@ generate_pseudo_pop <- function(Y,
       # first element is old_col name
       # second element is new_col name
       new_col_ind <- which(covariate_cols == recent_swap[2])
-      covariate_cols[[new_col_ind]] <- NULL
+      covariate_cols <- covariate_cols[-new_col_ind]
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      estimate_gps_out$dataset[recent_swap[2]] <- NULL
-      estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
+      #estimate_gps_out$dataset[recent_swap[2]] <- NULL
+      #estimate_gps_out$dataset[length(estimate_gps_out$dataset)+1] <- c[recent_swap[1]]
       logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
@@ -229,19 +240,20 @@ generate_pseudo_pop <- function(Y,
     logger::log_debug("Started compiling pseudo population ... ")
     pseudo_pop <- compile_pseudo_pop(data_obj = estimate_gps_out,
                                      ci_appr = ci_appr,
-                                     gps_model = gps_model,
+                                     gps_density = gps_density,
                                      bin_seq = bin_seq,
+                                     exposure_col_name = exposure_col,
                                      nthread = nthread,
                                      ...)
-    # trim pseudo population
+
+    pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
+    pseudo_pop <- merge(pseudo_pop_y, c, by = "id")
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance
     adjusted_corr_obj <- check_covar_balance(
-                           w = pseudo_pop[, c("w")],
-                           c = pseudo_pop[,
-                                          unlist(covariate_cols),
-                                          with = FALSE],
+                           w = pseudo_pop[, c(exposure_col)],
+                           c = pseudo_pop[, covariate_cols],
                            counter_weight = pseudo_pop[,
                                          c("counter_weight")],
                            ci_appr = ci_appr,
@@ -249,10 +261,8 @@ generate_pseudo_pop <- function(Y,
                            ...)
 
     # check Kolmogorov-Smirnov statistics
-    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c("w")],
-                                         c = pseudo_pop[,
-                                                        unlist(covariate_cols),
-                                                        with = FALSE],
+    ks_stats <- check_kolmogorov_smirnov(w = pseudo_pop[, c(exposure_col)],
+                                         c = pseudo_pop[, covariate_cols],
                                          counter_weight = pseudo_pop[,
                                                            c("counter_weight")],
                                          ci_appr = ci_appr,
@@ -354,7 +364,7 @@ generate_pseudo_pop <- function(Y,
       c_extended <- cbind(c_extended, t_dataframe)
       recent_swap <- c(new_c, unlist(colnames(t_dataframe)))
       index_to_remove <- which(unlist(covariate_cols) == new_c)
-      covariate_cols[[index_to_remove]] <- NULL
+      covariate_cols <- covariate_cols[-index_to_remove]
       covariate_cols[length(covariate_cols) + 1] <- unlist(colnames(t_dataframe))
       logger::log_debug("In the next iteration (if any) feature {c_name}",
                         " will be replaced by {unlist(colnames(t_dataframe))}.")
@@ -447,3 +457,52 @@ transform_it <- function(c_name, c_val, transformer) {
 
   return(data.frame(t_data))
 }
+
+
+#' @title
+#' Preprocess data
+#'
+#' @description
+#' Preprocess data to isolate extra details
+#'
+#' @inheritParams generate_pseudo_pop
+#' @param exposure_col Column name that is used for exposure.
+#' @return
+#' A list with preprocessed and original data.
+#'
+#' @keywords internal
+preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
+
+  id_exist_Y <- any(colnames(Y) %in% "id")
+  if (!id_exist_Y) stop("Y should include id column.")
+
+  id_exist_w <- any(colnames(w) %in% "id")
+  if (!id_exist_w) stop("w should include id column.")
+
+  id_exist_c <- any(colnames(c) %in% "id")
+  if (!id_exist_c) stop("c should include id column.")
+
+  merged_12 <- merge(Y, w, by = "id")
+  merged_data <- merge(merged_12, c, by = "id")
+
+  df1 <- merged_data
+  original_data <- df1
+
+  # get trim quantiles and trim data
+  q1 <- stats::quantile(df1[[exposure_col]], trim_quantiles[1])
+  q2 <- stats::quantile(df1[[exposure_col]], trim_quantiles[2])
+
+  logger::log_debug("{trim_quantiles[1]*100}% quantile for trim: {q1}")
+  logger::log_debug("{trim_quantiles[2]*100}% for trim: {q2}")
+
+  df1 <- df1[stats::complete.cases(df1), ]
+  df1 <- df1[df1[[exposure_col]] <= q2  & df1[[exposure_col]] >= q1, ]
+
+  result = list()
+  result$preprocessed_data <- df1
+  result$original_data <- original_data
+
+  return(result)
+}
+
+

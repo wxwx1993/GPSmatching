@@ -42,8 +42,8 @@ Input parameters:
  **`ci_appr`** The causal inference approach. Possible values are:   
    - "matching": Matching by GPS   
    - "weighting": Weighting by GPS   
- **`gps_model`** Model type which is used for estimating GPS value, including
- parametric (default) and non-parametric.   
+ **`gps_density`** Model type which is used for estimating GPS value, including
+ normal (default) and kernel.   
  **`use_cov_transform`** If TRUE, the function uses transformer to meet the
   covariate balance.   
  **`transformers`** A list of transformers. Each transformer should be a
@@ -54,7 +54,7 @@ Input parameters:
  **`bin_seq`** Sequence of w (treatment) to generate pseudo population. If
  NULL is passed the default value will be used, which is
  `seq(min(w)+delta_n/2,max(w), by=delta_n)`.   
- **`trim_quantiles`** A numerical vector of two. Represents the trim quantile
+ **`exposure_trim_qtls`** A numerical vector of two. Represents the trim quantile
  level. Both numbers should be in the range of [0,1] and in increasing order
  (default: c(0.01,0.99)).   
  **`params`** Includes list of params that is used internally. Unrelated
@@ -92,7 +92,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   w,
                                   c,
                                   ci_appr = "matching",
-                                  gps_model = "parametric",
+                                  gps_density = "normal",
                                   use_cov_transform = TRUE,
                                   transformers = list("pow2", "pow3"),
                                   sl_lib = c("m_xgboost"),
@@ -103,7 +103,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   nthread = 1,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
-                                  trim_quantiles = c(0.01,0.99),
+                                  exposure_trim_qtls = c(0.01,0.99),
                                   max_attempt = 1,
                                   matching_fun = "matching_l1",
                                   delta_n = 1,
@@ -122,11 +122,9 @@ pseudo_pop <- generate_pseudo_pop(Y,
 - Estimating GPS
 
 ```r
-data_with_gps <- estimate_gps(Y,
-                              w,
+data_with_gps <- estimate_gps(w,
                               c,
-                              gps_model = "parametric",
-                              internal_use = FALSE,
+                              gps_density = "normal",
                               params = list(xgb_nrounds = 50,
                                             xgb_max_depth = 6,
                                             xgb_eta = 0.3,
@@ -137,7 +135,35 @@ data_with_gps <- estimate_gps(Y,
 
 ```
 
-If `internal_use` is set to be TRUE, the program will return additional vectors to be used by the selected causal inference approach to generate a pseudo population. See `?estimate_gps` for more details. 
+- Generating Pseudo Population with an available GPS object
+
+```r
+gps_obj <- estimate_gps(w,
+                        c,
+                        gps_density = "normal",
+                        params = list(xgb_max_depth = c(3,4,5),
+                                      xgb_nrounds=c(10,20,30,40,50,60)),
+                        nthread = 1,
+                        sl_lib = c("m_xgboost")
+                        )
+
+pseudo_pop <- generate_pseudo_pop(Y,
+                                  w,
+                                  c,
+                                  ci_appr = "matching",
+                                  gps_obj = gps_obj,
+                                  use_cov_transform = TRUE,
+                                  trim_quantiles = c(0.01,0.99),
+                                  covar_bl_method = "absolute",
+                                  covar_bl_trs = 0.1,
+                                  covar_bl_trs_type = "mean",
+                                  matching_fun = "matching_l1",
+                                  max_attempt = 1,
+                                  delta_n = 1,
+                                  scale = 0.5,
+                                  nthread = 12)
+
+```
 
 - Estimating Exposure Rate Function
 

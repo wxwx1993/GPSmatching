@@ -52,9 +52,9 @@ Estimate Functions Using Local Polynomial kernel regression.
 
 set.seed(697)
 m_d <- generate_syn_data(sample_size = 200)
-pseudo_pop <- generate_pseudo_pop(m_d$Y,
-                                  m_d$treat,
-                                  m_d[c("cf1","cf2","cf3",
+pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
+                                  m_d[, c("id", "w")],
+                                  m_d[, c("id", "cf1","cf2","cf3",
                                         "cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   pred_model = "sl",

@@ -65,26 +65,31 @@ confounders_s1 <- c("cs_poverty","cs_hispanic",
 )
 
 study_data <- data[, c("qd_mean_pm25", confounders, "cms_mortality_pct")]
+study_data$id <- seq_along(1:nrow(study_data))
 study_data$region <- as.factor(study_data$region)
 study_data$cs_PIR <- study_data$cs_median_house_value/study_data$cs_household_income
 
 # Choose subset of data
-q1 <- stats::quantile(study_data$qd_mean_pm25,0.25)
-q2 <- stats::quantile(study_data$qd_mean_pm25,0.99)
+q1 <- stats::quantile(study_data$qd_mean_pm25, 0.25)
+q2 <- stats::quantile(study_data$qd_mean_pm25, 0.99)
 trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
                        qd_mean_pm25 <= q2  & qd_mean_pm25 >= q1)
 
 trimmed_data$gmet_mean_summer_sph <- pow2(trimmed_data$gmet_mean_summer_sph)
 
+
+
 set.seed(172)
-pseudo_pop_1 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
+pseudo_pop_1 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", 
+                                                     confounders_s1)],
                                     ci_appr = "matching",
-                                    gps_model = "parametric",
+                                    gps_density = "normal",
                                     bin_seq = NULL,
-                                    trim_quantiles = c(0.0 ,
+                                    exposure_trim_qtls = c(0.0 ,
                                                        1.0),
                                     use_cov_transform = TRUE,
                                     transformers = list("pow2","pow3","clog"),
@@ -111,15 +116,15 @@ plot(pseudo_pop_1)
 
 ```{r}
 set.seed(172)
-pseudo_pop_2 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                    trimmed_data$qd_mean_pm25,
-                                    data.frame(trimmed_data[, confounders_s1,
-                                                            drop=FALSE]),
+pseudo_pop_2 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", confounders_s1)],
                                     ci_appr = "matching",
-                                    pred_model = "sl",
-                                    gps_model = "parametric",
+                                    gps_density = "normal",
                                     bin_seq = NULL,
-                                    trim_quantiles = c(0.0 ,
+                                    exposure_trim_qtls = c(0.0 ,
                                                        1.0),
                                     use_cov_transform = TRUE,
                                     transformers = list("pow2","pow3","clog"),
@@ -141,8 +146,8 @@ plot(pseudo_pop_2)
 
 
 ```{r}
-optimized_data_1 <- pseudo_pop_1$pseudo_pop[,c("w","gps","counter_weight")]
-nonoptimized_data_2 <- pseudo_pop_2$pseudo_pop[,c("w","gps","counter_weight")]
+optimized_data_1 <- pseudo_pop_1$pseudo_pop[,c("qd_mean_pm25","gps","counter_weight")]
+nonoptimized_data_2 <- pseudo_pop_2$pseudo_pop[,c("qd_mean_pm25","gps","counter_weight")]
 
 
 print(paste("Number of rows of data in the optimized approach: ",
@@ -154,7 +159,7 @@ print(paste("Number of rows of data in the non-optimized approach: ",
 print(paste("Sum of data samples in the optimized approach: ",
             sum(optimized_data_1$counter_weight)))
 print(paste("Number of data in the non-optimized approach: ",
-            length(nonoptimized_data_2$w)))
+            length(nonoptimized_data_2$qd_mean_pm25)))
 
 # Replicate gps values of optimized approach
 expanded_opt_data_1 <- optimized_data_1[rep(seq_len(nrow(optimized_data_1)),
@@ -183,29 +188,29 @@ trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
                        qd_mean_pm25 <= q2  & qd_mean_pm25 >= q1)
 
 set.seed(8967)
-pseudo_pop_3 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                      trimmed_data$qd_mean_pm25,
-                                      data.frame(trimmed_data[, confounders_s1,
-                                                              drop=FALSE]),
-                                      ci_appr = "matching",
-                                      pred_model = "sl",
-                                      gps_model = "non-parametric",
-                                      bin_seq = NULL,
-                                      trim_quantiles = c(0.0 ,
-                                                         1.0),
-                                      use_cov_transform = TRUE,
-                                      transformers = list("pow2","pow3","clog"),
-                                      sl_lib = c("m_xgboost"),
-                                      params = list(xgb_nrounds=c(12),
-                                                    xgb_eta=c(0.1)),
-                                      nthread = 1,
-                                      covar_bl_method = "absolute",
-                                      covar_bl_trs = 0.1,
-                                      covar_bl_trs_type = "mean",
-                                      max_attempt = 1,
-                                      matching_fun = "matching_l1",
-                                      delta_n = 0.1,
-                                      scale = 1)
+pseudo_pop_3 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", confounders_s1)],
+                                    ci_appr = "matching",
+                                    gps_density = "kernel",
+                                    bin_seq = NULL,
+                                    exposure_trim_qtls = c(0.0 ,
+                                                       1.0),
+                                    use_cov_transform = TRUE,
+                                    transformers = list("pow2","pow3","clog"),
+                                    sl_lib = c("m_xgboost"),
+                                    params = list(xgb_nrounds=c(12),
+                                                  xgb_eta=c(0.1)),
+                                    nthread = 1,
+                                    covar_bl_method = "absolute",
+                                    covar_bl_trs = 0.1,
+                                    covar_bl_trs_type = "mean",
+                                    max_attempt = 1,
+                                    matching_fun = "matching_l1",
+                                    delta_n = 0.1,
+                                    scale = 1)
 
 plot(pseudo_pop_3)
 
@@ -225,29 +230,29 @@ trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
 trimmed_data$cs_poverty <- pow2(trimmed_data$cs_poverty)
 
 set.seed(672)
-pseudo_pop_4 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                      trimmed_data$qd_mean_pm25,
-                                      data.frame(trimmed_data[, confounders_s1,
-                                                              drop=FALSE]),
-                                      ci_appr = "weighting",
-                                      pred_model = "sl",
-                                      gps_model = "parametric",
-                                      bin_seq = NULL,
-                                      trim_quantiles = c(0.0 ,
-                                                         1.0),
-                                      use_cov_transform = TRUE,
-                                      transformers = list("pow2","pow3","clog"),
-                                      sl_lib = c("m_xgboost"),
-                                      params = list(xgb_nrounds=c(35),
-                                                    xgb_eta=c(0.14)),
-                                      nthread = 1,
-                                      covar_bl_method = "absolute",
-                                      covar_bl_trs = 0.1,
-                                      covar_bl_trs_type = "mean",
-                                      max_attempt = 1,
-                                      matching_fun = "matching_l1",
-                                      delta_n = 0.1,
-                                      scale = 1)
+pseudo_pop_4 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", confounders_s1)],
+                                    ci_appr = "weighting",
+                                    gps_density = "normal",
+                                    bin_seq = NULL,
+                                    exposure_trim_qtls = c(0.0 ,
+                                                       1.0),
+                                    use_cov_transform = TRUE,
+                                    transformers = list("pow2","pow3","clog"),
+                                    sl_lib = c("m_xgboost"),
+                                    params = list(xgb_nrounds=c(35),
+                                                  xgb_eta=c(0.14)),
+                                    nthread = 1,
+                                    covar_bl_method = "absolute",
+                                    covar_bl_trs = 0.1,
+                                    covar_bl_trs_type = "mean",
+                                    max_attempt = 1,
+                                    matching_fun = "matching_l1",
+                                    delta_n = 0.1,
+                                    scale = 1)
 
 plot(pseudo_pop_4)
 ```
@@ -282,29 +287,29 @@ trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
                        qd_mean_pm25 <= q2  & qd_mean_pm25 >= q1)
 
 set.seed(328)
-pseudo_pop_5 <- generate_pseudo_pop(trimmed_data$cms_mortality_pct,
-                                      trimmed_data$qd_mean_pm25,
-                                      data.frame(trimmed_data[, confounders_s1,
-                                                              drop=FALSE]),
-                                      ci_appr = "matching",
-                                      pred_model = "sl",
-                                      gps_model = "non-parametric",
-                                      bin_seq = NULL,
-                                      trim_quantiles = c(0.0 ,
-                                                         1.0),
-                                      use_cov_transform = TRUE,
-                                      transformers = list("pow2","pow3","clog"),
-                                      sl_lib = c("m_xgboost"),
-                                      params = list(xgb_nrounds=seq(10, 100, 1),
-                                                    xgb_eta=seq(0.1,0.5,0.01)),
-                                      nthread = 1,
-                                      covar_bl_method = "absolute",
-                                      covar_bl_trs = 0.08,
-                                      covar_bl_trs_type = "mean",
-                                      max_attempt = 5,
-                                      matching_fun = "matching_l1",
-                                      delta_n = 0.1,
-                                      scale = 1)
+pseudo_pop_5 <- generate_pseudo_pop(trimmed_data[, c("id", 
+                                                     "cms_mortality_pct")],
+                                    trimmed_data[, c("id", 
+                                                     "qd_mean_pm25")],
+                                    trimmed_data[, c("id", confounders_s1)],
+                                    ci_appr = "matching",
+                                    gps_density = "kernel",
+                                    bin_seq = NULL,
+                                    exposure_trim_qtls = c(0.0 ,
+                                                       1.0),
+                                    use_cov_transform = TRUE,
+                                    transformers = list("pow2","pow3","clog"),
+                                    sl_lib = c("m_xgboost"),
+                                    params = list(xgb_nrounds=seq(10, 100, 1),
+                                                  xgb_eta=seq(0.1,0.5,0.01)),
+                                    nthread = 1,
+                                    covar_bl_method = "absolute",
+                                    covar_bl_trs = 0.08,
+                                    covar_bl_trs_type = "mean",
+                                    max_attempt = 5,
+                                    matching_fun = "matching_l1",
+                                    delta_n = 0.1,
+                                    scale = 1)
 
 plot(pseudo_pop_5)
 ```

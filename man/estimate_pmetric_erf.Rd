@@ -30,9 +30,9 @@ This method uses generalized nonlinear model (gnm) from gnm package.
 \examples{
 
 m_d <- generate_syn_data(sample_size = 100)
-pseudo_pop <- generate_pseudo_pop(m_d$Y,
-                                  m_d$treat,
-                                  m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
+pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
+                                  m_d[, c("id", "w")],
+                                  m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   pred_model = "sl",
                                   sl_lib = c("m_xgboost"),

@@ -34,7 +34,7 @@ Input parameters:
 **`ci_appr`** The causal inference approach. Possible values are:   
 - "matching": Matching by GPS   
 - "weighting": Weighting by GPS   
-**`gps_model`** Model type which is used for estimating GPS value, including parametric (default) and non-parametric.   
+**`gps_density`** Model density type which is used for estimating GPS value, including normal (default) and kernel.   
 **`use_cov_transform`** If TRUE, the function uses transformer to meet the covariate balance.   
 **`transformers`** A list of transformers. Each transformer should be a
 unary function. You can pass name of customized function in the quotes.   
@@ -43,7 +43,8 @@ Available transformers:
 - pow3: to the power of 3   
 **`bin_seq`** Sequence of w (treatment) to generate pseudo population. If
  NULL is passed the default value will be used, which is `seq(min(w)+delta_n/2,max(w), by=delta_n)`.   
-**`trim_quantiles`** A numerical vector of two. Represents the trim quantile level. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.01,0.99)).   
+**`exposure_trim_qtls`** A numerical vector of two. Represents the trim quantile level for exposure value. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.01,0.99)).
+**`gps_trim_qtls`** A numerical vector of two. Represents the trim quantile level for gps value. Both numbers should be in the range of [0,1] and in increasing order (default: c(0.0, 1.0)).   
 **`params`** Includes list of params that is used internally. Unrelated parameters will be ignored.  
 **`sl_lib`**: A vector of prediction algorithms.
 **`nthread`** An integer value that represents the number of threads to be used by internal packages.   
@@ -74,21 +75,26 @@ See create_matching() for more details about the parameters and default values.
 ```r
  set.seed(422)
  n <- 10000
- mydata <- generate_syn_data(sample_size=n)
- year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
- region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+ mydata <- generate_syn_data(sample_size = n)
+ year <- sample(x=c("2001", "2002", "2003", "2004", "2005"), size = n, 
+                replace = TRUE)
+ region <- sample(x=c("North", "South", "East", "West"),size = n,
+                replace = TRUE)
  mydata$year <- as.factor(year)
  mydata$region <- as.factor(region)
  mydata$cf5 <- as.factor(mydata$cf5)
                              
- pseudo_pop <- generate_pseudo_pop(mydata$Y,
-                             mydata$treat,
-                             mydata[c("cf1","cf2","cf3","cf4","cf5","cf6","year","region")],
+ pseudo_pop <- generate_pseudo_pop(
+                             mydata[, c("id", "Y")],
+                             mydata[, c("id", "w")],
+                             mydata[, c("id", "cf1", "cf2", "cf3", "cf4", 
+                                        "cf5", "cf6","year","region")],
                              ci_appr = "matching",
-                             gps_model = "non-parametric",
+                             gps_density = "kernel",
                              use_cov_transform = TRUE,
-                             transformers = list("pow2", "pow3", "abs", "scale"),
-                             trim_quantiles = c(0.01,0.99),
+                             transformers = list("pow2", "pow3", "abs", 
+                                                 "scale"),
+                             exposure_trim_qtls = c(0.01,0.99),
                              sl_lib = c("m_xgboost"),
                              covar_bl_method = "absolute",
                              covar_bl_trs = 0.1,
@@ -118,10 +124,8 @@ The following table shows the external package names, their equivalent name that
 - Estimating GPS
 
 ```r
-data_with_gps <- estimate_gps(Y,
-                              w,
+data_with_gps <- estimate_gps(w,
                               c,
-                              internal_use = FALSE,
                               params = list(xgb_max_depth = c(3,4,5),
                                             xgb_rounds = c(10,20,30,40)),
                               nthread = 1,                                
@@ -129,9 +133,6 @@ data_with_gps <- estimate_gps(Y,
                               )
 
 ```
-
-If **`internal_use`** is set to be TRUE, the program will return additional vectors to be used by the selected causal inference
- approach to generate a pseudo population. See **`?estimate_gps`** for more details. 
 
 - Estimating Exposure Rate Function
 

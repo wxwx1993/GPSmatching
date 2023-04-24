@@ -32,22 +32,24 @@
 #' set.seed(422)
 #' n <- 100
 #'mydata <- generate_syn_data(sample_size=100)
-#'year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
-#'region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
+#'year <- sample(x=c("2001","2002","2003","2004","2005"),size = n,
+#'               replace = TRUE)
+#'region <- sample(x=c("North", "South", "East", "West"),size = n,
+#'                 replace = TRUE)
 #'mydata$year <- as.factor(year)
 #'mydata$region <- as.factor(region)
 #'mydata$cf5 <- as.factor(mydata$cf5)
 #'
 #'
 #'
-#'pseudo_pop <- generate_pseudo_pop(mydata$Y,
-#'                                  mydata$treat,
-#'                                  mydata[c("cf1","cf2","cf3","cf4","cf5",
-#'                                           "cf6","year","region")],
+#'pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "Y")],
+#'                                  mydata[, c("id", "w")],
+#'                                  mydata[, c("id", "cf1", "cf2", "cf3",
+#'                                             "cf4","cf5", "cf6", "year",
+#'                                             "region")],
 #'                                  ci_appr = "matching",
-#'                                  pred_model = "sl",
-#'                                  gps_model = "non-parametric",
-#'                                  trim_quantiles = c(0.01,0.99),
+#'                                  gps_density = "kernel",
+#'                                  exposure_trim_qtls = c(0.01,0.99),
 #'                                  sl_lib = c("m_xgboost"),
 #'                                  covar_bl_method = "absolute",
 #'                                  covar_bl_trs = 0.1,
@@ -60,9 +62,9 @@
 #'
 #'adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
 #'                                         c = pseudo_pop$pseudo_pop[ ,
-#'                                         pseudo_pop$covariate_cols_name,
-#'                                          with=FALSE],
-#'                                         counter = pseudo_pop$pseudo_pop[, c("counter_weight")],
+#'                                         pseudo_pop$covariate_cols_name],
+#'                                         counter = pseudo_pop$pseudo_pop[,
+#'                                                     c("counter_weight")],
 #'                                         ci_appr="matching",
 #'                                         nthread=1,
 #'                                         covar_bl_method = "absolute",

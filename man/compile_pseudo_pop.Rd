@@ -4,12 +4,20 @@
 \alias{compile_pseudo_pop}
 \title{Compile pseudo population}
 \usage{
-compile_pseudo_pop(data_obj, ci_appr, gps_model, bin_seq, nthread, ...)
+compile_pseudo_pop(
+  data_obj,
+  ci_appr,
+  gps_density,
+  bin_seq,
+  exposure_col_name,
+  nthread,
+  ...
+)
 }
 \arguments{
 \item{data_obj}{A S3 object including the following:
 \itemize{
-\item Original data set + GPS values (Y, w, GPS, counter, row_index, c)
+\item Original data set + GPS values
 \item e_gps_pred
 \item e_gps_std_pred
 \item w_resid
@@ -19,12 +27,14 @@ compile_pseudo_pop(data_obj, ci_appr, gps_model, bin_seq, nthread, ...)
 
 \item{ci_appr}{Causal inference approach.}
 
-\item{gps_model}{Model type which is used for estimating GPS value, including
-parametric and non-parametric.}
+\item{gps_density}{Model type which is used for estimating GPS value,
+including \code{normal} and \code{kernel}.}
 
 \item{bin_seq}{Sequence of w (treatment) to generate pseudo population. If
 NULL is passed the default value will be used, which is
 \code{seq(min(w)+delta_n/2,max(w), by=delta_n)}.}
+
+\item{exposure_col_name}{Exposure data column name.}
 
 \item{nthread}{An integer value that represents the number of threads to be
 used by internal packages.}
@@ -39,20 +49,14 @@ on the selected causal inference approach.
 Compiles pseudo population based on the original population and estimated GPS
 value.
 }
-\note{
-The input data set should be output of estimate_gps function with
-internal_use flag activated.
-}
 \examples{
 
 set.seed(112)
 m_d <- generate_syn_data(sample_size = 100)
-data_with_gps <- estimate_gps(m_d$Y,
-                              m_d$treat,
-                              m_d[c("cf1","cf2","cf3","cf4","cf5","cf6")],
-                              pred_model = "sl",
-                              gps_model = "parametric",
-                              internal_use = TRUE,
+data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
+                              m_d[, c("id", "w")],
+                              m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
+                              gps_density = "normal",
                               params = list(xgb_max_depth = c(3,4,5),
                                        xgb_nrounds=c(10,20,30,40,50,60)),
                               nthread = 1,
@@ -62,8 +66,9 @@ data_with_gps <- estimate_gps(m_d$Y,
 
 pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          ci_appr = "matching",
-                         gps_model = "parametric",
+                         gps_density = "normal",
                          bin_seq = NULL,
+                         exposure_col_name = c("w"),
                          nthread = 1,
                          matching_fun = "matching_l1",
                          covar_bl_method = 'absolute',

@@ -20,8 +20,8 @@
 #'  (Default is 0.5).
 #' @param delta_n a specified caliper parameter on the exposure (Default is 1).
 #' @param nthread Number of available cores.
-#' @param gps_model Model type which is used for estimating GPS value, including
-#' parametric (default) and non-parametric.
+#' @param gps_density Model type which is used for estimating GPS value, including
+#' `normal` (default) and `kernel`.
 #' @return
 #' \code{dp}: The function returns a data.table saved the matched points on
 #'  by single exposure
@@ -31,12 +31,13 @@
 #'
 matching_l1 <- function(w,
                         dataset,
+                        exposure_col_name,
                         e_gps_pred,
                         e_gps_std_pred,
                         w_resid,
                         gps_mx,
                         w_mx,
-                        gps_model = "parametric",
+                        gps_density = "normal",
                         delta_n = 1,
                         scale = 0.5,
                         nthread = 1) {
@@ -45,17 +46,19 @@ matching_l1 <- function(w,
     stop("w should be a vector of size 1.")
   }
 
+  dataset$w <- dataset[[exposure_col_name]]
+
   logger::log_debug("Started matching on single w value (w = {w}) ...")
   st_ml_t <- proc.time()
 
-  if (gps_model == "parametric"){
+  if (gps_density == "normal"){
     p_w <- stats::dnorm(w, mean = e_gps_pred, sd = e_gps_std_pred)
-  } else if (gps_model == "non-parametric") {
+  } else if (gps_density == "kernel") {
     w_new <- compute_resid(w, e_gps_pred, e_gps_std_pred)
     p_w <- compute_density(w_resid, w_new)
   } else {
-    stop(paste("Invalid gps model: ", gps_model,
-               ". Valide options: parametric, non-parametric"))
+    stop(paste("Invalid gps density: ", gps_density,
+               ". Valide options: normal, kernel."))
   }
 
   w_min <- w_mx[1]
@@ -100,12 +103,12 @@ matching_l1 <- function(w,
                     " Wall clock time: {(e_ml_t - st_ml_t)[[3]]} seconds.")
 
 
-  row_index <- NULL
-  row_index_data <- dp["row_index"]
+  id <- NULL
+  row_index_data <- dp["id"]
   row.names(row_index_data) <- NULL
   data.table::setDT(row_index_data)
-  freq_table <- row_index_data[ , .N, by=row_index]
-  freq_table <- freq_table[order(row_index)]
+  freq_table <- row_index_data[ , .N, by=id]
+  freq_table <- freq_table[order(id)]
   row.names(freq_table) <- NULL
   row_index_data <- NULL
 

@@ -21,9 +21,9 @@ Pseudo population dataset is computed based on user-defined causal inference app
 
 Input parameters:
 
-**`Y`**  a vector of observed outcome  
-**`w`**  a vector of observed continues exposure    
-**`c`**  data frame or matrix of observed baseline covariates    
+**`Y`**  A data.frame of observed outcome, including `id` and `Y` columns.   
+**`w`**  A data.frame of observed continues exposure, including `id` and `w` columns.
+**`c`**  A data frame or matrix of observed baseline covariates, also includes `id` column,    
 **`ci_appr`** The causal inference approach. Options are "matching", "weighting", and "adjusting".  
 **`matching_fun`**  specified matching function    
 **`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
