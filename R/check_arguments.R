@@ -140,7 +140,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
 
   # Passing packaging check() ----------------------------
   covar_bl_method <- NULL
-  matching_fun <- NULL
+  dist_measure <- NULL
   max_attempt <- NULL
   covar_bl_trs_type <- NULL
   delta_n <- NULL
@@ -155,7 +155,7 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
   # checkpoint 2 ------------------------------------------
   if (ci_appr == 'matching'){
     required_args <- c(required_args, 'covar_bl_method', 'covar_bl_trs',
-                       'covar_bl_trs_type','matching_fun', 'delta_n', 'scale')
+                       'covar_bl_trs_type','dist_measure', 'delta_n', 'scale')
   }
 
   # checkpoint 3 ------------------------------------------
@@ -182,8 +182,8 @@ check_args_compile_pseudo_pop <- function(ci_appr, ...){
   }
 
   if (is.element(ci_appr, c('matching'))){
-    if (!is.element(matching_fun, c('matching_l1'))){
-      stop(paste(matching_fun, " is not a valid matching function."))
+    if (!is.element(dist_measure, c('l1'))){
+      stop(paste(dist_measure, " is not a valid distance measure."))
     }
 
     if (scale < 0 || scale > 1){

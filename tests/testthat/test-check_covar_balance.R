@@ -27,7 +27,7 @@ covar_test <- generate_pseudo_pop(
                            exposure_trim_qtls = c(0.01,0.99),
                            gps_trim_qtls = c(0, 1),
                            max_attempt = 1,
-                           matching_fun = "matching_l1",
+                           dist_measure = "l1",
                            delta_n = 1,
                            scale = 0.5)
 

@@ -51,7 +51,7 @@
 #'                          bin_seq = NULL,
 #'                          exposure_col_name = c("w"),
 #'                          nthread = 1,
-#'                          matching_fun = "matching_l1",
+#'                          dist_measure = "l1",
 #'                          covar_bl_method = 'absolute',
 #'                          covar_bl_trs = 0.1,
 #'                          covar_bl_trs_type= "mean",

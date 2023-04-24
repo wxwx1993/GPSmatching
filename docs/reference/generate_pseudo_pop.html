@@ -217,7 +217,7 @@ object includes the following objects:</p><ul><li><p>params</p><ul><li><p>ci_app
 <div class="section">
 <h4 id="causal-inference-approach-ci-appr-">Causal Inference Approach (ci.appr)<a class="anchor" aria-label="anchor" href="#causal-inference-approach-ci-appr-"></a></h4>
 
-<ul><li><p>if ci.appr = 'matching':</p><ul><li><p><em>matching_fun</em>: Matching function. Available options:</p><ul><li><p>matching_l1: Manhattan distance matching</p></li>
+<ul><li><p>if ci.appr = 'matching':</p><ul><li><p><em>dist_measure</em>: Matching function. Available options:</p><ul><li><p>l1: Manhattan distance matching</p></li>
 </ul></li>
 <li><p><em>delta_n</em>: caliper parameter.</p></li>
 <li><p><em>scale</em>: a specified scale parameter to control the relative weight that
@@ -262,7 +262,7 @@ values.</p></li>
 <span class="r-in"><span>                                  covar_bl_trs <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
 <span class="r-in"><span>                                  covar_bl_trs_type<span class="op">=</span> <span class="st">"mean"</span>,</span></span>
 <span class="r-in"><span>                                  max_attempt <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>                                  matching_fun <span class="op">=</span> <span class="st">"matching_l1"</span>,</span></span>
+<span class="r-in"><span>                                  dist_measure <span class="op">=</span> <span class="st">"l1"</span>,</span></span>
 <span class="r-in"><span>                                  delta_n <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                                  scale <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean absolute correlation: 0.187874919634512| Covariate balance threshold: 0.1</span>

@@ -27,7 +27,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.1,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 1,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1)
@@ -63,7 +63,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.1,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 1,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1)
@@ -88,7 +88,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 1,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -107,7 +107,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 1,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -125,7 +125,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = "five",
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -144,7 +144,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 1,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -163,7 +163,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 1,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 1.5,
                                    nthread = 1))
@@ -183,7 +183,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 4,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -205,7 +205,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_trs = 0.1,
                                    covar_bl_trs_type = "mean",
                                    max_attempt = 4,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -225,7 +225,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    covar_bl_method = "absolute",
                                    covar_bl_trs = 0.1,
                                    max_attempt = 1,
-                                   matching_fun = "matching_l1",
+                                   dist_measure = "l1",
                                    delta_n = 1,
                                    scale = 0.5,
                                    nthread = 1))
@@ -244,7 +244,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.1,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 1,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1)
@@ -270,7 +270,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.1,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 4,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1)
@@ -297,7 +297,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.02,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 7,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1))
@@ -322,7 +322,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  covar_bl_trs = 0.1,
                                  covar_bl_trs_type = "mean",
                                  max_attempt = 1,
-                                 matching_fun = "matching_l1",
+                                 dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
                                  nthread = 1,

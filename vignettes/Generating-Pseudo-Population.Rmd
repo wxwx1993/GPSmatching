@@ -24,8 +24,8 @@ Input parameters:
 **`Y`**  A data.frame of observed outcome, including `id` and `Y` columns.   
 **`w`**  A data.frame of observed continues exposure, including `id` and `w` columns.
 **`c`**  A data frame or matrix of observed baseline covariates, also includes `id` column,    
-**`ci_appr`** The causal inference approach. Options are "matching", "weighting", and "adjusting".  
-**`matching_fun`**  specified matching function    
+**`ci_appr`** The causal inference approach. Options are "matching" and "weighting".  
+**`dist_measure`**  Distance measuring function.    
 **`scale`**  specified scale parameter to control the relative weight that is attributed to the distance measures of the exposure versus the GPS estimates  
 **`delta_n`**  specified caliper parameter on the exposure  
 **`covar_bl_method`**  specified covariate balance method  
@@ -48,7 +48,7 @@ The matching algorithm aims to match an observed unit $j$ to each $j'$ at each e
     $$
     j_{{gps}}(e^{(l)}_{j'},w^{(l)})=\text{arg} \ \underset{j: w_j \in [w^{(l)}-\delta_n,w^{(l)}+\delta_n]}{\text{min}} \ \mid\mid( \lambda \hat{e}^{*}(w_j,\mathbf{c}_j), (1-\lambda)w^{*}_j) -(\lambda e_{j'}^{(l)*}, (1-\lambda) w^{(l)*})\mid\mid,
     $$
-    where **`matching_fun`** ($||.||$) is a pre-specified two-dimensional metric, **`scale`** ($\lambda$) is the scale parameter assigning weights to the corresponding two dimensions (i.e., the GPS and exposure), and $\delta$ is the caliper defined in Step 2 allowing that only the unit $j$ with an observed exposure $w_j \in [w^{(l)}-\delta,w^{(l)}+\delta]$ can get matched. \
+    where **`dist_measure`** ($||.||$) is a pre-specified two-dimensional metric, **`scale`** ($\lambda$) is the scale parameter assigning weights to the corresponding two dimensions (i.e., the GPS and exposure), and $\delta$ is the caliper defined in Step 2 allowing that only the unit $j$ with an observed exposure $w_j \in [w^{(l)}-\delta,w^{(l)}+\delta]$ can get matched. \
   &nbsp;  2.3 Impute $Y_{j'}(w^{(l)})$ as: $\hat{Y}_{j'}(w^{(l)})=Y^{obs}_{j_{{gps}}(e^{(l)}_{j'},w^{(l)})}$. \
 	&nbsp; **end for**
 	\begin{itemize}

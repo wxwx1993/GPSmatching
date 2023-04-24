@@ -28,6 +28,7 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
   delta_n <- NULL
   counter_weight <- NULL
   i.counter_weight <- NULL
+  dist_measure <- NULL
   # ------------------------------------------------------
 
   dot_args <- list(...)
@@ -37,7 +38,7 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
     assign(i, unlist(dot_args[i], use.names = FALSE))
   }
 
-  matching_fun <- get(matching_fun)
+  #matching_fun <- get(matching_fun)
 
   gps_mx <- data_obj$gps_mx
   w_mx <- data_obj$w_mx
@@ -61,7 +62,7 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
     st_t_m <- proc.time()
 
     matched_set <-  lapply(bin_num,
-                           matching_fun,
+                           matching_fn,
                            dataset=data_obj$dataset,
                            exposure_col_name = exposure_col_name,
                            e_gps_pred = data_obj$dataset$e_gps_pred,
@@ -69,6 +70,7 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
                            w_resid=data_obj$dataset$w_resid,
                            gps_mx = gps_mx,
                            w_mx = w_mx,
+                           dist_measure = dist_measure,
                            gps_density = gps_density,
                            delta_n = delta_n,
                            scale = scale,

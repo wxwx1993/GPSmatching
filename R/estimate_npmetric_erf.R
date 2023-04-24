@@ -49,7 +49,7 @@
 #'                                   covar_bl_trs = 0.1,
 #'                                   covar_bl_trs_type="mean",
 #'                                   max_attempt = 1,
-#'                                   matching_fun = "matching_l1",
+#'                                   dist_measure = "l1",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'

@@ -17,7 +17,7 @@ test_that("matching_l1 functions as expected.", {
 
   m_d <- data_with_gps_test
 
-  val <- matching_l1(w = 10,
+  val <- matching_fn(w = 10,
                      dataset = m_d$dataset,
                      exposure_col_name = c("w"),
                      e_gps_pred = m_d$dataset$e_gps_pred,
@@ -25,6 +25,7 @@ test_that("matching_l1 functions as expected.", {
                      w_resid = m_d$dataset$w_resid,
                      gps_mx = m_d$gps_mx,
                      w_mx = m_d$w_mx,
+                     dist_measure = "l1",
                      gps_density = "kernel",
                      delta_n = 1,
                      scale = 0.5,

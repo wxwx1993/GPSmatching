@@ -68,8 +68,8 @@ Input parameters:
 #### Causal Inference Approach (`ci.appr`)   
  
  - if ci.appr = 'matching':   
-   - *matching_fun*: Matching function. Available options:   
-     - matching_l1: Manhattan distance matching   
+   - *dist_measure*: Distance measuring function. Available options:   
+     - l1: Manhattan distance matching   
    - *delta_n*: caliper parameter.   
    - *scale*: a specified scale parameter to control the relative weight that
   is attributed to the distance measures of the exposure versus the GPS.   
@@ -105,12 +105,12 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_trs = 0.1,
                                   exposure_trim_qtls = c(0.01,0.99),
                                   max_attempt = 1,
-                                  matching_fun = "matching_l1",
+                                  dist_measure = "l1",
                                   delta_n = 1,
                                   scale = 1)
 
 ```
-`matching_l1` is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
+`matching_fn` is Manhattan distance matching approach. For prediction model we use [SuperLearner](https://github.com/ecpolley/SuperLearner) package. SuperLearner supports different machine learning methods and packages. `params` is a list of hyperparameters that users can pass to the third party libraries in the SuperLearner package. All hyperparameters go into the params list.  The prefixes are used to distinguished parameters for different libraries. The following table shows the external package names, their equivalent name that should be used in `sl_lib`, the prefixes that should be used for their hyperparameters in the `params` list, and available hyperparameters. 
 
 | Package name | `sl_lib` name | prefix| available hyperparameters |
 |:------------:|:-------------:|:-----:|:-------------------------:|
@@ -157,7 +157,7 @@ pseudo_pop <- generate_pseudo_pop(Y,
                                   covar_bl_method = "absolute",
                                   covar_bl_trs = 0.1,
                                   covar_bl_trs_type = "mean",
-                                  matching_fun = "matching_l1",
+                                  dist_measure = "l1",
                                   max_attempt = 1,
                                   delta_n = 1,
                                   scale = 0.5,
