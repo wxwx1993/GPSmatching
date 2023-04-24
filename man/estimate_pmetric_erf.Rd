@@ -4,7 +4,7 @@
 \alias{estimate_pmetric_erf}
 \title{Estimate Parametric Exposure Response Function}
 \usage{
-estimate_pmetric_erf(formula, family, data, ci_appr)
+estimate_pmetric_erf(formula, family, data, ci_appr, ...)
 }
 \arguments{
 \item{formula}{a vector of outcome variable in matched set.}
@@ -14,6 +14,8 @@ estimate_pmetric_erf(formula, family, data, ci_appr)
 \item{data}{dataset that formula is build upon}
 
 \item{ci_appr}{causal inference approach (matching or weighting).}
+
+\item{...}{Aditional parameters.}
 }
 \value{
 returns an object of class gnm

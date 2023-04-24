@@ -9,6 +9,7 @@
 #' @param family a description of the error distribution (see ?gnm)
 #' @param data dataset that formula is build upon
 #' @param ci_appr causal inference approach (matching or weighting).
+#' @param ... Aditional parameters.
 #'
 #' @details
 #' This method uses generalized nonlinear model (gnm) from gnm package.
@@ -43,9 +44,18 @@
 #'                                     data = pseudo_pop$pseudo_pop,
 #'                                     ci_appr = "matching")
 #'
-estimate_pmetric_erf <- function(formula, family, data, ci_appr) {
+estimate_pmetric_erf <- function(formula, family, data, ci_appr, ...) {
 
   counter_weight <- NULL
+
+  ## collect additional arguments
+  dot_args <- list(...)
+  arg_names <- names(dot_args)
+
+  for (i in arg_names){
+    assign(i, unlist(dot_args[i], use.names = FALSE))
+  }
+
 
   if (ci_appr == "matching") {
 
@@ -60,13 +70,13 @@ estimate_pmetric_erf <- function(formula, family, data, ci_appr) {
                                            family = family,
                                            data = data,
                                            weights = counter_weight,
-                                           verbose = FALSE, model = FALSE))
+                                           ...))
   } else if (ci_appr == "weighting") {
     suppressWarnings(gnm_model <- gnm::gnm(formula = formula,
                                            family = family,
                                            data = data,
                                            weights = counter_weight,
-                                           verbose = FALSE, model = FALSE))
+                                           ...))
   } else {
     stop(paste("ci_appr: ", ci_appr, " is not a valid causal inference."))
   }
