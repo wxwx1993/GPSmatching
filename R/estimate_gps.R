@@ -63,6 +63,13 @@ estimate_gps <- function(w,
   # Check passed arguments -----------------------------------------------------
   check_args_estimate_gps(gps_density, ...)
 
+
+  id_exist_w <- any(colnames(w) %in% "id")
+  if (!id_exist_w) stop("w should include id column.")
+
+  id_exist_c <- any(colnames(c) %in% "id")
+  if (!id_exist_c) stop("c should include id column.")
+
   dot_args <- list(...)
   arg_names <- names(dot_args)
 
@@ -95,6 +102,13 @@ estimate_gps <- function(w,
   }
 
   merged_data <- merge(w, c, by = "id")
+
+  if (nrow(merged_data) == 0){
+    stop(paste0("Merged data length is 0.",
+                " Make sure that w and c belong to the same observations, ",
+                " or partially include same observations."))
+  }
+
   exposure_col <- Filter(function(x) !(x %in% c("id")), colnames(w))
   covariate_cols <- Filter(function(x) !(x %in% c("id")), colnames(c))
 
