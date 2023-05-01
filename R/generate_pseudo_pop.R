@@ -231,7 +231,7 @@ generate_pseudo_pop <- function(Y,
       covariate_cols <- covariate_cols[-new_col_ind]
       covariate_cols[length(covariate_cols)+1] <- recent_swap[1]
       c_extended[[recent_swap[2]]] <- NULL
-      logger::log_debug("Tranformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
+      logger::log_debug("Transformed column {recent_swap[2]} was reset to {recent_swap[1]}.")
     }
 
     ## Compile data -------------------------------
@@ -245,7 +245,21 @@ generate_pseudo_pop <- function(Y,
                                      ...)
 
     pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
+    if (nrow(pseudo_pop_y) == 0){
+      stop(paste0("Merged data length is 0.",
+                  " Make sure that Y and pseudo_pop belong to the same",
+                  " observations, ",
+                  " or partially include same observations."))
+    }
+
     pseudo_pop <- merge(pseudo_pop_y, c, by = "id")
+    if (nrow(pseudo_pop) == 0){
+      stop(paste0("Merged data length is 0.",
+                  " Make sure that c and pseudo_pop belong to the same",
+                  " observations, ",
+                  " or partially include same observations."))
+    }
+
     logger::log_debug("Finished compiling pseudo population.")
 
     # check covariate balance

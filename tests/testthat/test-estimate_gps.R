@@ -7,13 +7,12 @@ test_that("estimate_gps works as expected.", {
   data_with_gps_1 <- estimate_gps(m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1", "cf2", "cf3",
                                           "cf4", "cf5", "cf6")],
-                                  sl_lib = c("m_xgboost")
-  )
+                                  sl_lib = c("m_xgboost"))
 
   expect_equal(length(data_with_gps_1$dataset), 6)
   expect_equal(nrow(data_with_gps_1$dataset), 100)
   expect_equal(data_with_gps_1$dataset$gps[2], 20.991916, tolerance = 0.00001)
-
+  expect_true(any(colnames(data_with_gps_1$dataset) %in% "id"))
 
   data_with_gps_2 <- estimate_gps(m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1", "cf2", "cf3",

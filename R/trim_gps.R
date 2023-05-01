@@ -38,8 +38,6 @@ trim_gps <- function(gps_obj, trim_quantiles){
 
   gps_obj$dataset <- df1
 
-  #TODO: Double-check if we need to also modify the min max values.
-
   return(gps_obj)
 
 }

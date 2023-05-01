@@ -332,6 +332,80 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_equal(length(ps_pop6$original_data), 11)
   expect_equal(nrow(ps_pop6$original_data), 500)
 
+})
 
+
+test_that("generate_pseudo_pop catches errors.", {
+
+  set.seed(897)
+  n <- 500
+  mydata <- generate_syn_data(sample_size=n)
+  year <- sample(x=c("2001","2002","2003","2004","2005"),
+                 size = n, replace = TRUE)
+  region <- sample(x=c("North", "South", "East", "West"),
+                   size = n, replace = TRUE)
+
+  mydata$year <- as.factor(year)
+  mydata$region <- as.factor(region)
+  mydata$cf5 <- as.factor(mydata$cf5)
+
+  mydata$id <- seq_along(1:nrow(mydata))
+
+  expect_error(generate_pseudo_pop(mydata[, c("Y")],
+                                 mydata[, c("id", "w")],
+                                 mydata[, c("id", "cf1", "cf2", "cf3",
+                                          "cf4", "cf5", "cf6", "year",
+                                          "region")],
+                                 ci_appr = "matching",
+                                 gps_density = "kernel",
+                                 exposure_trim_qtls = c(0.01,0.99),
+                                 sl_lib = c("m_xgboost"),
+                                 covar_bl_method = "absolute",
+                                 covar_bl_trs = 0.1,
+                                 covar_bl_trs_type = "mean",
+                                 max_attempt = 1,
+                                 dist_measure = "l1",
+                                 delta_n = 1,
+                                 scale = 0.5,
+                                 nthread = 1),
+               regexp = "Y should include id column.")
+
+  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
+                                   mydata[, c("w")],
+                                   mydata[, c("id", "cf1", "cf2", "cf3",
+                                              "cf4", "cf5", "cf6", "year",
+                                              "region")],
+                                   ci_appr = "matching",
+                                   gps_density = "kernel",
+                                   exposure_trim_qtls = c(0.01,0.99),
+                                   sl_lib = c("m_xgboost"),
+                                   covar_bl_method = "absolute",
+                                   covar_bl_trs = 0.1,
+                                   covar_bl_trs_type = "mean",
+                                   max_attempt = 1,
+                                   dist_measure = "l1",
+                                   delta_n = 1,
+                                   scale = 0.5,
+                                   nthread = 1),
+               regexp = "w should include id column.")
+
+  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
+                                   mydata[, c("id", "w")],
+                                   mydata[, c("cf1", "cf2", "cf3",
+                                              "cf4", "cf5", "cf6", "year",
+                                              "region")],
+                                   ci_appr = "matching",
+                                   gps_density = "kernel",
+                                   exposure_trim_qtls = c(0.01,0.99),
+                                   sl_lib = c("m_xgboost"),
+                                   covar_bl_method = "absolute",
+                                   covar_bl_trs = 0.1,
+                                   covar_bl_trs_type = "mean",
+                                   max_attempt = 1,
+                                   dist_measure = "l1",
+                                   delta_n = 1,
+                                   scale = 0.5,
+                                   nthread = 1),
+               regexp = "c should include id column.")
 
 })
