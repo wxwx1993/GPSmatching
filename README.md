@@ -10,7 +10,7 @@ Matching on generalized propensity scores with continuous exposures
 
 ## Summary
 
-An R package for implementing matching on generalized propensity scores with continuous exposures. We developed an innovative approach for estimating causal effects using observational data in settings with continuous exposures, and introduce a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
+`CausalGPS` is an R package that implements matching on generalized propensity scores with continuous exposures. The package introduces a novel approach for estimating causal effects using observational data in settings with continuous exposures, and a new framework for GPS caliper matching that jointly matches on both the estimated GPS and exposure levels to fully adjust for confounding bias.
 
 ## Installation
 
@@ -36,8 +36,8 @@ Developing Docker image can be downloaded from Docker Hub. See more details in d
 
 Input parameters:
 
-**`Y`** A vector of observed outcome variable.     
- **`w`** A vector of observed continuous exposure variable.   
+**`Y`** A data frame of observed outcome variable.     
+ **`w`** A data frame of observed continuous exposure variable.   
  **`c`** A data.frame or matrix of observed covariates variable.   
  **`ci_appr`** The causal inference approach. Possible values are:   
    - "matching": Matching by GPS   
@@ -57,6 +57,9 @@ Input parameters:
  **`exposure_trim_qtls`** A numerical vector of two. Represents the trim quantile
  level. Both numbers should be in the range of [0,1] and in increasing order
  (default: c(0.01,0.99)).   
+ **`gps_trim_qtls`** A numerical vector of two. Represents the trim quantile
+ level. Both numbers should be in the range of [0,1] and in increasing order
+ (default: c(0.01,0.99)). 
  **`params`** Includes list of params that is used internally. Unrelated
   parameters will be ignored.   
  **`sl_lib`**: A vector of prediction algorithms. 
@@ -189,6 +192,10 @@ syn_data <- generate_syn_data(sample_size=1000,
 ## Contribution
 
 For more information about reporting bugs and contribution, please read the contribution page from the package web page. 
+
+## Code of Conduct
+
+Please note that the CausalGPS project is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html). By contributing to this project, you agree to abide by its terms.
 
 
 ## References
