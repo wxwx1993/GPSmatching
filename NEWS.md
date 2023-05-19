@@ -2,6 +2,7 @@
 
 ### Changed
 
+* `generate_syn_data` supports `vectorized_y` to accelerate data generation.
 * `matching_fun` --> `dist_measure`
 * `matching_l1` --> `matching_fn`
 * `estimate_semipmetric_erf` now takes the `gam` models optional arguments.
