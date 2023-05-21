@@ -32,7 +32,7 @@ IntegerVector compute_closest_wgps_helper_no_sc(NumericVector a,
   omp_set_num_threads(nthread);
 #pragma omp parallel for
 #endif
-  for(int i = 0; i < size_b; ++i) {
+  for (int i = 0; i < size_b; ++i) {
 
     double tmp_val = 0;
 
@@ -40,7 +40,7 @@ IntegerVector compute_closest_wgps_helper_no_sc(NumericVector a,
     double min_val = subtract_val;
     int min_index = 0;
 
-    for(int j=1; j < size_a; ++j) {
+    for (int j=1; j < size_a; ++j) {
 
       subtract_val = fabs((b[i] - a[j]));
 

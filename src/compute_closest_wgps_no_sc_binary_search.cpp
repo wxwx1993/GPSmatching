@@ -32,7 +32,7 @@ IntegerVector compute_closest_wgps_no_sc_binary_search(NumericVector a,
   omp_set_num_threads(nthread);
 #pragma omp parallel for
 #endif
-  for(int i = 0; i < size_b; ++i) {
+  for (int i = 0; i < size_b; ++i) {
 
     double min_val = a[0] - b[i];
     if(min_val < 0){ min_val *= -1;}

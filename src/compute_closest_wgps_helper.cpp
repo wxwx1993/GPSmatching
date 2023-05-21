@@ -25,9 +25,6 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
   // a is the subset of data
   // b is the original data
 
-  //TODO: stop crashes due to type of compilers. I commented it out.
-  //if (sc < 0 || sc > 1) stop("Scale (sc) should be in [0,1] range.");
-
   int size_a = a.size();
   int size_b = b.size();
 
@@ -37,7 +34,7 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
     omp_set_num_threads(nthread);
     #pragma omp parallel for
   #endif
-  for(int i = 0; i < size_b; ++i) {
+  for (int i = 0; i < size_b; ++i) {
 
     double tmp_val = 0;
 
@@ -45,7 +42,7 @@ IntegerVector compute_closest_wgps_helper(NumericVector a,
     double min_val = subtract_val + cd[0];
     int min_index = 0;
 
-    for(int j=1; j < size_a; ++j) {
+    for (int j=1; j < size_a; ++j) {
 
       subtract_val = fabs((b[i] - a[j]) * sc);
       tmp_val =  subtract_val + cd[j];
