@@ -1,5 +1,6 @@
+library(CausalGPS)
 set.seed(422)
-n <- 10000
+n <- 100
 mydata <- generate_syn_data(sample_size=n, vectorized_y = TRUE)
 year <- sample(x=c("2001","2002","2003","2004","2005"),size = n, replace = TRUE)
 region <- sample(x=c("North", "South", "East", "West"),size = n, replace = TRUE)
@@ -28,32 +29,33 @@ ps_pop1 <- generate_pseudo_pop(Y,
                                covar_bl_trs_type = "mean",
                                params = list(xgb_max_depth = c(3,4,5),
                                              xgb_nrounds=seq(10,50,1)),
-                               max_attempt = 10,
+                               max_attempt = 1,
                                dist_measure = "l1",
-                               delta_n = 1,
+                               delta_n = 0.1,
                                scale = 0.5,
                                nthread = 10)
 
 plot(ps_pop1)
 
-set.seed(168)
-erf_pmtric <- estimate_pmetric_erf(formula = out ~ treatment,
-                                   family = gaussian,
-                                   data = ps_pop1$pseudo_pop)
+# set.seed(168)
+# erf_pmtric <- estimate_pmetric_erf(formula = out ~ treatment,
+#                                    family = gaussian,
+#                                    data = ps_pop1$pseudo_pop)
 
 
-set.seed(168)
-erf_semipmetric <- estimate_semipmetric_erf(formula = out ~ treatment,
-                                            family = gaussian,
-                                            data = ps_pop1$pseudo_pop)
+# set.seed(168)
+# erf_semipmetric <- estimate_semipmetric_erf(formula = out ~ treatment,
+#                                             family = gaussian,
+#                                             data = ps_pop1$pseudo_pop)
 
 
 set.seed(168)
 erf_npmetric <- estimate_npmetric_erf(m_Y = ps_pop1$pseudo_pop$out,
                                       m_w = ps_pop1$pseudo_pop$treatment,
                                       counter_weight = ps_pop1$pseudo_pop$counter_weight,
-                                      bw_seq = seq(0.2,10,0.05),
-                                      w_vals = seq(7, 13, 0.5),
+                                      bw_seq = seq(0.5,1,0.5),
+                                      w_vals = seq(7, 13, 1),
                                       nthread = 10)
 
 
+plot(erf_npmetric)

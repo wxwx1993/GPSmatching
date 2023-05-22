@@ -159,8 +159,8 @@ using only one core.<a class="anchor" aria-label="anchor" href="#i-am-running-th
 <p>In order to activate OpenMP on HPC, you need to load the required
 modules. For example, if you are using SLURM on Cannon at Harvard
 University, you need to load the intel module.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load intel/19.0.5-fasrc01</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span><span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">module</span> load intel/19.0.5-fasrc01</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span><span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div>
 <p>Please read more <a href="https://docs.rc.fas.harvard.edu/kb/running-jobs/#Using_Threads_such_as_OpenMP/" class="external-link">here</a>.</p>
 </div>
 <div class="section level3">
@@ -231,6 +231,19 @@ based on GPS values. In this case, the algorithm will be simplified to a
 special case with the average time complexity of <span class="math inline">\(O(n.log(n))\)</span> instead of <span class="math inline">\(O(n^2)\)</span>. Please note that we still use the
 subset of data within the caliper boundary for matching purposes. As a
 result, the exposure level for matched data is in a valid range.</p>
+</div>
+<div class="section level3">
+<h3 id="encountering-an-error-while-executing-the-non-parametric-exposure-response-function-error-in-checkforremoteerrorsval-one-node-produced-an-error-lengthxeval--maxevalpts-is-not-true-">14) Encountering an error while executing the non-parametric
+exposure-response function:
+<code>Error in checkForRemoteErrors(val) :  one node produced an error: length(xeval) &lt; .maxEvalPts is not TRUE</code>.<a class="anchor" aria-label="anchor" href="#encountering-an-error-while-executing-the-non-parametric-exposure-response-function-error-in-checkforremoteerrorsval-one-node-produced-an-error-lengthxeval--maxevalpts-is-not-true-"></a>
+</h3>
+<p>This issue arises due to a constraint within the <code>locpol</code>
+package. A feasible solution to circumnavigate this problem is to
+install a modified version of locpol.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"NSAPH-Software/locpol"</span>, reference<span class="op">=</span><span class="st">"master"</span><span class="op">)</span></span></code></pre></div>
+<p>The deviation from the original package lies in the augmentation of
+the maximum number of evaluation points (.maxEvalPts).</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -81,4 +81,14 @@ Yes. But any rows with missing values will be eliminated from the process.
 
 That is correct. When the scale is 1, we compute the distance only based on GPS values.   In this case, the algorithm will be simplified to a special case with the average time complexity of $O(n.log(n))$ instead of $O(n^2)$. Please note that we still use the subset of data within the caliper boundary for matching purposes. As a result, the exposure level for matched data is in a valid range.
 
+### 14) Encountering an error while executing the non-parametric exposure-response function: `Error in checkForRemoteErrors(val) :  one node produced an error: length(xeval) < .maxEvalPts is not TRUE`. 
+This issue arises due to a constraint within the `locpol` package. A feasible solution to circumnavigate this problem is to install a modified version of locpol.
+
+```r
+remotes::install_github("NSAPH-Software/locpol", reference="master")
+```
+
+The deviation from the original package lies in the augmentation of the maximum number of evaluation points (.maxEvalPts).
+
+
 
