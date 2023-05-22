@@ -8,20 +8,48 @@ generate_syn_data(
   sample_size = 1000,
   outcome_sd = 10,
   gps_spec = 1,
-  cova_spec = 1
+  cova_spec = 1,
+  vectorized_y = FALSE
 )
 }
 \arguments{
-\item{sample_size}{Number of data samples.}
+\item{sample_size}{A positive integer number that represents a number of data
+samples.}
 
-\item{outcome_sd}{Standard deviation used to generate the outcome in the
-synthetic data set.}
+\item{outcome_sd}{A positive double number that represents standard deviation
+used to generate the outcome in the synthetic data set.}
 
-\item{gps_spec}{A numerical value (1-7) that indicates the GPS model
-used to generate synthetic data. See the code for more details.}
+\item{gps_spec}{A numerical integer values ranging from 1 to 7. The
+complexity and form of the relationship between covariates and treatment
+variables are determined by the \code{gps_spec}. Below, you will find a concise
+definition for each of these values:
+\itemize{
+\item \emph{gps_spec: 1}: The treatment is generated using a normal distribution
+(\code{stats::rnorm}) and a linear function of covariates (cf1 to cf6).
+\item \emph{gps_spec: 2}: The treatment is generated using a Student's
+t-distribution (\code{stats::rt}) and a linear function of covariates, but is
+also truncated to be within a specific range (-5 to 25).
+\item \emph{gps_spec: 3}: The treatment includes a quadratic term for the third
+covariate.
+\item \emph{gps_spec: 4}: The treatment is calculated using an exponential
+function within a fraction, creating logistic-like model.
+\item \emph{gps_spec: 5}: The treatment also uses logistic-like model but with
+different parameters.
+\item \emph{gps_spec: 6}: The treatment is calculated using the natural logarithm
+of the absolute value of a linear combination of the covariates.
+\item \emph{gps_spec: 7}: The treatment is generated similarly to \code{gps_spec = 2},
+but without trunction.
+}}
 
-\item{cova_spec}{A numerical value (1-2) to modify the covariates. See the
-code for more details.}
+\item{cova_spec}{A numerical value (1 or 2) to modify the covariates. It
+determines how the covariates in the synthetic data set are transformed.
+If \code{cova_spec} equals 2, the function applies non-linear transformation to
+the covariates, which can add complexity to the relationships between
+covariates and outcomes in the synthetic data. See the code for more details.}
+
+\item{vectorized_y}{A Boolean value indicates how Y internally is generated.
+(Default = \code{FALSE}). This parameter is introduced for backward compatibility.
+vectorized_y = \code{TRUE} performes better.}
 }
 \value{
 \code{synthetic_data}: The function returns a data.frame saved the
@@ -33,8 +61,9 @@ Generates synthetic data set based on different GPS models and covariates.
 \examples{
 
 set.seed(298)
-s_data <- generate_syn_data(sample_size=100,
-                                  outcome_sd = 10, gps_spec = 1,
-                                  cova_spec = 1)
+s_data <- generate_syn_data(sample_size = 100,
+                            outcome_sd = 10,
+                            gps_spec = 1,
+                            cova_spec = 1)
 
 }

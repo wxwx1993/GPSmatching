@@ -2,7 +2,7 @@ FROM rocker/verse:4.1.0
 
 LABEL org.opencontainers.image.authors="nkhoshnevis@g.harvard.edu"
 
-RUN install2.r --error --repo https://mran.microsoft.com/snapshot/2022-05-24 \ 
+RUN install2.r --error --repo https://mran.microsoft.com/snapshot/2022-12-21 \
     SuperLearner \
 	data.table \
 	xgboost \
@@ -20,7 +20,7 @@ RUN install2.r --error --repo https://mran.microsoft.com/snapshot/2022-05-24 \
 	Rcpp \
 	gnm \
 	tidyr\
-	covr 
+	covr
 
 ENV RENV_VERSION 0.15.1
 RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
@@ -34,4 +34,4 @@ RUN apt-get update \
 		zsh \
 		&& apt-get clean
 
-# 
+#
