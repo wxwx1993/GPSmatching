@@ -24,20 +24,16 @@ generate_pseudo_pop(
 )
 }
 \arguments{
-\item{Y}{A data.frame of observed outcome variable:
-\itemize{
-\item id: Row id column.
-\item Y: Outcome data.
-}}
+\item{Y}{A data.frame comprised of two columns: one contains the observed
+outcome variable, and the other is labeled as 'id'. The column for the
+outcome variable can be assigned any name as per your requirements.}
 
-\item{w}{A data.frame of observed continuous exposure variable.
-\itemize{
-\item id: Row id column.
-\item w: Exposure data.
-}}
+\item{w}{A data.frame comprised of two columns: one contains the observed
+exposure variable, and the other is labeled as 'id'. The column for the
+outcome variable can be assigned any name as per your requirements.}
 
-\item{c}{A data.frame of observed covariates variable. Also should include
-id column.}
+\item{c}{A data.frame of includes observed covariate variables. It should
+also consist of a column named 'id'.}
 
 \item{ci_appr}{The causal inference approach. Possible values are:
 \itemize{

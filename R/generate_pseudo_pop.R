@@ -8,14 +8,14 @@
 #' balance or completing the requested number of iteration, whichever comes
 #' first.
 #'
-#' @param Y A data.frame of observed outcome variable:
-#'   - id: Row id column.
-#'   - Y: Outcome data.
-#' @param w A data.frame of observed continuous exposure variable.
-#'   - id: Row id column.
-#'   - w: Exposure data.
-#' @param c A data.frame of observed covariates variable. Also should include
-#' id column.
+#' @param Y A data.frame comprised of two columns: one contains the observed
+#' outcome variable, and the other is labeled as 'id'. The column for the
+#' outcome variable can be assigned any name as per your requirements.
+#' @param w A data.frame comprised of two columns: one contains the observed
+#' exposure variable, and the other is labeled as 'id'. The column for the
+#' outcome variable can be assigned any name as per your requirements.
+#' @param c A data.frame of includes observed covariate variables. It should
+#' also consist of a column named 'id'.
 #' @param ci_appr The causal inference approach. Possible values are:
 #'   - "matching": Matching by GPS
 #'   - "weighting": Weighting by GPS

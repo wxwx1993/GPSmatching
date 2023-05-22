@@ -38,6 +38,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// compute_closest_wgps_helper_sequential
+IntegerVector compute_closest_wgps_helper_sequential(NumericVector a, NumericVector b, NumericVector cd, double sc, int nthread);
+RcppExport SEXP _CausalGPS_compute_closest_wgps_helper_sequential(SEXP aSEXP, SEXP bSEXP, SEXP cdSEXP, SEXP scSEXP, SEXP nthreadSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cd(cdSEXP);
+    Rcpp::traits::input_parameter< double >::type sc(scSEXP);
+    Rcpp::traits::input_parameter< int >::type nthread(nthreadSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_closest_wgps_helper_sequential(a, b, cd, sc, nthread));
+    return rcpp_result_gen;
+END_RCPP
+}
 // compute_closest_wgps_no_sc_binary_search
 IntegerVector compute_closest_wgps_no_sc_binary_search(NumericVector a, NumericVector b, int nthread);
 RcppExport SEXP _CausalGPS_compute_closest_wgps_no_sc_binary_search(SEXP aSEXP, SEXP bSEXP, SEXP nthreadSEXP) {
@@ -55,6 +70,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_CausalGPS_compute_closest_wgps_helper", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper, 5},
     {"_CausalGPS_compute_closest_wgps_helper_no_sc", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper_no_sc, 3},
+    {"_CausalGPS_compute_closest_wgps_helper_sequential", (DL_FUNC) &_CausalGPS_compute_closest_wgps_helper_sequential, 5},
     {"_CausalGPS_compute_closest_wgps_no_sc_binary_search", (DL_FUNC) &_CausalGPS_compute_closest_wgps_no_sc_binary_search, 3},
     {NULL, NULL, 0}
 };
