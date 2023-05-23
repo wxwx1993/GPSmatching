@@ -61,14 +61,6 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
     logger::log_debug("Started generating matched set ...")
     st_t_m <- proc.time()
 
-    use_parlapply <- FALSE
-    if (is.null(get_options("logger_file_path"))) {
-      logger_file_path <- "CausalGPS.log"
-    } else {
-      logger_file_path <- get_options("logger_file_path")
-    }
-
-    if (!use_parlapply){
     matched_set <-  lapply(bin_num,
                            matching_fn,
                            dataset=data_obj$dataset,
@@ -83,32 +75,6 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
                            delta_n = delta_n,
                            scale = scale,
                            nthread = nthread)
-    } else {
-      cl <- parallel::makeCluster(4, type="PSOCK",
-                                  outfile=logger_file_path)
-
-      # parallel::clusterExport(cl = cl,
-      #                         varlist = c(""
-      #                         ),
-      #                         envir = environment())
-      matched_set <-  parLapply(cl,
-                                bin_num,
-                                matching_fn,
-                                dataset=data_obj$dataset,
-                                exposure_col_name = exposure_col_name,
-                                e_gps_pred = data_obj$dataset$e_gps_pred,
-                                e_gps_std_pred = data_obj$dataset$e_gps_std_pred,
-                                w_resid=data_obj$dataset$w_resid,
-                                gps_mx = gps_mx,
-                                w_mx = w_mx,
-                                dist_measure = dist_measure,
-                                gps_density = gps_density,
-                                delta_n = delta_n,
-                                scale = scale,
-                                nthread = nthread)
-      parallel::stopCluster(cl)
-    }
-
 
   e_t_m <- proc.time()
   logger::log_debug("Finished generating matched set (Wall clock time:  ",
