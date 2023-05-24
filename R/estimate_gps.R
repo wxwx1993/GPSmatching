@@ -10,8 +10,8 @@
 #' `id` and `w` columns.
 #' @param c A data frame of observed covariates variable. Also includes `id`
 #' column.
-#' @param gps_density Model type which is used for estimating GPS value, including
-#' `normal` (default) and `kernel`.
+#' @param gps_density Model type which is used for estimating GPS value,
+#' including `normal` (default) and `kernel`.
 #' @param params Includes list of parameters that are used internally. Unrelated
 #'  parameters will be ignored.
 #' @param sl_lib A vector of prediction algorithms.
@@ -42,7 +42,8 @@
 #' @examples
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d[, c("id", "w")],
-#'                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
+#'                               m_d[, c("id", "cf1", "cf2", "cf3",
+#'                                       "cf4", "cf5", "cf6")],
 #'                               gps_density = "normal",
 #'                               params = list(xgb_max_depth = c(3,4,5),
 #'                                        xgb_nrounds=c(10,20,30,40,50,60)),
@@ -191,9 +192,6 @@ estimate_gps <- function(w,
   class(result) <- "cgps_gps"
   result$dataset <- dataset
   result$used_params <- used_params
-  #result$e_gps_pred <- e_gps_pred
-  #result$e_gps_std_pred <- e_gps_std_pred
-  #result$w_resid <- w_resid
   result$gps_mx <- gps_mx
   result$w_mx <- w_mx
 

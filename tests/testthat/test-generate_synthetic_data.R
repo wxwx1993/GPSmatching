@@ -12,7 +12,7 @@ test_that("generate_synthetic_data works as expected.", {
 
   # Provided argument is correct
   expect_error(generate_syn_data(sample_size = -10),
-               regexp = "'sample_size' should be a positive ineteger numer." )
+               regexp = "'sample_size' should be a positive ineteger number.  You entered:  -10")
   expect_error(generate_syn_data(gps_spec = 10))
   expect_error(generate_syn_data(cova_spec = 20))
   expect_error(generate_syn_data(cova_spec = "a number"))
