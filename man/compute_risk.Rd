@@ -4,7 +4,7 @@
 \alias{compute_risk}
 \title{Compute risk value}
 \usage{
-compute_risk(h, matched_Y, matched_w, matched_cw, w_vals)
+compute_risk(h, matched_Y, matched_w, matched_cw, x_eval, w_vals, kernel_appr)
 }
 \arguments{
 \item{h}{A scalar representing the bandwidth value.}
@@ -17,6 +17,9 @@ compute_risk(h, matched_Y, matched_w, matched_cw, w_vals)
 
 \item{w_vals}{A vector of values that you want to calculate the values of
 the ERF at.}
+
+\item{kernel_appr}{Internal kernel approach. Available options are \code{locpol}
+and \code{kernsmooth}.}
 }
 \value{
 returns a cross-validated risk value for the input bandwidth

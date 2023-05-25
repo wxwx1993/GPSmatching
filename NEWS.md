@@ -18,10 +18,13 @@
 
 ### Added
 
+* `estimate_npmetric_erf` supports both `locpol` and `KernSmooth` approaches.
 * There is `gps_trim_qtls` input parameter to trim data samples based on gps values.
 * Now users can also collect the original data in the pseudo population object.
 
+### Fixed
 
+* A bug with swapping transformed covairates with original one.
 
 ## CausalGPS 0.3.0 (2023-02-15)
 

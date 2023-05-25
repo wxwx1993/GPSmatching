@@ -8,9 +8,10 @@ estimate_npmetric_erf(
   m_Y,
   m_w,
   counter_weight,
-  bw_seq = seq(0.2, 2, 0.2),
+  bw_seq,
   w_vals,
-  nthread
+  nthread,
+  kernel_appr = "locpol"
 )
 }
 \arguments{
@@ -21,12 +22,15 @@ estimate_npmetric_erf(
 \item{counter_weight}{A vector of counter or weight variable in the matched
 set.}
 
-\item{bw_seq}{A vector of bandwidth values (Default is seq(0.2,2,0.2)).}
+\item{bw_seq}{A vector of bandwidth values.}
 
 \item{w_vals}{A vector of values that you want to calculate the values of
 the ERF at.}
 
 \item{nthread}{The number of available cores.}
+
+\item{kernel_appr}{Internal kernel approach. Available options are \code{locpol}
+and \code{kernsmooth}.}
 }
 \value{
 The function returns a gpsm_erf object. The object includes the following
