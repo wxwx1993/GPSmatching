@@ -12,7 +12,7 @@
 #' complexity and form of the relationship between covariates and treatment
 #' variables are determined by the `gps_spec`. Below, you will find a concise
 #' definition for each of these values:
-#'   - *gps_spec: 1*: The treatment is generated using a normal distribution
+#'   - *gps_spec: 1*: The treatment is generated using a normal distributionMay 24, 2023
 #'   (`stats::rnorm`) and a linear function of covariates (cf1 to cf6).
 #'   - *gps_spec: 2*: The treatment is generated using a Student's
 #'   t-distribution (`stats::rt`) and a linear function of covariates, but is
@@ -26,7 +26,7 @@
 #'   - *gps_spec: 6*: The treatment is calculated using the natural logarithm
 #'   of the absolute value of a linear combination of the covariates.
 #'   - *gps_spec: 7*: The treatment is generated similarly to `gps_spec = 2`,
-#'   but without trunction.
+#'   but without truncation.
 
 #' @param cova_spec A numerical value (1 or 2) to modify the covariates. It
 #' determines how the covariates in the synthetic data set are transformed.

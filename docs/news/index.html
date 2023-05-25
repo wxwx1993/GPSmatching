@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,48 @@
       <small>Source: <a href="https://github.com/NSAPH-Software/CausalGPS/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="causalgps-040-2023-05-26">CausalGPS 0.4.0 (2023-05-26)<a class="anchor" aria-label="anchor" href="#causalgps-040-2023-05-26"></a></h2>
+<div class="section level3">
+<h3 id="changed-0-4-0">Changed<a class="anchor" aria-label="anchor" href="#changed-0-4-0"></a></h3>
+<ul><li>Docker image supports R 4.2.3</li>
+<li>
+<code>generate_syn_data</code> supports <code>vectorized_y</code> to accelerate data generation.</li>
+<li>
+<code>matching_fun</code> –&gt; <code>dist_measure</code>
+</li>
+<li>
+<code>matching_l1</code> –&gt; <code>matching_fn</code>
+</li>
+<li>
+<code>estimate_semipmetric_erf</code> now takes the <code>gam</code> models optional arguments.</li>
+<li>
+<code>estimate_pmetric_erf</code> now takes the <code>gnm</code> models optional arguments.</li>
+<li>
+<code>trim_quantiles</code> –&gt; <code>exposure_trim_qtls</code>
+</li>
+<li>
+<code>generate_pseudo_pop</code> function accepts <code>gps_obj</code> as an optional input.</li>
+<li>
+<code>internal_use</code> is not part of parameters for <code>estimate_gps</code> function.</li>
+<li>
+<code>estimate_gps</code> function only returns <code>id</code>, <code>w</code>, and computed <code>gps</code> as part of dataset.</li>
+<li>Now the design and analysis phases are explicitly separated.</li>
+<li>
+<code>gps_model</code> –&gt; <code>gps_density</code>. Now it takes, <code>normal</code> and <code>kernel</code> options instead of <code>parametric</code> and <code>non-parametric</code> options.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-0-4-0">Added<a class="anchor" aria-label="anchor" href="#added-0-4-0"></a></h3>
+<ul><li>
+<code>estimate_npmetric_erf</code> supports both <code>locpol</code> and <code>KernSmooth</code> approaches.</li>
+<li>There is <code>gps_trim_qtls</code> input parameter to trim data samples based on gps values.</li>
+<li>Now users can also collect the original data in the pseudo population object.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixed-0-4-0">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-4-0"></a></h3>
+<ul><li>A bug with swapping transformed covairates with original one.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="causalgps-031-2023-05-15">CausalGPS 0.3.1 (2023-05-15)<a class="anchor" aria-label="anchor" href="#causalgps-031-2023-05-15"></a></h2><p class="text-muted">CRAN release: 2023-05-16</p>
 <div class="section level3">

@@ -24,7 +24,7 @@ complexity and form of the relationship between covariates and treatment
 variables are determined by the \code{gps_spec}. Below, you will find a concise
 definition for each of these values:
 \itemize{
-\item \emph{gps_spec: 1}: The treatment is generated using a normal distribution
+\item \emph{gps_spec: 1}: The treatment is generated using a normal distributionMay 24, 2023
 (\code{stats::rnorm}) and a linear function of covariates (cf1 to cf6).
 \item \emph{gps_spec: 2}: The treatment is generated using a Student's
 t-distribution (\code{stats::rt}) and a linear function of covariates, but is
@@ -38,7 +38,7 @@ different parameters.
 \item \emph{gps_spec: 6}: The treatment is calculated using the natural logarithm
 of the absolute value of a linear combination of the covariates.
 \item \emph{gps_spec: 7}: The treatment is generated similarly to \code{gps_spec = 2},
-but without trunction.
+but without truncation.
 }}
 
 \item{cova_spec}{A numerical value (1 or 2) to modify the covariates. It

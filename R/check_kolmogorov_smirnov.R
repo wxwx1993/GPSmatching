@@ -3,7 +3,7 @@
 #'
 #' @description
 #' Checks the Kolmogorov-Smirnov (KS) statistics for exposure and confounders in
-#' the psuedo-population
+#' the pseudo-population
 #'
 #' @param w A vector of observed continuous exposure variable.
 #' @param c A data.frame of observed covariates variable.

@@ -30,6 +30,6 @@ output object is list including:
 }
 \description{
 Checks the Kolmogorov-Smirnov (KS) statistics for exposure and confounders in
-the psuedo-population
+the pseudo-population
 }
 \keyword{internal}

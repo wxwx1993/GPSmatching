@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@ used to generate the outcome in the synthetic data set.</p></dd>
 <dd><p>A numerical integer values ranging from 1 to 7. The
 complexity and form of the relationship between covariates and treatment
 variables are determined by the <code>gps_spec</code>. Below, you will find a concise
-definition for each of these values:</p><ul><li><p><em>gps_spec: 1</em>: The treatment is generated using a normal distribution
+definition for each of these values:</p><ul><li><p><em>gps_spec: 1</em>: The treatment is generated using a normal distributionMay 24, 2023
 (<code><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">stats::rnorm</a></code>) and a linear function of covariates (cf1 to cf6).</p></li>
 <li><p><em>gps_spec: 2</em>: The treatment is generated using a Student's
 t-distribution (<code><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">stats::rt</a></code>) and a linear function of covariates, but is
@@ -111,7 +111,7 @@ different parameters.</p></li>
 <li><p><em>gps_spec: 6</em>: The treatment is calculated using the natural logarithm
 of the absolute value of a linear combination of the covariates.</p></li>
 <li><p><em>gps_spec: 7</em>: The treatment is generated similarly to <code>gps_spec = 2</code>,
-but without trunction.</p></li>
+but without truncation.</p></li>
 </ul></dd>
 
 
