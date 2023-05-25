@@ -26,6 +26,12 @@
 
 * A bug with swapping transformed covairates with original one.
 
+## CausalGPS 0.3.1 (2023-05-15)
+
+### Changed
+
+* Some of unit tests have less accuracy to overcome the bug with `stats::density` function. 
+
 ## CausalGPS 0.3.0 (2023-02-15)
 
 ### Changed

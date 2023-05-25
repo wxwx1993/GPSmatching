@@ -254,7 +254,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_equal(nrow(ps_pop3$pseudo_pop), 460)
   expect_equal(ps_pop3$adjusted_corr_results$mean_absolute_corr,
                0.3750209,
-               tolerance = 0.000001)
+               tolerance = 0.001)
 
   ps_pop4 <- generate_pseudo_pop(mydata[, c("id", "Y")],
                                  mydata[, c("id", "w")],
