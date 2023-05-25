@@ -40,7 +40,8 @@ Imports:
     Rcpp,
     gnm,
     locpol,
-    Ecume
+    Ecume,
+    KernSmooth
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Suggests: 

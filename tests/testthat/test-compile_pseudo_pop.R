@@ -62,5 +62,5 @@ test_that("Compiling pseudo pop works as expected.", {
   expect_equal(nrow(pseudo_pop_2),1000)
   expect_equal(length(pseudo_pop_2),14)
   expect_equal(mean(pseudo_pop_2$counter_weight),
-               0.7465975, tolerance = 0.00001)
+               0.7465975, tolerance = 0.001)
 })

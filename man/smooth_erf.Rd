@@ -4,7 +4,7 @@
 \alias{smooth_erf}
 \title{Smooth exposure response function}
 \usage{
-smooth_erf(matched_Y, bw, matched_w, matched_cw)
+smooth_erf(matched_Y, bw, matched_w, matched_cw, x_eval, kernel_appr)
 }
 \arguments{
 \item{matched_Y}{A vector of the outcome variable in the matched set.}
@@ -14,6 +14,9 @@ smooth_erf(matched_Y, bw, matched_w, matched_cw)
 \item{matched_w}{A vector of continuous exposure variable in the matched set.}
 
 \item{matched_cw}{A vector of counter or weight variable in the matched set.}
+
+\item{kernel_appr}{Internal kernel approach. Available options are \code{locpol}
+and \code{kernsmooth}.}
 }
 \value{
 Smoothed value of ERF

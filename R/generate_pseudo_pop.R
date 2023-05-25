@@ -355,11 +355,12 @@ generate_pseudo_pop <- function(Y,
       }
 
       if (!value_found){
-        warning(paste("All possible combination of transformers has been tried.",
-                      "Retrying ... .", sep=" "))
+        logger::log_info(paste(
+                    "All possible combination of transformers has been tried.",
+                    "Retrying ... .", sep=" "))
 
         # removed used transformers on covariate balance.
-        transformed_vals <- covariate_cols
+        transformed_vals <- lapply(covariate_cols, function(x) c(x))
         recent_swap <- NULL
         if (sum(sort(colnames(c)) != sort(colnames(c_extended))) > 0) {
           logger::log_error("At this step, c and c_extended should be the same, doublecheck.")
@@ -370,6 +371,7 @@ generate_pseudo_pop <- function(Y,
 
       # add operand into the transformed_vals
       transformed_vals[[el_ind]][length(transformed_vals[[el_ind]])+1] <- new_op
+
 
       t_dataframe <- transform_it(new_c, c_extended[[new_c]], new_op)
 

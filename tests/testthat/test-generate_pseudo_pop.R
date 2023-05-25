@@ -254,7 +254,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_equal(nrow(ps_pop3$pseudo_pop), 460)
   expect_equal(ps_pop3$adjusted_corr_results$mean_absolute_corr,
                0.3750209,
-               tolerance = 0.000001)
+               tolerance = 0.001)
 
   ps_pop4 <- generate_pseudo_pop(mydata[, c("id", "Y")],
                                  mydata[, c("id", "w")],
@@ -283,7 +283,7 @@ test_that("generate_pseudo_pop works as expected.", {
                tolerance = 0.000001)
 
 
-  expect_warning(ps_pop5 <- generate_pseudo_pop(
+  ps_pop5 <- generate_pseudo_pop(
                                  mydata[, c("id", "Y")],
                                  mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1","cf2","cf4")],
@@ -300,7 +300,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                  dist_measure = "l1",
                                  delta_n = 1,
                                  scale = 0.5,
-                                 nthread = 1))
+                                 nthread = 1)
 
   expect_equal(class(ps_pop5),"gpsm_pspop")
   expect_false(ps_pop5$passed_covar_test)

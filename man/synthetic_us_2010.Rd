@@ -78,7 +78,7 @@ data(synthetic_us_2010)
 A dataset containing exposure, confounders, and outcome for causal inference
 studies. The dataset is hosted on Harvard dataverse \doi{10.7910/DVN/L7YF2G}.
 This dataset was produced from five different resources. Please see
-\url{https://github.com/NSAPH/synthetic_data/} for the data processing
+\url{https://github.com/NSAPH-Projects/synthetic_data/} for the data processing
 pipelines. In the following
 
 \strong{Exposure Data}

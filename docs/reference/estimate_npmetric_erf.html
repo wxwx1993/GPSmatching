@@ -79,9 +79,10 @@ data set using non-parametric models.</p>
 <span>  <span class="va">m_Y</span>,</span>
 <span>  <span class="va">m_w</span>,</span>
 <span>  <span class="va">counter_weight</span>,</span>
-<span>  bw_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>,</span>
+<span>  <span class="va">bw_seq</span>,</span>
 <span>  <span class="va">w_vals</span>,</span>
-<span>  <span class="va">nthread</span></span>
+<span>  <span class="va">nthread</span>,</span>
+<span>  kernel_appr <span class="op">=</span> <span class="st">"locpol"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -101,7 +102,7 @@ set.</p></dd>
 
 
 <dt>bw_seq</dt>
-<dd><p>A vector of bandwidth values (Default is seq(0.2,2,0.2)).</p></dd>
+<dd><p>A vector of bandwidth values.</p></dd>
 
 
 <dt>w_vals</dt>
@@ -111,6 +112,11 @@ the ERF at.</p></dd>
 
 <dt>nthread</dt>
 <dd><p>The number of available cores.</p></dd>
+
+
+<dt>kernel_appr</dt>
+<dd><p>Internal kernel approach. Available options are <code>locpol</code>
+and <code>kernsmooth</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

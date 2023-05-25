@@ -9,10 +9,12 @@
 #' @param m_w A vector of continuous exposure variable in the matched set.
 #' @param counter_weight A vector of counter or weight variable in the matched
 #' set.
-#' @param bw_seq A vector of bandwidth values (Default is seq(0.2,2,0.2)).
+#' @param bw_seq A vector of bandwidth values.
 #' @param w_vals A vector of values that you want to calculate the values of
 #'  the ERF at.
 #' @param nthread The number of available cores.
+#' @param kernel_appr Internal kernel approach. Available options are `locpol`
+#' and `kernsmooth`.
 #'
 #' @details
 #' Estimate Functions Using Local Polynomial kernel regression.
@@ -63,9 +65,10 @@
 estimate_npmetric_erf<-function(m_Y,
                                 m_w,
                                 counter_weight,
-                                bw_seq=seq(0.2,2,0.2),
+                                bw_seq,
                                 w_vals,
-                                nthread) {
+                                nthread,
+                                kernel_appr = "locpol") {
 
   # function call
   fcall <- match.call()
@@ -76,6 +79,11 @@ estimate_npmetric_erf<-function(m_Y,
 
   if (!is.double(m_Y) || !is.double(m_w)) {
     stop("Output and treatment vectors should be double vectors.")
+  }
+
+  if (!(kernel_appr %in% c("locpol", "kernsmooth"))){
+    stop(paste("Acceptible kernel_appr: `locpol` and `kernsmooth`",
+               "The provided value: ", kernel_appr))
   }
 
   if (sum(counter_weight == 0) == length(counter_weight)) {
@@ -94,7 +102,8 @@ estimate_npmetric_erf<-function(m_Y,
 
   parallel::clusterExport(cl = cl,
                           varlist = c("estimate_hat_vals", "w_fun",
-                                      "generate_kernel", "smooth_erf"
+                                      "generate_kernel", "smooth_erf",
+                                      "kernel_appr"
                                       ),
                           envir = environment())
 
@@ -104,7 +113,9 @@ estimate_npmetric_erf<-function(m_Y,
                                      matched_Y = m_Y,
                                      matched_w = m_w,
                                      matched_cw = counter_weight,
-                                     w_vals = w_vals)
+                                     w_vals = w_vals,
+                                     x_eval = NULL,
+                                     kernel_appr = kernel_appr)
 
   parallel::stopCluster(cl)
 
@@ -114,15 +125,21 @@ estimate_npmetric_erf<-function(m_Y,
 
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
-  data <- data.frame(m_Y = m_Y, m_w = m_w)
-  tmp_loc <- locpol::locpol(formula = m_Y ~ m_w,
-                            data = data,
-                            bw = h_opt,
-                            weig = counter_weight,
-                            xeval = w_vals,
-                            kernel = locpol::gaussK)
-
-  erf <- tmp_loc$lpFit$m_Y
+  if (kernel_appr == "locpol"){
+    erf <- smooth_erf_locpol(matched_Y = m_Y,
+                             matched_w = m_w,
+                             matched_cw = counter_weight,
+                             x_eval = w_vals,
+                             bw = h_opt)
+  } else if (kernel_appr == "kernsmooth"){
+    erf <- smooth_erf_kernsmooth(matched_Y = m_Y,
+                                 matched_w = m_w,
+                                 matched_cw = counter_weight,
+                                 x_eval = w_vals,
+                                 bw = h_opt)
+  } else {
+    stop(paste("`kernel_appr`: ", kernel_appr, " is not supported."))
+  }
 
   if (sum(is.na(erf)) > 0){
     logger::log_debug("erf has {sum(is.na(erf))} missing values.")
