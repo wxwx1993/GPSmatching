@@ -1,4 +1,4 @@
-## CausalGPS 0.4.0 (2023-05-26)
+## CausalGPS 0.4.0 (2023-05-25)
 
 ### Changed
 
