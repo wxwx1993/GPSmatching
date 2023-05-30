@@ -117,7 +117,7 @@ smooth_erf_kernsmooth <- function(matched_Y,
   if (is_weight){
     # round to 2 decimal places.
     matched_cw_r2 <- round(matched_cw, 3)
-    count_val <- matched_cw_r2 * 1000
+    count_val <- matched_cw_r2 * 100
     count_val <- as.integer(count_val)
   } else {
     count_val <- as.integer(matched_cw)

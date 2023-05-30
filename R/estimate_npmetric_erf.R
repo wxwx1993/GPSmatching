@@ -126,6 +126,7 @@ estimate_npmetric_erf<-function(m_Y,
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
   if (kernel_appr == "locpol"){
+    logger::log_trace("{kernel_appr} was selected.")
     erf <- smooth_erf_locpol(matched_Y = m_Y,
                              matched_w = m_w,
                              matched_cw = counter_weight,
