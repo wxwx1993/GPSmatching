@@ -86,7 +86,6 @@ first.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generate_pseudo_pop</span><span class="op">(</span></span>
-<span>  <span class="va">Y</span>,</span>
 <span>  <span class="va">w</span>,</span>
 <span>  <span class="va">c</span>,</span>
 <span>  <span class="va">ci_appr</span>,</span>
@@ -107,13 +106,7 @@ first.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>Y</dt>
-<dd><p>A data.frame comprised of two columns: one contains the observed
-outcome variable, and the other is labeled as 'id'. The column for the
-outcome variable can be assigned any name as per your requirements.</p></dd>
-
-
-<dt>w</dt>
+    <dl><dt>w</dt>
 <dd><p>A data.frame comprised of two columns: one contains the observed
 exposure variable, and the other is labeled as 'id'. The column for the
 outcome variable can be assigned any name as per your requirements.</p></dd>
@@ -245,8 +238,7 @@ values.</p></li>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m_d</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pseuoo_pop</span> <span class="op">&lt;-</span> <span class="fu">generate_pseudo_pop</span><span class="op">(</span><span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"Y"</span><span class="op">)</span><span class="op">]</span>,</span></span>
-<span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span><span class="va">pseuoo_pop</span> <span class="op">&lt;-</span> <span class="fu">generate_pseudo_pop</span><span class="op">(</span><span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"cf1"</span>,<span class="st">"cf2"</span>,<span class="st">"cf3"</span>,<span class="st">"cf4"</span>,<span class="st">"cf5"</span>,<span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                                  ci_appr <span class="op">=</span> <span class="st">"matching"</span>,</span></span>
 <span class="r-in"><span>                                  gps_density <span class="op">=</span> <span class="st">"normal"</span>,</span></span>

@@ -41,7 +41,8 @@ Imports:
     gnm,
     locpol,
     Ecume,
-    KernSmooth
+    KernSmooth,
+    cowplot
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Suggests: 
