@@ -36,7 +36,6 @@ Developing Docker image can be downloaded from Docker Hub. See more details in d
 
 Input parameters:
 
-**`Y`** A data.frame comprised of two columns: one contains the observed outcome variable, and the other is labeled as 'id'. The column for the outcome variable can be assigned any name as per your requirements.    
  **`w`** A data.frame comprised of two columns: one contains the observed exposure variable, and the other is labeled as 'id'. The column for the outcome variable can be assigned any name as per your requirements.   
  **`c`**  A data.frame of includes observed covariate variables. It should also consist of a column named 'id'.
  **`ci_appr`** The causal inference approach. Possible values are:   
@@ -91,8 +90,7 @@ Input parameters:
 - Generating Pseudo Population
 
 ```r
-pseudo_pop <- generate_pseudo_pop(Y,
-                                  w,
+pseudo_pop <- generate_pseudo_pop(w,
                                   c,
                                   ci_appr = "matching",
                                   gps_density = "normal",
@@ -150,8 +148,7 @@ gps_obj <- estimate_gps(w,
                         sl_lib = c("m_xgboost")
                         )
 
-pseudo_pop <- generate_pseudo_pop(Y,
-                                  w,
+pseudo_pop <- generate_pseudo_pop(w,
                                   c,
                                   ci_appr = "matching",
                                   gps_obj = gps_obj,

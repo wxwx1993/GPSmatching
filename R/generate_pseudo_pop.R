@@ -8,9 +8,6 @@
 #' balance or completing the requested number of iteration, whichever comes
 #' first.
 #'
-#' @param Y A data.frame comprised of two columns: one contains the observed
-#' outcome variable, and the other is labeled as 'id'. The column for the
-#' outcome variable can be assigned any name as per your requirements.
 #' @param w A data.frame comprised of two columns: one contains the observed
 #' exposure variable, and the other is labeled as 'id'. The column for the
 #' outcome variable can be assigned any name as per your requirements.
@@ -85,8 +82,7 @@
 #' @export
 #' @examples
 #' m_d <- generate_syn_data(sample_size = 100)
-#' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-#'                                   m_d[, c("id", "w")],
+#' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
 #'                                   gps_density = "normal",
@@ -107,8 +103,7 @@
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'
-generate_pseudo_pop <- function(Y,
-                                w,
+generate_pseudo_pop <- function(w,
                                 c,
                                 ci_appr,
                                 gps_density = "normal",
@@ -155,16 +150,14 @@ generate_pseudo_pop <- function(Y,
 
   covariate_cols <- Filter(function(x) x != "id", colnames(c))
   exposure_col <- Filter(function(x) x != "id", colnames(w))
-  outcome_col <- Filter(function(x) x != "id", colnames(Y))
 
   # TODO: check for data quality.
 
-  prep_results <- preprocess_data(Y, w, c, exposure_trim_qtls, exposure_col)
+  prep_results <- preprocess_data(w, c, exposure_trim_qtls, exposure_col)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
 
   # Retrieve data.
-  Y <- tmp_data[, c("id", outcome_col)]
   w <- tmp_data[, c("id", exposure_col)]
   c <- tmp_data[, c("id", covariate_cols)]
 
@@ -244,15 +237,17 @@ generate_pseudo_pop <- function(Y,
                                      nthread = nthread,
                                      ...)
 
-    pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
-    if (nrow(pseudo_pop_y) == 0){
-      stop(paste0("Merged data length is 0.",
-                  " Make sure that Y and pseudo_pop belong to the same",
-                  " observations, ",
-                  " or partially include same observations."))
-    }
+    # pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
+    # if (nrow(pseudo_pop_y) == 0){
+    #   stop(paste0("Merged data length is 0.",
+    #               " Make sure that Y and pseudo_pop belong to the same",
+    #               " observations, ",
+    #               " or partially include same observations."))
+    # }
+    #
+    pseudo_pop <- merge(pseudo_pop, c, by = "id")
+    pseudo_pop <- as.data.frame(pseudo_pop)
 
-    pseudo_pop <- merge(pseudo_pop_y, c, by = "id")
     if (nrow(pseudo_pop) == 0){
       stop(paste0("Merged data length is 0.",
                   " Make sure that c and pseudo_pop belong to the same",
@@ -397,7 +392,7 @@ generate_pseudo_pop <- function(Y,
 
 
   # compute effective sample size
-  ess_recommended <- length(Y) / 10
+  ess_recommended <- nrow(w) / 10
   ess <- ((sum(best_pseudo_pop$counter_weight) ^ 2) /
           sum(best_pseudo_pop$counter_weight ^ 2))
   if (ess < ess_recommended){
@@ -485,10 +480,7 @@ transform_it <- function(c_name, c_val, transformer) {
 #' A list with preprocessed and original data.
 #'
 #' @keywords internal
-preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
-
-  id_exist_Y <- any(colnames(Y) %in% "id")
-  if (!id_exist_Y) stop("Y should include id column.")
+preprocess_data <- function(w, c, trim_quantiles, exposure_col){
 
   id_exist_w <- any(colnames(w) %in% "id")
   if (!id_exist_w) stop("w should include id column.")
@@ -496,8 +488,7 @@ preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
   id_exist_c <- any(colnames(c) %in% "id")
   if (!id_exist_c) stop("c should include id column.")
 
-  merged_12 <- merge(Y, w, by = "id")
-  merged_data <- merge(merged_12, c, by = "id")
+  merged_data <- merge(w, c, by = "id")
 
   df1 <- merged_data
   original_data <- df1

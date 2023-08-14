@@ -5,7 +5,6 @@
 \title{Generate pseudo population}
 \usage{
 generate_pseudo_pop(
-  Y,
   w,
   c,
   ci_appr,
@@ -24,10 +23,6 @@ generate_pseudo_pop(
 )
 }
 \arguments{
-\item{Y}{A data.frame comprised of two columns: one contains the observed
-outcome variable, and the other is labeled as 'id'. The column for the
-outcome variable can be assigned any name as per your requirements.}
-
 \item{w}{A data.frame comprised of two columns: one contains the observed
 exposure variable, and the other is labeled as 'id'. The column for the
 outcome variable can be assigned any name as per your requirements.}
@@ -143,8 +138,7 @@ values.
 }
 \examples{
 m_d <- generate_syn_data(sample_size = 100)
-pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                  m_d[, c("id", "w")],
+pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   gps_density = "normal",

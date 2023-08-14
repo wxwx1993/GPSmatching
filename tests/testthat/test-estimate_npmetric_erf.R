@@ -4,8 +4,7 @@ test_that("estimate_npmetric_erf works as expected", {
   m_d <- generate_syn_data(sample_size = 400)
   m_d$id <- seq_along(1:nrow(m_d))
 
-  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                    m_d[, c("id", "w")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                     m_d[, c("id", "cf1", "cf2", "cf3",
                                             "cf4", "cf5", "cf6")],
                                     ci_appr = "matching",
@@ -23,9 +22,11 @@ test_that("estimate_npmetric_erf works as expected", {
   min_w <- min(pseudo_pop$pseudo_pop$w)
   max_w <- max(pseudo_pop$pseudo_pop$w)
 
-  res <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
-                               pseudo_pop$pseudo_pop$w,
-                               pseudo_pop$pseudo_pop$counter_weight,
+  data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by="id")
+
+  res <- estimate_npmetric_erf(data$Y,
+                               data$w,
+                               data$counter_weight,
                                bw_seq=seq(0.2,2,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
@@ -45,8 +46,7 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   m_d <- generate_syn_data(sample_size = 400)
   m_d$id <- seq_along(1:nrow(m_d))
 
-  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                    m_d[, c("id", "w")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                     m_d[, c("id", "cf1", "cf2", "cf3", "cf4",
                                             "cf5", "cf6")],
                                     ci_appr = "matching",
@@ -65,9 +65,11 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   min_w <- min(pseudo_pop$pseudo_pop$w)
   max_w <- max(pseudo_pop$pseudo_pop$w)
 
-  res <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
-                               pseudo_pop$pseudo_pop$w,
-                               pseudo_pop$pseudo_pop$counter_weight,
+  data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by="id")
+
+  res <- estimate_npmetric_erf(data$Y,
+                               data$w,
+                               data$counter_weight,
                                bw_seq=seq(0.2,2,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
