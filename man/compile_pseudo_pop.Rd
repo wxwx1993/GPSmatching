@@ -53,8 +53,7 @@ value.
 
 set.seed(112)
 m_d <- generate_syn_data(sample_size = 100)
-data_with_gps <- estimate_gps(m_d[, c("id", "Y")],
-                              m_d[, c("id", "w")],
+data_with_gps <- estimate_gps(m_d[, c("id", "w")],
                               m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                               gps_density = "normal",
                               params = list(xgb_max_depth = c(3,4,5),

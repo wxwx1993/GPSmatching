@@ -60,8 +60,7 @@ mydata$cf5 <- as.factor(mydata$cf5)
 
 
 
-pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1", "cf2", "cf3",
                                             "cf4","cf5", "cf6", "year",
                                             "region")],

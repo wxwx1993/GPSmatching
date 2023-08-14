@@ -7,7 +7,6 @@ s_data <- generate_syn_data(sample_size = 200,
                             cova_spec = 1)
 
 covar_test <- generate_pseudo_pop(
-                           s_data[, c("id", "Y")],
                            s_data[, c("id", "w")],
                            s_data[,c("id","cf1","cf2","cf3",
                                      "cf4","cf5","cf6")],
@@ -76,7 +75,6 @@ s_data$year <- as.factor(year)
 s_data$region <- as.factor(region)
 
 weight_test <- generate_pseudo_pop(
-  s_data[, c("id", "Y")],
   s_data[, c("id", "w")],
   s_data[, c("id", "cf1", "cf2", "cf3",
              "cf4","cf5","cf6", "year", "region")],

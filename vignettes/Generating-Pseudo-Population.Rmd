@@ -20,8 +20,7 @@ Pseudo population dataset is computed based on user-defined causal inference app
 ## Usage
 
 Input parameters:
-
-**`Y`**  A data.frame of observed outcome, including `id` and `Y` columns.   
+ 
 **`w`**  A data.frame of observed continues exposure, including `id` and `w` columns.
 **`c`**  A data frame or matrix of observed baseline covariates, also includes `id` column,    
 **`ci_appr`** The causal inference approach. Options are "matching" and "weighting".  

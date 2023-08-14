@@ -81,8 +81,6 @@ trimmed_data$gmet_mean_summer_sph <- pow2(trimmed_data$gmet_mean_summer_sph)
 
 set.seed(172)
 pseudo_pop_1 <- generate_pseudo_pop(trimmed_data[, c("id", 
-                                                     "cms_mortality_pct")],
-                                    trimmed_data[, c("id", 
                                                      "qd_mean_pm25")],
                                     trimmed_data[, c("id", 
                                                      confounders_s1)],
@@ -117,8 +115,6 @@ plot(pseudo_pop_1)
 ```{r}
 set.seed(172)
 pseudo_pop_2 <- generate_pseudo_pop(trimmed_data[, c("id", 
-                                                     "cms_mortality_pct")],
-                                    trimmed_data[, c("id", 
                                                      "qd_mean_pm25")],
                                     trimmed_data[, c("id", confounders_s1)],
                                     ci_appr = "matching",
@@ -189,8 +185,6 @@ trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
 
 set.seed(8967)
 pseudo_pop_3 <- generate_pseudo_pop(trimmed_data[, c("id", 
-                                                     "cms_mortality_pct")],
-                                    trimmed_data[, c("id", 
                                                      "qd_mean_pm25")],
                                     trimmed_data[, c("id", confounders_s1)],
                                     ci_appr = "matching",
@@ -231,8 +225,6 @@ trimmed_data$cs_poverty <- pow2(trimmed_data$cs_poverty)
 
 set.seed(672)
 pseudo_pop_4 <- generate_pseudo_pop(trimmed_data[, c("id", 
-                                                     "cms_mortality_pct")],
-                                    trimmed_data[, c("id", 
                                                      "qd_mean_pm25")],
                                     trimmed_data[, c("id", confounders_s1)],
                                     ci_appr = "weighting",
@@ -288,8 +280,6 @@ trimmed_data <- subset(study_data[stats::complete.cases(study_data) ,],
 
 set.seed(328)
 pseudo_pop_5 <- generate_pseudo_pop(trimmed_data[, c("id", 
-                                                     "cms_mortality_pct")],
-                                    trimmed_data[, c("id", 
                                                      "qd_mean_pm25")],
                                     trimmed_data[, c("id", confounders_s1)],
                                     ci_appr = "matching",

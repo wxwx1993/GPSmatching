@@ -1,3 +1,9 @@
+## CausalGPS (developing)
+
+### Changed
+
+*`generate_pseudo_pop` does not take `Y` as an input. 
+
 ## CausalGPS 0.4.0 (2023-05-25)
 
 ### Changed
