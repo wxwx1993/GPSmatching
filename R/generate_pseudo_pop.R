@@ -415,6 +415,7 @@ generate_pseudo_pop <- function(w,
     result$original_data <- original_data
   }
 
+  result$original_data_size <- nrow(original_data)
 
   result$pseudo_pop <- best_pseudo_pop
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
@@ -424,6 +425,9 @@ generate_pseudo_pop <- function(w,
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
+  result$use_cov_transform <- use_cov_transform
+  result$exposure_trim_qtls <- exposure_trim_qtls
+  result$gps_trim_qtls <- gps_trim_qtls
   result$best_gps_used_params <- best_gps_used_params
   result$covariate_cols_name <- unlist(covariate_cols)
   result$ess <- ess
