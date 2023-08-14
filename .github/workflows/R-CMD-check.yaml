@@ -73,6 +73,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          install.packages("curl") # Explicitly install curl
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("devtools")
