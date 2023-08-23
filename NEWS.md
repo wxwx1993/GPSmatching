@@ -2,7 +2,7 @@
 
 ### Changed
 
-* plotting pseudo population includes object details. 
+* Plotting pseudo population includes object details. Set `include_details = TRUE`.  
 *`generate_pseudo_pop` does not take `Y` as an input. 
 
 
