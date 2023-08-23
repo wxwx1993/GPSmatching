@@ -17,3 +17,10 @@ Returns a ggplot2 object, invisibly. This function is called for side effects.
 \description{
 A wrapper function to extend generic plot functions for gpsm_erf class.
 }
+\details{
+\subsection{Additional parameters}{
+\itemize{
+\item \emph{include_details}: If set to TRUE, the plot will include run details (Default = FALSE).
+}
+}
+}
