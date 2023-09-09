@@ -43,7 +43,8 @@ create_matching <- function(data_obj, exposure_col_name, bin_seq = NULL,
   gps_mx <- data_obj$gps_mx
   w_mx <- data_obj$w_mx
 
-  if (is.null(bin_seq)) {
+
+    if (is.null(bin_seq)) {
 
     bin_num<-seq(w_mx[1] + delta_n / 2, w_mx[2], by = delta_n)
     used_bin <- "Default"

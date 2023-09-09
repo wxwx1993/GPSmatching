@@ -123,6 +123,7 @@ generate_pseudo_pop <- function(w,
   max_attempt <- NULL
   covar_bl_trs <- NULL
   covar_bl_trs_type <- NULL
+  delta_n <- NULL
 
   # Log system info
   log_system_info()
@@ -151,8 +152,6 @@ generate_pseudo_pop <- function(w,
   covariate_cols <- Filter(function(x) x != "id", colnames(c))
   exposure_col <- Filter(function(x) x != "id", colnames(w))
 
-  # TODO: check for data quality.
-
   prep_results <- preprocess_data(w, c, exposure_trim_qtls, exposure_col)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
@@ -160,6 +159,22 @@ generate_pseudo_pop <- function(w,
   # Retrieve data.
   w <- tmp_data[, c("id", exposure_col)]
   c <- tmp_data[, c("id", covariate_cols)]
+
+  if (is.null(bin_seq) && ci_appr == "matching"){
+    min_w <- min(w[[exposure_col]])
+    max_w <- max(w[[exposure_col]])
+    start_val <- min_w + delta_n/2
+    end_val <- max_w
+    if ((start_val < end_val && delta_n < 0) ||
+        (start_val > end_val && delta_n > 0)) {
+      stop(paste("Inconsistent values for sequencing.",
+                 " start val: ", start_val,
+                 " end val: ", end_val,
+                 " delta_n/2: ", delta_n / 2,
+                 "\n delta_n should be less than: ", (max_w - min_w) / 2 ))
+    }
+  }
+
 
   original_corr_obj <- check_covar_balance(
                           w = tmp_data[, c(exposure_col)],
