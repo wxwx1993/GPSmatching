@@ -1,5 +1,9 @@
 ## CausalGPS (developing)
 
+### Added
+
+* Extra step to check consistency of `delta_n` with exposure range.
+
 ### Changed
 
 * Plotting pseudo population includes object details. Set `include_details = TRUE`.  
