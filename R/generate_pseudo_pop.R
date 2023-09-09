@@ -123,6 +123,7 @@ generate_pseudo_pop <- function(w,
   max_attempt <- NULL
   covar_bl_trs <- NULL
   covar_bl_trs_type <- NULL
+  delta_n <- NULL
 
   # Log system info
   log_system_info()
@@ -159,7 +160,7 @@ generate_pseudo_pop <- function(w,
   w <- tmp_data[, c("id", exposure_col)]
   c <- tmp_data[, c("id", covariate_cols)]
 
-  if (is.null(bin_seq)){
+  if (is.null(bin_seq) && ci_appr == "matching"){
     min_w <- min(w[[exposure_col]])
     max_w <- max(w[[exposure_col]])
     start_val <- min_w + delta_n/2
