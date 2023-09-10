@@ -1,0 +1,3 @@
+matching_1-matching-normal-q-0.01-0.99-seed-249-maxit-10-delta-1.7-sc-1-maximal | Wall clock time:  1219.37 seconds).
+matching_2-matching-normal-q-0.05-0.95-seed-249-maxit-10-delta-0.9-sc-1-maximal | Wall clock time:  1264.669 seconds.
+matching_3-matching-normal-q-0.1-0.9-seed-249-maxit-10-delta-1.9-sc-1-maximal | Wall clock time:  287.326000000001 seconds.
