@@ -14,7 +14,7 @@ if (!file.exists(data_file)) {
               "https://drive.google.com/file/d/",
               "1QFdbVU8Qir1gWf96c5h_ZhT-aPjhHpqn/view?usp=share_link"))
 } else {
-  load(local_path)
+  load(data_file)
 }
 
 data.table::setDF(zip_data)

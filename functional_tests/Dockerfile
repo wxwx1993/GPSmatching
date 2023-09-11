@@ -27,7 +27,6 @@ RUN R -e "install.packages(c( \
     'MASS', \
     'polycor', \
     'wCorr', \
-    'locpol', \
     'Ecume', \
     'logger', \
     'gnm'), repos='https://cloud.r-project.org')"
@@ -39,3 +38,4 @@ RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
 # R package installation from GitHub
 # Develop branch (On Sep 10, 2023)
 RUN R -e "remotes::install_github('NSAPH-Software/CausalGPS', ref='060f93ce96ebe53d0b7f9300ec7c440c3339fc9f')"
+RUN R -e "remotes::install_github('NSAPH-Software/locpol', reference='master')"
