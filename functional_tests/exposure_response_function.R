@@ -42,6 +42,7 @@ head(merged_data)
 quant <- quantile(data$pm25, probs = c(0.05, 0.95))
 
 start_time <- proc.time()
+set.seed(290)
 erf_obj <- estimate_npmetric_erf(merged_data$education,
                                  merged_data$pm25,
                                  merged_data$counter_weight,
