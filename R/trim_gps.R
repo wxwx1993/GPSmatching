@@ -5,7 +5,7 @@
 #' Trims a gps object based on provided trimming quantiles.
 #'
 #' @param gps_obj A gps S3 object.
-#' @param trim_quantiles A vector of trimming qauntiles with two min and max
+#' @param trim_quantiles A vector of trimming quantiles with two min and max
 #' values.
 #'
 #' @return

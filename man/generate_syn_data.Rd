@@ -49,7 +49,7 @@ covariates and outcomes in the synthetic data. See the code for more details.}
 
 \item{vectorized_y}{A Boolean value indicates how Y internally is generated.
 (Default = \code{FALSE}). This parameter is introduced for backward compatibility.
-vectorized_y = \code{TRUE} performes better.}
+vectorized_y = \code{TRUE} performs better.}
 }
 \value{
 \code{synthetic_data}: The function returns a data.frame saved the

@@ -9,7 +9,7 @@ trim_gps(gps_obj, trim_quantiles)
 \arguments{
 \item{gps_obj}{A gps S3 object.}
 
-\item{trim_quantiles}{A vector of trimming qauntiles with two min and max
+\item{trim_quantiles}{A vector of trimming quantiles with two min and max
 values.}
 }
 \value{
