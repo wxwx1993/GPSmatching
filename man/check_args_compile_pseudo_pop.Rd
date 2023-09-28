@@ -7,11 +7,9 @@
 check_args_compile_pseudo_pop(ci_appr, ...)
 }
 \arguments{
+\item{ci_appr}{The selected causal inference approach.}
+
 \item{...}{Additional arguments to successfully run the selected ci_appr.}
-
-\item{data_obj}{A S3 object with \code{dataset} as required parameter.}
-
-\item{ci.appr}{The selected causal inference approach.}
 }
 \value{
 Returns True if passes all checks, successfully. Otherwise raises ERROR.

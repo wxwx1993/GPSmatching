@@ -46,8 +46,8 @@
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
-#' ### Causal Inference Approach (ci.appr)
-#' - if ci.appr = 'matching':
+#' ### Causal Inference Approach (ci_appr)
+#' - if ci_appr = 'matching':
 #'   - *dist_measure*: Matching function. Available options:
 #'     - l1: Manhattan distance matching
 #'   - *delta_n*: caliper parameter.
@@ -60,7 +60,7 @@
 #'   - *max_attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [create_matching()] for more details about the parameters and default
 #'   values.
-#' - if ci.appr = 'weighting':
+#' - if ci_appr = 'weighting':
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.

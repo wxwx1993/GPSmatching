@@ -104,9 +104,9 @@ first.
 }
 \details{
 \subsection{Additional parameters}{
-\subsection{Causal Inference Approach (ci.appr)}{
+\subsection{Causal Inference Approach (ci_appr)}{
 \itemize{
-\item if ci.appr = 'matching':
+\item if ci_appr = 'matching':
 \itemize{
 \item \emph{dist_measure}: Matching function. Available options:
 \itemize{
@@ -125,7 +125,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item See \code{\link[=create_matching]{create_matching()}} for more details about the parameters and default
 values.
 }
-\item if ci.appr = 'weighting':
+\item if ci_appr = 'weighting':
 \itemize{
 \item \emph{covar_bl_method}: Covariate balance method.
 \item \emph{covar_bl_trs}: Covariate balance threshold

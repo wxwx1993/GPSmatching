@@ -127,8 +127,7 @@ check_args_generate_pseudo_pop <- function(max_attempt){
 #  Checks compile_pseudo_pop function arguments to make sure that the required
 #' additional arguments are provided.
 #'
-#' @param data_obj A S3 object with `dataset` as required parameter.
-#' @param ci.appr The selected causal inference approach.
+#' @param ci_appr The selected causal inference approach.
 #' @param ...  Additional arguments to successfully run the selected ci_appr.
 #'
 #' @return
