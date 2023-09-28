@@ -130,7 +130,7 @@ Factor Surveillance System.”
 
 Centers for Medicare & Medicaid Services. 2021. “CMS 2008-2010 Data
 Entrepreneurs’ Synthetic Public Use File (DE-SynPUF).”
-\url{https://www.cms.gov/research-statistics-data-and-systems/downloadable-public-use-files/synpufs/de_syn_puf}.
+\url{https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file-de-synpuf}.
 
 Di, Qian, Heresh Amini, Liuhua Shi, Itai Kloog, Rachel Silvern, James Kelly,
 M Benjamin Sabath, et al. 2019. “An Ensemble-Based Model of Pm2. 5
