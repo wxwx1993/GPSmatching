@@ -1,8 +1,9 @@
-## CausalGPS (developing)
+## CausalGPS 0.4.1 (2023-09-29)
 
 ### Added
 
 * Extra step to check consistency of `delta_n` with exposure range.
+* Software paper examples were added.
 
 ### Changed
 

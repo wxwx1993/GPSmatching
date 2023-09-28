@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,14 +130,14 @@ User Guide</a>.</p>
 </h3>
 <p>To build the image, download the Definition File
 (CausalGPS_rstudio.def) and run the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">$</span> sudo singularity build CausalGPS_rstudio.sif CausalGPS_rstudio.def </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> sudo singularity build CausalGPS_rstudio.sif CausalGPS_rstudio.def </span></code></pre></div>
 <p>Running the command will generate a Singularity image
 (CausalGPS_rstudio.sif). You can double-check the CausalGPS package
 version by running the image using the following command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>singularity run CausalGPS_rstudio.sif </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>singularity run CausalGPS_rstudio.sif </span></code></pre></div>
 <p>This will result in the following format:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>Container was created Thu <span class="dv">03</span> Feb <span class="dv">2022</span> <span class="fu">07:54:</span><span class="dv">45</span> PM UTC</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>CausalGPS package installed <span class="op">(</span><span class="fu">ver:</span> <span class="op">[</span><span class="dv">1</span><span class="op">]</span> ‘<span class="dv">0</span>.2.6.9000’<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Container was created Thu <span class="dv">03</span> Feb <span class="dv">2022</span> <span class="fu">07:54:</span><span class="dv">45</span> PM UTC</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CausalGPS package installed <span class="op">(</span><span class="fu">ver:</span> <span class="op">[</span><span class="dv">1</span><span class="op">]</span> ‘<span class="dv">0</span>.2.6.9000’<span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="run-an-r-session">Run an R Session<a class="anchor" aria-label="anchor" href="#run-an-r-session"></a>
@@ -146,31 +146,31 @@ version by running the image using the following command:</p>
 <ul>
 <li>Run shell command in the image</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>singularity shell CausalGPS_rstudio.sif</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>singularity shell CausalGPS_rstudio.sif</span></code></pre></div>
 <p>and then run R.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Singularity</span><span class="op">&gt;</span> <span class="va">R</span></span></code></pre></div>
 <p>This will provide the following results and will activate R.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>R version <span class="dv">4</span>.<span class="fl">0.4</span> (<span class="dv">2021-02-15</span>) <span class="sc">--</span> <span class="st">"Lost Library Book"</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">Copyright</span> (C) <span class="dv">2021</span> The R Foundation <span class="cf">for</span> Statistical Computing</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>Platform<span class="sc">:</span> x86_64<span class="sc">-</span>pc<span class="sc">-</span>linux<span class="sc">-</span><span class="fu">gnu</span> (<span class="dv">64</span><span class="sc">-</span>bit)</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>You are welcome to redistribute it under certain conditions.</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>Type <span class="st">'license()'</span> or <span class="st">'licence()'</span> <span class="cf">for</span> distribution details.</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>R is a collaborative project with many contributors.</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>Type <span class="st">'contributors()'</span> <span class="cf">for</span> more information and</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages <span class="cf">in</span> publications.</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>Type <span class="st">'demo()'</span> <span class="cf">for</span> some demos, <span class="st">'help()'</span> <span class="cf">for</span> on<span class="sc">-</span>line help, or</span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="st">'help.start()'</span> <span class="cf">for</span> an HTML browser interface to help.</span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>Type <span class="st">'q()'</span> to quit R.</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="sc">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>R version <span class="dv">4</span>.<span class="fl">0.4</span> (<span class="dv">2021-02-15</span>) <span class="sc">--</span> <span class="st">"Lost Library Book"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Copyright</span> (C) <span class="dv">2021</span> The R Foundation <span class="cf">for</span> Statistical Computing</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Platform<span class="sc">:</span> x86_64<span class="sc">-</span>pc<span class="sc">-</span>linux<span class="sc">-</span><span class="fu">gnu</span> (<span class="dv">64</span><span class="sc">-</span>bit)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>You are welcome to redistribute it under certain conditions.</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'license()'</span> or <span class="st">'licence()'</span> <span class="cf">for</span> distribution details.</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>R is a collaborative project with many contributors.</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'contributors()'</span> <span class="cf">for</span> more information and</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages <span class="cf">in</span> publications.</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'demo()'</span> <span class="cf">for</span> some demos, <span class="st">'help()'</span> <span class="cf">for</span> on<span class="sc">-</span>line help, or</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> <span class="cf">for</span> an HTML browser interface to help.</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'q()'</span> to quit R.</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code></pre></div>
 <p>Now, you can run an R command. For example:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="sc">&gt;</span> utils<span class="sc">::</span><span class="fu">packageVersion</span>(<span class="st">"CausalGPS"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># [1] ‘0.2.6.9000’</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> utils<span class="sc">::</span><span class="fu">packageVersion</span>(<span class="st">"CausalGPS"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] ‘0.2.6.9000’</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="run-a-rstudio-session">Run a Rstudio Session<a class="anchor" aria-label="anchor" href="#run-a-rstudio-session"></a>
@@ -178,13 +178,13 @@ version by running the image using the following command:</p>
 <p>You can also open an RStudio session in your browser by following
 these steps mentioned in <a href="https://rocker-project.org/use/singularity/" class="external-link">Rocker Project
 (Singularity)</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>mkdir <span class="sc">-</span>p run var<span class="sc">-</span>lib<span class="sc">-</span>rstudio<span class="sc">-</span>server</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>printf <span class="st">'provider=sqlite</span><span class="sc">\n</span><span class="st">directory=/var/lib/rstudio-server</span><span class="sc">\n</span><span class="st">'</span> <span class="sc">&gt;</span> database.conf</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>singularity exec <span class="sc">--</span>bind run<span class="sc">:</span><span class="er">/</span>run,var<span class="sc">-</span>lib<span class="sc">-</span>rstudio<span class="sc">-</span>server<span class="sc">:</span><span class="er">/</span>var<span class="sc">/</span>lib<span class="sc">/</span>rstudio<span class="sc">-</span>server,database.conf<span class="sc">:</span><span class="er">/</span>etc<span class="sc">/</span>rstudio<span class="sc">/</span>database.conf CausalGPS_rstudio.sif rserver <span class="sc">--</span>www<span class="sc">-</span>address<span class="ot">=</span><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p run var<span class="sc">-</span>lib<span class="sc">-</span>rstudio<span class="sc">-</span>server</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>printf <span class="st">'provider=sqlite</span><span class="sc">\n</span><span class="st">directory=/var/lib/rstudio-server</span><span class="sc">\n</span><span class="st">'</span> <span class="sc">&gt;</span> database.conf</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>singularity exec <span class="sc">--</span>bind run<span class="sc">:</span><span class="er">/</span>run,var<span class="sc">-</span>lib<span class="sc">-</span>rstudio<span class="sc">-</span>server<span class="sc">:</span><span class="er">/</span>var<span class="sc">/</span>lib<span class="sc">/</span>rstudio<span class="sc">-</span>server,database.conf<span class="sc">:</span><span class="er">/</span>etc<span class="sc">/</span>rstudio<span class="sc">/</span>database.conf CausalGPS_rstudio.sif rserver <span class="sc">--</span>www<span class="sc">-</span>address<span class="ot">=</span><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span></code></pre></div>
 <p>Open your browser and enter this URL:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span><span class="sc">:</span><span class="dv">8787</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span><span class="sc">:</span><span class="dv">8787</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

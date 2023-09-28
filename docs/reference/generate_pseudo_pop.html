@@ -18,7 +18,7 @@ first."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,9 +209,9 @@ object includes the following objects:</p><ul><li><p>params</p><ul><li><p>ci_app
 <h3 id="additional-parameters">Additional parameters<a class="anchor" aria-label="anchor" href="#additional-parameters"></a></h3>
 
 <div class="section">
-<h4 id="causal-inference-approach-ci-appr-">Causal Inference Approach (ci.appr)<a class="anchor" aria-label="anchor" href="#causal-inference-approach-ci-appr-"></a></h4>
+<h4 id="causal-inference-approach-ci-appr-">Causal Inference Approach (ci_appr)<a class="anchor" aria-label="anchor" href="#causal-inference-approach-ci-appr-"></a></h4>
 
-<ul><li><p>if ci.appr = 'matching':</p><ul><li><p><em>dist_measure</em>: Matching function. Available options:</p><ul><li><p>l1: Manhattan distance matching</p></li>
+<ul><li><p>if ci_appr = 'matching':</p><ul><li><p><em>dist_measure</em>: Matching function. Available options:</p><ul><li><p>l1: Manhattan distance matching</p></li>
 </ul></li>
 <li><p><em>delta_n</em>: caliper parameter.</p></li>
 <li><p><em>scale</em>: a specified scale parameter to control the relative weight that
@@ -224,7 +224,7 @@ is attributed to the distance measures of the exposure versus the GPS.</p></li>
 <li><p>See <code><a href="create_matching.html">create_matching()</a></code> for more details about the parameters and default
 values.</p></li>
 </ul></li>
-<li><p>if ci.appr = 'weighting':</p><ul><li><p><em>covar_bl_method</em>: Covariate balance method.</p></li>
+<li><p>if ci_appr = 'weighting':</p><ul><li><p><em>covar_bl_method</em>: Covariate balance method.</p></li>
 <li><p><em>covar_bl_trs</em>: Covariate balance threshold</p></li>
 <li><p><em>max_attempt</em>: Maximum number of attempt to satisfy covariate balance.</p></li>
 </ul></li>

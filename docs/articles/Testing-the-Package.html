@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CausalGPS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -253,17 +253,17 @@ list at random and will generate a customize wrapper based on them. If
 you want to use a specific value, just give a list one number (e.g.,
 xgb_max_depth = c(3)). All parameters that start with <code>xgb_</code>
 will only change XGBoost hyperparameters.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"CausalGPS"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">generate_syn_data</span>(<span class="at">sample_size =</span> <span class="dv">10000</span>) </span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>data_with_gps <span class="ot">&lt;-</span> <span class="fu">estimate_gps</span>(mydata[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"Y"</span>)],</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                              mydata[, <span class="fu">c</span>(<span class="st">"id"</span>, w<span class="st">")],</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="st">                              mydata[, c("</span>id<span class="st">", "</span>cf1<span class="st">", "</span>cf2<span class="st">", "</span>cf3<span class="st">", </span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="st">                                         "</span>cf4<span class="st">","</span>cf5<span class="st">","</span>cf6<span class="st">")],</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="st">                              params = list(xgb_max_depth = c(3,4,5),</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="st">                                       xgb_nrounds=c(10,20,30,40,50,60)),</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="st">                              nthread = 1,</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="st">                              sl_lib = c("</span>m_xgboost<span class="st">")</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="st">                             )</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"CausalGPS"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">generate_syn_data</span>(<span class="at">sample_size =</span> <span class="dv">10000</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data_with_gps <span class="ot">&lt;-</span> <span class="fu">estimate_gps</span>(mydata[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"Y"</span>)],</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                              mydata[, <span class="fu">c</span>(<span class="st">"id"</span>, w<span class="st">")],</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">                              mydata[, c("</span>id<span class="st">", "</span>cf1<span class="st">", "</span>cf2<span class="st">", "</span>cf3<span class="st">", </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">                                         "</span>cf4<span class="st">","</span>cf5<span class="st">","</span>cf6<span class="st">")],</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">                              params = list(xgb_max_depth = c(3,4,5),</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">                                       xgb_nrounds=c(10,20,30,40,50,60)),</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">                              nthread = 1,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">                              sl_lib = c("</span>m_xgboost<span class="st">")</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">                             )</span></span></code></pre></div>
 <p>Now, let’s add some categorical data. Let’s say our data belongs to 5
 different years (2000 observations per year), and each year we have data
 from 4 different regions, including <em>North</em>, <em>South</em>,
@@ -423,8 +423,8 @@ This is sufficient for changing the data; however, you need to address
 it before submitting a pull request.</p></li>
 <li><p>Step 2: Create a backup data from the current data.</p></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># in terminal</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>cp  R<span class="op">/</span>sysdata.rda R<span class="op">/</span>sysdata_backup.rda</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in terminal</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cp  R<span class="op">/</span>sysdata.rda R<span class="op">/</span>sysdata_backup.rda</span></code></pre></div>
 <ul>
 <li>Step 3: Clean Global environment</li>
 </ul>
