@@ -27,20 +27,20 @@ data <- zip_data
 # Select Example ---------------------------------------------------------------
 
 ## Available options:
-# matching_1
+# matching_1 (first setting)
 #  - exposure trim %1-%99 value
-#  - delta_n = 
+#  - delta_n = 1.7
 
-# matching_2
+# matching_2 (second setting)
 #  - exposure trim %5-%95 value
-#  - delta_n =
+#  - delta_n = 0.9
 
-# matching_3
+# matching_3 (third setting)
 #  - exposure trim %10-%90 value
-#  - delta_n =
+#  - delta_n = 1.9
 
 
-example <- "matching_3" 
+example <- "matching_3"
 
 #------To reproduce the same results, do not change below this line.------------
 

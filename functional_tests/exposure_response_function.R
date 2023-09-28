@@ -24,14 +24,14 @@ data <- zip_data
 # Add id to the data
 data$id <- 1:nrow(data)
 
-# Load Matched Data set -------------------------------------------------------- 
+# Load Matched Data set --------------------------------------------------------
 matched_data <- readRDS(
   "matching_3-matching-normal-q-0.1-0.9-seed-249-maxit-10-delta-1.9-sc-1-maximal-object.rds"
 )
 
 # Merge Matched data to outcome data
 
-merged_data <- merge(data[, c("id", "education")], 
+merged_data <- merge(data[, c("id", "education")],
                      matched_data$pseudo_pop,
                      by = "id")
 
@@ -39,7 +39,7 @@ merged_data <- merge(data[, c("id", "education")],
 head(merged_data)
 
 # Exposure response curve ------------------------------------------------------
-quant <- quantile(data$pm25, probs = c(0.05, 0.95))
+quant <- quantile(data$pm25, probs = c(0.1, 0.9))
 
 start_time <- proc.time()
 set.seed(290)
