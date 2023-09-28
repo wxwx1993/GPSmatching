@@ -15,4 +15,6 @@ src/.DS_Store
 src-i386
 .DS_Store
 functional_tests/supplements/*
-
+*zip_data.RData
+*log*
+*.rds
