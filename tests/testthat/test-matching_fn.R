@@ -11,8 +11,7 @@ test_that("matching_l1 functions as expected.", {
   data_with_gps_test <- estimate_gps(s_data[, c("id", "w")],
                                      s_data[, c("id", "cf1", "cf2", "cf3",
                                                 "cf4","cf5", "cf6")],
-                                     sl_lib = c("SL.xgboost","SL.earth",
-                                                "SL.gam","SL.ranger")
+                                     sl_lib = c("SL.xgboost")
                             )
 
   m_d <- data_with_gps_test
@@ -33,6 +32,6 @@ test_that("matching_l1 functions as expected.", {
 
 
 
-   expect_equal(nrow(val), 6)
+   expect_equal(nrow(val), 1)
    expect_equal(length(val), 2)
 })

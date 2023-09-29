@@ -1,5 +1,5 @@
 test_that("Covariate balance check works as expected", {
-
+skip_on_cran()
 set.seed(532)
 s_data <- generate_syn_data(sample_size = 200,
                             outcome_sd = 10,

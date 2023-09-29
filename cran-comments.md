@@ -1,5 +1,15 @@
 Re-Submission (September 29, 2023)
 
+Thank you for your feedback. We have adjusted the package to skip the computationally intensive tests during CRAN checks due to the issues observed in one of the operating systems. We would like to kindly request acceptance of the package with this note, as the noted concern is specific to a single OS.
+ 
+Best regards, 
+Naeem Khoshnevis 
+Research Computing and Data Services 
+Harvard University
+
+
+Re-Submission (September 29, 2023)
+
 Thank you for your feedback and observations. In response, and as part of this revised submission, we have instituted several modifications to address the raised concerns:
 - We have eliminated an additional vignette that required extensive computation.
 - We have relocated several examples to the `\donttest{}` block to avoid their execution during CRAN checks.

@@ -13,6 +13,7 @@ test_that("train_it works as expected.", {
 test_that("train_it works as expected (with earth).", {
 
   skip_if_not_installed("earth")
+  skip_on_cran()
 
   x <- seq(0,1,0.001)
   y <- x^2 - x^3 + 4
