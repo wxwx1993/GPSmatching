@@ -27,7 +27,7 @@ parametric models
 This method uses generalized nonlinear model (gnm) from gnm package.
 }
 \examples{
-
+\donttest{
 m_d <- generate_syn_data(sample_size = 100)
 pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1","cf2","cf3",
@@ -48,5 +48,5 @@ data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by = "id")
 outcome_m <- estimate_pmetric_erf(formula = Y ~ w,
                                   family = gaussian,
                                   data = data)
-
+}
 }

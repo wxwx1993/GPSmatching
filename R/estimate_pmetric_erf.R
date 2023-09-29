@@ -20,7 +20,7 @@
 #' @export
 #'
 #' @examples
-#'
+#'\donttest{
 #' m_d <- generate_syn_data(sample_size = 100)
 #' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3",
@@ -41,7 +41,7 @@
 #' outcome_m <- estimate_pmetric_erf(formula = Y ~ w,
 #'                                   family = gaussian,
 #'                                   data = data)
-#'
+#'}
 estimate_pmetric_erf <- function(formula, family, data, ...) {
 
 

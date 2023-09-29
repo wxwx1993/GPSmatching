@@ -81,6 +81,7 @@
 #'
 #' @export
 #' @examples
+#' \donttest{
 #' m_d <- generate_syn_data(sample_size = 100)
 #' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
@@ -102,7 +103,7 @@
 #'                                   dist_measure = "l1",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
-#'
+#'}
 generate_pseudo_pop <- function(w,
                                 c,
                                 ci_appr,

@@ -4,7 +4,6 @@ pkgdown_sha: ~
 articles:
   CausalGPS: CausalGPS.html
   Developers-Guide: Developers-Guide.html
-  ERF-Kernel-Smoothing: ERF-Kernel-Smoothing.html
   Estimating-GPS: Estimating-GPS.html
   Frequently-Asked-Questions: Frequently-Asked-Questions.html
   Generating-Pseudo-Population: Generating-Pseudo-Population.html
@@ -14,7 +13,7 @@ articles:
   Singularity-Image: Singularity-Image.html
   Synthetic-Medicare: Synthetic-Medicare.html
   Testing-the-Package: Testing-the-Package.html
-last_built: 2023-09-28T21:50Z
+last_built: 2023-09-29T00:16Z
 urls:
   reference: https://NSAPH-Software.github.io/CausalGPS/reference
   article: https://NSAPH-Software.github.io/CausalGPS/articles

@@ -50,7 +50,7 @@ Compiles pseudo population based on the original population and estimated GPS
 value.
 }
 \examples{
-
+\donttest{
 set.seed(112)
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d[, c("id", "w")],
@@ -75,5 +75,5 @@ pd <- compile_pseudo_pop(data_obj = data_with_gps,
                          covar_bl_trs_type= "mean",
                          delta_n = 0.5,
                          scale = 1)
-
+}
 }

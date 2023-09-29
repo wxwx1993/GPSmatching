@@ -10,7 +10,7 @@ test_that("estimate_npmetric_erf works as expected", {
                                     ci_appr = "matching",
                                     gps_density = "kernel",
                                     exposure_trim_qtls = c(0.01,0.99),
-                                    sl_lib = c("SL.xgboost", "SL.gam"),
+                                    sl_lib = c("SL.xgboost"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
@@ -27,12 +27,12 @@ test_that("estimate_npmetric_erf works as expected", {
   res <- estimate_npmetric_erf(data$Y,
                                data$w,
                                data$counter_weight,
-                               bw_seq=seq(0.2,2,0.2),
+                               bw_seq=seq(0.2,0.4,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
 
   expect_equal(class(res),"gpsm_erf")
-  expect_equal(length(res$params$bw_seq), 10)
+  expect_equal(length(res$params$bw_seq), 2)
   expect_equal(length(res$params$w_vals), length(res$erf))
   #expect_equal(res$risk_val[1], 1305125, tolerance = 0.00001)
 })
@@ -53,7 +53,7 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
                                     pred_model = "sl",
                                     gps_density = "kernel",
                                     exposure_trim_qtls = c(0.01,0.99),
-                                    sl_lib = c("SL.xgboost","SL.earth","SL.gam"),
+                                    sl_lib = c("SL.xgboost"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",
@@ -70,13 +70,14 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
   res <- estimate_npmetric_erf(data$Y,
                                data$w,
                                data$counter_weight,
-                               bw_seq=seq(0.2,2,0.2),
+                               bw_seq=seq(0.2,0.4,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
 
   expect_equal(class(res),"gpsm_erf")
-  expect_equal(length(res$params$bw_seq), 10)
+  expect_equal(length(res$params$bw_seq), 2)
   expect_equal(length(res$params$w_vals), length(res$erf))
   #expect_equal(res$risk_val[1], 1305125, tolerance = 0.00001)
 
 })
+

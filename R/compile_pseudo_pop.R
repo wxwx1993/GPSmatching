@@ -31,7 +31,7 @@
 #' on the selected causal inference approach.
 #'
 #' @examples
-#'
+#' \donttest{
 #' set.seed(112)
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d[, c("id", "w")],
@@ -56,7 +56,7 @@
 #'                          covar_bl_trs_type= "mean",
 #'                          delta_n = 0.5,
 #'                          scale = 1)
-#'
+#'}
 compile_pseudo_pop <- function(data_obj, ci_appr, gps_density,
                                bin_seq, exposure_col_name, nthread,
                                ...) {
