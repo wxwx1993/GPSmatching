@@ -1,5 +1,5 @@
 test_that("estimate_npmetric_erf works as expected", {
-
+  skip_on_cran()
   set.seed(347)
   m_d <- generate_syn_data(sample_size = 400)
   m_d$id <- seq_along(1:nrow(m_d))
@@ -27,12 +27,12 @@ test_that("estimate_npmetric_erf works as expected", {
   res <- estimate_npmetric_erf(data$Y,
                                data$w,
                                data$counter_weight,
-                               bw_seq=seq(0.2,0.4,0.2),
+                               bw_seq=seq(0.2,0.2,0.2),
                                w_vals=seq(min_w,max_w,0.5),
                                nthread = 1)
 
   expect_equal(class(res),"gpsm_erf")
-  expect_equal(length(res$params$bw_seq), 2)
+  expect_equal(length(res$params$bw_seq), 1)
   expect_equal(length(res$params$w_vals), length(res$erf))
   #expect_equal(res$risk_val[1], 1305125, tolerance = 0.00001)
 })

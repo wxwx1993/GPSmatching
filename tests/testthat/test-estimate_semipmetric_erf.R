@@ -1,6 +1,7 @@
 test_that("estimate-semi-erf works as expected ", {
 
   # Weighting
+  data.table::setDTthreads(1)
   set.seed(245)
   gam_model <-  estimate_semipmetric_erf(Y ~ s(w) + cf5,
                                   family = gaussian,

@@ -1,4 +1,5 @@
 test_that("smooth_erf works as expected.", {
+  data.table::setDTthreads(1)
   val <- smooth_erf(matched_Y = pseudo_pop_covar_test$Y,
                     bw = 0.2,
                     matched_w = pseudo_pop_covar_test$w,

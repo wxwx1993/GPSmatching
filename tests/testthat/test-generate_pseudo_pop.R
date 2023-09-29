@@ -1,5 +1,5 @@
 test_that("generate_pseudo_pop works as expected.", {
-  testthat::skip_on_cran()
+  data.table::setDTthreads(1)
   set.seed(4321)
   n <- 500
   mydata <- generate_syn_data(sample_size=n)
@@ -321,7 +321,7 @@ test_that("generate_pseudo_pop works as expected.", {
 
 
 test_that("generate_pseudo_pop catches errors.", {
-
+  data.table::setDTthreads(1)
   set.seed(897)
   n <- 500
   mydata <- generate_syn_data(sample_size=n)

@@ -2,6 +2,7 @@ test_that("trim_gps works as expected.", {
 
   set.seed(422)
   n <- 500
+  data.table::setDTthreads(1)
   mydata <- generate_syn_data(sample_size = n)
   year <- sample(x=c("2001", "2002", "2003", "2004", "2005"), size = n,
                  replace = TRUE)

@@ -1,4 +1,5 @@
 test_that("check_kolmogorov_smirnov works as expected.", {
+  data.table::setDTthreads(1)
   set.seed(8422)
   n <- 200
   mydata <- generate_syn_data(sample_size=n)

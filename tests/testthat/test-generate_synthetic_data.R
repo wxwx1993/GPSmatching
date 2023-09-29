@@ -1,6 +1,7 @@
 test_that("generate_synthetic_data works as expected.", {
 
   # length is correct
+  data.table::setDTthreads(1)
   s_data <- generate_syn_data()
   expect_equal(nrow(s_data), 1000)
   expect_equal(length(s_data), 9)

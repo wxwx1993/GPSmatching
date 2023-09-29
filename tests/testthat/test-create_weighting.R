@@ -1,6 +1,7 @@
 test_that("create_weighting works as expected.", {
 
   set.seed(481)
+  data.table::setDTthreads(1)
   m_d <- generate_syn_data(sample_size = 100)
   pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                     m_d[, c("id", "cf1", "cf2", "cf3", "cf4",

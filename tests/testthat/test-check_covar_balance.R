@@ -1,5 +1,6 @@
 test_that("Covariate balance check works as expected", {
 skip_on_cran()
+data.table::setDTthreads(1)
 set.seed(532)
 s_data <- generate_syn_data(sample_size = 200,
                             outcome_sd = 10,
@@ -56,6 +57,7 @@ expect_false(val2$pass)
 
 test_that("Covariate balance check works as expected - part 2", {
 skip_on_cran()
+data.table::setDTthreads(1)
 set.seed(987)
 s_data <- generate_syn_data(sample_size = 500,
                             outcome_sd = 10,

@@ -1,6 +1,7 @@
 test_that("estimate_gps works as expected.", {
 
   set.seed(895)
+  data.table::setDTthreads(1)
   m_d <- generate_syn_data(sample_size = 100)
   m_d$id <- seq_along(1:nrow(m_d))
 

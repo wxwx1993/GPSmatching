@@ -1,5 +1,15 @@
 Re-Submission (September 29, 2023)
 
+Thank you for your feedback. We have reviewed the discussions on R-package-devel and acknowledge that data.table may utilize multiple threads at certain instances. To address this, we have incorporated additional code to constrain data.table to a single thread during CRAN tests. We hope that this modification resolves the issue.
+ 
+Best regards, 
+Naeem Khoshnevis 
+Research Computing and Data Services 
+Harvard University
+
+
+Re-Submission (September 29, 2023)
+
 Thank you for your feedback. We have adjusted the package to skip the computationally intensive tests during CRAN checks due to the issues observed in one of the operating systems. We would like to kindly request acceptance of the package with this note, as the noted concern is specific to a single OS.
  
 Best regards, 
