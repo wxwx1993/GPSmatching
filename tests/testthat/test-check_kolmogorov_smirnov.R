@@ -1,4 +1,5 @@
 test_that("check_kolmogorov_smirnov works as expected.", {
+  skip_on_cran()
   data.table::setDTthreads(1)
   set.seed(8422)
   n <- 200

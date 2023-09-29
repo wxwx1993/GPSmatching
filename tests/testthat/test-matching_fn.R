@@ -1,5 +1,6 @@
 test_that("matching_l1 functions as expected.", {
 
+  skip_on_cran()
   data.table::setDTthreads(1)
   set.seed(721)
   s_data <- generate_syn_data(sample_size=200,

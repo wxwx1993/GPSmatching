@@ -1,5 +1,6 @@
 test_that("Compiling pseudo pop works as expected.", {
 
+  skip_on_cran()
   data.table::setDTthreads(1)
   set.seed(509)
   m_d <- generate_syn_data(sample_size = 100)

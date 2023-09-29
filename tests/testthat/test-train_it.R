@@ -1,5 +1,6 @@
 test_that("train_it works as expected.", {
 
+  skip_on_cran()
   data.table::setDTthreads(1)
   x <- seq(0,1,0.001)
   y <- x^2 - x^3 + 4

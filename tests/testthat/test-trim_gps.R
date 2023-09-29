@@ -1,5 +1,6 @@
 test_that("trim_gps works as expected.", {
 
+  skip_on_cran()
   set.seed(422)
   n <- 500
   data.table::setDTthreads(1)

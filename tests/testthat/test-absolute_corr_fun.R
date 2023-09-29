@@ -1,6 +1,7 @@
 test_that("absoulte_corr_fun works as expected.", {
 
   # see test-check_covar_balance.R for more details about the test data.
+  skip_on_cran()
   data.table::setDTthreads(1)
   data.table::setDF(pseudo_pop_covar_test)
   val <- absolute_corr_fun(pseudo_pop_covar_test[,2],

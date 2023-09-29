@@ -1,5 +1,6 @@
 test_that("create_weighting works as expected.", {
 
+  skip_on_cran()
   set.seed(481)
   data.table::setDTthreads(1)
   m_d <- generate_syn_data(sample_size = 100)

@@ -1,5 +1,6 @@
 test_that("Computation of residuals passes the tests.", {
 
+  skip_on_cran()
   set.seed(156)
 
   a <- runif(100)

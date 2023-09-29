@@ -1,4 +1,5 @@
 test_that("Check arguments works as expected.", {
+  skip_on_cran()
   expect_error(check_args())
   expect_error(check_args_estimate_gps())
   expect_error(check_args_compile_pseudo_pop())
