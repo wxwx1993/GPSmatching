@@ -1,5 +1,5 @@
 test_that("generate_pseudo_pop works as expected.", {
-
+  testthat::skip_on_cran()
   set.seed(4321)
   n <- 500
   mydata <- generate_syn_data(sample_size=n)

@@ -17,7 +17,7 @@ test_that("estimate_npmetric_erf works as expected", {
                                     max_attempt = 1,
                                     dist_measure = "l1",
                                     delta_n = 1,
-                                    scale = 0.5)
+                                    scale = 1)
 
   min_w <- min(pseudo_pop$pseudo_pop$w)
   max_w <- max(pseudo_pop$pseudo_pop$w)
@@ -41,6 +41,7 @@ test_that("estimate_npmetric_erf works as expected", {
 test_that("estimate_npmetric_erf works as expected (with earth)", {
 
   skip_if_not_installed("earth")
+  skip_on_cran()
 
   set.seed(347)
   m_d <- generate_syn_data(sample_size = 400)
@@ -53,7 +54,9 @@ test_that("estimate_npmetric_erf works as expected (with earth)", {
                                     pred_model = "sl",
                                     gps_density = "kernel",
                                     exposure_trim_qtls = c(0.01,0.99),
-                                    sl_lib = c("SL.xgboost"),
+                                    sl_lib = c("SL.xgboost",
+                                               "SL.earth",
+                                               "SL.gam"),
                                     covar_bl_method = "absolute",
                                     covar_bl_trs = 0.1,
                                     covar_bl_trs_type = "mean",

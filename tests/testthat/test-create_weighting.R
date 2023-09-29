@@ -32,6 +32,7 @@ test_that("create_weighting works as expected.", {
 test_that("create_weighting works as expected.", {
 
   skip_if_not_installed("earth")
+  skip_on_cran()
 
   set.seed(481)
   m_d <- generate_syn_data(sample_size = 100)

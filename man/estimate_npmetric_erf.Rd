@@ -53,7 +53,7 @@ data set using non-parametric models.
 Estimate Functions Using Local Polynomial kernel regression.
 }
 \examples{
-
+\donttest{
 set.seed(697)
 m_d <- generate_syn_data(sample_size = 200)
 pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
@@ -80,5 +80,5 @@ erf_obj <- estimate_npmetric_erf(data$Y,
                                  bw_seq=seq(0.2,2,0.2),
                                  w_vals = seq(2,20,0.5),
                                  nthread = 1)
-
+}
 }

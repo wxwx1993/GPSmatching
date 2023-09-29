@@ -34,7 +34,6 @@ approaches."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     <a class="dropdown-item" href="../articles/Generating-Pseudo-Population.html">Generating Pseudo Population</a>
     <a class="dropdown-item" href="../articles/Outcome-Models.html">Outcome Models</a>
     <a class="dropdown-item" href="../articles/Generating-Synthetic-Data.html">Generate Synthetic Data</a>
-    <a class="dropdown-item" href="../articles/Synthetic-Medicare.html">Synthetic Medicare Data</a>
     <a class="dropdown-item" href="../articles/Frequently-Asked-Questions.html">Frequently Asked Questions</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Collabration</h6>
@@ -143,7 +142,8 @@ used in compiling the data set with GPS values.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m_d</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">m_d</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_syn_data.html">generate_syn_data</a></span><span class="op">(</span>sample_size <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data_with_gps</span> <span class="op">&lt;-</span> <span class="fu">estimate_gps</span><span class="op">(</span><span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"w"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                              <span class="va">m_d</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"cf1"</span>, <span class="st">"cf2"</span>, <span class="st">"cf3"</span>,</span></span>
 <span class="r-in"><span>                                      <span class="st">"cf4"</span>, <span class="st">"cf5"</span>, <span class="st">"cf6"</span><span class="op">)</span><span class="op">]</span>,</span></span>
@@ -153,7 +153,7 @@ used in compiling the data set with GPS values.</p>
 <span class="r-in"><span>                              nthread <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                              sl_lib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m_xgboost"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>                             <span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

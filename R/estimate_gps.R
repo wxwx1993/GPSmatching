@@ -40,6 +40,7 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' m_d <- generate_syn_data(sample_size = 100)
 #' data_with_gps <- estimate_gps(m_d[, c("id", "w")],
 #'                               m_d[, c("id", "cf1", "cf2", "cf3",
@@ -50,7 +51,7 @@
 #'                               nthread = 1,
 #'                               sl_lib = c("m_xgboost")
 #'                              )
-#'
+#'}
 estimate_gps <- function(w,
                          c,
                          gps_density = "normal",

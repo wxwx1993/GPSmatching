@@ -34,7 +34,7 @@
 #' @export
 #'
 #' @examples
-#'
+#' \donttest{
 #' set.seed(697)
 #' m_d <- generate_syn_data(sample_size = 200)
 #' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
@@ -61,7 +61,7 @@
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
-#'
+#'}
 estimate_npmetric_erf<-function(m_Y,
                                 m_w,
                                 counter_weight,

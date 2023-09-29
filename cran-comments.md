@@ -1,5 +1,20 @@
 Re-Submission (September 29, 2023)
 
+Thank you for your feedback and observations. In response, and as part of this revised submission, we have instituted several modifications to address the raised concerns:
+- We have eliminated an additional vignette that required extensive computation.
+- We have relocated several examples to the `\donttest{}` block to avoid their execution during CRAN checks.
+- Some of the more computationally demanding tests have been configured to skip execution during CRAN checks.
+
+We are optimistic that these alterations will rectify the identified issues. Regrettably, we encounter limitations in verifying the resolutions directly, as attempts to reproduce the said issues both locally and during an `rhub` check were unsuccessful – all tests and checks passed without discrepancies. We appreciate your understanding and look forward to any further guidance or suggestions you might have.
+
+Best regards, 
+Naeem Khoshnevis 
+Research Computing and Data Services 
+Harvard University
+
+
+Re-Submission (September 29, 2023)
+
 Thank you for the notes. We have removed the computationally intensive vignette and also moved examples to the donttest block. We hope these changes resolve the issues. Unfortunately, we are unable to reproduce them locally or during an rhub check (as they pass successfully), so we could not verify the resolution directly.
 
 Best regards, 
