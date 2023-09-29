@@ -1,5 +1,15 @@
 Re-Submission (September 29, 2023)
 
+Thank you for your insightful feedback. We've carefully reviewed the discussions on R-package-devel and recognize that one of our dependencies, wCorr, may potentially utilize multiple cores. To address this, we've constrained the tests associated with that dependency. It’s important to note, however, that we conduct thorough testing of the package both locally and via rhub, all of which have been successful.
+ 
+Best regards, 
+Naeem Khoshnevis 
+Research Computing and Data Services 
+Harvard University
+
+
+Re-Submission (September 29, 2023)
+
 Thank you for your feedback. We have reviewed the discussions on R-package-devel and acknowledge that data.table may utilize multiple threads at certain instances. To address this, we have incorporated additional code to constrain data.table to a single thread during CRAN tests. We hope that this modification resolves the issue.
  
 Best regards, 
