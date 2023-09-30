@@ -50,8 +50,6 @@ autoplot.gpsm_erf <- function(object, ...) {
   g <- g + ggplot2::labs(x = gg_labs[1], y = gg_labs[2])
   g <- g + ggplot2::ggtitle(gg_title)
 
-
-
   return(g)
 }
 
@@ -96,7 +94,7 @@ plot.gpsm_erf <- function(x, ...) {
 #'
 autoplot.gpsm_pspop <- function(object, ...){
 
-  gg_labs <- gg_title <- NULL
+  gg_labs <- gg_title <- include_details <- NULL
 
   if (object$params$ci_appr == "matching"){
     default_gg_labs <- list(x = "Absolute Correlation", y = "Covariates")
@@ -134,9 +132,12 @@ autoplot.gpsm_pspop <- function(object, ...){
   g <- ggplot2::ggplot(data = m_balance,
                        ggplot2::aes(x=.data$value,
                                     y=.data$covariates,
-                                    color=.data$variable)) +
+                                    color=.data$variable,
+                                    shape=.data$variable)) + # Add shape aesthetic
     ggplot2::geom_point() +
     ggplot2::geom_path() +
+    ggplot2::scale_color_manual(values = c("original" = "blue", "adjusted" = "orange")) + # Define colors manually
+    ggplot2::scale_shape_manual(values=c(16, 15)) +  # Differentiate shapes: 16 is a solid circle, 24 is a triangle
     ggplot2::scale_y_discrete(limit = factor(1:n_cov),labels = covar_label) +
     ggplot2::theme_bw() +
     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)) +
@@ -154,6 +155,98 @@ autoplot.gpsm_pspop <- function(object, ...){
     g <- g + ggplot2::ggtitle(gg_title)
   }
 
+  if (!is.null(include_details)){
+    if (!is.logical(include_details)){
+      stop(paste("include_details should be logical value.",
+                 "Current: ", include_details))
+      }
+  } else {
+    include_details <- FALSE
+  }
+
+
+  # legend position
+  if (include_details) {
+    g <- g + ggplot2::theme(legend.position = c(0.8, 0.1))
+  }
+
+  # Object details
+  if (include_details){
+    object_sum <- "Object Summary "
+    object_sum <- paste0(object_sum, "\n", "--------------")
+    object_sum <- paste0(object_sum, "\n", "Approach: ",
+                         object$params$ci_appr)
+    if (object$params$ci_appr == "matching"){
+      object_sum <- paste0(object_sum, "\n", " scale: ",
+                           round(object$params$scale, 3))
+      object_sum <- paste0(object_sum, "\n", " delta: ",
+                           round(object$params$delta, 3))
+      object_sum <- paste0(object_sum, "\n", " dist measure: ",
+                           object$params$dist_measure)
+    }
+    object_sum <- paste0(object_sum, "\n", "exposure trim qtls: ",
+                         round(object$exposure_trim_qtls[1],3), ", ",
+                         round(object$exposure_trim_qtls[2],3), ")")
+    object_sum <- paste0(object_sum, "\n", "gps trim qtls: ",
+                         "(",
+                         round(object$gps_trim_qtls[1],3), ", ",
+                         round(object$gps_trim_qtls[2],3), ")")
+    object_sum <- paste0(object_sum, "\n", "# sample (trimmed/org): ",
+                         nrow(object$pseudo_pop), "/", object$original_data_size)
+    object_sum <- paste0(object_sum, "\n", "--------------")
+    object_sum <- paste0(object_sum, "\n", "Covar balance method: ",
+                         object$params$covar_bl_method)
+    object_sum <- paste0(object_sum, "\n", " Threshhold type: ",
+                         object$params$covar_bl_trs_type)
+    object_sum <- paste0(object_sum, "\n", " Threshhold value: ",
+                         round(object$params$covar_bl_trs, 3))
+    object_sum <- paste0(object_sum, "\n", " Passed covariate test: ",
+                         object$passed_covar_test)
+    object_sum <- paste0(object_sum, "\n", " Maximal abs. cov.: ",
+                         round(object$adjusted_corr_results$maximal_absolute_corr, 3))
+    object_sum <- paste0(object_sum, "\n", " Median abs. cov.: ",
+                         round(object$adjusted_corr_results$median_absolute_corr, 3))
+    object_sum <- paste0(object_sum, "\n", " Mean abs. cov.: ",
+                         round(object$adjusted_corr_results$mean_absolute_corr, 3))
+    object_sum <- paste0(object_sum, "\n", " Number of attemtps: ",
+                         object$counter, "/",
+                         object$params$max_attempt)
+    object_sum <- paste0(object_sum, "\n", " Use cov transform: ",
+                         object$use_cov_transform)
+    object_sum <- paste0(object_sum, "\n", "--------------")
+    object_sum <- paste0(object_sum, "\n", "Kolmogorov Smirnov Test")
+    object_sum <- paste0(object_sum, "\n", " ess: ", round(object$ess,3))
+    object_sum <- paste0(object_sum, "\n", " ess (min recomennded):", round(object$ess_recommended,3))
+    n_gps_param <- length(object$best_gps_used_params)
+
+    if (n_gps_param > 0) {
+      gps_params <- object$best_gps_used_params
+      object_sum <- paste0(object_sum, "\n", "--------------")
+      object_sum <- paste0(object_sum, "\n", "SL params")
+      for (item in seq(1,n_gps_param)){
+        object_sum <- paste0(object_sum, "\n  ", names(gps_params[item]),": ",
+                             round(gps_params[[item]],5))
+      }
+    }
+
+    text_grob <- cowplot::ggdraw() + cowplot::draw_label(object_sum,
+                                                         fontface = 'plain',
+                                                         hjust = 0,
+                                                         vjust = 1,
+                                                         x = 0.01,
+                                                         y = 0.95,
+                                                         size = 7,
+                                                         lineheight = 1.2)
+  }
+
+  if (include_details){
+    g <- cowplot::plot_grid(
+      g, text_grob,
+      ncol = 2,
+      rel_widths = c(2, 1)
+    )
+  }
+
   return(g)
 }
 
@@ -165,6 +258,9 @@ autoplot.gpsm_pspop <- function(object, ...){
 #'
 #' @param x  A gpsm_erf object.
 #' @param ... Additional arguments passed to customize the plot.
+#' @details
+#' ## Additional parameters
+#' - *include_details*: If set to TRUE, the plot will include run details (Default = FALSE).
 #'
 #' @return
 #' Returns a ggplot2 object, invisibly. This function is called for side effects.

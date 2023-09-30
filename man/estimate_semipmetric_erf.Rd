@@ -11,7 +11,8 @@ estimate_semipmetric_erf(formula, family, data, ...)
 
 \item{family}{a description of the error distribution (see ?gam).}
 
-\item{data}{dataset that formula is build upon.}
+\item{data}{dataset that formula is build upon Note that there should be a
+\code{counter_weight} column in this data.).}
 
 \item{...}{Additional parameters for further fine tuning the gam model.}
 }
@@ -26,10 +27,11 @@ additive model with splines.
 This approach uses Generalized Additive Model (gam) using mgcv package.
 }
 \examples{
+\donttest{
 m_d <- generate_syn_data(sample_size = 100)
-pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                  m_d[, c("id", "w")],
-                                  m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
+pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
+                                  m_d[, c("id", "cf1","cf2","cf3",
+                                          "cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   sl_lib = c("m_xgboost"),
                                   params = list(xgb_nrounds=c(10,20,30),
@@ -42,10 +44,10 @@ pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   dist_measure = "l1",
                                   delta_n = 1,
                                   scale = 0.5)
-
+data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by = "id")
 outcome_m <- estimate_semipmetric_erf (formula = Y ~ w,
                                        family = gaussian,
-                                       data = pseudo_pop$pseudo_pop)
+                                       data = data)
 
-
+}
 }

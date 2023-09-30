@@ -1,5 +1,7 @@
 test_that("train_it works as expected.", {
 
+  skip_on_cran()
+  data.table::setDTthreads(1)
   x <- seq(0,1,0.001)
   y <- x^2 - x^3 + 4
   pred_model_b <- train_it(y, x,
@@ -13,6 +15,8 @@ test_that("train_it works as expected.", {
 test_that("train_it works as expected (with earth).", {
 
   skip_if_not_installed("earth")
+  skip_on_cran()
+  data.table::setDTthreads(1)
 
   x <- seq(0,1,0.001)
   y <- x^2 - x^3 + 4

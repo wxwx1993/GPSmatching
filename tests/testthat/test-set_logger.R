@@ -1,5 +1,6 @@
 test_that("Set logger works as expected!", {
 
+    skip_on_cran()
     logger::log_threshold("INFO")
     set_logger(logger_level = "DEBUG")
     expect_equal(logger::log_threshold()[1], 500L)

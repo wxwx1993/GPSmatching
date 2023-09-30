@@ -58,6 +58,7 @@ The outcome variable is not used in estimating the GPS value. However, it is
 used in compiling the data set with GPS values.
 }
 \examples{
+\donttest{
 m_d <- generate_syn_data(sample_size = 100)
 data_with_gps <- estimate_gps(m_d[, c("id", "w")],
                               m_d[, c("id", "cf1", "cf2", "cf3",
@@ -68,5 +69,5 @@ data_with_gps <- estimate_gps(m_d[, c("id", "w")],
                               nthread = 1,
                               sl_lib = c("m_xgboost")
                              )
-
+}
 }

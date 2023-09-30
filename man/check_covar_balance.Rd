@@ -47,6 +47,7 @@ Checks the covariate balance of original population or pseudo population.
 }
 }
 \examples{
+\donttest{
 set.seed(422)
 n <- 100
 mydata <- generate_syn_data(sample_size=100)
@@ -60,8 +61,7 @@ mydata$cf5 <- as.factor(mydata$cf5)
 
 
 
-pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1", "cf2", "cf3",
                                             "cf4","cf5", "cf6", "year",
                                             "region")],
@@ -88,5 +88,5 @@ adjusted_corr_obj <- check_covar_balance(w = pseudo_pop$pseudo_pop[, c("w")],
                                         covar_bl_method = "absolute",
                                         covar_bl_trs = 0.1,
                                         covar_bl_trs_type = "mean")
-
+}
 }

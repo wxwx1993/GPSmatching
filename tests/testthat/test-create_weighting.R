@@ -1,9 +1,10 @@
 test_that("create_weighting works as expected.", {
 
+  skip_on_cran()
   set.seed(481)
+  data.table::setDTthreads(1)
   m_d <- generate_syn_data(sample_size = 100)
-  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                    m_d[, c("id", "w")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                     m_d[, c("id", "cf1", "cf2", "cf3", "cf4",
                                             "cf5", "cf6")],
                                     ci_appr = "weighting",
@@ -25,20 +26,19 @@ test_that("create_weighting works as expected.", {
 
 
   expect_false(pseudo_pop$passed_covar_test)
-  expect_equal(length(pseudo_pop$pseudo_pop), 11)
+  expect_equal(length(pseudo_pop$pseudo_pop), 10)
   expect_equal(nrow(pseudo_pop$pseudo_pop),98)
-  expect_equal(mean(pseudo_pop$pseudo_pop$Y), -37.32878, tolerance = 0.0001)
 })
 
 
 test_that("create_weighting works as expected.", {
 
   skip_if_not_installed("earth")
+  skip_on_cran()
 
   set.seed(481)
   m_d <- generate_syn_data(sample_size = 100)
-  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                    m_d[, c("id", "w")],
+  pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                     m_d[, c("id", "cf1", "cf2", "cf3",
                                             "cf4", "cf5", "cf6")],
                                     ci_appr = "weighting",
@@ -59,8 +59,7 @@ test_that("create_weighting works as expected.", {
   expect_error(create_weighting(dataset = dataset1))
 
   expect_true(pseudo_pop$passed_covar_test)
-  expect_equal(length(pseudo_pop$pseudo_pop), 11)
+  expect_equal(length(pseudo_pop$pseudo_pop), 10)
   expect_equal(nrow(pseudo_pop$pseudo_pop), 98)
-  expect_equal(mean(pseudo_pop$pseudo_pop$Y), -37.32878, tolerance = 0.0001)
 })
 

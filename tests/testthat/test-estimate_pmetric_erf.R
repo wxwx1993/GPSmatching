@@ -2,6 +2,8 @@ test_that("estimate_pmetric_erf works as expected", {
 
 
   # Weighting
+  skip_on_cran()
+  data.table::setDTthreads(1)
   set.seed(6451)
   gnm_model <-  estimate_pmetric_erf(Y ~ w + cf5,
                             family = gaussian,

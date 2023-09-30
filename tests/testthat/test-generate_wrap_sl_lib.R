@@ -1,6 +1,7 @@
 test_that("generate_wrap_sl_lib works as expected.", {
 
-
+  skip_on_cran()
+  data.table::setDTthreads(1)
   wrap_result <- gen_wrap_sl_lib(lib_name = "m_xgboost",
                    params = list(xgb_max_depth = c(4),
                                  xgb_nrounds=c(20)),

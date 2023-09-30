@@ -34,11 +34,10 @@
 #' @export
 #'
 #' @examples
-#'
+#' \donttest{
 #' set.seed(697)
 #' m_d <- generate_syn_data(sample_size = 200)
-#' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-#'                                   m_d[, c("id", "w")],
+#' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3",
 #'                                         "cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
@@ -55,13 +54,14 @@
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
 #'
-#' erf_obj <- estimate_npmetric_erf(pseudo_pop$pseudo_pop$Y,
-#'                                  pseudo_pop$pseudo_pop$w,
-#'                                  pseudo_pop$pseudo_pop$counter_weight,
+#' data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by = "id")
+#' erf_obj <- estimate_npmetric_erf(data$Y,
+#'                                  data$w,
+#'                                  data$counter_weight,
 #'                                  bw_seq=seq(0.2,2,0.2),
 #'                                  w_vals = seq(2,20,0.5),
 #'                                  nthread = 1)
-#'
+#'}
 estimate_npmetric_erf<-function(m_Y,
                                 m_w,
                                 counter_weight,
@@ -126,6 +126,7 @@ estimate_npmetric_erf<-function(m_Y,
   logger::log_info("The band width with the minimum risk value: {h_opt}.")
 
   if (kernel_appr == "locpol"){
+    logger::log_trace("{kernel_appr} was selected.")
     erf <- smooth_erf_locpol(matched_Y = m_Y,
                              matched_w = m_w,
                              matched_cw = counter_weight,

@@ -1,5 +1,6 @@
 test_that("ComputeOuter function works fine.", {
 
+  skip_on_cran()
   a1 <- 1:10
   a2 <- 1:20
   r1 <- compute_outer(a1,a2,'-')

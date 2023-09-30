@@ -1,6 +1,8 @@
 test_that("estimate_gps works as expected.", {
 
+  skip_on_cran()
   set.seed(895)
+  data.table::setDTthreads(1)
   m_d <- generate_syn_data(sample_size = 100)
   m_d$id <- seq_along(1:nrow(m_d))
 
@@ -46,7 +48,7 @@ test_that("estimate_gps works as expected.", {
 
 
 test_that("estimate_gps merges data correctly.", {
-
+  skip_on_cran()
   set.seed(895)
   m_d <- generate_syn_data(sample_size = 1000)
   m_d$id <- seq_along(1:nrow(m_d))
@@ -66,7 +68,7 @@ test_that("estimate_gps merges data correctly.", {
 })
 
 test_that("estimate_gps input data should include id column.", {
-
+  skip_on_cran()
   set.seed(895)
   m_d <- generate_syn_data(sample_size = 1000)
   m_d$id <- seq_along(1:nrow(m_d))
@@ -88,7 +90,7 @@ test_that("estimate_gps input data should include id column.", {
 
 
 test_that("estimate_gps residuals works as expected.", {
-
+  skip_on_cran()
   set.seed(895)
   m_d <- generate_syn_data(sample_size = 1000)
   data_with_gps <- estimate_gps(m_d[, c("id", "w")],
@@ -119,7 +121,7 @@ test_that("estimate_gps residuals works as expected.", {
 
 
 test_that("estimate_gps works as expected for non-overlapped ids.", {
-
+  skip_on_cran()
   set.seed(895)
   m_d <- generate_syn_data(sample_size = 1000)
   m_d_2 <- m_d

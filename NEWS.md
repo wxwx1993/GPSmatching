@@ -1,4 +1,17 @@
-## CausalGPS 0.4.0 (2023-05-26)
+## CausalGPS 0.4.1 (2023-09-29)
+
+### Added
+
+* Extra step to check consistency of `delta_n` with exposure range.
+* Software paper examples were added.
+
+### Changed
+
+* Plotting pseudo population includes object details. Set `include_details = TRUE`.  
+*`generate_pseudo_pop` does not take `Y` as an input. 
+
+
+## CausalGPS 0.4.0 (2023-05-25)
 
 ### Changed
 

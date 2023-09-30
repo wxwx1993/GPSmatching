@@ -1,5 +1,6 @@
 test_that("compute_density works", {
 
+  skip_on_cran()
   set.seed(223)
 
   a <- runif(100)

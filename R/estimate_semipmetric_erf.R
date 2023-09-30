@@ -7,7 +7,8 @@
 #'
 #' @param formula a vector of outcome variable in matched set.
 #' @param family a description of the error distribution (see ?gam).
-#' @param data dataset that formula is build upon.
+#' @param data dataset that formula is build upon Note that there should be a
+#' `counter_weight` column in this data.).
 #' @param ... Additional parameters for further fine tuning the gam model.
 #'
 #' @details
@@ -19,10 +20,11 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' m_d <- generate_syn_data(sample_size = 100)
-#' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-#'                                   m_d[, c("id", "w")],
-#'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
+#' pseudo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
+#'                                   m_d[, c("id", "cf1","cf2","cf3",
+#'                                           "cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
 #'                                   sl_lib = c("m_xgboost"),
 #'                                   params = list(xgb_nrounds=c(10,20,30),
@@ -35,12 +37,12 @@
 #'                                   dist_measure = "l1",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
-#'
+#' data <- merge(m_d[, c("id", "Y")], pseudo_pop$pseudo_pop, by = "id")
 #' outcome_m <- estimate_semipmetric_erf (formula = Y ~ w,
 #'                                        family = gaussian,
-#'                                        data = pseudo_pop$pseudo_pop)
+#'                                        data = data)
 #'
-#'
+#'}
 estimate_semipmetric_erf <- function(formula, family, data, ...) {
 
 

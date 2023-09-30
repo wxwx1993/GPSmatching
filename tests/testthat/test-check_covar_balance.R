@@ -1,5 +1,6 @@
 test_that("Covariate balance check works as expected", {
-
+skip_on_cran()
+data.table::setDTthreads(1)
 set.seed(532)
 s_data <- generate_syn_data(sample_size = 200,
                             outcome_sd = 10,
@@ -7,7 +8,6 @@ s_data <- generate_syn_data(sample_size = 200,
                             cova_spec = 1)
 
 covar_test <- generate_pseudo_pop(
-                           s_data[, c("id", "Y")],
                            s_data[, c("id", "w")],
                            s_data[,c("id","cf1","cf2","cf3",
                                      "cf4","cf5","cf6")],
@@ -53,8 +53,11 @@ val2 <- check_covar_balance(w = covar_test$pseudo_pop[, c("w")],
                             covar_bl_trs_type="mean")
 
 expect_false(val2$pass)
+})
 
-
+test_that("Covariate balance check works as expected - part 2", {
+skip_on_cran()
+data.table::setDTthreads(1)
 set.seed(987)
 s_data <- generate_syn_data(sample_size = 500,
                             outcome_sd = 10,
@@ -76,7 +79,6 @@ s_data$year <- as.factor(year)
 s_data$region <- as.factor(region)
 
 weight_test <- generate_pseudo_pop(
-  s_data[, c("id", "Y")],
   s_data[, c("id", "w")],
   s_data[, c("id", "cf1", "cf2", "cf3",
              "cf4","cf5","cf6", "year", "region")],

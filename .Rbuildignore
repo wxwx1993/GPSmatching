@@ -17,3 +17,4 @@ index.md
 ^functional_tests/*$
 ^CRAN-SUBMISSION$
 ^CODE_OF_CONDUCT\.md$
+^CausalGPS.log$

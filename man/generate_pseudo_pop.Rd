@@ -5,7 +5,6 @@
 \title{Generate pseudo population}
 \usage{
 generate_pseudo_pop(
-  Y,
   w,
   c,
   ci_appr,
@@ -24,10 +23,6 @@ generate_pseudo_pop(
 )
 }
 \arguments{
-\item{Y}{A data.frame comprised of two columns: one contains the observed
-outcome variable, and the other is labeled as 'id'. The column for the
-outcome variable can be assigned any name as per your requirements.}
-
 \item{w}{A data.frame comprised of two columns: one contains the observed
 exposure variable, and the other is labeled as 'id'. The column for the
 outcome variable can be assigned any name as per your requirements.}
@@ -109,9 +104,9 @@ first.
 }
 \details{
 \subsection{Additional parameters}{
-\subsection{Causal Inference Approach (ci.appr)}{
+\subsection{Causal Inference Approach (ci_appr)}{
 \itemize{
-\item if ci.appr = 'matching':
+\item if ci_appr = 'matching':
 \itemize{
 \item \emph{dist_measure}: Matching function. Available options:
 \itemize{
@@ -130,7 +125,7 @@ is attributed to the distance measures of the exposure versus the GPS.
 \item See \code{\link[=create_matching]{create_matching()}} for more details about the parameters and default
 values.
 }
-\item if ci.appr = 'weighting':
+\item if ci_appr = 'weighting':
 \itemize{
 \item \emph{covar_bl_method}: Covariate balance method.
 \item \emph{covar_bl_trs}: Covariate balance threshold
@@ -142,9 +137,9 @@ values.
 }
 }
 \examples{
+\donttest{
 m_d <- generate_syn_data(sample_size = 100)
-pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-                                  m_d[, c("id", "w")],
+pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
                                   ci_appr = "matching",
                                   gps_density = "normal",
@@ -164,5 +159,5 @@ pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
                                   dist_measure = "l1",
                                   delta_n = 1,
                                   scale = 0.5)
-
+}
 }

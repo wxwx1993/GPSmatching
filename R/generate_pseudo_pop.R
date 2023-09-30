@@ -8,9 +8,6 @@
 #' balance or completing the requested number of iteration, whichever comes
 #' first.
 #'
-#' @param Y A data.frame comprised of two columns: one contains the observed
-#' outcome variable, and the other is labeled as 'id'. The column for the
-#' outcome variable can be assigned any name as per your requirements.
 #' @param w A data.frame comprised of two columns: one contains the observed
 #' exposure variable, and the other is labeled as 'id'. The column for the
 #' outcome variable can be assigned any name as per your requirements.
@@ -49,8 +46,8 @@
 #' @param ...  Additional arguments passed to different models.
 #' @details
 #' ## Additional parameters
-#' ### Causal Inference Approach (ci.appr)
-#' - if ci.appr = 'matching':
+#' ### Causal Inference Approach (ci_appr)
+#' - if ci_appr = 'matching':
 #'   - *dist_measure*: Matching function. Available options:
 #'     - l1: Manhattan distance matching
 #'   - *delta_n*: caliper parameter.
@@ -63,7 +60,7 @@
 #'   - *max_attempt*: maximum number of attempt to satisfy covariate balance.
 #'   - See [create_matching()] for more details about the parameters and default
 #'   values.
-#' - if ci.appr = 'weighting':
+#' - if ci_appr = 'weighting':
 #'   - *covar_bl_method*: Covariate balance method.
 #'   - *covar_bl_trs*: Covariate balance threshold
 #'   - *max_attempt*: Maximum number of attempt to satisfy covariate balance.
@@ -84,9 +81,9 @@
 #'
 #' @export
 #' @examples
+#' \donttest{
 #' m_d <- generate_syn_data(sample_size = 100)
-#' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "Y")],
-#'                                   m_d[, c("id", "w")],
+#' pseuoo_pop <- generate_pseudo_pop(m_d[, c("id", "w")],
 #'                                   m_d[, c("id", "cf1","cf2","cf3","cf4","cf5","cf6")],
 #'                                   ci_appr = "matching",
 #'                                   gps_density = "normal",
@@ -106,9 +103,8 @@
 #'                                   dist_measure = "l1",
 #'                                   delta_n = 1,
 #'                                   scale = 0.5)
-#'
-generate_pseudo_pop <- function(Y,
-                                w,
+#'}
+generate_pseudo_pop <- function(w,
                                 c,
                                 ci_appr,
                                 gps_density = "normal",
@@ -128,6 +124,7 @@ generate_pseudo_pop <- function(Y,
   max_attempt <- NULL
   covar_bl_trs <- NULL
   covar_bl_trs_type <- NULL
+  delta_n <- NULL
 
   # Log system info
   log_system_info()
@@ -155,18 +152,30 @@ generate_pseudo_pop <- function(Y,
 
   covariate_cols <- Filter(function(x) x != "id", colnames(c))
   exposure_col <- Filter(function(x) x != "id", colnames(w))
-  outcome_col <- Filter(function(x) x != "id", colnames(Y))
 
-  # TODO: check for data quality.
-
-  prep_results <- preprocess_data(Y, w, c, exposure_trim_qtls, exposure_col)
+  prep_results <- preprocess_data(w, c, exposure_trim_qtls, exposure_col)
   tmp_data <- prep_results$preprocessed_data
   original_data <- prep_results$original_data
 
   # Retrieve data.
-  Y <- tmp_data[, c("id", outcome_col)]
   w <- tmp_data[, c("id", exposure_col)]
   c <- tmp_data[, c("id", covariate_cols)]
+
+  if (is.null(bin_seq) && ci_appr == "matching"){
+    min_w <- min(w[[exposure_col]])
+    max_w <- max(w[[exposure_col]])
+    start_val <- min_w + delta_n/2
+    end_val <- max_w
+    if ((start_val < end_val && delta_n < 0) ||
+        (start_val > end_val && delta_n > 0)) {
+      stop(paste("Inconsistent values for sequencing.",
+                 " start val: ", start_val,
+                 " end val: ", end_val,
+                 " delta_n/2: ", delta_n / 2,
+                 "\n delta_n should be less than: ", (max_w - min_w) / 2 ))
+    }
+  }
+
 
   original_corr_obj <- check_covar_balance(
                           w = tmp_data[, c(exposure_col)],
@@ -244,15 +253,17 @@ generate_pseudo_pop <- function(Y,
                                      nthread = nthread,
                                      ...)
 
-    pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
-    if (nrow(pseudo_pop_y) == 0){
-      stop(paste0("Merged data length is 0.",
-                  " Make sure that Y and pseudo_pop belong to the same",
-                  " observations, ",
-                  " or partially include same observations."))
-    }
+    # pseudo_pop_y <- merge(Y, pseudo_pop, by = "id")
+    # if (nrow(pseudo_pop_y) == 0){
+    #   stop(paste0("Merged data length is 0.",
+    #               " Make sure that Y and pseudo_pop belong to the same",
+    #               " observations, ",
+    #               " or partially include same observations."))
+    # }
+    #
+    pseudo_pop <- merge(pseudo_pop, c, by = "id")
+    pseudo_pop <- as.data.frame(pseudo_pop)
 
-    pseudo_pop <- merge(pseudo_pop_y, c, by = "id")
     if (nrow(pseudo_pop) == 0){
       stop(paste0("Merged data length is 0.",
                   " Make sure that c and pseudo_pop belong to the same",
@@ -397,7 +408,7 @@ generate_pseudo_pop <- function(Y,
 
 
   # compute effective sample size
-  ess_recommended <- length(Y) / 10
+  ess_recommended <- nrow(w) / 10
   ess <- ((sum(best_pseudo_pop$counter_weight) ^ 2) /
           sum(best_pseudo_pop$counter_weight ^ 2))
   if (ess < ess_recommended){
@@ -420,6 +431,7 @@ generate_pseudo_pop <- function(Y,
     result$original_data <- original_data
   }
 
+  result$original_data_size <- nrow(original_data)
 
   result$pseudo_pop <- best_pseudo_pop
   result$adjusted_corr_results <- best_adjusted_corr_obj$corr_results
@@ -429,6 +441,9 @@ generate_pseudo_pop <- function(Y,
   result$passed_covar_test <- adjusted_corr_obj$pass
   result$counter <- counter
   result$ci_appr <- ci_appr
+  result$use_cov_transform <- use_cov_transform
+  result$exposure_trim_qtls <- exposure_trim_qtls
+  result$gps_trim_qtls <- gps_trim_qtls
   result$best_gps_used_params <- best_gps_used_params
   result$covariate_cols_name <- unlist(covariate_cols)
   result$ess <- ess
@@ -485,10 +500,7 @@ transform_it <- function(c_name, c_val, transformer) {
 #' A list with preprocessed and original data.
 #'
 #' @keywords internal
-preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
-
-  id_exist_Y <- any(colnames(Y) %in% "id")
-  if (!id_exist_Y) stop("Y should include id column.")
+preprocess_data <- function(w, c, trim_quantiles, exposure_col){
 
   id_exist_w <- any(colnames(w) %in% "id")
   if (!id_exist_w) stop("w should include id column.")
@@ -496,8 +508,7 @@ preprocess_data <- function(Y, w, c, trim_quantiles, exposure_col){
   id_exist_c <- any(colnames(c) %in% "id")
   if (!id_exist_c) stop("c should include id column.")
 
-  merged_12 <- merge(Y, w, by = "id")
-  merged_data <- merge(merged_12, c, by = "id")
+  merged_data <- merge(w, c, by = "id")
 
   df1 <- merged_data
   original_data <- df1

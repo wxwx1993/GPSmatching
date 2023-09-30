@@ -1,7 +1,7 @@
 Package: CausalGPS
 Type: Package
 Title: Matching on Generalized Propensity Scores with Continuous Exposures
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
@@ -41,7 +41,8 @@ Imports:
     gnm,
     locpol,
     Ecume,
-    KernSmooth
+    KernSmooth,
+    cowplot
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Suggests: 
@@ -50,7 +51,8 @@ Suggests:
     rmarkdown,
     ranger,
     earth,
-    testthat
+    testthat,
+    gridExtra
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Depends: 

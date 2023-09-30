@@ -1,7 +1,9 @@
 test_that("trim_gps works as expected.", {
 
+  skip_on_cran()
   set.seed(422)
-  n <- 1000
+  n <- 500
+  data.table::setDTthreads(1)
   mydata <- generate_syn_data(sample_size = n)
   year <- sample(x=c("2001", "2002", "2003", "2004", "2005"), size = n,
                  replace = TRUE)
@@ -26,6 +28,6 @@ test_that("trim_gps works as expected.", {
   trimmed_gps_object <- trim_gps(gps_obj = gps_object,
                                  trim_quantiles = trim_quntiles)
 
-  expect_equal(nrow(gps_object$dataset), 1000)
-  expect_equal(nrow(trimmed_gps_object$dataset), 750)
+  expect_equal(nrow(gps_object$dataset), 500)
+  expect_equal(nrow(trimmed_gps_object$dataset), 375)
 })

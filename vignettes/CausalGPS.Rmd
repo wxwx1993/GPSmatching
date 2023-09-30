@@ -74,7 +74,7 @@ See create_matching() for more details about the parameters and default values.
 
 ```r
  set.seed(422)
- n <- 10000
+ n <- 1000
  mydata <- generate_syn_data(sample_size = n)
  year <- sample(x=c("2001", "2002", "2003", "2004", "2005"), size = n, 
                 replace = TRUE)
@@ -85,7 +85,6 @@ See create_matching() for more details about the parameters and default values.
  mydata$cf5 <- as.factor(mydata$cf5)
                              
  pseudo_pop <- generate_pseudo_pop(
-                             mydata[, c("id", "Y")],
                              mydata[, c("id", "w")],
                              mydata[, c("id", "cf1", "cf2", "cf3", "cf4", 
                                         "cf5", "cf6","year","region")],
@@ -148,7 +147,7 @@ estimate_npmetric_erf<-function(matched_Y,
 - Generating Synthetic Data
 
 ```r
-syn_data <- generate_syn_data(sample_size=1000,
+syn_data <- generate_syn_data(sample_size=100,
                               outcome_sd = 10,
                               gps_spec = 1,
                               cova_spec = 1)

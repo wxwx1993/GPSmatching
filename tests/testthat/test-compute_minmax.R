@@ -1,4 +1,6 @@
 test_that("Computing min and max value of vector is correct.", {
+
+  skip_on_cran()
   arr1 <- runif(100,min = 0, max = 1)
   arr2 <- runif(1000,min = 0, max = 100)
   arr2[c(10,40,18)] <- NA

@@ -1,5 +1,6 @@
 test_that("gpsmatching_smooth tests.", {
 
+   skip_on_cran()
    val1 <- generate_kernel(seq(-1.1,1,0.01))
 
    expect_equal(val1[10], 0.2395511, tolerance=0.0001)

@@ -1,5 +1,6 @@
 test_that("generate_pseudo_pop works as expected.", {
-
+  skip_on_cran()
+  data.table::setDTthreads(1)
   set.seed(4321)
   n <- 500
   mydata <- generate_syn_data(sample_size=n)
@@ -14,8 +15,7 @@ test_that("generate_pseudo_pop works as expected.", {
 
   mydata$id <- seq_along(1:nrow(mydata))
 
-  ps_pop1 <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop1 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[c("id", "cf1", "cf2", "cf3",
                                           "cf4", "cf5", "cf6", "year",
                                           "region")],
@@ -51,8 +51,7 @@ test_that("generate_pseudo_pop works as expected.", {
   expect_true(("best_gps_used_params" %in% names(ps_pop1)))
   expect_true(("covariate_cols_name" %in% names(ps_pop1)))
 
-  ps_pop2 <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop2 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
@@ -76,8 +75,7 @@ test_that("generate_pseudo_pop works as expected.", {
                tolerance = 0.000001)
 
   # expect error with wrong ci_appr
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[c("id", "cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "grounding",
@@ -94,8 +92,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    nthread = 1))
 
   # expect error with wrong gps_density
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1","cf2","cf3",
                                               "cf4","cf5",
                                               "cf6","year","region")],
@@ -113,8 +110,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    nthread = 1))
 
   # expect error with wrong max attempt
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1", "cf2", "cf3", "cf4",
                                               "cf5", "cf6", "year", "region")],
                                    ci_appr = "matching",
@@ -131,8 +127,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    nthread = 1))
 
   # expect error with wrong covar_bl_method
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1","cf2","cf3","cf4",
                                               "cf5",
                                               "cf6","year","region")],
@@ -151,8 +146,7 @@ test_that("generate_pseudo_pop works as expected.", {
 
 
   # expect error with wrong scale
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
@@ -169,8 +163,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    nthread = 1))
 
   #expect error with wrong answer in using cove transform.
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[c("id","cf1","cf2","cf3","cf4","cf5",
                                             "cf6","year","region")],
                                    ci_appr = "matching",
@@ -190,8 +183,7 @@ test_that("generate_pseudo_pop works as expected.", {
 
 
   #expect error with wrong transformers.
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1", "cf2", "cf3",
                                               "cf4", "cf5",
                                               "cf6", "year", "region")],
@@ -212,8 +204,7 @@ test_that("generate_pseudo_pop works as expected.", {
 
 
   # expect error with missing parameter
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("id", "cf1", "cf2", "cf3",
                                               "cf4", "cf5", "cf6", "year",
                                               "region")],
@@ -231,8 +222,7 @@ test_that("generate_pseudo_pop works as expected.", {
                                    nthread = 1))
 
   # Test on weighting
-  ps_pop3 <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop3 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1", "cf2", "cf3",
                                             "cf4", "cf5", "cf6", "year",
                                             "region")],
@@ -256,8 +246,7 @@ test_that("generate_pseudo_pop works as expected.", {
                0.3750209,
                tolerance = 0.001)
 
-  ps_pop4 <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop4 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
@@ -283,9 +272,7 @@ test_that("generate_pseudo_pop works as expected.", {
                tolerance = 0.000001)
 
 
-  ps_pop5 <- generate_pseudo_pop(
-                                 mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop5 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1","cf2","cf4")],
                                  ci_appr = "matching",
                                  gps_density = "normal",
@@ -310,8 +297,7 @@ test_that("generate_pseudo_pop works as expected.", {
                tolerance = 0.000001)
 
   set.seed(382)
-  ps_pop6 <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                 mydata[, c("id", "w")],
+  ps_pop6 <- generate_pseudo_pop(mydata[, c("id", "w")],
                                  mydata[, c("id", "cf1","cf2","cf3","cf4","cf5",
                                           "cf6","year","region")],
                                  ci_appr = "matching",
@@ -329,14 +315,15 @@ test_that("generate_pseudo_pop works as expected.", {
                                  include_original_data = TRUE)
 
 
-  expect_equal(length(ps_pop6$original_data), 11)
+  expect_equal(length(ps_pop6$original_data), 10)
   expect_equal(nrow(ps_pop6$original_data), 500)
 
 })
 
 
 test_that("generate_pseudo_pop catches errors.", {
-
+  skip_on_cran()
+  data.table::setDTthreads(1)
   set.seed(897)
   n <- 500
   mydata <- generate_syn_data(sample_size=n)
@@ -351,27 +338,7 @@ test_that("generate_pseudo_pop catches errors.", {
 
   mydata$id <- seq_along(1:nrow(mydata))
 
-  expect_error(generate_pseudo_pop(mydata[, c("Y")],
-                                 mydata[, c("id", "w")],
-                                 mydata[, c("id", "cf1", "cf2", "cf3",
-                                          "cf4", "cf5", "cf6", "year",
-                                          "region")],
-                                 ci_appr = "matching",
-                                 gps_density = "kernel",
-                                 exposure_trim_qtls = c(0.01,0.99),
-                                 sl_lib = c("m_xgboost"),
-                                 covar_bl_method = "absolute",
-                                 covar_bl_trs = 0.1,
-                                 covar_bl_trs_type = "mean",
-                                 max_attempt = 1,
-                                 dist_measure = "l1",
-                                 delta_n = 1,
-                                 scale = 0.5,
-                                 nthread = 1),
-               regexp = "Y should include id column.")
-
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("w")],
+  expect_error(generate_pseudo_pop(mydata[, c("w")],
                                    mydata[, c("id", "cf1", "cf2", "cf3",
                                               "cf4", "cf5", "cf6", "year",
                                               "region")],
@@ -389,8 +356,7 @@ test_that("generate_pseudo_pop catches errors.", {
                                    nthread = 1),
                regexp = "w should include id column.")
 
-  expect_error(generate_pseudo_pop(mydata[, c("id", "Y")],
-                                   mydata[, c("id", "w")],
+  expect_error(generate_pseudo_pop(mydata[, c("id", "w")],
                                    mydata[, c("cf1", "cf2", "cf3",
                                               "cf4", "cf5", "cf6", "year",
                                               "region")],

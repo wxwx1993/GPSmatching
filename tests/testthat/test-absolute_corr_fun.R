@@ -1,6 +1,8 @@
 test_that("absoulte_corr_fun works as expected.", {
 
   # see test-check_covar_balance.R for more details about the test data.
+  skip_on_cran()
+  data.table::setDTthreads(1)
   data.table::setDF(pseudo_pop_covar_test)
   val <- absolute_corr_fun(pseudo_pop_covar_test[,2],
          pseudo_pop_covar_test[,4:length(pseudo_pop_covar_test)])
@@ -19,6 +21,5 @@ test_that("absoulte_corr_fun works as expected.", {
   expect_equal(val2$median_absolute_corr, 0.1208244, tolerance=0.0001)
   expect_equal(val2$maximal_absolute_corr, 0.3078682, tolerance=0.0001)
   expect_equal(length(val2$absolute_corr), 8)
-
 
 })

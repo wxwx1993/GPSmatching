@@ -1,16 +1,28 @@
-# CausalGPS Functional Tests
+# Reproducing the examples
 
-Unit tests are addressed under the tests folder; however, time-consuming unit tests and unit tests based on numerous cores can be added here.
+You can replicate the examples on any operating system as long as you install all the necessary dependencies. However, by following the steps outlined below, you can seamlessly set up the same environment in just a few minutes.
 
-## How to contribute to these tests
+## Getting Image from Dockerhub (recommended)
 
-You can use R or Rmarkdown formats in your tests. We ignore this folder in building the package, so there is no restriction from the packaging perspective. However, please follow the following notes.
+The image is located at [NSAPH Docker Hub](https://hub.docker.com/u/nsaphsoftware) repository. 
 
-- Start all testing file names with `ft_` to distinguish these files from other files. 
-- Provide a brief explanation (as a comment in R and as text in Rmd files) about the test and what the user should expect. 
-- Make sure the test runs without any error and use sufficient printing outs to communicate with the users. 
-- If you expect an error during the test, put it inside the `testthat::expect_error` function.
+```s
+docker run -it --rm \
+        -p 8230:8787 \
+        -e USER=rstudio \
+        -e PASSWORD=pass \
+        -v "/path/to/your/folder/on/host:/home/rstudio/Project" nsaphsoftware/causalgps_dev
 
-## List of available tests
+```
 
-- 
+Open your browser and put http://localhost:8230/. Username and password is `rstudio` and `pass`, pass respectively. Make sure to change the path to your folder on host. 
+
+## Included files
+
+- `exploratory_data_analyses.R`
+  - Gives a summary of data and also generates Figure 4 in the paper.
+- `matching_example.R`
+  - Generates Figures 5,6, 7, in the paper.
+- `exposure_response_function.R`
+  - Generates Figure 8 in the paper. 
+  

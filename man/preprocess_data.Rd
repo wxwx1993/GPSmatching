@@ -4,13 +4,9 @@
 \alias{preprocess_data}
 \title{Preprocess data}
 \usage{
-preprocess_data(Y, w, c, trim_quantiles, exposure_col)
+preprocess_data(w, c, trim_quantiles, exposure_col)
 }
 \arguments{
-\item{Y}{A data.frame comprised of two columns: one contains the observed
-outcome variable, and the other is labeled as 'id'. The column for the
-outcome variable can be assigned any name as per your requirements.}
-
 \item{w}{A data.frame comprised of two columns: one contains the observed
 exposure variable, and the other is labeled as 'id'. The column for the
 outcome variable can be assigned any name as per your requirements.}

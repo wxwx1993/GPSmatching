@@ -36,7 +36,7 @@
 #'
 #' @param vectorized_y A Boolean value indicates how Y internally is generated.
 #' (Default = `FALSE`). This parameter is introduced for backward compatibility.
-#' vectorized_y = `TRUE` performes better.
+#' vectorized_y = `TRUE` performs better.
 #'
 #'
 #' @return

@@ -1,4 +1,6 @@
 test_that("check_kolmogorov_smirnov works as expected.", {
+  skip_on_cran()
+  data.table::setDTthreads(1)
   set.seed(8422)
   n <- 200
   mydata <- generate_syn_data(sample_size=n)
@@ -8,8 +10,7 @@ test_that("check_kolmogorov_smirnov works as expected.", {
   mydata$region <- as.factor(region)
   mydata$cf5 <- as.factor(mydata$cf5)
 
-  pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "Y")],
-                                    mydata[, c("id", "w")],
+  pseudo_pop <- generate_pseudo_pop(mydata[, c("id", "w")],
                                     mydata[, c("id", "cf1", "cf2", "cf3",
                                                "cf4","cf5","cf6",
                                                "year","region")],

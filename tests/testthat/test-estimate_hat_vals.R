@@ -1,5 +1,7 @@
 test_that("estimate_hat_vals works as expected.", {
 
+  skip_on_cran()
+  data.table::setDTthreads(1)
   val <- estimate_hat_vals(0.2, data_with_gps_test[[2]], seq(1,10,1))
 
   expect_equal(length(val),200)
