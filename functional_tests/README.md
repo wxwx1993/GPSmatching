@@ -11,7 +11,7 @@ docker run -it --rm \
         -p 8230:8787 \
         -e USER=rstudio \
         -e PASSWORD=pass \
-        -v "/path/to/your/folder/on/host:/home/rstudio/Project" nsaphsoftware/causalgps_dev
+        -v "/path/to/your/folder/on/host:/home/rstudio/Project" nsaphsoftware/causalgps_paper
 
 ```
 

@@ -197,4 +197,30 @@ Please note that the CausalGPS project is released with a [Contributor Code of C
 
 ## References
 
-1. Wu, X., Mealli, F., Kioumourtzoglou, M.A., Dominici, F. and Braun, D., 2022. Matching on generalized propensity scores with continuous exposures. Journal of the American Statistical Association, pp.1-29.
+- CausalGPS method paper
+
+```
+@article{wu2022matching,
+  title={Matching on generalized propensity scores with continuous exposures},
+  author={Wu, Xiao and Mealli, Fabrizia and Kioumourtzoglou, Marianthi-Anna and Dominici, Francesca and Braun, Danielle},
+  journal={Journal of the American Statistical Association},
+  pages={1--29},
+  year={2022},
+  publisher={Taylor \& Francis}
+}
+```
+
+- CausalGPS software paper
+
+```
+@misc{khoshnevis2023causalgps,
+      title={CausalGPS: An R Package for Causal Inference With Continuous Exposures}, 
+      author={Naeem Khoshnevis and Xiao Wu and Danielle Braun},
+      year={2023},
+      eprint={2310.00561},
+      archivePrefix={arXiv},
+      primaryClass={stat.CO},
+      DOI={h10.48550/arXiv.2310.00561}
+}
+```
+

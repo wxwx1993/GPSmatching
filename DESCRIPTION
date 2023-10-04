@@ -6,9 +6,9 @@ Authors@R: c(
     person("Naeem", "Khoshnevis", email = "nkhoshnevis@g.harvard.edu",
            role=c("aut","cre"), 
            comment = c(ORCID = "0000-0003-4315-1426", AFFILIATION="HUIT")),
-    person("Xiao", "Wu", email = "wuxiao@g.harvard.edu",
+    person("Xiao", "Wu", email = "xw2892@cumc.columbia.edu",
            role= c("aut"),            
-           comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION="HSPH")),
+           comment = c(ORCID = "0000-0002-4884-657X", AFFILIATION="CUMC")),
     person("Danielle","Braun", email = "dbraun@hsph.harvard.edu",
            role=c("aut"),     
            comment = c(ORCID = "0000-0002-5177-8598", AFFILIATION="HSPH")))

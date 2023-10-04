@@ -27,7 +27,6 @@ RUN R -e "install.packages(c( \
     'MASS', \
     'polycor', \
     'wCorr', \
-    'locpol', \
     'Ecume', \
     'logger', \
     'gnm'), repos='https://cloud.r-project.org')"
@@ -36,7 +35,5 @@ ENV RENV_VERSION 0.17.3
 RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
 RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
 
-
-
-
-#
+# R package installation from GitHub
+RUN R -e "remotes::install_github('NSAPH-Software/locpol', reference='master')"
